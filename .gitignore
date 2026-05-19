@@ -10,12 +10,9 @@ venv/
 .vscode/
 
 # CSV Dateien
-portfolio_analysis.csv
-clean_watchlist.csv
 
 # Streamlit Cache
 .streamlit/
 
 # Sonstiges
 *.log
-*.txt
