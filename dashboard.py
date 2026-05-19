@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
+import os
+import subprocess
 
 
 # ============================================================
@@ -17,11 +19,21 @@ st.set_page_config(
 # CSV LADEN
 # ============================================================
 
+if not os.path.exists("portfolio_analysis.csv"):
+
+    st.warning(
+        "Portfolio-Datei nicht gefunden. "
+        "Analyse wird erstellt..."
+    )
+
+    subprocess.run(
+        ["python", "advanced_portfolio.py"]
+    )
+
 df = pd.read_csv(
     "portfolio_analysis.csv",
     sep=";"
 )
-
 
 # ============================================================
 # TITEL
