@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 import os
 import subprocess
 
@@ -992,168 +991,47 @@ for _, row in df_filtered.iterrows():
     rating_light = get_rating_light(row["Rating"])
     risk_light = get_risk_light(row["Risk Level"])
 
-    components.html(
-        f"""
-        <div style="
-            background-color:#ffffff;
-            padding:24px 26px;
-            border-radius:22px;
-            margin-bottom:26px;
-            border-left:13px solid {color};
-            box-shadow:0 4px 14px rgba(0,0,0,0.10);
-            font-family:Arial, sans-serif;
-            color:#111827;
-            line-height:1.55;
-        ">
+    card_html = f"""
+<div style="background-color:#ffffff; padding:24px 26px; border-radius:22px; margin-bottom:26px; border-left:13px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
+<h2 style="margin:0 0 16px 0; font-size:27px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
+<hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
 
-            <h2 style="
-                margin:0 0 16px 0;
-                font-size:27px;
-                font-weight:800;
-            ">
-                {row['Ticker']} - {row['Company']}
-            </h2>
+<p style="font-size:18px; margin:0 0 18px 0;">💰 <b>Preis:</b> {row['Price']}</p>
 
-            <hr style="
-                border:none;
-                border-top:2px solid #9ca3af;
-                margin:0 0 20px 0;
-            ">
+<p style="font-size:18px; margin:0 0 18px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                💰 <b>Preis:</b> {row['Price']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                ⭐ <b>Rating:</b> {rating_light} {row['Rating']}
-                |
-                📈 <b>Score:</b> {row['Score']}
-                |
-                ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                🎯 <b>Signal:</b> {row['Action Signal']}
-                |
-                🧭 <b>Setup:</b> {row['Setup Quality']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                📍 <b>Einstiegszone:</b> {row['Entry Zone']}
-                |
-                🛑 <b>Stop:</b> {row['Stop Loss New']}
-                |
-                🎯 <b>Ziel 1:</b> {row['Target 1']}
-                |
-                🚀 <b>Ziel 2:</b> {row['Target 2']}
-                |
-                ⚖️ <b>CRV:</b> {row['CRV']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                📊 <b>Performance:</b><br>
-                1D: {row['1D %']}% |
-                1W: {row['1W %']}% |
-                1M: {row['1M %']}% |
-                3M: {row['3M %']}% |
-                6M: {row['6M %']}%
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                📉 <b>EMA:</b><br>
-                EMA20: {row['EMA20']} |
-                EMA50: {row['EMA50']} |
-                EMA100: {row['EMA100']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                💵 <b>Dividende:</b> {row['Dividend Yield %']}
-                |
-                📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']}
-                |
-                🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                🏢 <b>Market Cap:</b> {row['Market Cap Class']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                🧾 <b>Fundamental:</b> {row['Fundamental Rating']}
-                |
-                📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                🏦 <b>Bewertung:</b><br>
-                Forward KGV: {row['Forward PE']} |
-                KGV: {row['Trailing PE']} |
-                PEG: {row['PEG Ratio']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                📈 <b>Fundamentales Wachstum:</b><br>
-                Umsatzwachstum: {row['Revenue Growth']} |
-                Gewinnwachstum: {row['Earnings Growth']} |
-                Marge: {row['Profit Margin']}
-            </p>
+<p style="font-size:18px; margin:0 0 18px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                💸 <b>Cashflow / Verschuldung:</b><br>
-                Free Cashflow: {row['Free Cashflow']} |
-                Operating Cashflow: {row['Operating Cashflow']} |
-                Debt/Equity: {row['Debt To Equity']}
-            </p>
+<div style="font-size:17px; margin:8px 0 14px 0; background:#ecfdf5; padding:12px 14px; border-radius:12px;">✅ <b>Pro:</b> {row['Pros']}</div>
 
-            <p style="font-size:18px; margin:0 0 18px 0;">
-                🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}
-            </p>
+<div style="font-size:17px; margin:8px 0 14px 0; background:#fff7ed; padding:12px 14px; border-radius:12px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
 
-            <p style="
-                font-size:17px;
-                margin:8px 0 14px 0;
-                background:#ecfdf5;
-                padding:12px 14px;
-                border-radius:12px;
-            ">
-                ✅ <b>Pro:</b> {row['Pros']}
-            </p>
+<div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
 
-            <p style="
-                font-size:17px;
-                margin:8px 0 14px 0;
-                background:#fff7ed;
-                padding:12px 14px;
-                border-radius:12px;
-            ">
-                ⚠️ <b>Contra:</b> {row['Cons']}
-            </p>
+<div style="font-size:17px; margin:8px 0 0 0; background:#f3f4f6; padding:12px 14px; border-radius:12px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
+</div>
+"""
 
-            <p style="
-                font-size:17px;
-                margin:8px 0 14px 0;
-                background:#eef2ff;
-                padding:12px 14px;
-                border-radius:12px;
-            ">
-                🧭 <b>Entscheidung:</b> {row['Decision Summary']}
-            </p>
-
-            <p style="
-                font-size:17px;
-                margin:8px 0 0 0;
-                background:#f3f4f6;
-                padding:12px 14px;
-                border-radius:12px;
-            ">
-                🧠 <b>Analyse:</b> {row['Reason']}
-            </p>
-
-        </div>
-        """,
-        height=1550
-    )
+    st.markdown(card_html, unsafe_allow_html=True)
