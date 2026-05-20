@@ -470,15 +470,83 @@ with st.expander("📖 Dashboard Legende"):
 
     ## 🎯 Action Signale
 
-    Diese Signale verbinden Technik, Risiko, CRV und Fundamentaldaten zu einer konkreteren Einschätzung.
+    Die Action Signale sind deine regelbasierte Entscheidungshilfe. Sie kombinieren technische Stärke, Risiko, RSI, CRV und Fundamentaldaten.
 
-    - **🟢 BUY ZONE** → Kaufzone möglich. Technisches Setup stark, Risiko nicht hoch, RSI gesund, CRV attraktiv und Fundamentaldaten mindestens solide.
-    - **🟡 WATCH** → Beobachten. Aktie ist interessant, aber Einstieg, Momentum, CRV oder Fundamentaldaten sind noch nicht überzeugend genug.
-    - **🔵 TURNAROUND WATCH** → Spekulativer Trendwechsel. Erste Erholung sichtbar, aber noch Bestätigung abwarten.
-    - **🟠 TAKE PROFIT** → Aktie ist stark gelaufen oder überhitzt. Gewinnmitnahme oder Rücksetzer beobachten.
-    - **🔴 SELL / AVOID** → Schwaches Setup, hohes Risiko oder negative Struktur. Aktuell eher meiden.
+    ### 🟢 BUY ZONE
 
-    Wichtig: Das Signal ist keine automatische Kauf- oder Verkaufsempfehlung, sondern eine regelbasierte Entscheidungshilfe.
+    Eine Aktie landet in der **BUY ZONE**, wenn alle wichtigen Bedingungen erfüllt sind:
+
+    - **Score mindestens 6 von 8**
+    - **Rating ist BUY oder STRONG BUY**
+    - **Risk Level ist nicht HIGH RISK**
+    - **RSI liegt zwischen 40 und 70**
+    - **CRV ist mindestens 1,8**
+    - **Fundamental Score ist mindestens 5** oder es liegen noch keine ausreichenden Fundamentaldaten vor
+
+    Bedeutung: Technisch starkes Setup, gesunder RSI, gutes Chance-Risiko-Verhältnis und keine klar schwachen Fundamentaldaten.
+
+    ---
+
+    ### 🟡 WATCH
+
+    **WATCH** bedeutet: Die Aktie ist interessant, aber mindestens ein wichtiger Punkt fehlt noch.
+
+    Typische Gründe:
+
+    - Score ist ordentlich, aber noch nicht stark genug
+    - CRV liegt unter 1,8
+    - RSI ist zu hoch oder nicht im optimalen Bereich
+    - Fundamentaldaten sind gemischt
+    - Kurs ist bereits etwas weit gelaufen
+
+    Bedeutung: Beobachten, aber noch kein klares Kaufsetup.
+
+    ---
+
+    ### 🔵 TURNAROUND WATCH
+
+    Eine Aktie bekommt **TURNAROUND WATCH**, wenn sie als Turnaround-Kandidat erkannt wurde.
+
+    Die Logik dahinter:
+
+    - **6M Performance unter -15 %**
+    - **1M Performance über +5 %**
+    - **Kurs zurück über EMA20**
+    - **RSI über 40**
+
+    Bedeutung: Erste Trendwende möglich, aber spekulativer als BUY ZONE. Bestätigung abwarten.
+
+    ---
+
+    ### 🟠 TAKE PROFIT
+
+    **TAKE PROFIT** erscheint, wenn die Aktie kurzfristig heiß gelaufen ist.
+
+    Die aktuelle Logik:
+
+    - **RSI über 72**
+    - **1M Performance über +8 %**
+
+    Bedeutung: Die Aktie ist stark gelaufen. Teilgewinn, engerer Stop oder Rücksetzer beobachten.
+
+    ---
+
+    ### 🔴 SELL / AVOID
+
+    Eine Aktie bekommt **SELL / AVOID**, wenn mindestens ein klares Warnsignal vorliegt.
+
+    Typische Auslöser:
+
+    - **Rating ist AVOID**
+    - **Score ist 3 oder niedriger**
+    - **Fundamental Score ist 2 oder niedriger**
+    - **Risk Level ist HIGH RISK und 1M Performance negativ**
+
+    Bedeutung: Schwaches Setup oder erhöhtes Risiko. Aktuell eher meiden oder Position kritisch prüfen.
+
+    ---
+
+    Wichtig: Das Signal ist keine automatische Kauf- oder Verkaufsempfehlung, sondern eine regelbasierte Entscheidungshilfe. Es soll dir zeigen, **warum** eine Aktie interessant, riskant oder überhitzt wirkt.
 
     ---
 
