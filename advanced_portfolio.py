@@ -121,6 +121,141 @@ def calculate_risk_level(rsi, distance_ema20, volatility_30d, beta):
         return "LOW RISK"
 
 
+def safe_number(value):
+    if value is None:
+        return None
+
+    try:
+        if pd.isna(value):
+            return None
+
+        return float(value)
+
+    except Exception:
+        return None
+
+
+def format_number(value):
+    value = safe_number(value)
+
+    if value is None:
+        return "-"
+
+    return round(value, 2)
+
+
+def format_big_number(value):
+    value = safe_number(value)
+
+    if value is None:
+        return "-"
+
+    abs_value = abs(value)
+
+    if abs_value >= 1_000_000_000:
+        return f"{round(value / 1_000_000_000, 2)} Mrd."
+
+    if abs_value >= 1_000_000:
+        return f"{round(value / 1_000_000, 2)} Mio."
+
+    return f"{round(value, 2)}"
+
+
+def format_growth(value):
+    value = safe_number(value)
+
+    if value is None:
+        return "-"
+
+    return f"{round(value * 100, 2)}%"
+
+
+def calculate_fundamental_score(
+    forward_pe,
+    trailing_pe,
+    peg_ratio,
+    revenue_growth,
+    earnings_growth,
+    profit_margin,
+    debt_to_equity,
+    free_cashflow,
+    dividend_yield
+):
+    score = 0
+    pros = []
+    cons = []
+
+    if forward_pe is not None:
+        if 0 < forward_pe <= 25:
+            score += 1
+            pros.append("Forward KGV im gesunden Bereich")
+        elif forward_pe > 40:
+            cons.append("Forward KGV sehr hoch")
+
+    if trailing_pe is not None:
+        if 0 < trailing_pe <= 30:
+            score += 1
+            pros.append("KGV nicht übertrieben")
+        elif trailing_pe > 45:
+            cons.append("KGV sehr hoch")
+
+    if peg_ratio is not None:
+        if 0 < peg_ratio <= 2:
+            score += 1
+            pros.append("PEG Ratio attraktiv")
+        elif peg_ratio > 3:
+            cons.append("PEG Ratio hoch")
+
+    if revenue_growth is not None:
+        if revenue_growth > 0:
+            score += 1
+            pros.append("Umsatzwachstum positiv")
+        else:
+            cons.append("Umsatzwachstum negativ")
+
+    if earnings_growth is not None:
+        if earnings_growth > 0:
+            score += 1
+            pros.append("Gewinnwachstum positiv")
+        else:
+            cons.append("Gewinnwachstum negativ")
+
+    if profit_margin is not None:
+        if profit_margin > 0.10:
+            score += 1
+            pros.append("solide Gewinnmarge")
+        elif profit_margin <= 0:
+            cons.append("negative Gewinnmarge")
+
+    if free_cashflow is not None:
+        if free_cashflow > 0:
+            score += 1
+            pros.append("Free Cashflow positiv")
+        else:
+            cons.append("Free Cashflow negativ")
+
+    if debt_to_equity is not None:
+        if debt_to_equity <= 100:
+            score += 1
+            pros.append("Verschuldung wirkt moderat")
+        elif debt_to_equity > 200:
+            cons.append("Verschuldung hoch")
+
+    if dividend_yield is not None and dividend_yield > 0:
+        pros.append("Dividende vorhanden")
+
+    if score >= 7:
+        rating = "VERY SOLID"
+    elif score >= 5:
+        rating = "SOLID"
+    elif score >= 3:
+        rating = "MIXED"
+    else:
+        rating = "WEAK / UNKNOWN"
+
+    return score, rating, pros, cons
+
+
 # ============================================================
 # AKTIEN ANALYSIEREN
 # ============================================================
@@ -143,6 +278,17 @@ def analyze_stock(ticker, current_index, total_count):
     currency = info.get("currency", "")
     market_cap = info.get("marketCap")
     beta = info.get("beta")
+
+    # Fundamentaldaten aus yfinance
+    forward_pe = safe_number(info.get("forwardPE"))
+    trailing_pe = safe_number(info.get("trailingPE"))
+    peg_ratio = safe_number(info.get("pegRatio"))
+    revenue_growth = safe_number(info.get("revenueGrowth"))
+    earnings_growth = safe_number(info.get("earningsGrowth"))
+    profit_margin = safe_number(info.get("profitMargins"))
+    debt_to_equity = safe_number(info.get("debtToEquity"))
+    free_cashflow = safe_number(info.get("freeCashflow"))
+    operating_cashflow = safe_number(info.get("operatingCashflow"))
 
     current_price = close.iloc[-1]
 
@@ -183,6 +329,20 @@ def analyze_stock(ticker, current_index, total_count):
         dividend_yield = (dividend_rate / current_price) * 100
     else:
         dividend_yield = 0
+
+    fundamental_score, fundamental_rating, fundamental_pros, fundamental_cons = (
+        calculate_fundamental_score(
+            forward_pe,
+            trailing_pe,
+            peg_ratio,
+            revenue_growth,
+            earnings_growth,
+            profit_margin,
+            debt_to_equity,
+            free_cashflow,
+            dividend_yield
+        )
+    )
 
     ex_dividend_date = convert_timestamp(info.get("exDividendDate"))
     last_dividend_date = convert_timestamp(info.get("lastDividendDate"))
@@ -286,6 +446,12 @@ def analyze_stock(ticker, current_index, total_count):
     if risk_level == "HIGH RISK":
         reason.append("hohes Risiko")
 
+    if fundamental_rating in ["VERY SOLID", "SOLID"]:
+        reason.append("fundamental solide")
+
+    if fundamental_rating == "WEAK / UNKNOWN":
+        reason.append("Fundamentaldaten schwach oder unvollständig")
+
     reason_text = ", ".join(reason)
 
     return {
@@ -329,6 +495,20 @@ def analyze_stock(ticker, current_index, total_count):
 
         "Market Cap": market_cap,
         "Market Cap Class": market_cap_class,
+
+        "Forward PE": format_number(forward_pe),
+        "Trailing PE": format_number(trailing_pe),
+        "PEG Ratio": format_number(peg_ratio),
+        "Revenue Growth": format_growth(revenue_growth),
+        "Earnings Growth": format_growth(earnings_growth),
+        "Profit Margin": format_growth(profit_margin),
+        "Debt To Equity": format_number(debt_to_equity),
+        "Free Cashflow": format_big_number(free_cashflow),
+        "Operating Cashflow": format_big_number(operating_cashflow),
+        "Fundamental Score": fundamental_score,
+        "Fundamental Rating": fundamental_rating,
+        "Fundamental Pros": " | ".join(fundamental_pros) if fundamental_pros else "-",
+        "Fundamental Cons": " | ".join(fundamental_cons) if fundamental_cons else "-",
 
         "Risk Level": risk_level,
 
