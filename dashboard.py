@@ -463,7 +463,7 @@ for _, row in df_filtered.iterrows():
 
         </div>
         """,
-        height=640
+        height=720
     )
 
 
