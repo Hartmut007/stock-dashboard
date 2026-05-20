@@ -469,6 +469,20 @@ with st.expander("📖 Dashboard Legende"):
 
     ---
 
+    ## 🎯 Action Signale
+
+    Diese Signale verbinden Technik, Risiko, CRV und Fundamentaldaten zu einer konkreteren Einschätzung.
+
+    - **🟢 BUY ZONE** → Kaufzone möglich. Technisches Setup stark, Risiko nicht hoch, RSI gesund, CRV attraktiv und Fundamentaldaten mindestens solide.
+    - **🟡 WATCH** → Beobachten. Aktie ist interessant, aber Einstieg, Momentum, CRV oder Fundamentaldaten sind noch nicht überzeugend genug.
+    - **🔵 TURNAROUND WATCH** → Spekulativer Trendwechsel. Erste Erholung sichtbar, aber noch Bestätigung abwarten.
+    - **🟠 TAKE PROFIT** → Aktie ist stark gelaufen oder überhitzt. Gewinnmitnahme oder Rücksetzer beobachten.
+    - **🔴 SELL / AVOID** → Schwaches Setup, hohes Risiko oder negative Struktur. Aktuell eher meiden.
+
+    Wichtig: Das Signal ist keine automatische Kauf- oder Verkaufsempfehlung, sondern eine regelbasierte Entscheidungshilfe.
+
+    ---
+
     ## 🚦 Ampel
 
     - 🟢 stark / positiv
@@ -581,6 +595,12 @@ risk_levels = st.sidebar.multiselect(
     default=df["Risk Level"].unique()
 )
 
+action_signals = st.sidebar.multiselect(
+    "Action Signal",
+    options=df["Action Signal"].unique(),
+    default=df["Action Signal"].unique()
+)
+
 turnaround_only = st.sidebar.checkbox(
     "Nur Turnaround Kandidaten"
 )
@@ -651,6 +671,8 @@ df_filtered = df[
     (df["Rating"].isin(ratings))
     &
     (df["Risk Level"].isin(risk_levels))
+    &
+    (df["Action Signal"].isin(action_signals))
 ]
 
 if search_text != "":
@@ -932,8 +954,26 @@ st.divider()
 
 st.subheader("📋 Gesamttabelle")
 
+# Action Signal bewusst direkt nach Ticker und Company anzeigen,
+# damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
+priority_columns = [
+    "Ticker",
+    "Company",
+    "Action Signal"
+]
+
+remaining_columns = [
+    column for column in df_filtered.columns
+    if column not in priority_columns
+]
+
+table_columns = [
+    column for column in priority_columns
+    if column in df_filtered.columns
+] + remaining_columns
+
 st.dataframe(
-    df_filtered,
+    df_filtered[table_columns],
     width="stretch"
 )
 
