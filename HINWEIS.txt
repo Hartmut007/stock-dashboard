@@ -1,0 +1,6 @@
+
+python watchlist_cleaner.py
+python advanced_portfolio.py
+
+dann in Terminal eingeben:
+streamlit run dashboard.py
