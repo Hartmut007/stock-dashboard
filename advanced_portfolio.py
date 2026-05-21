@@ -55,15 +55,26 @@ def percent_change(close, days):
 
 def format_price(value, currency):
     try:
-        return f"{round(value, 2)} {currency}"
-    except:
+        if value is None or pd.isna(value):
+            return "-"
+
+        if currency is None or pd.isna(currency):
+            currency = ""
+
+        return f"{round(float(value), 2)} {currency}".strip()
+
+    except Exception:
         return "-"
 
 
 def format_percent(value):
     try:
-        return f"{round(value, 2)}%"
-    except:
+        if value is None or pd.isna(value):
+            return "-"
+
+        return f"{round(float(value), 2)}%"
+
+    except Exception:
         return "-"
 
 
@@ -185,6 +196,25 @@ def calculate_fundamental_score(
     pros = []
     cons = []
 
+    fundamental_values = [
+        forward_pe,
+        trailing_pe,
+        peg_ratio,
+        revenue_growth,
+        earnings_growth,
+        profit_margin,
+        debt_to_equity,
+        free_cashflow
+    ]
+
+    available_count = sum(value is not None for value in fundamental_values)
+
+    # Wichtig:
+    # UNKNOWN bedeutet: Es fehlen zu viele Daten.
+    # WEAK bedeutet: Es gibt ausreichend Daten, aber sie sind schwach.
+    # Dadurch wird eine Aktie mit fehlenden Yahoo-Daten nicht automatisch
+    # wie ein fundamental schlechtes Unternehmen behandelt.
+
     if forward_pe is not None:
         if 0 < forward_pe <= 25:
             score += 1
@@ -224,7 +254,9 @@ def calculate_fundamental_score(
         if profit_margin > 0.10:
             score += 1
             pros.append("solide Gewinnmarge")
-        elif profit_margin <= 0:
+        elif profit_margin > 0:
+            pros.append("Gewinnmarge positiv")
+        else:
             cons.append("negative Gewinnmarge")
 
     if free_cashflow is not None:
@@ -244,16 +276,31 @@ def calculate_fundamental_score(
     if dividend_yield is not None and dividend_yield > 0:
         pros.append("Dividende vorhanden")
 
-    if score >= 7:
+    if available_count < 3:
+        rating = "UNKNOWN"
+        data_quality = "LOW"
+        cons.append("Fundamentaldaten unvollständig")
+
+    elif score >= 7:
         rating = "VERY SOLID"
+        data_quality = "GOOD"
+
     elif score >= 5:
         rating = "SOLID"
+        data_quality = "GOOD"
+
     elif score >= 3:
         rating = "MIXED"
-    else:
-        rating = "WEAK / UNKNOWN"
+        data_quality = "OK"
 
-    return score, rating, pros, cons
+    else:
+        rating = "WEAK"
+        data_quality = "OK"
+
+    pros = list(dict.fromkeys(pros))
+    cons = list(dict.fromkeys(cons))
+
+    return score, rating, pros, cons, available_count, data_quality
 
 
 # ============================================================
@@ -323,25 +370,30 @@ def analyze_stock(ticker, current_index, total_count):
     elif current_volume < avg_volume_20 * 0.7:
         volume_signal = "LOW"
 
-    dividend_rate = info.get("dividendRate")
+    dividend_rate = safe_number(info.get("dividendRate"))
 
     if dividend_rate is not None and current_price > 0:
         dividend_yield = (dividend_rate / current_price) * 100
     else:
         dividend_yield = 0
 
-    fundamental_score, fundamental_rating, fundamental_pros, fundamental_cons = (
-        calculate_fundamental_score(
-            forward_pe,
-            trailing_pe,
-            peg_ratio,
-            revenue_growth,
-            earnings_growth,
-            profit_margin,
-            debt_to_equity,
-            free_cashflow,
-            dividend_yield
-        )
+    (
+        fundamental_score,
+        fundamental_rating,
+        fundamental_pros,
+        fundamental_cons,
+        fundamental_data_points,
+        fundamental_data_quality
+    ) = calculate_fundamental_score(
+        forward_pe,
+        trailing_pe,
+        peg_ratio,
+        revenue_growth,
+        earnings_growth,
+        profit_margin,
+        debt_to_equity,
+        free_cashflow,
+        dividend_yield
     )
 
     ex_dividend_date = convert_timestamp(info.get("exDividendDate"))
@@ -449,8 +501,11 @@ def analyze_stock(ticker, current_index, total_count):
     if fundamental_rating in ["VERY SOLID", "SOLID"]:
         reason.append("fundamental solide")
 
-    if fundamental_rating == "WEAK / UNKNOWN":
-        reason.append("Fundamentaldaten schwach oder unvollständig")
+    if fundamental_rating == "UNKNOWN":
+        reason.append("Fundamentaldaten unvollständig")
+
+    if fundamental_rating == "WEAK":
+        reason.append("Fundamentaldaten schwach")
 
     reason_text = ", ".join(reason)
 
@@ -478,6 +533,7 @@ def analyze_stock(ticker, current_index, total_count):
         "RSI": round(rsi, 2),
 
         "52W High": format_price(high_52w, currency),
+        "52W High Raw": round(high_52w, 2),
         "Distance 52W High %": round(distance_52w_high, 2),
 
         "Volatility 30D %": round(volatility_30d, 2),
@@ -500,13 +556,20 @@ def analyze_stock(ticker, current_index, total_count):
         "Trailing PE": format_number(trailing_pe),
         "PEG Ratio": format_number(peg_ratio),
         "Revenue Growth": format_growth(revenue_growth),
+        "Revenue Growth Raw": format_number(revenue_growth),
         "Earnings Growth": format_growth(earnings_growth),
+        "Earnings Growth Raw": format_number(earnings_growth),
         "Profit Margin": format_growth(profit_margin),
+        "Profit Margin Raw": format_number(profit_margin),
         "Debt To Equity": format_number(debt_to_equity),
         "Free Cashflow": format_big_number(free_cashflow),
+        "Free Cashflow Raw": format_number(free_cashflow),
         "Operating Cashflow": format_big_number(operating_cashflow),
+        "Operating Cashflow Raw": format_number(operating_cashflow),
         "Fundamental Score": fundamental_score,
         "Fundamental Rating": fundamental_rating,
+        "Fundamental Data Points": fundamental_data_points,
+        "Fundamental Data Quality": fundamental_data_quality,
         "Fundamental Pros": " | ".join(fundamental_pros) if fundamental_pros else "-",
         "Fundamental Cons": " | ".join(fundamental_cons) if fundamental_cons else "-",
 
