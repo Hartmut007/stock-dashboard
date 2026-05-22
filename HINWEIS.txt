@@ -4,3 +4,8 @@ python advanced_portfolio.py
 
 dann in Terminal eingeben:
 streamlit run dashboard.py
+
+
+
+PW Supabase -> Project
+fdsfsd435353

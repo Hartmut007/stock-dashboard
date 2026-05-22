@@ -3,3 +3,8 @@ Hartmut = "Global"
 CW = "aktie2026"
 RK = "Gast3"
 MS = "Gast4"
+KL = "Gast5"
+Gast = "Gast123"
+
+[app]
+superusers = ["Hartmut"]
