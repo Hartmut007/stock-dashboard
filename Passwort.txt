@@ -1,0 +1,5 @@
+[users]
+Hartmut = "Global"
+CW = "aktie2026"
+RK = "Gast3"
+MS = "Gast4"

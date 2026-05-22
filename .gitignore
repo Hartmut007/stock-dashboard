@@ -16,3 +16,7 @@ venv/
 
 # Sonstiges
 *.log
+
+#PW
+.streamlit/secrets.toml
+

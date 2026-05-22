@@ -2,7 +2,57 @@ import pandas as pd
 import streamlit as st
 import os
 import subprocess
+import hmac
 
+# ============================================================
+# 🔐 LOGIN-BEREICH
+# ============================================================
+
+def check_password():
+    """Einfacher Login mit Benutzern aus Streamlit Secrets."""
+
+    def password_entered():
+        username = st.session_state.get("username", "").strip()
+        password = st.session_state.get("password", "")
+
+        users = st.secrets.get("users", {})
+
+        if username in users and hmac.compare_digest(password, users[username]):
+            st.session_state["password_correct"] = True
+            st.session_state["current_user"] = username
+            del st.session_state["password"]
+        else:
+            st.session_state["password_correct"] = False
+
+    if st.session_state.get("password_correct", False):
+        return True
+
+    st.title("🔐 Login")
+    st.write("Bitte melde dich an, um das Hartmut-Portfolio zu sehen.")
+
+    st.text_input("Benutzername", key="username")
+    st.text_input("Passwort", type="password", key="password")
+
+    st.button("Einloggen", on_click=password_entered)
+
+    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
+        st.error("Benutzername oder Passwort falsch.")
+
+    return False
+
+
+if not check_password():
+    st.stop()
+
+
+# Optional: eingeloggten Nutzer anzeigen
+st.sidebar.success(f"Angemeldet als: {st.session_state.get('current_user', '')}")
+
+if st.sidebar.button("Ausloggen"):
+    for key in ["password_correct", "current_user", "username"]:
+        if key in st.session_state:
+            del st.session_state[key]
+    st.rerun()
 
 # ============================================================
 # PAGE CONFIG
