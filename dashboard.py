@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 import os
 import subprocess
 import hmac
@@ -1295,27 +1294,278 @@ st.dataframe(
     hide_index=True
 )
 
-col_pizzint_link, col_pizzint_embed = st.columns([1, 2])
+st.link_button(
+    "🍕 PizzINT extern öffnen",
+    "https://www.pizzint.watch/"
+)
 
-with col_pizzint_link:
-    st.link_button(
-        "🍕 PizzINT extern öffnen",
-        "https://www.pizzint.watch/"
+
+
+# ============================================================
+# 🕸️ AKTIEN-NETZWERK / THEMEN-MAPPING
+# ============================================================
+
+st.divider()
+
+st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
+
+st.caption(
+    "Bloomberg-Terminal-light: Wähle eine Hauptaktie aus und sieh, "
+    "welche Unternehmen, Sektoren und Risiken damit verbunden sind."
+)
+
+RELATIONSHIPS_FILE = "stock_relationships.csv"
+
+if not os.path.exists(RELATIONSHIPS_FILE):
+
+    st.warning(
+        "Die Datei stock_relationships.csv wurde nicht gefunden. "
+        "Bitte lege sie in den gleichen Ordner wie dashboard.py."
     )
 
-with col_pizzint_embed:
-    show_pizzint_embed = st.checkbox(
-        "PizzINT-Seite im Dashboard einbetten",
-        value=False
-    )
+else:
 
-if show_pizzint_embed:
-    components.iframe(
-        "https://www.pizzint.watch/",
-        height=800,
-        scrolling=True
-    )
+    try:
+        relationships_df = pd.read_csv(RELATIONSHIPS_FILE)
+    except Exception as error:
+        st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
+        relationships_df = pd.DataFrame()
 
+    needed_relationship_columns = [
+        "source_ticker",
+        "target_ticker",
+        "target_name",
+        "category",
+        "relationship",
+        "importance",
+        "risk_note"
+    ]
+
+    missing_relationship_columns = [
+        column for column in needed_relationship_columns
+        if column not in relationships_df.columns
+    ]
+
+    if relationships_df.empty:
+
+        st.info("Die Datei stock_relationships.csv ist noch leer.")
+
+    elif missing_relationship_columns:
+
+        st.error(
+            "In stock_relationships.csv fehlen diese Spalten: "
+            + ", ".join(missing_relationship_columns)
+        )
+
+    else:
+
+        relationships_df = relationships_df.copy()
+
+        relationships_df["source_ticker"] = (
+            relationships_df["source_ticker"]
+            .astype(str)
+            .str.strip()
+        )
+
+        relationships_df["target_ticker"] = (
+            relationships_df["target_ticker"]
+            .astype(str)
+            .str.strip()
+        )
+
+        relationships_df["category"] = (
+            relationships_df["category"]
+            .astype(str)
+            .str.strip()
+        )
+
+        available_network_tickers = sorted(
+            relationships_df["source_ticker"]
+            .dropna()
+            .unique()
+            .tolist()
+        )
+
+        selected_network_ticker = st.selectbox(
+            "Aktie für Netzwerk auswählen",
+            options=available_network_tickers,
+            index=0,
+            key="network_selected_ticker"
+        )
+
+        selected_relationships = relationships_df[
+            relationships_df["source_ticker"] == selected_network_ticker
+        ].copy()
+
+        col_net_1, col_net_2, col_net_3 = st.columns(3)
+
+        with col_net_1:
+            st.metric(
+                "Verbindungen",
+                len(selected_relationships)
+            )
+
+        with col_net_2:
+            st.metric(
+                "Kategorien",
+                selected_relationships["category"].nunique()
+                if not selected_relationships.empty else 0
+            )
+
+        with col_net_3:
+            high_count = (
+                selected_relationships["importance"]
+                .astype(str)
+                .str.lower()
+                .isin(["hoch", "high"])
+                .sum()
+                if not selected_relationships.empty else 0
+            )
+            st.metric(
+                "Hohe Relevanz",
+                int(high_count)
+            )
+
+        if selected_relationships.empty:
+
+            st.info("Für diese Aktie sind noch keine Beziehungen hinterlegt.")
+
+        else:
+
+            category_options = ["Alle"] + sorted(
+                selected_relationships["category"]
+                .dropna()
+                .astype(str)
+                .unique()
+                .tolist()
+            )
+
+            selected_network_category = st.selectbox(
+                "Kategorie filtern",
+                options=category_options,
+                index=0,
+                key="network_selected_category"
+            )
+
+            if selected_network_category != "Alle":
+                selected_relationships = selected_relationships[
+                    selected_relationships["category"] == selected_network_category
+                ]
+
+            # Falls verbundene Aktien auch in deinem Haupt-Dashboard vorhanden sind,
+            # holen wir deren aktuelle Signale dazu.
+            dashboard_signal_columns = [
+                "Ticker",
+                "Company",
+                "Action Signal",
+                "Rating",
+                "Score",
+                "Risk Level",
+                "Price",
+                "CRV"
+            ]
+
+            available_signal_columns = [
+                column for column in dashboard_signal_columns
+                if column in df.columns
+            ]
+
+            signal_df = df[available_signal_columns].copy()
+            signal_df["Ticker"] = signal_df["Ticker"].astype(str).str.strip()
+
+            network_view = selected_relationships.merge(
+                signal_df,
+                left_on="target_ticker",
+                right_on="Ticker",
+                how="left"
+            )
+
+            network_view["Ticker"] = network_view["target_ticker"]
+
+            if "Company" in network_view.columns:
+                network_view["Company"] = network_view["Company"].fillna(
+                    network_view["target_name"]
+                )
+            else:
+                network_view["Company"] = network_view["target_name"]
+
+            # Wichtigkeit sortierbar machen
+            importance_order = {
+                "hoch": 1,
+                "high": 1,
+                "mittel": 2,
+                "medium": 2,
+                "niedrig": 3,
+                "low": 3
+            }
+
+            network_view["Importance Sort"] = (
+                network_view["importance"]
+                .astype(str)
+                .str.lower()
+                .map(importance_order)
+                .fillna(9)
+            )
+
+            network_view = network_view.sort_values(
+                by=["category", "Importance Sort", "Ticker"],
+                ascending=True
+            )
+
+            display_columns = [
+                "category",
+                "Ticker",
+                "Company",
+                "importance",
+                "relationship",
+                "risk_note",
+                "Action Signal",
+                "Rating",
+                "Score",
+                "Risk Level",
+                "Price",
+                "CRV"
+            ]
+
+            display_columns = [
+                column for column in display_columns
+                if column in network_view.columns
+            ]
+
+            network_view = network_view[display_columns].rename(columns={
+                "category": "Kategorie",
+                "importance": "Wichtigkeit",
+                "relationship": "Verbindung",
+                "risk_note": "Risiko-Hinweis"
+            })
+
+            st.dataframe(
+                network_view,
+                width="stretch",
+                hide_index=True
+            )
+
+            with st.expander("🧩 Netzwerk als Gruppenansicht anzeigen"):
+
+                grouped_categories = selected_relationships.groupby("category")
+
+                for category, group in grouped_categories:
+                    st.markdown(f"### {category}")
+
+                    for _, rel_row in group.iterrows():
+                        ticker = rel_row.get("target_ticker", "")
+                        name = rel_row.get("target_name", "")
+                        importance = rel_row.get("importance", "")
+                        relationship = rel_row.get("relationship", "")
+                        risk_note = rel_row.get("risk_note", "")
+
+                        st.markdown(
+                            f"**{ticker} - {name}**  \n"
+                            f"Wichtigkeit: **{importance}**  \n"
+                            f"Verbindung: {relationship}  \n"
+                            f"Risiko: {risk_note}"
+                        )
+                        st.divider()
 
 # ============================================================
 # SIDEBAR FILTER

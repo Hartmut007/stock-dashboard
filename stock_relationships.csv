@@ -1,0 +1,25 @@
+source_ticker,target_ticker,target_name,category,relationship,importance,risk_note
+NVDA,MSFT,Microsoft,KI / Cloud / OpenAI,Microsoft nutzt NVIDIA-KI-Infrastruktur und ist stark mit OpenAI verbunden,Hoch,KI-Investitionen können schwanken
+NVDA,GOOGL,Alphabet,KI / Cloud,Google ist großer KI- und Cloud-Anbieter mit eigenen KI-Chips,Hoch,Starke Konkurrenz durch eigene TPU-Chips
+NVDA,AMZN,Amazon,Cloud / Rechenzentren,AWS nutzt KI-Infrastruktur und entwickelt eigene Trainium-Chips,Hoch,Amazon baut auch eigene KI-Chips
+NVDA,META,Meta,KI / Modelle,Meta investiert stark in KI-Modelle und Rechenzentren,Hoch,Sehr hohe Capex-Ausgaben
+NVDA,TSM,TSMC,Chipfertigung,TSMC fertigt wichtige Hochleistungschips für viele KI-Unternehmen,Hoch,Taiwan- und Lieferkettenrisiko
+NVDA,ASML,ASML,Lithografie,ASML liefert wichtige Maschinen für moderne Chipproduktion,Hoch,Zyklische Halbleiterausrüstung
+NVDA,AMAT,Applied Materials,Chipausrüstung,Applied Materials liefert Anlagen für Halbleiterproduktion,Mittel,Zyklik im Halbleitermarkt
+NVDA,LRCX,Lam Research,Chipausrüstung,Lam Research profitiert von Investitionen in Chipfertigung,Mittel,Zyklische Nachfrage
+NVDA,MU,Micron,Speicher / HBM,Micron liefert Speicher der für KI-Beschleuniger wichtig ist,Hoch,Speicherpreise schwanken stark
+NVDA,005930.KS,Samsung,Speicher / HBM,Samsung ist wichtiger Speicher- und HBM-Anbieter,Hoch,Starker Wettbewerb bei Speicherchips
+NVDA,000660.KS,SK Hynix,Speicher / HBM,SK Hynix ist einer der wichtigsten HBM-Speicherlieferanten,Hoch,Abhängigkeit von KI-Speicherzyklen
+NVDA,SMCI,Super Micro Computer,Server / KI-Infrastruktur,Super Micro baut KI-Server mit NVIDIA-GPUs,Hoch,Bilanz- und Margenrisiken beachten
+NVDA,DELL,Dell,Server / Infrastruktur,Dell profitiert von KI-Server- und Enterprise-Infrastruktur,Mittel,Hardware-Margen können niedrig sein
+NVDA,HPE,Hewlett Packard Enterprise,Server / Infrastruktur,HPE ist im Server- und Rechenzentrumsbereich aktiv,Mittel,Starker Wettbewerb
+NVDA,AVGO,Broadcom,Netzwerk / Custom Chips,Broadcom profitiert von KI-Netzwerk und Custom-Chip-Trends,Hoch,Abhängigkeit von Großkunden
+NVDA,ANET,Arista Networks,Netzwerk / Rechenzentren,Arista liefert Netzwerktechnik für große Rechenzentren,Hoch,Hohe Bewertung möglich
+NVDA,MRVL,Marvell,Netzwerk / Chips,Marvell profitiert von KI-Netzwerk- und Dateninfrastruktur,Mittel,Zyklische Chipnachfrage
+NVDA,AMD,AMD,Konkurrenz,AMD konkurriert mit NVIDIA bei GPUs und KI-Beschleunigern,Hoch,Preisdruck und Wettbewerb
+NVDA,INTC,Intel,Konkurrenz / Fertigung,Intel konkurriert bei Chips und baut Foundry-Geschäft auf,Mittel,Turnaround-Risiko
+NVDA,VST,Vistra,Energie / Strom,KI-Rechenzentren erhöhen den Strombedarf,Mittel,Strompreise und Regulierung
+NVDA,CEG,Constellation Energy,Energie / Atomstrom,Rechenzentren brauchen stabile Stromversorgung und Atomstrom wird relevanter,Mittel,Regulatorische Risiken
+NVDA,GEV,GE Vernova,Energieinfrastruktur,Stromnetze und Energieinfrastruktur profitieren vom Rechenzentrumsboom,Mittel,Projekt- und Margenrisiken
+NVDA,ETN,Eaton,Strominfrastruktur,Eaton liefert elektrische Infrastruktur für Rechenzentren,Hoch,Hohe Bewertung möglich
+NVDA,VRT,Vertiv,Kühlung / Rechenzentren,Vertiv liefert Kühlung und Infrastruktur für Rechenzentren,Hoch,Starke Abhängigkeit vom Datacenter-Zyklus
