@@ -6,6 +6,16 @@ import hmac
 from datetime import datetime
 from supabase import create_client, Client
 
+# Optional für das interaktive Spinnennetz / Netzwerkdiagramm.
+# Falls pyvis noch nicht installiert ist, läuft das Dashboard weiter und zeigt einen Hinweis.
+try:
+    from pyvis.network import Network
+    import streamlit.components.v1 as components
+    import tempfile
+    PYVIS_AVAILABLE = True
+except Exception:
+    PYVIS_AVAILABLE = False
+
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -1715,6 +1725,329 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                     "relationship": "Warum verbunden?",
                     "risk_note": "Risiko-Hinweis"
                 })
+
+                # ============================================================
+                # 🕸️ INTERAKTIVES SPINNENNETZ / NETZWERKDIAGRAMM
+                # ============================================================
+
+                with st.expander("🕸️ Spinnennetz / Netzwerkdiagramm anzeigen", expanded=True):
+
+                    if not PYVIS_AVAILABLE:
+                        st.warning(
+                            "Für das interaktive Spinnennetz fehlt noch das Paket `pyvis`. "
+                            "Bitte ergänze `pyvis` und `networkx` in deiner requirements.txt und deploye neu."
+                        )
+                    else:
+                        st.caption(
+                            "Interaktives Beziehungsnetz: Mittelpunkt ist die ausgewählte Aktie. "
+                            "Du kannst Knoten verschieben, zoomen und mit der Maus über Aktien fahren."
+                        )
+
+                        spider_col_1, spider_col_2 = st.columns([1, 1])
+
+                        with spider_col_1:
+                            spider_mode = st.radio(
+                                "Darstellung",
+                                options=[
+                                    "Direkt: Hauptaktie → verbundene Aktien",
+                                    "Lieferkette: Hauptaktie → Stufen → Aktien"
+                                ],
+                                index=1,
+                                key="spider_network_mode"
+                            )
+
+                        with spider_col_2:
+                            use_current_filters_for_spider = st.checkbox(
+                                "Aktuelle Mapping-Filter verwenden",
+                                value=True,
+                                key="spider_use_current_filters"
+                            )
+
+                        spider_data = (
+                            selected_relationships.copy()
+                            if use_current_filters_for_spider
+                            else selected_relationships_base.copy()
+                        )
+
+                        if spider_data.empty:
+                            st.info("Für die aktuelle Filterauswahl gibt es keine Netzwerkdaten.")
+                        else:
+                            spider_network_view = spider_data.merge(
+                                signal_df,
+                                left_on="target_ticker",
+                                right_on="Ticker",
+                                how="left"
+                            )
+
+                            spider_network_view["Ticker"] = spider_network_view["target_ticker"]
+
+                            if "Company" in spider_network_view.columns:
+                                spider_network_view["Company"] = spider_network_view["Company"].fillna(
+                                    spider_network_view["target_name"]
+                                )
+                            else:
+                                spider_network_view["Company"] = spider_network_view["target_name"]
+
+                            def get_node_color(connection_type, action_signal):
+                                connection_text = str(connection_type).lower()
+                                signal_text = str(action_signal).lower()
+
+                                if "avoid" in signal_text or "sell" in signal_text:
+                                    return "#ef4444"
+                                if "konkurrenz" in connection_text or "substitution" in connection_text:
+                                    return "#f97316"
+                                if "lieferant" in connection_text or "zulieferer" in connection_text:
+                                    return "#22c55e"
+                                if "kunde" in connection_text or "nachfrage" in connection_text:
+                                    return "#8b5cf6"
+                                if "infrastruktur" in connection_text or "energie" in connection_text:
+                                    return "#f59e0b"
+                                if "risiko" in connection_text or "makro" in connection_text:
+                                    return "#dc2626"
+
+                                return "#3b82f6"
+
+                            def get_node_size(importance, action_signal):
+                                importance_text = str(importance).lower()
+                                signal_text = str(action_signal).lower()
+
+                                size = 18
+
+                                if importance_text in ["hoch", "high"]:
+                                    size = 28
+                                elif importance_text in ["mittel", "medium"]:
+                                    size = 22
+
+                                if "strong buy" in signal_text or "buy zone" in signal_text:
+                                    size += 4
+
+                                return size
+
+                            def build_tooltip(row):
+                                ticker = row.get("Ticker", row.get("target_ticker", ""))
+                                company = row.get("Company", row.get("target_name", ""))
+                                category = row.get("category", "")
+                                stage = row.get("supply_chain_stage", "")
+                                connection_type = row.get("connection_type", "")
+                                importance = row.get("importance", "")
+                                relationship = row.get("relationship", "")
+                                risk_note = row.get("risk_note", "")
+                                action_signal = row.get("Action Signal", "Nicht in Hauptliste")
+                                rating = row.get("Rating", "-")
+                                score = row.get("Score", "-")
+                                risk_level = row.get("Risk Level", "-")
+                                price = row.get("Price", "-")
+                                crv = row.get("CRV", "-")
+
+                                return (
+                                    f"<b>{ticker} - {company}</b><br>"
+                                    f"<hr>"
+                                    f"<b>Kategorie:</b> {category}<br>"
+                                    f"<b>Lieferkettenstufe:</b> {stage}<br>"
+                                    f"<b>Verbindungsart:</b> {connection_type}<br>"
+                                    f"<b>Wichtigkeit:</b> {importance}<br><br>"
+                                    f"<b>Warum verbunden?</b><br>{relationship}<br><br>"
+                                    f"<b>Risiko:</b><br>{risk_note}<br><br>"
+                                    f"<b>Dashboard:</b><br>"
+                                    f"Signal: {action_signal}<br>"
+                                    f"Rating: {rating}<br>"
+                                    f"Score: {score}<br>"
+                                    f"Risiko-Level: {risk_level}<br>"
+                                    f"Preis: {price}<br>"
+                                    f"CRV: {crv}"
+                                )
+
+                            net = Network(
+                                height="760px",
+                                width="100%",
+                                bgcolor="#ffffff",
+                                font_color="#111827",
+                                directed=False
+                            )
+
+                            net.add_node(
+                                selected_network_ticker,
+                                label=selected_network_ticker,
+                                title=f"Hauptaktie: {selected_network_ticker}",
+                                size=46,
+                                color="#111827",
+                                shape="dot"
+                            )
+
+                            added_nodes = {selected_network_ticker}
+
+                            if spider_mode.startswith("Direkt"):
+                                for _, spider_row in spider_network_view.iterrows():
+                                    target_ticker = str(spider_row.get("target_ticker", "")).strip()
+
+                                    if not target_ticker:
+                                        continue
+
+                                    if target_ticker not in added_nodes:
+                                        net.add_node(
+                                            target_ticker,
+                                            label=target_ticker,
+                                            title=build_tooltip(spider_row),
+                                            size=get_node_size(
+                                                spider_row.get("importance", ""),
+                                                spider_row.get("Action Signal", "")
+                                            ),
+                                            color=get_node_color(
+                                                spider_row.get("connection_type", ""),
+                                                spider_row.get("Action Signal", "")
+                                            ),
+                                            shape="dot"
+                                        )
+                                        added_nodes.add(target_ticker)
+
+                                    edge_label = str(spider_row.get("connection_type", ""))
+                                    edge_title = str(spider_row.get("relationship", ""))
+
+                                    net.add_edge(
+                                        selected_network_ticker,
+                                        target_ticker,
+                                        title=edge_title,
+                                        label=edge_label[:28],
+                                        color="#9ca3af"
+                                    )
+
+                            else:
+                                stage_color_map = {
+                                    "1": "#f59e0b",
+                                    "2": "#f97316",
+                                    "3": "#22c55e",
+                                    "4": "#10b981",
+                                    "5": "#3b82f6",
+                                    "6": "#06b6d4",
+                                    "7": "#8b5cf6",
+                                    "8": "#ec4899",
+                                    "9": "#ef4444",
+                                    "10": "#dc2626",
+                                    "99": "#6b7280"
+                                }
+
+                                for stage in sorted(spider_network_view["supply_chain_stage"].dropna().astype(str).unique().tolist()):
+                                    stage_node_id = f"STAGE::{stage}"
+                                    stage_prefix = stage.split(" - ")[0].strip()
+                                    stage_color = stage_color_map.get(stage_prefix, "#6b7280")
+
+                                    if stage_node_id not in added_nodes:
+                                        net.add_node(
+                                            stage_node_id,
+                                            label=stage,
+                                            title=f"Lieferkettenstufe: {stage}",
+                                            size=30,
+                                            color=stage_color,
+                                            shape="box"
+                                        )
+                                        added_nodes.add(stage_node_id)
+
+                                    net.add_edge(
+                                        selected_network_ticker,
+                                        stage_node_id,
+                                        title=f"{selected_network_ticker} → {stage}",
+                                        color=stage_color
+                                    )
+
+                                for _, spider_row in spider_network_view.iterrows():
+                                    target_ticker = str(spider_row.get("target_ticker", "")).strip()
+                                    stage = str(spider_row.get("supply_chain_stage", "99 - Sonstige Verbindung")).strip()
+                                    stage_node_id = f"STAGE::{stage}"
+
+                                    if not target_ticker:
+                                        continue
+
+                                    if target_ticker not in added_nodes:
+                                        net.add_node(
+                                            target_ticker,
+                                            label=target_ticker,
+                                            title=build_tooltip(spider_row),
+                                            size=get_node_size(
+                                                spider_row.get("importance", ""),
+                                                spider_row.get("Action Signal", "")
+                                            ),
+                                            color=get_node_color(
+                                                spider_row.get("connection_type", ""),
+                                                spider_row.get("Action Signal", "")
+                                            ),
+                                            shape="dot"
+                                        )
+                                        added_nodes.add(target_ticker)
+
+                                    edge_label = str(spider_row.get("connection_type", ""))
+                                    edge_title = str(spider_row.get("relationship", ""))
+
+                                    net.add_edge(
+                                        stage_node_id,
+                                        target_ticker,
+                                        title=edge_title,
+                                        label=edge_label[:24],
+                                        color="#9ca3af"
+                                    )
+
+                            net.repulsion(
+                                node_distance=230,
+                                central_gravity=0.18,
+                                spring_length=190,
+                                spring_strength=0.04,
+                                damping=0.09
+                            )
+
+                            net.set_options("""
+                            {
+                              "nodes": {
+                                "font": {
+                                  "size": 16,
+                                  "face": "Arial"
+                                },
+                                "borderWidth": 2
+                              },
+                              "edges": {
+                                "font": {
+                                  "size": 10,
+                                  "align": "middle"
+                                },
+                                "smooth": {
+                                  "enabled": true,
+                                  "type": "dynamic"
+                                },
+                                "width": 1.5
+                              },
+                              "interaction": {
+                                "hover": true,
+                                "tooltipDelay": 120,
+                                "navigationButtons": true,
+                                "keyboard": true
+                              },
+                              "physics": {
+                                "enabled": true,
+                                "stabilization": {
+                                  "enabled": true,
+                                  "iterations": 180
+                                }
+                              }
+                            }
+                            """)
+
+                            try:
+                                with tempfile.NamedTemporaryFile(delete=False, suffix=".html") as tmp_file:
+                                    net.save_graph(tmp_file.name)
+                                    with open(tmp_file.name, "r", encoding="utf-8") as html_file:
+                                        html_content = html_file.read()
+
+                                components.html(
+                                    html_content,
+                                    height=790,
+                                    scrolling=True
+                                )
+
+                            except Exception as error:
+                                st.error(f"Spinnennetz konnte nicht erstellt werden: {error}")
+
+                        st.markdown(
+                            "**Legende:** 🟢 Lieferant/Zulieferer · 🟣 Kunde/Nachfrage · "
+                            "🟠 Infrastruktur/Energie · 🔴 Risiko/Schwach · Orange Konkurrenz/Substitution"
+                        )
 
                 st.markdown("### 🧾 Detailtabelle")
 
