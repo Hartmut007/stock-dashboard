@@ -1326,7 +1326,23 @@ if not os.path.exists(RELATIONSHIPS_FILE):
 else:
 
     try:
-        relationships_df = pd.read_csv(RELATIONSHIPS_FILE)
+        relationships_df = pd.read_csv(
+            RELATIONSHIPS_FILE,
+            encoding="utf-8",
+            sep=None,
+            engine="python"
+        )
+    except UnicodeDecodeError:
+        try:
+            relationships_df = pd.read_csv(
+                RELATIONSHIPS_FILE,
+                encoding="latin1",
+                sep=None,
+                engine="python"
+            )
+        except Exception as error:
+            st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
+            relationships_df = pd.DataFrame()
     except Exception as error:
         st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
         relationships_df = pd.DataFrame()
