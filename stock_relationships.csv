@@ -1,25 +1,329 @@
 source_ticker,target_ticker,target_name,category,relationship,importance,risk_note
-NVDA,MSFT,Microsoft,KI / Cloud / OpenAI,Microsoft nutzt NVIDIA-KI-Infrastruktur und ist stark mit OpenAI verbunden,Hoch,KI-Investitionen können schwanken
-NVDA,GOOGL,Alphabet,KI / Cloud,Google ist großer KI- und Cloud-Anbieter mit eigenen KI-Chips,Hoch,Starke Konkurrenz durch eigene TPU-Chips
-NVDA,AMZN,Amazon,Cloud / Rechenzentren,AWS nutzt KI-Infrastruktur und entwickelt eigene Trainium-Chips,Hoch,Amazon baut auch eigene KI-Chips
-NVDA,META,Meta,KI / Modelle,Meta investiert stark in KI-Modelle und Rechenzentren,Hoch,Sehr hohe Capex-Ausgaben
-NVDA,TSM,TSMC,Chipfertigung,TSMC fertigt wichtige Hochleistungschips für viele KI-Unternehmen,Hoch,Taiwan- und Lieferkettenrisiko
-NVDA,ASML,ASML,Lithografie,ASML liefert wichtige Maschinen für moderne Chipproduktion,Hoch,Zyklische Halbleiterausrüstung
-NVDA,AMAT,Applied Materials,Chipausrüstung,Applied Materials liefert Anlagen für Halbleiterproduktion,Mittel,Zyklik im Halbleitermarkt
-NVDA,LRCX,Lam Research,Chipausrüstung,Lam Research profitiert von Investitionen in Chipfertigung,Mittel,Zyklische Nachfrage
-NVDA,MU,Micron,Speicher / HBM,Micron liefert Speicher der für KI-Beschleuniger wichtig ist,Hoch,Speicherpreise schwanken stark
-NVDA,005930.KS,Samsung,Speicher / HBM,Samsung ist wichtiger Speicher- und HBM-Anbieter,Hoch,Starker Wettbewerb bei Speicherchips
-NVDA,000660.KS,SK Hynix,Speicher / HBM,SK Hynix ist einer der wichtigsten HBM-Speicherlieferanten,Hoch,Abhängigkeit von KI-Speicherzyklen
-NVDA,SMCI,Super Micro Computer,Server / KI-Infrastruktur,Super Micro baut KI-Server mit NVIDIA-GPUs,Hoch,Bilanz- und Margenrisiken beachten
-NVDA,DELL,Dell,Server / Infrastruktur,Dell profitiert von KI-Server- und Enterprise-Infrastruktur,Mittel,Hardware-Margen können niedrig sein
-NVDA,HPE,Hewlett Packard Enterprise,Server / Infrastruktur,HPE ist im Server- und Rechenzentrumsbereich aktiv,Mittel,Starker Wettbewerb
-NVDA,AVGO,Broadcom,Netzwerk / Custom Chips,Broadcom profitiert von KI-Netzwerk und Custom-Chip-Trends,Hoch,Abhängigkeit von Großkunden
-NVDA,ANET,Arista Networks,Netzwerk / Rechenzentren,Arista liefert Netzwerktechnik für große Rechenzentren,Hoch,Hohe Bewertung möglich
-NVDA,MRVL,Marvell,Netzwerk / Chips,Marvell profitiert von KI-Netzwerk- und Dateninfrastruktur,Mittel,Zyklische Chipnachfrage
-NVDA,AMD,AMD,Konkurrenz,AMD konkurriert mit NVIDIA bei GPUs und KI-Beschleunigern,Hoch,Preisdruck und Wettbewerb
-NVDA,INTC,Intel,Konkurrenz / Fertigung,Intel konkurriert bei Chips und baut Foundry-Geschäft auf,Mittel,Turnaround-Risiko
-NVDA,VST,Vistra,Energie / Strom,KI-Rechenzentren erhöhen den Strombedarf,Mittel,Strompreise und Regulierung
-NVDA,CEG,Constellation Energy,Energie / Atomstrom,Rechenzentren brauchen stabile Stromversorgung und Atomstrom wird relevanter,Mittel,Regulatorische Risiken
-NVDA,GEV,GE Vernova,Energieinfrastruktur,Stromnetze und Energieinfrastruktur profitieren vom Rechenzentrumsboom,Mittel,Projekt- und Margenrisiken
-NVDA,ETN,Eaton,Strominfrastruktur,Eaton liefert elektrische Infrastruktur für Rechenzentren,Hoch,Hohe Bewertung möglich
-NVDA,VRT,Vertiv,Kühlung / Rechenzentren,Vertiv liefert Kühlung und Infrastruktur für Rechenzentren,Hoch,Starke Abhängigkeit vom Datacenter-Zyklus
+NVDA,MSFT,Microsoft,KI / Cloud / OpenAI,Azure und OpenAI-Nachfrage treiben Bedarf an KI-Beschleunigern und Rechenzentren,Hoch,Capex-Zyklen und KI-Monetarisierung beobachten
+NVDA,GOOGL,Alphabet,KI / Cloud,Google ist KI-Plattform und Cloud-Anbieter mit eigenen Chips und hoher Rechenzentrumskapazität,Hoch,Eigene TPU-Chips können Abhängigkeit von NVIDIA senken
+NVDA,AMZN,Amazon,Cloud / Rechenzentren,AWS ist großer Käufer von KI-Infrastruktur und baut zugleich eigene KI-Chips,Hoch,Eigene Trainium-Chips und Cloud-Capex-Zyklen
+NVDA,META,Meta Platforms,KI / Modelle,Meta investiert stark in KI-Modelle und GPU-Rechenzentren,Hoch,Sehr hohe Investitionen müssen sich langfristig auszahlen
+NVDA,ORCL,Oracle,Cloud / Rechenzentren,Oracle Cloud profitiert von KI-Workloads und GPU-Infrastruktur,Mittel,Konzentration auf große Cloud-Deals
+NVDA,TSM,TSMC,Chipfertigung,TSMC fertigt führende Hochleistungschips für KI und Rechenzentren,Hoch,Taiwan- und Lieferkettenrisiko
+NVDA,ASML,ASML,Lithografie,ASML liefert Schlüsselmaschinen für moderne Chipproduktion,Hoch,Zyklische Investitionsausgaben der Chipindustrie
+NVDA,AMAT,Applied Materials,Chipausrüstung,Anlagen für Halbleiterfertigung profitieren vom Ausbau moderner Chipkapazität,Mittel,Halbleiterzyklus und Exportregeln
+NVDA,LRCX,Lam Research,Chipausrüstung,Lam Research ist bei Fertigungsanlagen und Speicherproduktion relevant,Mittel,Zyklische Nachfrage und China-Risiken
+NVDA,KLAC,KLA,Chipausrüstung / Kontrolle,KLA liefert Prozesskontrolle für moderne Halbleiterfertigung,Mittel,Bewertung und Exportbeschränkungen
+NVDA,MU,Micron,Speicher / HBM,HBM- und DRAM-Speicher sind wichtig für KI-Beschleuniger,Hoch,Speicherpreise schwanken stark
+NVDA,000660.KS,SK Hynix,Speicher / HBM,SK Hynix ist ein wichtiger Anbieter von HBM-Speicher,Hoch,HBM-Zyklen und Kundenkonzentration
+NVDA,005930.KS,Samsung,Speicher / HBM,Samsung ist großer Speicher- und HBM-Anbieter,Hoch,Wettbewerb und Margendruck im Speichersegment
+NVDA,SMCI,Super Micro Computer,Server / KI-Infrastruktur,Super Micro baut KI-Server rund um GPU-Plattformen,Hoch,Margen- und Bilanzrisiken beachten
+NVDA,DELL,Dell,Server / Infrastruktur,Dell verkauft Enterprise- und KI-Serverinfrastruktur,Mittel,Hardwaremargen können niedrig sein
+NVDA,HPE,Hewlett Packard Enterprise,Server / Infrastruktur,HPE ist bei Servern und Rechenzentrumsinfrastruktur relevant,Mittel,Starker Wettbewerb
+NVDA,VRT,Vertiv,Kühlung / Rechenzentren,Vertiv liefert Strom- und Kühlinfrastruktur für Rechenzentren,Hoch,Datacenter-Zyklus und Bewertung
+NVDA,ETN,Eaton,Strominfrastruktur,Eaton liefert elektrische Infrastruktur für Rechenzentren,Hoch,Hohe Erwartungen im Rechenzentrumstrend
+NVDA,ANET,Arista Networks,Netzwerk / Rechenzentren,Arista liefert Netzwerkkomponenten für große Rechenzentren,Hoch,Bewertung und Hyperscaler-Abhängigkeit
+NVDA,AVGO,Broadcom,Netzwerk / Custom Chips,Broadcom profitiert von KI-Netzwerk und Custom-Chip-Nachfrage,Hoch,Großkundenabhängigkeit
+NVDA,MRVL,Marvell,Netzwerk / Chips,Marvell ist bei Datacenter-Netzwerkchips und Custom Silicon relevant,Mittel,Chipzyklus und Margendruck
+NVDA,AMD,AMD,Konkurrenz,AMD konkurriert bei GPUs und KI-Beschleunigern,Hoch,Preisdruck und technologischer Wettbewerb
+NVDA,INTC,Intel,Konkurrenz / Foundry,Intel konkurriert bei Chips und versucht Foundry-Geschäft auszubauen,Mittel,Turnaround- und Execution-Risiko
+NVDA,VST,Vistra,Energie / Strom,KI-Rechenzentren erhöhen Strombedarf und machen Stromerzeuger relevant,Mittel,Strompreise und Regulierung
+NVDA,CEG,Constellation Energy,Energie / Atomstrom,Stabile Stromversorgung und Atomstrom werden für Datacenter wichtiger,Mittel,Regulatorische Risiken
+NVDA,GEV,GE Vernova,Energieinfrastruktur,Stromnetze und Energieinfrastruktur profitieren vom Rechenzentrumsausbau,Mittel,Projekt- und Margenrisiken
+NVDA,NEE,NextEra Energy,Energie / Erneuerbare,Erneuerbare Energie kann für große Rechenzentren relevant sein,Mittel,Zinsen und Regulierung
+NVDA,CCJ,Cameco,Uran / Atomstrom,Atomstrom-Nachfrage kann mit Datacenter-Strombedarf stärker beobachtet werden,Mittel,Uranpreis und politische Risiken
+AMD,NVDA,NVIDIA,Konkurrenz,NVIDIA ist der wichtigste direkte Wettbewerber bei KI-GPUs,Hoch,NVIDIA kann Preissetzung und Marktanteile dominieren
+AMD,TSM,TSMC,Chipfertigung,AMD ist stark auf TSMC-Fertigung angewiesen,Hoch,Taiwan- und Lieferkettenrisiko
+AMD,ASML,ASML,Lithografie,Fortschrittliche Fertigung braucht ASML-Technologie,Mittel,Ausrüstungszyklus
+AMD,MU,Micron,Speicher / HBM,KI-Beschleuniger benötigen schnellen Speicher,Mittel,Speicherpreisschwankungen
+AMD,MSFT,Microsoft,Cloud / KI,Microsoft kann AMD-Chips in Cloud- und KI-Angeboten nutzen,Mittel,Kundenadoption entscheidet
+AMD,AMZN,Amazon,Cloud / KI,AWS ist potenzieller Abnehmer und gleichzeitig eigener Chipentwickler,Mittel,Eigene AWS-Chips können bremsen
+AMD,DELL,Dell,Server / Infrastruktur,Serverhersteller können AMD-CPU- und GPU-Plattformen integrieren,Mittel,Hardwaremargen
+AMD,SMCI,Super Micro Computer,Server / KI-Infrastruktur,Super Micro kann AMD-basierte Server anbieten,Mittel,Zyklus und Margen
+AMD,INTC,Intel,Konkurrenz,Intel konkurriert bei CPUs und Foundry-Strategie,Hoch,Preis- und Marktanteilskampf
+AMD,AVGO,Broadcom,Netzwerk / Chips,Datacenter-Chips und Netzwerke hängen am gleichen Infrastrukturzyklus,Mittel,Zyklische Nachfrage
+MSFT,NVDA,NVIDIA,KI-Infrastruktur,Azure und KI-Dienste benötigen GPU-Infrastruktur,Hoch,Capex und Verfügbarkeit von GPUs
+MSFT,AMD,AMD,KI-Infrastruktur,AMD kann als alternative KI- und Serverchip-Plattform dienen,Mittel,Adoption und Software-Ökosystem
+MSFT,GOOGL,Alphabet,Cloud-Konkurrenz,Google Cloud konkurriert mit Azure im KI- und Cloudmarkt,Hoch,Preisdruck im Cloudgeschäft
+MSFT,AMZN,Amazon,Cloud-Konkurrenz,AWS ist größter Cloud-Wettbewerber,Hoch,Cloud-Wachstum und Margen
+MSFT,ORCL,Oracle,Cloud-Konkurrenz,Oracle konkurriert bei Enterprise-Cloud und KI-Workloads,Mittel,Große Deals können Marktanteile bewegen
+MSFT,CRWD,CrowdStrike,Cybersecurity,Cloud- und KI-Nutzung erhöhen Sicherheitsbedarf,Mittel,Sicherheitsausgaben können zyklisch sein
+MSFT,PANW,Palo Alto Networks,Cybersecurity,Enterprise-Cloud braucht Sicherheitsplattformen,Mittel,Starker Wettbewerb
+MSFT,NOW,ServiceNow,Enterprise Software,Microsoft-Ökosystem überschneidet sich mit Enterprise-Automatisierung,Mittel,Softwarebewertungen
+MSFT,ADBE,Adobe,KI-Software,KI wird in Produktivitäts- und Kreativsoftware integriert,Mittel,Monetarisierungsrisiko
+MSFT,CRM,Salesforce,Enterprise Software,KI-Agenten und Produktivität konkurrieren im Enterprise-Bereich,Mittel,Wachstumsverlangsamung
+GOOGL,NVDA,NVIDIA,KI-Infrastruktur,Google nutzt GPUs und eigene TPU-Infrastruktur für KI,Hoch,Eigene Chips verändern Lieferantenmix
+GOOGL,AVGO,Broadcom,Custom Chips,Broadcom ist bei Custom Silicon und Netzwerkinfrastruktur relevant,Mittel,Großkundenabhängigkeit
+GOOGL,MSFT,Microsoft,Cloud / KI-Konkurrenz,Microsoft konkurriert direkt bei Cloud und KI-Produkten,Hoch,KI-Wettbewerb und Capex
+GOOGL,AMZN,Amazon,Cloud-Konkurrenz,AWS konkurriert mit Google Cloud,Hoch,Cloud-Margen
+GOOGL,META,Meta Platforms,Digitale Werbung / KI,Meta konkurriert bei Werbung und KI-Modellen,Hoch,Werbemarktzyklen
+GOOGL,SNAP,Snap,Digitale Werbung,Snap ist kleinerer Werbemarkt-Proxy,Niedrig,Hohe Volatilität
+GOOGL,TTD,The Trade Desk,Adtech,Adtech reagiert auf Werbemarkt und Datenregeln,Mittel,Regulierung und Werbebudgets
+GOOGL,NET,Cloudflare,Internet-Infrastruktur,Edge- und Cloud-Infrastruktur hängen am digitalen Traffic,Mittel,Bewertung
+AMZN,NVDA,NVIDIA,KI-Infrastruktur,AWS braucht KI-Beschleuniger für Cloud-Kunden,Hoch,Eigene Chips können NVIDIA-Anteil begrenzen
+AMZN,MSFT,Microsoft,Cloud-Konkurrenz,Azure ist AWS-Hauptkonkurrent,Hoch,Cloud-Preiswettbewerb
+AMZN,GOOGL,Alphabet,Cloud-Konkurrenz,Google Cloud konkurriert bei KI-Workloads,Hoch,Capex und Margen
+AMZN,AVGO,Broadcom,Custom Chips,Custom Chips und Netzwerk sind relevant für Hyperscaler,Mittel,Großkundenrisiko
+AMZN,SHOP,Shopify,E-Commerce,Shopify ist E-Commerce-Ökosystem und teilweise Wettbewerbs-/Partnerumfeld,Mittel,Konsumzyklus
+AMZN,WMT,Walmart,Retail-Konkurrenz,Walmart konkurriert im Handel und baut Online-Geschäft aus,Mittel,Margendruck im Retail
+AMZN,UPS,UPS,Logistik,E-Commerce-Volumen beeinflusst Logistikdienstleister,Mittel,Konjunkturabhängigkeit
+AMZN,FDX,FedEx,Logistik,Paketvolumen kann mit Onlinehandel zusammenhängen,Mittel,Zyklik
+AMZN,RIVN,Rivian,EV / Logistik,Rivian ist im Elektro-Lieferwagen-Umfeld relevant,Niedrig,Hoher Kapitalbedarf
+META,NVDA,NVIDIA,KI-Infrastruktur,Meta investiert stark in GPU-Cluster für KI,Hoch,Hohe Capex-Ausgaben
+META,GOOGL,Alphabet,Werbung / KI,Google konkurriert bei digitaler Werbung und KI,Hoch,Werbemarkt und Regulierung
+META,TTD,The Trade Desk,Adtech,Adtech hängt an Werbebudgets und Datenregeln,Mittel,Regulierungsrisiko
+META,SNAP,Snap,Social Media,Snap ist Social-Media- und Werbemarkt-Proxy,Mittel,Hohe Volatilität
+META,RBLX,Roblox,Metaverse / Plattform,Roblox ist Plattform-Proxy für virtuelle Welten,Niedrig,Monetarisierung
+META,AAPL,Apple,Plattform / App-Regeln,Apple-Plattformregeln können App- und Werbemodelle beeinflussen,Hoch,App-Tracking und Plattformkontrolle
+META,MSFT,Microsoft,KI / Plattform,Microsoft konkurriert und kooperiert im KI-Ökosystem,Mittel,KI-Monetarisierung
+AAPL,TSM,TSMC,Chipfertigung,Apple nutzt TSMC für führende Chipfertigung,Hoch,Taiwan- und Lieferkettenrisiko
+AAPL,QCOM,Qualcomm,Modems / Mobile Chips,Qualcomm liefert wichtige Mobilfunktechnologie und konkurriert in Chips,Mittel,Apple-Insourcing-Risiko
+AAPL,AVGO,Broadcom,Funkchips / Komponenten,Broadcom ist wichtiger Halbleiter-Zulieferer für Apple-Ökosystem,Hoch,Großkundenabhängigkeit
+AAPL,SWKS,Skyworks,RF-Komponenten,Skyworks hängt an Smartphone-Funkkomponenten,Mittel,iPhone-Zyklus
+AAPL,QRVO,Qorvo,RF-Komponenten,Qorvo liefert Funkkomponenten für Smartphones,Mittel,Smartphone-Nachfrage
+AAPL,005930.KS,Samsung,Hardware / Displays / Konkurrenz,Samsung ist Zulieferer und Smartphone-Konkurrent,Hoch,Wettbewerb und Lieferketten
+AAPL,GOOGL,Alphabet,Dienste / Suche / KI,Google ist wichtig für Suche und KI-Dienste auf Mobilgeräten,Mittel,Regulatorische Risiken
+AAPL,MSFT,Microsoft,KI / Software,Microsoft ist KI- und Produktivitätssoftware-Anbieter im Apple-Ökosystem,Mittel,Plattformstrategien
+AAPL,ARM,Arm Holdings,Chiparchitektur,Arm-Architektur ist Grundlage vieler mobiler Chips,Hoch,Lizenz- und Bewertungsrisiko
+TSLA,PANW,Palo Alto Networks,Cybersecurity / Software,Vernetzte Fahrzeuge erhöhen Software- und Sicherheitsrelevanz,Niedrig,Indirekter Zusammenhang
+TSLA,NVDA,NVIDIA,KI / Autonomes Fahren,KI-Chips und autonome Systeme sind thematisch verwandt,Mittel,Tesla nutzt eigene Hardware-Strategie
+TSLA,TSM,TSMC,Chipfertigung,Automotive- und KI-Chips hängen an Halbleiterfertigung,Mittel,Lieferkettenrisiko
+TSLA,ALB,Albemarle,Lithium,Lithium ist wichtig für Batterien und EV-Lieferketten,Hoch,Lithiumpreis schwankt stark
+TSLA,SQM,SQM,Lithium,SQM ist Lithium- und Rohstofflieferketten-Proxy,Mittel,Rohstoff- und Länderrisiken
+TSLA,LAC,Lithium Americas,Lithium,Lithiumprojekt-Proxy für Batteriebedarf,Niedrig,Projekt- und Finanzierungsrisiko
+TSLA,000660.KS,SK Hynix,Speicher / KI,Speicher spielt für KI- und Rechenplattformen eine Rolle,Niedrig,Indirekter Zusammenhang
+TSLA,005930.KS,Samsung,Batterie / Elektronik,Samsung ist im Batterie- und Elektronikumfeld relevant,Mittel,Wettbewerb und Zyklen
+TSLA,PCRFY,Panasonic,Batterien,Panasonic ist im Batterie-Ökosystem relevant,Mittel,Margen und EV-Nachfrage
+TSLA,BYDDF,BYD,EV-Konkurrenz,BYD ist ein großer EV-Wettbewerber,Hoch,Preiswettbewerb im EV-Markt
+TSLA,RIVN,Rivian,EV-Konkurrenz,Rivian ist EV- und Nutzfahrzeug-Konkurrent,Mittel,Kapitalbedarf
+TSLA,F,Ford,Auto-Konkurrenz,Traditioneller Hersteller im EV-Übergang,Mittel,Margen und Zyklus
+TSLA,GM,General Motors,Auto-Konkurrenz,GM konkurriert im Auto- und EV-Markt,Mittel,EV-Execution
+TSLA,ENPH,Enphase Energy,Solar / Energie,Solar und Heimspeicher berühren Teslas Energy-Geschäft,Mittel,Zinsen und Solarnachfrage
+TSLA,FSLR,First Solar,Solar,Solar-Infrastruktur ist thematisch mit Energiewende verbunden,Mittel,Politik und Projektzyklen
+ASML,TSM,TSMC,Kunden / Foundry,TSMC ist ein wichtiger Anwender moderner Lithografie,Hoch,Foundry-Capex
+ASML,005930.KS,Samsung,Kunden / Speicher & Foundry,Samsung nutzt moderne Fertigungsanlagen für Speicher und Foundry,Hoch,Speicherzyklus
+ASML,INTC,Intel,Kunden / Foundry,Intel investiert in moderne Fertigung und Foundry,Hoch,Execution-Risiko
+ASML,AMAT,Applied Materials,Chipausrüstung,Ausrüster hängen am selben Halbleiter-Capex-Zyklus,Mittel,Zyklische Nachfrage
+ASML,LRCX,Lam Research,Chipausrüstung,Lam Research profitiert ebenfalls von Fab-Investitionen,Mittel,Exportregeln
+ASML,KLAC,KLA,Chipausrüstung,KLA ist Prozesskontrolle im Fertigungsökosystem,Mittel,Bewertungsrisiko
+ASML,NVDA,NVIDIA,Endnachfrage KI,KI-Chipnachfrage treibt langfristig moderne Fertigung,Mittel,Indirekter Zusammenhang
+ASML,AMD,AMD,Endnachfrage Chips,AMD-Chipnachfrage stützt moderne Fertigungsnachfrage,Mittel,Zyklus
+CRWD,MSFT,Microsoft,Enterprise / Cloud,Große Cloud- und Enterprise-Plattform erhöht Sicherheitsbedarf,Hoch,Plattformkonkurrenz
+CRWD,AMZN,Amazon,Cloud / AWS,AWS-Workloads brauchen Sicherheitslösungen,Mittel,Cloud-Capex und Security-Budgets
+CRWD,GOOGL,Alphabet,Cloud / Google Cloud,Google Cloud ist Teil des Security- und Cloud-Ökosystems,Mittel,Wettbewerb
+CRWD,OKTA,Okta,Identity Security,Identitätsmanagement ist Kernbereich von Cybersecurity,Hoch,Sicherheitsvorfälle und Wettbewerb
+CRWD,S,SentinelOne,Endpoint Security,Endpoint-Security-Anbieter im gleichen Marktumfeld,Mittel,Preisdruck
+CRWD,FTNT,Fortinet,Netzwerksicherheit,Netzwerksicherheit und Firewall-Markt überschneiden sich,Hoch,Hardware-Zyklen
+CRWD,CHKP,Check Point,Cybersecurity,Reifer Cybersecurity-Wettbewerber,Mittel,Wachstumstempo
+CRWD,TENB,Tenable,Vulnerability Management,Schwachstellenmanagement ergänzt Security-Plattformen,Mittel,Budgetzyklen
+PANW,MSFT,Microsoft,Enterprise / Cloud,Große Cloud- und Enterprise-Plattform erhöht Sicherheitsbedarf,Hoch,Plattformkonkurrenz
+PANW,AMZN,Amazon,Cloud / AWS,AWS-Workloads brauchen Sicherheitslösungen,Mittel,Cloud-Capex und Security-Budgets
+PANW,GOOGL,Alphabet,Cloud / Google Cloud,Google Cloud ist Teil des Security- und Cloud-Ökosystems,Mittel,Wettbewerb
+PANW,OKTA,Okta,Identity Security,Identitätsmanagement ist Kernbereich von Cybersecurity,Hoch,Sicherheitsvorfälle und Wettbewerb
+PANW,S,SentinelOne,Endpoint Security,Endpoint-Security-Anbieter im gleichen Marktumfeld,Mittel,Preisdruck
+PANW,FTNT,Fortinet,Netzwerksicherheit,Netzwerksicherheit und Firewall-Markt überschneiden sich,Hoch,Hardware-Zyklen
+PANW,CHKP,Check Point,Cybersecurity,Reifer Cybersecurity-Wettbewerber,Mittel,Wachstumstempo
+PANW,TENB,Tenable,Vulnerability Management,Schwachstellenmanagement ergänzt Security-Plattformen,Mittel,Budgetzyklen
+ZS,MSFT,Microsoft,Enterprise / Cloud,Große Cloud- und Enterprise-Plattform erhöht Sicherheitsbedarf,Hoch,Plattformkonkurrenz
+ZS,AMZN,Amazon,Cloud / AWS,AWS-Workloads brauchen Sicherheitslösungen,Mittel,Cloud-Capex und Security-Budgets
+ZS,GOOGL,Alphabet,Cloud / Google Cloud,Google Cloud ist Teil des Security- und Cloud-Ökosystems,Mittel,Wettbewerb
+ZS,OKTA,Okta,Identity Security,Identitätsmanagement ist Kernbereich von Cybersecurity,Hoch,Sicherheitsvorfälle und Wettbewerb
+ZS,S,SentinelOne,Endpoint Security,Endpoint-Security-Anbieter im gleichen Marktumfeld,Mittel,Preisdruck
+ZS,FTNT,Fortinet,Netzwerksicherheit,Netzwerksicherheit und Firewall-Markt überschneiden sich,Hoch,Hardware-Zyklen
+ZS,CHKP,Check Point,Cybersecurity,Reifer Cybersecurity-Wettbewerber,Mittel,Wachstumstempo
+ZS,TENB,Tenable,Vulnerability Management,Schwachstellenmanagement ergänzt Security-Plattformen,Mittel,Budgetzyklen
+NET,MSFT,Microsoft,Enterprise / Cloud,Große Cloud- und Enterprise-Plattform erhöht Sicherheitsbedarf,Hoch,Plattformkonkurrenz
+NET,AMZN,Amazon,Cloud / AWS,AWS-Workloads brauchen Sicherheitslösungen,Mittel,Cloud-Capex und Security-Budgets
+NET,GOOGL,Alphabet,Cloud / Google Cloud,Google Cloud ist Teil des Security- und Cloud-Ökosystems,Mittel,Wettbewerb
+NET,OKTA,Okta,Identity Security,Identitätsmanagement ist Kernbereich von Cybersecurity,Hoch,Sicherheitsvorfälle und Wettbewerb
+NET,S,SentinelOne,Endpoint Security,Endpoint-Security-Anbieter im gleichen Marktumfeld,Mittel,Preisdruck
+NET,FTNT,Fortinet,Netzwerksicherheit,Netzwerksicherheit und Firewall-Markt überschneiden sich,Hoch,Hardware-Zyklen
+NET,CHKP,Check Point,Cybersecurity,Reifer Cybersecurity-Wettbewerber,Mittel,Wachstumstempo
+NET,TENB,Tenable,Vulnerability Management,Schwachstellenmanagement ergänzt Security-Plattformen,Mittel,Budgetzyklen
+RHM.DE,LMT,Lockheed Martin,Verteidigung,Großer westlicher Verteidigungswert im gleichen geopolitischen Themenfeld,Hoch,Politische Budgets und Auftragszyklen
+RHM.DE,RTX,RTX,Verteidigung / Luftfahrt,Verteidigungs- und Luftfahrtzulieferer mit Sicherheitsbezug,Hoch,Projekt- und Lieferkettenrisiken
+RHM.DE,NOC,Northrop Grumman,Verteidigung,Verteidigungswert mit Fokus auf Luftfahrt und Systeme,Hoch,Staatsbudgets
+"RHM.DE,GD,General Dynamics,Verteidigung,""Panzer-, Marine- und Verteidigungssysteme"",Mittel,Budgetzyklen"
+RHM.DE,BA.L,BAE Systems,Verteidigung Europa,Europäischer Verteidigungswert,Hoch,Politische Entscheidungen
+RHM.DE,HAG.DE,Hensoldt,Sensorik / Verteidigung,Sensorik und Elektronik für Verteidigung,Hoch,Projektabhängigkeit
+RHM.DE,HO.PA,Thales,Verteidigung / Elektronik,Verteidigungselektronik und Sicherheitstechnologie,Mittel,Staatsaufträge
+RHM.DE,KTOS,Kratos Defense,Drohnen / Defense Tech,Defense-Tech- und Drohnen-Thema,Mittel,Hohe Volatilität
+RHM.DE,PLTR,Palantir,Defense Software / Daten,Datenplattformen und Verteidigungssoftware,Mittel,Bewertung und Regierungsaufträge
+RHM.DE,CRWD,CrowdStrike,Cybersecurity,Geopolitischer Stress erhöht Cybersecurity-Relevanz,Mittel,Security-Budgetzyklen
+RHM.DE,PANW,Palo Alto Networks,Cybersecurity,Cybersecurity kann mit Verteidigungslage korrelieren,Mittel,Wettbewerb
+RHM.DE,XOM,Exxon Mobil,Energie / Geopolitik,Energiepreise reagieren auf geopolitische Spannungen,Mittel,Ölpreisabhängigkeit
+RHM.DE,GOLD,Barrick Gold,Gold / Sicherheit,Gold wird in Stressphasen oft beobachtet,Mittel,Goldpreis und Minenrisiken
+HAG.DE,LMT,Lockheed Martin,Verteidigung,Großer westlicher Verteidigungswert im gleichen geopolitischen Themenfeld,Hoch,Politische Budgets und Auftragszyklen
+HAG.DE,RTX,RTX,Verteidigung / Luftfahrt,Verteidigungs- und Luftfahrtzulieferer mit Sicherheitsbezug,Hoch,Projekt- und Lieferkettenrisiken
+HAG.DE,NOC,Northrop Grumman,Verteidigung,Verteidigungswert mit Fokus auf Luftfahrt und Systeme,Hoch,Staatsbudgets
+"HAG.DE,GD,General Dynamics,Verteidigung,""Panzer-, Marine- und Verteidigungssysteme"",Mittel,Budgetzyklen"
+HAG.DE,BA.L,BAE Systems,Verteidigung Europa,Europäischer Verteidigungswert,Hoch,Politische Entscheidungen
+HAG.DE,RHM.DE,Rheinmetall,Verteidigung Europa,Europäischer Verteidigungs- und Munitionswert,Hoch,Bewertung und Politik
+HAG.DE,HO.PA,Thales,Verteidigung / Elektronik,Verteidigungselektronik und Sicherheitstechnologie,Mittel,Staatsaufträge
+HAG.DE,KTOS,Kratos Defense,Drohnen / Defense Tech,Defense-Tech- und Drohnen-Thema,Mittel,Hohe Volatilität
+HAG.DE,PLTR,Palantir,Defense Software / Daten,Datenplattformen und Verteidigungssoftware,Mittel,Bewertung und Regierungsaufträge
+HAG.DE,CRWD,CrowdStrike,Cybersecurity,Geopolitischer Stress erhöht Cybersecurity-Relevanz,Mittel,Security-Budgetzyklen
+HAG.DE,PANW,Palo Alto Networks,Cybersecurity,Cybersecurity kann mit Verteidigungslage korrelieren,Mittel,Wettbewerb
+HAG.DE,XOM,Exxon Mobil,Energie / Geopolitik,Energiepreise reagieren auf geopolitische Spannungen,Mittel,Ölpreisabhängigkeit
+HAG.DE,GOLD,Barrick Gold,Gold / Sicherheit,Gold wird in Stressphasen oft beobachtet,Mittel,Goldpreis und Minenrisiken
+LMT,RTX,RTX,Verteidigung / Luftfahrt,Verteidigungs- und Luftfahrtzulieferer mit Sicherheitsbezug,Hoch,Projekt- und Lieferkettenrisiken
+LMT,NOC,Northrop Grumman,Verteidigung,Verteidigungswert mit Fokus auf Luftfahrt und Systeme,Hoch,Staatsbudgets
+"LMT,GD,General Dynamics,Verteidigung,""Panzer-, Marine- und Verteidigungssysteme"",Mittel,Budgetzyklen"
+LMT,BA.L,BAE Systems,Verteidigung Europa,Europäischer Verteidigungswert,Hoch,Politische Entscheidungen
+LMT,RHM.DE,Rheinmetall,Verteidigung Europa,Europäischer Verteidigungs- und Munitionswert,Hoch,Bewertung und Politik
+LMT,HAG.DE,Hensoldt,Sensorik / Verteidigung,Sensorik und Elektronik für Verteidigung,Hoch,Projektabhängigkeit
+LMT,HO.PA,Thales,Verteidigung / Elektronik,Verteidigungselektronik und Sicherheitstechnologie,Mittel,Staatsaufträge
+LMT,KTOS,Kratos Defense,Drohnen / Defense Tech,Defense-Tech- und Drohnen-Thema,Mittel,Hohe Volatilität
+LMT,PLTR,Palantir,Defense Software / Daten,Datenplattformen und Verteidigungssoftware,Mittel,Bewertung und Regierungsaufträge
+LMT,CRWD,CrowdStrike,Cybersecurity,Geopolitischer Stress erhöht Cybersecurity-Relevanz,Mittel,Security-Budgetzyklen
+LMT,PANW,Palo Alto Networks,Cybersecurity,Cybersecurity kann mit Verteidigungslage korrelieren,Mittel,Wettbewerb
+LMT,XOM,Exxon Mobil,Energie / Geopolitik,Energiepreise reagieren auf geopolitische Spannungen,Mittel,Ölpreisabhängigkeit
+LMT,GOLD,Barrick Gold,Gold / Sicherheit,Gold wird in Stressphasen oft beobachtet,Mittel,Goldpreis und Minenrisiken
+RTX,LMT,Lockheed Martin,Verteidigung,Großer westlicher Verteidigungswert im gleichen geopolitischen Themenfeld,Hoch,Politische Budgets und Auftragszyklen
+RTX,NOC,Northrop Grumman,Verteidigung,Verteidigungswert mit Fokus auf Luftfahrt und Systeme,Hoch,Staatsbudgets
+"RTX,GD,General Dynamics,Verteidigung,""Panzer-, Marine- und Verteidigungssysteme"",Mittel,Budgetzyklen"
+RTX,BA.L,BAE Systems,Verteidigung Europa,Europäischer Verteidigungswert,Hoch,Politische Entscheidungen
+RTX,RHM.DE,Rheinmetall,Verteidigung Europa,Europäischer Verteidigungs- und Munitionswert,Hoch,Bewertung und Politik
+RTX,HAG.DE,Hensoldt,Sensorik / Verteidigung,Sensorik und Elektronik für Verteidigung,Hoch,Projektabhängigkeit
+RTX,HO.PA,Thales,Verteidigung / Elektronik,Verteidigungselektronik und Sicherheitstechnologie,Mittel,Staatsaufträge
+RTX,KTOS,Kratos Defense,Drohnen / Defense Tech,Defense-Tech- und Drohnen-Thema,Mittel,Hohe Volatilität
+RTX,PLTR,Palantir,Defense Software / Daten,Datenplattformen und Verteidigungssoftware,Mittel,Bewertung und Regierungsaufträge
+RTX,CRWD,CrowdStrike,Cybersecurity,Geopolitischer Stress erhöht Cybersecurity-Relevanz,Mittel,Security-Budgetzyklen
+RTX,PANW,Palo Alto Networks,Cybersecurity,Cybersecurity kann mit Verteidigungslage korrelieren,Mittel,Wettbewerb
+RTX,XOM,Exxon Mobil,Energie / Geopolitik,Energiepreise reagieren auf geopolitische Spannungen,Mittel,Ölpreisabhängigkeit
+RTX,GOLD,Barrick Gold,Gold / Sicherheit,Gold wird in Stressphasen oft beobachtet,Mittel,Goldpreis und Minenrisiken
+NOC,LMT,Lockheed Martin,Verteidigung,Großer westlicher Verteidigungswert im gleichen geopolitischen Themenfeld,Hoch,Politische Budgets und Auftragszyklen
+NOC,RTX,RTX,Verteidigung / Luftfahrt,Verteidigungs- und Luftfahrtzulieferer mit Sicherheitsbezug,Hoch,Projekt- und Lieferkettenrisiken
+"NOC,GD,General Dynamics,Verteidigung,""Panzer-, Marine- und Verteidigungssysteme"",Mittel,Budgetzyklen"
+NOC,BA.L,BAE Systems,Verteidigung Europa,Europäischer Verteidigungswert,Hoch,Politische Entscheidungen
+NOC,RHM.DE,Rheinmetall,Verteidigung Europa,Europäischer Verteidigungs- und Munitionswert,Hoch,Bewertung und Politik
+NOC,HAG.DE,Hensoldt,Sensorik / Verteidigung,Sensorik und Elektronik für Verteidigung,Hoch,Projektabhängigkeit
+NOC,HO.PA,Thales,Verteidigung / Elektronik,Verteidigungselektronik und Sicherheitstechnologie,Mittel,Staatsaufträge
+NOC,KTOS,Kratos Defense,Drohnen / Defense Tech,Defense-Tech- und Drohnen-Thema,Mittel,Hohe Volatilität
+NOC,PLTR,Palantir,Defense Software / Daten,Datenplattformen und Verteidigungssoftware,Mittel,Bewertung und Regierungsaufträge
+NOC,CRWD,CrowdStrike,Cybersecurity,Geopolitischer Stress erhöht Cybersecurity-Relevanz,Mittel,Security-Budgetzyklen
+NOC,PANW,Palo Alto Networks,Cybersecurity,Cybersecurity kann mit Verteidigungslage korrelieren,Mittel,Wettbewerb
+NOC,XOM,Exxon Mobil,Energie / Geopolitik,Energiepreise reagieren auf geopolitische Spannungen,Mittel,Ölpreisabhängigkeit
+NOC,GOLD,Barrick Gold,Gold / Sicherheit,Gold wird in Stressphasen oft beobachtet,Mittel,Goldpreis und Minenrisiken
+VST,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+VST,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+VST,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+VST,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+VST,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+VST,CEG,Constellation Energy,Atomstrom,Stabile CO2-arme Stromversorgung wird für Datacenter wichtiger,Hoch,Regulatorik
+VST,GEV,GE Vernova,Netze / Energieausrüstung,Energieausrüstung und Netzstabilität werden wichtiger,Mittel,Projektmargen
+VST,ETN,Eaton,Elektrifizierung,Elektrische Infrastruktur für Rechenzentren,Hoch,Bewertung
+VST,VRT,Vertiv,Kühlung / Strom,Datacenter-Kühlung und Stromsysteme,Hoch,Zyklus
+VST,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+VST,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+VST,XOM,Exxon Mobil,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+VST,CVX,Chevron,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+CEG,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+CEG,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+CEG,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+CEG,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+CEG,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+CEG,VST,Vistra,Stromerzeugung,Stromerzeuger können vom höheren Strombedarf profitieren,Hoch,Strompreise
+CEG,GEV,GE Vernova,Netze / Energieausrüstung,Energieausrüstung und Netzstabilität werden wichtiger,Mittel,Projektmargen
+CEG,ETN,Eaton,Elektrifizierung,Elektrische Infrastruktur für Rechenzentren,Hoch,Bewertung
+CEG,VRT,Vertiv,Kühlung / Strom,Datacenter-Kühlung und Stromsysteme,Hoch,Zyklus
+CEG,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+CEG,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+CEG,XOM,Exxon Mobil,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+CEG,CVX,Chevron,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+GEV,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+GEV,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+GEV,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+GEV,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+GEV,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+GEV,CEG,Constellation Energy,Atomstrom,Stabile CO2-arme Stromversorgung wird für Datacenter wichtiger,Hoch,Regulatorik
+GEV,VST,Vistra,Stromerzeugung,Stromerzeuger können vom höheren Strombedarf profitieren,Hoch,Strompreise
+GEV,ETN,Eaton,Elektrifizierung,Elektrische Infrastruktur für Rechenzentren,Hoch,Bewertung
+GEV,VRT,Vertiv,Kühlung / Strom,Datacenter-Kühlung und Stromsysteme,Hoch,Zyklus
+GEV,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+GEV,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+GEV,XOM,Exxon Mobil,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+GEV,CVX,Chevron,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+ETN,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+ETN,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+ETN,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+ETN,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+ETN,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+ETN,CEG,Constellation Energy,Atomstrom,Stabile CO2-arme Stromversorgung wird für Datacenter wichtiger,Hoch,Regulatorik
+ETN,VST,Vistra,Stromerzeugung,Stromerzeuger können vom höheren Strombedarf profitieren,Hoch,Strompreise
+ETN,GEV,GE Vernova,Netze / Energieausrüstung,Energieausrüstung und Netzstabilität werden wichtiger,Mittel,Projektmargen
+ETN,VRT,Vertiv,Kühlung / Strom,Datacenter-Kühlung und Stromsysteme,Hoch,Zyklus
+ETN,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+ETN,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+ETN,XOM,Exxon Mobil,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+ETN,CVX,Chevron,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+VRT,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+VRT,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+VRT,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+VRT,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+VRT,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+VRT,CEG,Constellation Energy,Atomstrom,Stabile CO2-arme Stromversorgung wird für Datacenter wichtiger,Hoch,Regulatorik
+VRT,VST,Vistra,Stromerzeugung,Stromerzeuger können vom höheren Strombedarf profitieren,Hoch,Strompreise
+VRT,GEV,GE Vernova,Netze / Energieausrüstung,Energieausrüstung und Netzstabilität werden wichtiger,Mittel,Projektmargen
+VRT,ETN,Eaton,Elektrifizierung,Elektrische Infrastruktur für Rechenzentren,Hoch,Bewertung
+VRT,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+VRT,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+VRT,XOM,Exxon Mobil,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+VRT,CVX,Chevron,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+XOM,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+XOM,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+XOM,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+XOM,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+XOM,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+XOM,CEG,Constellation Energy,Atomstrom,Stabile CO2-arme Stromversorgung wird für Datacenter wichtiger,Hoch,Regulatorik
+XOM,VST,Vistra,Stromerzeugung,Stromerzeuger können vom höheren Strombedarf profitieren,Hoch,Strompreise
+XOM,GEV,GE Vernova,Netze / Energieausrüstung,Energieausrüstung und Netzstabilität werden wichtiger,Mittel,Projektmargen
+XOM,ETN,Eaton,Elektrifizierung,Elektrische Infrastruktur für Rechenzentren,Hoch,Bewertung
+XOM,VRT,Vertiv,Kühlung / Strom,Datacenter-Kühlung und Stromsysteme,Hoch,Zyklus
+XOM,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+XOM,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+XOM,CVX,Chevron,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+CVX,NVDA,NVIDIA,Datacenter-Nachfrage,KI-Rechenzentren treiben Strom- und Infrastrukturbedarf,Hoch,KI-Capex-Zyklus
+CVX,MSFT,Microsoft,Hyperscaler,Hyperscaler bauen Rechenzentren und brauchen Strom,Hoch,Capex und Regulierung
+CVX,AMZN,Amazon,Hyperscaler,AWS-Rechenzentren beeinflussen Strom- und Infrastrukturbedarf,Hoch,Cloud-Zyklen
+CVX,GOOGL,Alphabet,Hyperscaler,Google-Rechenzentren sind großer Infrastrukturtreiber,Hoch,Stromverträge und Regulierung
+CVX,META,Meta Platforms,Hyperscaler,Meta investiert stark in Rechenzentren,Hoch,Capex-Risiko
+CVX,CEG,Constellation Energy,Atomstrom,Stabile CO2-arme Stromversorgung wird für Datacenter wichtiger,Hoch,Regulatorik
+CVX,VST,Vistra,Stromerzeugung,Stromerzeuger können vom höheren Strombedarf profitieren,Hoch,Strompreise
+CVX,GEV,GE Vernova,Netze / Energieausrüstung,Energieausrüstung und Netzstabilität werden wichtiger,Mittel,Projektmargen
+CVX,ETN,Eaton,Elektrifizierung,Elektrische Infrastruktur für Rechenzentren,Hoch,Bewertung
+CVX,VRT,Vertiv,Kühlung / Strom,Datacenter-Kühlung und Stromsysteme,Hoch,Zyklus
+CVX,CCJ,Cameco,Uran,Atomstromthema hängt an Uranlieferketten,Mittel,Uranpreis
+CVX,NEE,NextEra Energy,Erneuerbare Energie,Erneuerbare Energie und Stromverträge für Rechenzentren,Mittel,Zinsen
+CVX,XOM,Exxon Mobil,Öl & Gas,Energiepreise und Versorgungssicherheit,Mittel,Ölpreis
+PLTR,MSFT,Microsoft,Cloud / Partnerschaftsumfeld,Enterprise- und Government-Cloud ist wichtig für Datenplattformen,Mittel,Plattformabhängigkeit
+PLTR,AMZN,Amazon,Cloud / Government,AWS ist wichtiges Cloud-Ökosystem für Government und Datenplattformen,Mittel,Cloud-Abhängigkeit
+PLTR,GOOGL,Alphabet,Cloud / KI,Google Cloud ist Wettbewerbs- und Partnerumfeld,Mittel,Wettbewerb
+PLTR,LMT,Lockheed Martin,Verteidigung,Verteidigungsdaten und Software sind thematisch verwandt,Mittel,Regierungsbudgets
+PLTR,RHM.DE,Rheinmetall,Defense / Europa,Verteidigungsausgaben können Daten- und Softwarebedarf erhöhen,Niedrig,Indirekter Zusammenhang
+PLTR,CRWD,CrowdStrike,Cybersecurity,Daten- und Sicherheitsplattformen überschneiden sich bei Risikoanalyse,Mittel,Bewertung
+PLTR,SNOW,Snowflake,Datenplattform,Datenplattformen konkurrieren und ergänzen sich im Enterprise-Datenmarkt,Mittel,Wachstum und Bewertung
+PLTR,DDOG,Datadog,Observability,Daten- und Monitoringplattformen im Cloud-Umfeld,Mittel,Software-Budgetzyklen
+PLTR,AI,C3.ai,Enterprise AI,Enterprise-AI-Anbieter im gleichen Themenfeld,Mittel,Volatilität
+AVGO,NVDA,NVIDIA,KI / Datacenter,NVIDIA ist Leitwert für KI-Infrastruktur,Hoch,KI-Capex-Zyklus
+AVGO,AMD,AMD,KI / Chips,AMD ist KI- und Serverchip-Alternative,Mittel,Adoption
+AVGO,TSM,TSMC,Chipfertigung,Fertigungskapazität ist Schlüsselfaktor im Chipsektor,Hoch,Taiwan-Risiko
+AVGO,ASML,ASML,Chipausrüstung,Modernste Chips hängen an Lithografie und Capex,Mittel,Zyklen
+AVGO,MSFT,Microsoft,Cloud / Nachfrage,Cloudanbieter treiben KI-Infrastrukturbedarf,Hoch,Capex-Zyklen
+AVGO,AMZN,Amazon,Cloud / Nachfrage,AWS ist großer Infrastrukturtreiber,Hoch,Eigene Chips
+AVGO,GOOGL,Alphabet,Cloud / Nachfrage,Google treibt KI- und Datacenter-Nachfrage,Hoch,Eigene TPU-Chips
+AVGO,VRT,Vertiv,Datacenter-Infrastruktur,Kühlung und Strom sind wichtig für Serverausbau,Mittel,Bewertung
+AVGO,ANET,Arista Networks,Netzwerk,Netzwerktechnik skaliert mit Datacenter-Ausbau,Mittel,Hyperscaler-Nachfrage
+MU,NVDA,NVIDIA,KI / Datacenter,NVIDIA ist Leitwert für KI-Infrastruktur,Hoch,KI-Capex-Zyklus
+MU,AMD,AMD,KI / Chips,AMD ist KI- und Serverchip-Alternative,Mittel,Adoption
+MU,TSM,TSMC,Chipfertigung,Fertigungskapazität ist Schlüsselfaktor im Chipsektor,Hoch,Taiwan-Risiko
+MU,ASML,ASML,Chipausrüstung,Modernste Chips hängen an Lithografie und Capex,Mittel,Zyklen
+MU,MSFT,Microsoft,Cloud / Nachfrage,Cloudanbieter treiben KI-Infrastrukturbedarf,Hoch,Capex-Zyklen
+MU,AMZN,Amazon,Cloud / Nachfrage,AWS ist großer Infrastrukturtreiber,Hoch,Eigene Chips
+MU,GOOGL,Alphabet,Cloud / Nachfrage,Google treibt KI- und Datacenter-Nachfrage,Hoch,Eigene TPU-Chips
+MU,VRT,Vertiv,Datacenter-Infrastruktur,Kühlung und Strom sind wichtig für Serverausbau,Mittel,Bewertung
+MU,ANET,Arista Networks,Netzwerk,Netzwerktechnik skaliert mit Datacenter-Ausbau,Mittel,Hyperscaler-Nachfrage
+SMCI,NVDA,NVIDIA,KI / Datacenter,NVIDIA ist Leitwert für KI-Infrastruktur,Hoch,KI-Capex-Zyklus
+SMCI,AMD,AMD,KI / Chips,AMD ist KI- und Serverchip-Alternative,Mittel,Adoption
+SMCI,TSM,TSMC,Chipfertigung,Fertigungskapazität ist Schlüsselfaktor im Chipsektor,Hoch,Taiwan-Risiko
+SMCI,ASML,ASML,Chipausrüstung,Modernste Chips hängen an Lithografie und Capex,Mittel,Zyklen
+SMCI,MSFT,Microsoft,Cloud / Nachfrage,Cloudanbieter treiben KI-Infrastrukturbedarf,Hoch,Capex-Zyklen
+SMCI,AMZN,Amazon,Cloud / Nachfrage,AWS ist großer Infrastrukturtreiber,Hoch,Eigene Chips
+SMCI,GOOGL,Alphabet,Cloud / Nachfrage,Google treibt KI- und Datacenter-Nachfrage,Hoch,Eigene TPU-Chips
+SMCI,VRT,Vertiv,Datacenter-Infrastruktur,Kühlung und Strom sind wichtig für Serverausbau,Mittel,Bewertung
+SMCI,ANET,Arista Networks,Netzwerk,Netzwerktechnik skaliert mit Datacenter-Ausbau,Mittel,Hyperscaler-Nachfrage

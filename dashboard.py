@@ -1160,144 +1160,145 @@ with st.expander("📖 Dashboard Legende"):
 # 🍕 PIZZINT / GEOPOLITISCHER STRESS-INDIKATOR
 # ============================================================
 
-st.divider()
+with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
+    st.divider()
 
-st.subheader("🍕 PizzINT / Geopolitischer Stress-Indikator")
+    st.subheader("🍕 PizzINT / Geopolitischer Stress-Indikator")
 
-st.caption(
-    "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
-    "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
-)
-
-# Manuelle Einschätzung, kann später automatisiert werden.
-doughcon_level = st.selectbox(
-    "DOUGHCON-Level einschätzen",
-    options=[
-        "1 - Ruhig",
-        "2 - Beobachten",
-        "3 - Erhöhte Aufmerksamkeit",
-        "4 - Hoher Stress",
-        "5 - Krisenmodus"
-    ],
-    index=2
-)
-
-if doughcon_level.startswith("1"):
-    stress_label = "🟢 Niedrig"
-    market_view = (
-        "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
-        "Bewertungen und Trendstruktur."
+    st.caption(
+        "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
+        "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
     )
-    focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
-elif doughcon_level.startswith("2"):
-    stress_label = "🟡 Leicht erhöht"
-    market_view = (
-        "Etwas mehr Vorsicht. Watchlist enger beobachten, "
-        "aber keine Paniksignale."
+
+    # Manuelle Einschätzung, kann später automatisiert werden.
+    doughcon_level = st.selectbox(
+        "DOUGHCON-Level einschätzen",
+        options=[
+            "1 - Ruhig",
+            "2 - Beobachten",
+            "3 - Erhöhte Aufmerksamkeit",
+            "4 - Hoher Stress",
+            "5 - Krisenmodus"
+        ],
+        index=2
     )
-    focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
-elif doughcon_level.startswith("3"):
-    stress_label = "🟠 Erhöht"
-    market_view = (
-        "Geopolitische Risiken könnten stärker eingepreist werden. "
-        "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
+
+    if doughcon_level.startswith("1"):
+        stress_label = "🟢 Niedrig"
+        market_view = (
+            "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
+            "Bewertungen und Trendstruktur."
+        )
+        focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
+    elif doughcon_level.startswith("2"):
+        stress_label = "🟡 Leicht erhöht"
+        market_view = (
+            "Etwas mehr Vorsicht. Watchlist enger beobachten, "
+            "aber keine Paniksignale."
+        )
+        focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
+    elif doughcon_level.startswith("3"):
+        stress_label = "🟠 Erhöht"
+        market_view = (
+            "Geopolitische Risiken könnten stärker eingepreist werden. "
+            "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
+        )
+        focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
+    elif doughcon_level.startswith("4"):
+        stress_label = "🔴 Hoch"
+        market_view = (
+            "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
+            "volatile Titel reduzieren."
+        )
+        focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
+    else:
+        stress_label = "🚨 Extrem"
+        market_view = (
+            "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
+            "Marktreaktionen abwarten."
+        )
+        focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
+
+    col_geo1, col_geo2, col_geo3 = st.columns(3)
+
+    with col_geo1:
+        st.metric("Geopolitischer Stress", stress_label)
+
+    with col_geo2:
+        st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
+
+    with col_geo3:
+        st.metric("Marktmodus", "Risk Check")
+
+    st.info(market_view)
+    st.caption(f"Aktuell besonders beobachten: {focus_assets}")
+
+    geo_focus_df = pd.DataFrame([
+        {
+            "Bereich": "Energie",
+            "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
+            "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
+        },
+        {
+            "Bereich": "Rüstung / Verteidigung",
+            "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
+            "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
+        },
+        {
+            "Bereich": "Cybersecurity",
+            "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
+            "Beispiele": "CRWD, PANW, FTNT, ZS"
+        },
+        {
+            "Bereich": "Gold / Sicherheit",
+            "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
+            "Beispiele": "GOLD, NEM, AEM, GLD"
+        },
+        {
+            "Bereich": "High-Risk / Turnaround",
+            "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
+            "Beispiele": "enger prüfen, Positionsgröße reduzieren"
+        }
+    ])
+
+    st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
+
+    st.dataframe(
+        geo_focus_df,
+        width="stretch",
+        hide_index=True
     )
-    focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
-elif doughcon_level.startswith("4"):
-    stress_label = "🔴 Hoch"
-    market_view = (
-        "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
-        "volatile Titel reduzieren."
+
+    st.markdown("### 🍕 PizzINT Watch")
+
+    pizza_watch_df = pd.DataFrame([
+        {
+            "Signal": "Pizza-Aktivität",
+            "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
+            "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
+        },
+        {
+            "Signal": "DOUGHCON steigt",
+            "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
+            "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
+        },
+        {
+            "Signal": "DOUGHCON fällt",
+            "Interpretation": "Lage wirkt entspannter.",
+            "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
+        }
+    ])
+
+    st.dataframe(
+        pizza_watch_df,
+        width="stretch",
+        hide_index=True
     )
-    focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
-else:
-    stress_label = "🚨 Extrem"
-    market_view = (
-        "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
-        "Marktreaktionen abwarten."
+
+    st.link_button(
+        "🍕 PizzINT extern öffnen",
+        "https://www.pizzint.watch/"
     )
-    focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
-
-col_geo1, col_geo2, col_geo3 = st.columns(3)
-
-with col_geo1:
-    st.metric("Geopolitischer Stress", stress_label)
-
-with col_geo2:
-    st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
-
-with col_geo3:
-    st.metric("Marktmodus", "Risk Check")
-
-st.info(market_view)
-st.caption(f"Aktuell besonders beobachten: {focus_assets}")
-
-geo_focus_df = pd.DataFrame([
-    {
-        "Bereich": "Energie",
-        "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
-        "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
-    },
-    {
-        "Bereich": "Rüstung / Verteidigung",
-        "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
-        "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
-    },
-    {
-        "Bereich": "Cybersecurity",
-        "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
-        "Beispiele": "CRWD, PANW, FTNT, ZS"
-    },
-    {
-        "Bereich": "Gold / Sicherheit",
-        "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
-        "Beispiele": "GOLD, NEM, AEM, GLD"
-    },
-    {
-        "Bereich": "High-Risk / Turnaround",
-        "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
-        "Beispiele": "enger prüfen, Positionsgröße reduzieren"
-    }
-])
-
-st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
-
-st.dataframe(
-    geo_focus_df,
-    width="stretch",
-    hide_index=True
-)
-
-st.markdown("### 🍕 PizzINT Watch")
-
-pizza_watch_df = pd.DataFrame([
-    {
-        "Signal": "Pizza-Aktivität",
-        "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
-        "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
-    },
-    {
-        "Signal": "DOUGHCON steigt",
-        "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
-        "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
-    },
-    {
-        "Signal": "DOUGHCON fällt",
-        "Interpretation": "Lage wirkt entspannter.",
-        "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
-    }
-])
-
-st.dataframe(
-    pizza_watch_df,
-    width="stretch",
-    hide_index=True
-)
-
-st.link_button(
-    "🍕 PizzINT extern öffnen",
-    "https://www.pizzint.watch/"
-)
 
 
 
@@ -1305,283 +1306,284 @@ st.link_button(
 # 🕸️ AKTIEN-NETZWERK / THEMEN-MAPPING
 # ============================================================
 
-st.divider()
+with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
+    st.divider()
 
-st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
+    st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
 
-st.caption(
-    "Bloomberg-Terminal-light: Wähle eine Hauptaktie aus und sieh, "
-    "welche Unternehmen, Sektoren und Risiken damit verbunden sind."
-)
-
-RELATIONSHIPS_FILE = "stock_relationships.csv"
-
-if not os.path.exists(RELATIONSHIPS_FILE):
-
-    st.warning(
-        "Die Datei stock_relationships.csv wurde nicht gefunden. "
-        "Bitte lege sie in den gleichen Ordner wie dashboard.py."
+    st.caption(
+        "Bloomberg-Terminal-light: Wähle eine Hauptaktie aus und sieh, "
+        "welche Unternehmen, Sektoren und Risiken damit verbunden sind."
     )
 
-else:
+    RELATIONSHIPS_FILE = "stock_relationships.csv"
 
-    try:
-        relationships_df = pd.read_csv(
-            RELATIONSHIPS_FILE,
-            encoding="utf-8",
-            sep=None,
-            engine="python"
-        )
-    except UnicodeDecodeError:
-        try:
-            relationships_df = pd.read_csv(
-                RELATIONSHIPS_FILE,
-                encoding="latin1",
-                sep=None,
-                engine="python"
-            )
-        except Exception as error:
-            st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
-            relationships_df = pd.DataFrame()
-    except Exception as error:
-        st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
-        relationships_df = pd.DataFrame()
+    if not os.path.exists(RELATIONSHIPS_FILE):
 
-    needed_relationship_columns = [
-        "source_ticker",
-        "target_ticker",
-        "target_name",
-        "category",
-        "relationship",
-        "importance",
-        "risk_note"
-    ]
-
-    missing_relationship_columns = [
-        column for column in needed_relationship_columns
-        if column not in relationships_df.columns
-    ]
-
-    if relationships_df.empty:
-
-        st.info("Die Datei stock_relationships.csv ist noch leer.")
-
-    elif missing_relationship_columns:
-
-        st.error(
-            "In stock_relationships.csv fehlen diese Spalten: "
-            + ", ".join(missing_relationship_columns)
+        st.warning(
+            "Die Datei stock_relationships.csv wurde nicht gefunden. "
+            "Bitte lege sie in den gleichen Ordner wie dashboard.py."
         )
 
     else:
 
-        relationships_df = relationships_df.copy()
-
-        relationships_df["source_ticker"] = (
-            relationships_df["source_ticker"]
-            .astype(str)
-            .str.strip()
-        )
-
-        relationships_df["target_ticker"] = (
-            relationships_df["target_ticker"]
-            .astype(str)
-            .str.strip()
-        )
-
-        relationships_df["category"] = (
-            relationships_df["category"]
-            .astype(str)
-            .str.strip()
-        )
-
-        available_network_tickers = sorted(
-            relationships_df["source_ticker"]
-            .dropna()
-            .unique()
-            .tolist()
-        )
-
-        selected_network_ticker = st.selectbox(
-            "Aktie für Netzwerk auswählen",
-            options=available_network_tickers,
-            index=0,
-            key="network_selected_ticker"
-        )
-
-        selected_relationships = relationships_df[
-            relationships_df["source_ticker"] == selected_network_ticker
-        ].copy()
-
-        col_net_1, col_net_2, col_net_3 = st.columns(3)
-
-        with col_net_1:
-            st.metric(
-                "Verbindungen",
-                len(selected_relationships)
+        try:
+            relationships_df = pd.read_csv(
+                RELATIONSHIPS_FILE,
+                encoding="utf-8",
+                sep=None,
+                engine="python"
             )
+        except UnicodeDecodeError:
+            try:
+                relationships_df = pd.read_csv(
+                    RELATIONSHIPS_FILE,
+                    encoding="latin1",
+                    sep=None,
+                    engine="python"
+                )
+            except Exception as error:
+                st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
+                relationships_df = pd.DataFrame()
+        except Exception as error:
+            st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
+            relationships_df = pd.DataFrame()
 
-        with col_net_2:
-            st.metric(
-                "Kategorien",
-                selected_relationships["category"].nunique()
-                if not selected_relationships.empty else 0
+        needed_relationship_columns = [
+            "source_ticker",
+            "target_ticker",
+            "target_name",
+            "category",
+            "relationship",
+            "importance",
+            "risk_note"
+        ]
+
+        missing_relationship_columns = [
+            column for column in needed_relationship_columns
+            if column not in relationships_df.columns
+        ]
+
+        if relationships_df.empty:
+
+            st.info("Die Datei stock_relationships.csv ist noch leer.")
+
+        elif missing_relationship_columns:
+
+            st.error(
+                "In stock_relationships.csv fehlen diese Spalten: "
+                + ", ".join(missing_relationship_columns)
             )
-
-        with col_net_3:
-            high_count = (
-                selected_relationships["importance"]
-                .astype(str)
-                .str.lower()
-                .isin(["hoch", "high"])
-                .sum()
-                if not selected_relationships.empty else 0
-            )
-            st.metric(
-                "Hohe Relevanz",
-                int(high_count)
-            )
-
-        if selected_relationships.empty:
-
-            st.info("Für diese Aktie sind noch keine Beziehungen hinterlegt.")
 
         else:
 
-            category_options = ["Alle"] + sorted(
-                selected_relationships["category"]
-                .dropna()
+            relationships_df = relationships_df.copy()
+
+            relationships_df["source_ticker"] = (
+                relationships_df["source_ticker"]
                 .astype(str)
+                .str.strip()
+            )
+
+            relationships_df["target_ticker"] = (
+                relationships_df["target_ticker"]
+                .astype(str)
+                .str.strip()
+            )
+
+            relationships_df["category"] = (
+                relationships_df["category"]
+                .astype(str)
+                .str.strip()
+            )
+
+            available_network_tickers = sorted(
+                relationships_df["source_ticker"]
+                .dropna()
                 .unique()
                 .tolist()
             )
 
-            selected_network_category = st.selectbox(
-                "Kategorie filtern",
-                options=category_options,
+            selected_network_ticker = st.selectbox(
+                "Aktie für Netzwerk auswählen",
+                options=available_network_tickers,
                 index=0,
-                key="network_selected_category"
+                key="network_selected_ticker"
             )
 
-            if selected_network_category != "Alle":
-                selected_relationships = selected_relationships[
-                    selected_relationships["category"] == selected_network_category
+            selected_relationships = relationships_df[
+                relationships_df["source_ticker"] == selected_network_ticker
+            ].copy()
+
+            col_net_1, col_net_2, col_net_3 = st.columns(3)
+
+            with col_net_1:
+                st.metric(
+                    "Verbindungen",
+                    len(selected_relationships)
+                )
+
+            with col_net_2:
+                st.metric(
+                    "Kategorien",
+                    selected_relationships["category"].nunique()
+                    if not selected_relationships.empty else 0
+                )
+
+            with col_net_3:
+                high_count = (
+                    selected_relationships["importance"]
+                    .astype(str)
+                    .str.lower()
+                    .isin(["hoch", "high"])
+                    .sum()
+                    if not selected_relationships.empty else 0
+                )
+                st.metric(
+                    "Hohe Relevanz",
+                    int(high_count)
+                )
+
+            if selected_relationships.empty:
+
+                st.info("Für diese Aktie sind noch keine Beziehungen hinterlegt.")
+
+            else:
+
+                category_options = ["Alle"] + sorted(
+                    selected_relationships["category"]
+                    .dropna()
+                    .astype(str)
+                    .unique()
+                    .tolist()
+                )
+
+                selected_network_category = st.selectbox(
+                    "Kategorie filtern",
+                    options=category_options,
+                    index=0,
+                    key="network_selected_category"
+                )
+
+                if selected_network_category != "Alle":
+                    selected_relationships = selected_relationships[
+                        selected_relationships["category"] == selected_network_category
+                    ]
+
+                # Falls verbundene Aktien auch in deinem Haupt-Dashboard vorhanden sind,
+                # holen wir deren aktuelle Signale dazu.
+                dashboard_signal_columns = [
+                    "Ticker",
+                    "Company",
+                    "Action Signal",
+                    "Rating",
+                    "Score",
+                    "Risk Level",
+                    "Price",
+                    "CRV"
                 ]
 
-            # Falls verbundene Aktien auch in deinem Haupt-Dashboard vorhanden sind,
-            # holen wir deren aktuelle Signale dazu.
-            dashboard_signal_columns = [
-                "Ticker",
-                "Company",
-                "Action Signal",
-                "Rating",
-                "Score",
-                "Risk Level",
-                "Price",
-                "CRV"
-            ]
+                available_signal_columns = [
+                    column for column in dashboard_signal_columns
+                    if column in df.columns
+                ]
 
-            available_signal_columns = [
-                column for column in dashboard_signal_columns
-                if column in df.columns
-            ]
+                signal_df = df[available_signal_columns].copy()
+                signal_df["Ticker"] = signal_df["Ticker"].astype(str).str.strip()
 
-            signal_df = df[available_signal_columns].copy()
-            signal_df["Ticker"] = signal_df["Ticker"].astype(str).str.strip()
-
-            network_view = selected_relationships.merge(
-                signal_df,
-                left_on="target_ticker",
-                right_on="Ticker",
-                how="left"
-            )
-
-            network_view["Ticker"] = network_view["target_ticker"]
-
-            if "Company" in network_view.columns:
-                network_view["Company"] = network_view["Company"].fillna(
-                    network_view["target_name"]
+                network_view = selected_relationships.merge(
+                    signal_df,
+                    left_on="target_ticker",
+                    right_on="Ticker",
+                    how="left"
                 )
-            else:
-                network_view["Company"] = network_view["target_name"]
 
-            # Wichtigkeit sortierbar machen
-            importance_order = {
-                "hoch": 1,
-                "high": 1,
-                "mittel": 2,
-                "medium": 2,
-                "niedrig": 3,
-                "low": 3
-            }
+                network_view["Ticker"] = network_view["target_ticker"]
 
-            network_view["Importance Sort"] = (
-                network_view["importance"]
-                .astype(str)
-                .str.lower()
-                .map(importance_order)
-                .fillna(9)
-            )
+                if "Company" in network_view.columns:
+                    network_view["Company"] = network_view["Company"].fillna(
+                        network_view["target_name"]
+                    )
+                else:
+                    network_view["Company"] = network_view["target_name"]
 
-            network_view = network_view.sort_values(
-                by=["category", "Importance Sort", "Ticker"],
-                ascending=True
-            )
+                # Wichtigkeit sortierbar machen
+                importance_order = {
+                    "hoch": 1,
+                    "high": 1,
+                    "mittel": 2,
+                    "medium": 2,
+                    "niedrig": 3,
+                    "low": 3
+                }
 
-            display_columns = [
-                "category",
-                "Ticker",
-                "Company",
-                "importance",
-                "relationship",
-                "risk_note",
-                "Action Signal",
-                "Rating",
-                "Score",
-                "Risk Level",
-                "Price",
-                "CRV"
-            ]
+                network_view["Importance Sort"] = (
+                    network_view["importance"]
+                    .astype(str)
+                    .str.lower()
+                    .map(importance_order)
+                    .fillna(9)
+                )
 
-            display_columns = [
-                column for column in display_columns
-                if column in network_view.columns
-            ]
+                network_view = network_view.sort_values(
+                    by=["category", "Importance Sort", "Ticker"],
+                    ascending=True
+                )
 
-            network_view = network_view[display_columns].rename(columns={
-                "category": "Kategorie",
-                "importance": "Wichtigkeit",
-                "relationship": "Verbindung",
-                "risk_note": "Risiko-Hinweis"
-            })
+                display_columns = [
+                    "category",
+                    "Ticker",
+                    "Company",
+                    "importance",
+                    "relationship",
+                    "risk_note",
+                    "Action Signal",
+                    "Rating",
+                    "Score",
+                    "Risk Level",
+                    "Price",
+                    "CRV"
+                ]
 
-            st.dataframe(
-                network_view,
-                width="stretch",
-                hide_index=True
-            )
+                display_columns = [
+                    column for column in display_columns
+                    if column in network_view.columns
+                ]
 
-            with st.expander("🧩 Netzwerk als Gruppenansicht anzeigen"):
+                network_view = network_view[display_columns].rename(columns={
+                    "category": "Kategorie",
+                    "importance": "Wichtigkeit",
+                    "relationship": "Verbindung",
+                    "risk_note": "Risiko-Hinweis"
+                })
 
-                grouped_categories = selected_relationships.groupby("category")
+                st.dataframe(
+                    network_view,
+                    width="stretch",
+                    hide_index=True
+                )
 
-                for category, group in grouped_categories:
-                    st.markdown(f"### {category}")
+                with st.expander("🧩 Netzwerk als Gruppenansicht anzeigen"):
 
-                    for _, rel_row in group.iterrows():
-                        ticker = rel_row.get("target_ticker", "")
-                        name = rel_row.get("target_name", "")
-                        importance = rel_row.get("importance", "")
-                        relationship = rel_row.get("relationship", "")
-                        risk_note = rel_row.get("risk_note", "")
+                    grouped_categories = selected_relationships.groupby("category")
 
-                        st.markdown(
-                            f"**{ticker} - {name}**  \n"
-                            f"Wichtigkeit: **{importance}**  \n"
-                            f"Verbindung: {relationship}  \n"
-                            f"Risiko: {risk_note}"
-                        )
-                        st.divider()
+                    for category, group in grouped_categories:
+                        st.markdown(f"### {category}")
+
+                        for _, rel_row in group.iterrows():
+                            ticker = rel_row.get("target_ticker", "")
+                            name = rel_row.get("target_name", "")
+                            importance = rel_row.get("importance", "")
+                            relationship = rel_row.get("relationship", "")
+                            risk_note = rel_row.get("risk_note", "")
+
+                            st.markdown(
+                                f"**{ticker} - {name}**  \n"
+                                f"Wichtigkeit: **{importance}**  \n"
+                                f"Verbindung: {relationship}  \n"
+                                f"Risiko: {risk_note}"
+                            )
+                            st.divider()
 
 # ============================================================
 # SIDEBAR FILTER
@@ -1926,270 +1928,273 @@ def get_risk_light(risk):
 # DIVIDENDENKALENDER
 # ============================================================
 
-st.divider()
+with st.expander("📅 Dividendenkalender", expanded=True):
+    st.divider()
 
-st.subheader("📅 Dividendenkalender")
+    st.subheader("📅 Dividendenkalender")
 
-dividend_calendar = df_filtered[
-    (df_filtered["Ex Dividend Parsed"].notna())
-    &
-    (df_filtered["Dividend Year"] >= 2026)
-]
-
-if selected_year != "Alle":
-
-    dividend_calendar = dividend_calendar[
-        dividend_calendar["Dividend Year"] == selected_year
+    dividend_calendar = df_filtered[
+        (df_filtered["Ex Dividend Parsed"].notna())
+        &
+        (df_filtered["Dividend Year"] >= 2026)
     ]
 
-if selected_month is not None:
+    if selected_year != "Alle":
 
-    dividend_calendar = dividend_calendar[
-        dividend_calendar["Dividend Month"] == selected_month
+        dividend_calendar = dividend_calendar[
+            dividend_calendar["Dividend Year"] == selected_year
+        ]
+
+    if selected_month is not None:
+
+        dividend_calendar = dividend_calendar[
+            dividend_calendar["Dividend Month"] == selected_month
+        ]
+
+    dividend_calendar = dividend_calendar.sort_values(
+        by="Ex Dividend Parsed",
+        ascending=True
+    )[
+        [
+            "Ticker",
+            "Company",
+            "Dividend Yield %",
+            "Dividend Rate",
+            "Ex Dividend Date",
+            "Price",
+            "Rating",
+            "Score",
+            "Fundamental Score",
+            "Fundamental Rating",
+            "Action Signal",
+            "Strategy Mode",
+            "CRV",
+            "Target Basis"
+        ]
     ]
 
-dividend_calendar = dividend_calendar.sort_values(
-    by="Ex Dividend Parsed",
-    ascending=True
-)[
-    [
-        "Ticker",
-        "Company",
-        "Dividend Yield %",
-        "Dividend Rate",
-        "Ex Dividend Date",
-        "Price",
-        "Rating",
-        "Score",
-        "Fundamental Score",
-        "Fundamental Rating",
-        "Action Signal",
-        "Strategy Mode",
-        "CRV",
-        "Target Basis"
-    ]
-]
-
-st.dataframe(
-    dividend_calendar,
-    width="stretch"
-)
+    st.dataframe(
+        dividend_calendar,
+        width="stretch"
+    )
 
 
 # ============================================================
 # TABELLE
 # ============================================================
 
-st.divider()
+with st.expander("📋 Gesamttabelle", expanded=False):
+    st.divider()
 
-st.subheader("📋 Gesamttabelle")
+    st.subheader("📋 Gesamttabelle")
 
-# Action Signal bewusst direkt nach Ticker und Company anzeigen,
-# damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
-priority_columns = [
-    "Ticker",
-    "Company",
-    "Action Signal",
-    "Strategy Mode"
-]
+    # Action Signal bewusst direkt nach Ticker und Company anzeigen,
+    # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
+    priority_columns = [
+        "Ticker",
+        "Company",
+        "Action Signal",
+        "Strategy Mode"
+    ]
 
-remaining_columns = [
-    column for column in df_filtered.columns
-    if column not in priority_columns
-]
+    remaining_columns = [
+        column for column in df_filtered.columns
+        if column not in priority_columns
+    ]
 
-table_columns = [
-    column for column in priority_columns
-    if column in df_filtered.columns
-] + remaining_columns
+    table_columns = [
+        column for column in priority_columns
+        if column in df_filtered.columns
+    ] + remaining_columns
 
-st.dataframe(
-    df_filtered[table_columns],
-    width="stretch"
-)
+    st.dataframe(
+        df_filtered[table_columns],
+        width="stretch"
+    )
 
 
 # ============================================================
 # ⭐ PERSÖNLICHE WATCHLIST & KAUFLIST
 # ============================================================
 
-st.divider()
+with st.expander("⭐ Persönliche Watchlist & Kaufliste", expanded=True):
+    st.divider()
 
-st.subheader("⭐ Persönliche Aktienlisten")
+    st.subheader("⭐ Persönliche Aktienlisten")
 
-current_user = st.session_state.get("current_user", "").strip()
+    current_user = st.session_state.get("current_user", "").strip()
 
-stock_options_df = df.dropna(subset=["Ticker"]).copy()
-stock_options_df["Ticker"] = stock_options_df["Ticker"].astype(str).str.strip()
-stock_options_df["Company"] = stock_options_df["Company"].astype(str).str.strip()
+    stock_options_df = df.dropna(subset=["Ticker"]).copy()
+    stock_options_df["Ticker"] = stock_options_df["Ticker"].astype(str).str.strip()
+    stock_options_df["Company"] = stock_options_df["Company"].astype(str).str.strip()
 
-# Doppelte Ticker vermeiden, damit die Auswahl stabil bleibt
-stock_options_df = stock_options_df.drop_duplicates(subset=["Ticker"])
+    # Doppelte Ticker vermeiden, damit die Auswahl stabil bleibt
+    stock_options_df = stock_options_df.drop_duplicates(subset=["Ticker"])
 
-stock_options_df["display"] = (
-    stock_options_df["Ticker"] + " - " + stock_options_df["Company"]
-)
-
-stock_options_df = stock_options_df.sort_values(by="display")
-
-ticker_to_display = dict(
-    zip(stock_options_df["Ticker"], stock_options_df["display"])
-)
-
-display_to_ticker = dict(
-    zip(stock_options_df["display"], stock_options_df["Ticker"])
-)
-
-all_displays = stock_options_df["display"].tolist()
-
-saved_watchlist_tickers = get_saved_tickers(
-    current_user,
-    "watchlist"
-)
-
-saved_buy_tickers = get_saved_tickers(
-    current_user,
-    "buy"
-)
-
-saved_watchlist_displays = [
-    ticker_to_display[ticker]
-    for ticker in saved_watchlist_tickers
-    if ticker in ticker_to_display
-]
-
-saved_buy_displays = [
-    ticker_to_display[ticker]
-    for ticker in saved_buy_tickers
-    if ticker in ticker_to_display
-]
-
-col_watchlist, col_buylist = st.columns(2)
-
-with col_watchlist:
-
-    st.markdown("### ⭐ Watchlist-Aktien")
-
-    selected_watchlist_displays = st.multiselect(
-        "Aktien auswählen, die auf deiner Watchlist bleiben sollen",
-        options=all_displays,
-        default=saved_watchlist_displays,
-        key=f"watchlist_select_{current_user}"
+    stock_options_df["display"] = (
+        stock_options_df["Ticker"] + " - " + stock_options_df["Company"]
     )
 
-    selected_watchlist_tickers = [
-        display_to_ticker[item]
-        for item in selected_watchlist_displays
-    ]
+    stock_options_df = stock_options_df.sort_values(by="display")
 
-    if st.button(
-        "Watchlist speichern",
-        key=f"save_watchlist_{current_user}"
-    ):
-        update_user_list(
-            username=current_user,
-            list_type="watchlist",
-            selected_tickers=selected_watchlist_tickers,
-            stock_df=df
-        )
-
-        st.success("Watchlist gespeichert.")
-        st.rerun()
-
-    if selected_watchlist_tickers:
-
-        user_watchlist_df = df[
-            df["Ticker"].astype(str).isin(selected_watchlist_tickers)
-        ].copy()
-
-        watchlist_columns = [
-            "Ticker",
-            "Company",
-            "Action Signal",
-            "Rating",
-            "Score",
-            "Risk Level",
-            "Price",
-            "CRV"
-        ]
-
-        watchlist_columns = [
-            column for column in watchlist_columns
-            if column in user_watchlist_df.columns
-        ]
-
-        st.dataframe(
-            user_watchlist_df[watchlist_columns],
-            width="stretch",
-            hide_index=True
-        )
-
-    else:
-
-        st.info("Noch keine Watchlist-Aktien ausgewählt.")
-
-
-with col_buylist:
-
-    st.markdown("### 🛒 Kauf-Aktien")
-
-    selected_buy_displays = st.multiselect(
-        "Aktien auswählen, die auf deiner Kaufliste bleiben sollen",
-        options=all_displays,
-        default=saved_buy_displays,
-        key=f"buy_select_{current_user}"
+    ticker_to_display = dict(
+        zip(stock_options_df["Ticker"], stock_options_df["display"])
     )
 
-    selected_buy_tickers = [
-        display_to_ticker[item]
-        for item in selected_buy_displays
+    display_to_ticker = dict(
+        zip(stock_options_df["display"], stock_options_df["Ticker"])
+    )
+
+    all_displays = stock_options_df["display"].tolist()
+
+    saved_watchlist_tickers = get_saved_tickers(
+        current_user,
+        "watchlist"
+    )
+
+    saved_buy_tickers = get_saved_tickers(
+        current_user,
+        "buy"
+    )
+
+    saved_watchlist_displays = [
+        ticker_to_display[ticker]
+        for ticker in saved_watchlist_tickers
+        if ticker in ticker_to_display
     ]
 
-    if st.button(
-        "Kaufliste speichern",
-        key=f"save_buy_{current_user}"
-    ):
-        update_user_list(
-            username=current_user,
-            list_type="buy",
-            selected_tickers=selected_buy_tickers,
-            stock_df=df
+    saved_buy_displays = [
+        ticker_to_display[ticker]
+        for ticker in saved_buy_tickers
+        if ticker in ticker_to_display
+    ]
+
+    col_watchlist, col_buylist = st.columns(2)
+
+    with col_watchlist:
+
+        st.markdown("### ⭐ Watchlist-Aktien")
+
+        selected_watchlist_displays = st.multiselect(
+            "Aktien auswählen, die auf deiner Watchlist bleiben sollen",
+            options=all_displays,
+            default=saved_watchlist_displays,
+            key=f"watchlist_select_{current_user}"
         )
 
-        st.success("Kaufliste gespeichert.")
-        st.rerun()
-
-    if selected_buy_tickers:
-
-        user_buy_df = df[
-            df["Ticker"].astype(str).isin(selected_buy_tickers)
-        ].copy()
-
-        buy_columns = [
-            "Ticker",
-            "Company",
-            "Action Signal",
-            "Rating",
-            "Score",
-            "Risk Level",
-            "Price",
-            "CRV"
+        selected_watchlist_tickers = [
+            display_to_ticker[item]
+            for item in selected_watchlist_displays
         ]
 
-        buy_columns = [
-            column for column in buy_columns
-            if column in user_buy_df.columns
-        ]
+        if st.button(
+            "Watchlist speichern",
+            key=f"save_watchlist_{current_user}"
+        ):
+            update_user_list(
+                username=current_user,
+                list_type="watchlist",
+                selected_tickers=selected_watchlist_tickers,
+                stock_df=df
+            )
 
-        st.dataframe(
-            user_buy_df[buy_columns],
-            width="stretch",
-            hide_index=True
+            st.success("Watchlist gespeichert.")
+            st.rerun()
+
+        if selected_watchlist_tickers:
+
+            user_watchlist_df = df[
+                df["Ticker"].astype(str).isin(selected_watchlist_tickers)
+            ].copy()
+
+            watchlist_columns = [
+                "Ticker",
+                "Company",
+                "Action Signal",
+                "Rating",
+                "Score",
+                "Risk Level",
+                "Price",
+                "CRV"
+            ]
+
+            watchlist_columns = [
+                column for column in watchlist_columns
+                if column in user_watchlist_df.columns
+            ]
+
+            st.dataframe(
+                user_watchlist_df[watchlist_columns],
+                width="stretch",
+                hide_index=True
+            )
+
+        else:
+
+            st.info("Noch keine Watchlist-Aktien ausgewählt.")
+
+
+    with col_buylist:
+
+        st.markdown("### 🛒 Kauf-Aktien")
+
+        selected_buy_displays = st.multiselect(
+            "Aktien auswählen, die auf deiner Kaufliste bleiben sollen",
+            options=all_displays,
+            default=saved_buy_displays,
+            key=f"buy_select_{current_user}"
         )
 
-    else:
+        selected_buy_tickers = [
+            display_to_ticker[item]
+            for item in selected_buy_displays
+        ]
 
-        st.info("Noch keine Kauf-Aktien ausgewählt.")
+        if st.button(
+            "Kaufliste speichern",
+            key=f"save_buy_{current_user}"
+        ):
+            update_user_list(
+                username=current_user,
+                list_type="buy",
+                selected_tickers=selected_buy_tickers,
+                stock_df=df
+            )
+
+            st.success("Kaufliste gespeichert.")
+            st.rerun()
+
+        if selected_buy_tickers:
+
+            user_buy_df = df[
+                df["Ticker"].astype(str).isin(selected_buy_tickers)
+            ].copy()
+
+            buy_columns = [
+                "Ticker",
+                "Company",
+                "Action Signal",
+                "Rating",
+                "Score",
+                "Risk Level",
+                "Price",
+                "CRV"
+            ]
+
+            buy_columns = [
+                column for column in buy_columns
+                if column in user_buy_df.columns
+            ]
+
+            st.dataframe(
+                user_buy_df[buy_columns],
+                width="stretch",
+                hide_index=True
+            )
+
+        else:
+
+            st.info("Noch keine Kauf-Aktien ausgewählt.")
 
 
 # ============================================================
@@ -2200,110 +2205,113 @@ superusers = st.secrets.get("app", {}).get("superusers", [])
 
 if current_user in superusers:
 
-    st.divider()
+    with st.expander("👑 Superuser-Übersicht", expanded=False):
 
-    st.subheader("👑 Superuser-Übersicht")
+        st.divider()
 
-    all_user_lists = load_user_lists()
+        st.subheader("👑 Superuser-Übersicht")
 
-    if all_user_lists.empty:
+        all_user_lists = load_user_lists()
 
-        st.info("Noch keine gespeicherten Nutzerlisten vorhanden.")
+        if all_user_lists.empty:
 
-    else:
+            st.info("Noch keine gespeicherten Nutzerlisten vorhanden.")
 
-        all_user_lists = all_user_lists.copy()
+        else:
 
-        all_user_lists["Liste"] = all_user_lists["list_type"].replace({
-            "watchlist": "Watchlist",
-            "buy": "Kauf"
-        })
+            all_user_lists = all_user_lists.copy()
 
-        all_user_lists = all_user_lists.rename(columns={
-            "username": "User",
-            "ticker": "Ticker",
-            "name": "Company",
-            "created_at": "Gespeichert am"
-        })
+            all_user_lists["Liste"] = all_user_lists["list_type"].replace({
+                "watchlist": "Watchlist",
+                "buy": "Kauf"
+            })
 
-        all_user_lists = all_user_lists[
-            [
-                "Liste",
-                "Ticker",
-                "Company",
-                "User",
-                "Gespeichert am"
-            ]
-        ].sort_values(
-            by=[
-                "Liste",
-                "User",
-                "Ticker"
-            ]
-        )
+            all_user_lists = all_user_lists.rename(columns={
+                "username": "User",
+                "ticker": "Ticker",
+                "name": "Company",
+                "created_at": "Gespeichert am"
+            })
 
-        st.dataframe(
-            all_user_lists,
-            width="stretch",
-            hide_index=True
-        )
+            all_user_lists = all_user_lists[
+                [
+                    "Liste",
+                    "Ticker",
+                    "Company",
+                    "User",
+                    "Gespeichert am"
+                ]
+            ].sort_values(
+                by=[
+                    "Liste",
+                    "User",
+                    "Ticker"
+                ]
+            )
+
+            st.dataframe(
+                all_user_lists,
+                width="stretch",
+                hide_index=True
+            )
 
 
 # ============================================================
 # AKTIENKARTEN
 # ============================================================
 
-st.divider()
+with st.expander("🔥 Aktienübersicht / Karten", expanded=False):
+    st.divider()
 
-st.subheader("🔥 Aktienübersicht")
+    st.subheader("🔥 Aktienübersicht")
 
-for _, row in df_filtered.iterrows():
+    for _, row in df_filtered.iterrows():
 
-    color = get_border_color(row["Rating"])
-    rating_light = get_rating_light(row["Rating"])
-    risk_light = get_risk_light(row["Risk Level"])
+        color = get_border_color(row["Rating"])
+        rating_light = get_rating_light(row["Rating"])
+        risk_light = get_risk_light(row["Risk Level"])
 
-    card_html = f"""
-<div style="background-color:#ffffff; padding:24px 26px; border-radius:22px; margin-bottom:26px; border-left:13px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
-<h2 style="margin:0 0 16px 0; font-size:27px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
-<hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
+        card_html = f"""
+    <div style="background-color:#ffffff; padding:24px 26px; border-radius:22px; margin-bottom:26px; border-left:13px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
+    <h2 style="margin:0 0 16px 0; font-size:27px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
+    <hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
 
-<p style="font-size:18px; margin:0 0 18px 0;">💰 <b>Preis:</b> {row['Price']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">💰 <b>Preis:</b> {row['Price']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']} | 🕒 <b>Horizont:</b> {row['Strategy Mode']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']} | 🕒 <b>Horizont:</b> {row['Strategy Mode']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']} | 🧱 <b>Zielbasis:</b> {row['Target Basis']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']} | 🧱 <b>Zielbasis:</b> {row['Target Basis']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
 
-<p style="font-size:18px; margin:0 0 18px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
+    <p style="font-size:18px; margin:0 0 18px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
 
-<div style="font-size:17px; margin:8px 0 14px 0; background:#ecfdf5; padding:12px 14px; border-radius:12px;">✅ <b>Pro:</b> {row['Pros']}</div>
+    <div style="font-size:17px; margin:8px 0 14px 0; background:#ecfdf5; padding:12px 14px; border-radius:12px;">✅ <b>Pro:</b> {row['Pros']}</div>
 
-<div style="font-size:17px; margin:8px 0 14px 0; background:#fff7ed; padding:12px 14px; border-radius:12px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
+    <div style="font-size:17px; margin:8px 0 14px 0; background:#fff7ed; padding:12px 14px; border-radius:12px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
 
-<div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
+    <div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
 
-<div style="font-size:17px; margin:8px 0 0 0; background:#f3f4f6; padding:12px 14px; border-radius:12px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
-</div>
-"""
+    <div style="font-size:17px; margin:8px 0 0 0; background:#f3f4f6; padding:12px 14px; border-radius:12px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
+    </div>
+    """
 
-    st.markdown(card_html, unsafe_allow_html=True)
+        st.markdown(card_html, unsafe_allow_html=True)
