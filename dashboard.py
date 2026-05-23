@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 import os
 import subprocess
 import hmac
@@ -1154,6 +1155,166 @@ with st.expander("📖 Dashboard Legende"):
     Der Dividendenkalender filtert nach dem Ex-Dividenden-Datum. In der Übersicht und Gesamttabelle bleiben trotzdem alle Aktien sichtbar.
 
     """)
+
+
+# ============================================================
+# 🍕 PIZZINT / GEOPOLITISCHER STRESS-INDIKATOR
+# ============================================================
+
+st.divider()
+
+st.subheader("🍕 PizzINT / Geopolitischer Stress-Indikator")
+
+st.caption(
+    "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
+    "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
+)
+
+# Manuelle Einschätzung, kann später automatisiert werden.
+doughcon_level = st.selectbox(
+    "DOUGHCON-Level einschätzen",
+    options=[
+        "1 - Ruhig",
+        "2 - Beobachten",
+        "3 - Erhöhte Aufmerksamkeit",
+        "4 - Hoher Stress",
+        "5 - Krisenmodus"
+    ],
+    index=2
+)
+
+if doughcon_level.startswith("1"):
+    stress_label = "🟢 Niedrig"
+    market_view = (
+        "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
+        "Bewertungen und Trendstruktur."
+    )
+    focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
+elif doughcon_level.startswith("2"):
+    stress_label = "🟡 Leicht erhöht"
+    market_view = (
+        "Etwas mehr Vorsicht. Watchlist enger beobachten, "
+        "aber keine Paniksignale."
+    )
+    focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
+elif doughcon_level.startswith("3"):
+    stress_label = "🟠 Erhöht"
+    market_view = (
+        "Geopolitische Risiken könnten stärker eingepreist werden. "
+        "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
+    )
+    focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
+elif doughcon_level.startswith("4"):
+    stress_label = "🔴 Hoch"
+    market_view = (
+        "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
+        "volatile Titel reduzieren."
+    )
+    focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
+else:
+    stress_label = "🚨 Extrem"
+    market_view = (
+        "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
+        "Marktreaktionen abwarten."
+    )
+    focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
+
+col_geo1, col_geo2, col_geo3 = st.columns(3)
+
+with col_geo1:
+    st.metric("Geopolitischer Stress", stress_label)
+
+with col_geo2:
+    st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
+
+with col_geo3:
+    st.metric("Marktmodus", "Risk Check")
+
+st.info(market_view)
+st.caption(f"Aktuell besonders beobachten: {focus_assets}")
+
+geo_focus_df = pd.DataFrame([
+    {
+        "Bereich": "Energie",
+        "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
+        "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
+    },
+    {
+        "Bereich": "Rüstung / Verteidigung",
+        "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
+        "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
+    },
+    {
+        "Bereich": "Cybersecurity",
+        "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
+        "Beispiele": "CRWD, PANW, FTNT, ZS"
+    },
+    {
+        "Bereich": "Gold / Sicherheit",
+        "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
+        "Beispiele": "GOLD, NEM, AEM, GLD"
+    },
+    {
+        "Bereich": "High-Risk / Turnaround",
+        "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
+        "Beispiele": "enger prüfen, Positionsgröße reduzieren"
+    }
+])
+
+st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
+
+st.dataframe(
+    geo_focus_df,
+    width="stretch",
+    hide_index=True
+)
+
+st.markdown("### 🍕 PizzINT Watch")
+
+pizza_watch_df = pd.DataFrame([
+    {
+        "Signal": "Pizza-Aktivität",
+        "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
+        "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
+    },
+    {
+        "Signal": "DOUGHCON steigt",
+        "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
+        "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
+    },
+    {
+        "Signal": "DOUGHCON fällt",
+        "Interpretation": "Lage wirkt entspannter.",
+        "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
+    }
+])
+
+st.dataframe(
+    pizza_watch_df,
+    width="stretch",
+    hide_index=True
+)
+
+col_pizzint_link, col_pizzint_embed = st.columns([1, 2])
+
+with col_pizzint_link:
+    st.link_button(
+        "🍕 PizzINT extern öffnen",
+        "https://www.pizzint.watch/"
+    )
+
+with col_pizzint_embed:
+    show_pizzint_embed = st.checkbox(
+        "PizzINT-Seite im Dashboard einbetten",
+        value=False
+    )
+
+if show_pizzint_embed:
+    components.iframe(
+        "https://www.pizzint.watch/",
+        height=800,
+        scrolling=True
+    )
 
 
 # ============================================================
