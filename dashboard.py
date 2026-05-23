@@ -1313,10 +1313,52 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
 
     st.caption(
         "Bloomberg-Terminal-light: Wähle eine Hauptaktie aus und sieh, "
-        "welche Unternehmen, Sektoren und Risiken damit verbunden sind."
+        "welche Unternehmen, Sektoren, Lieferkettenstufen und Risiken damit verbunden sind."
     )
 
     RELATIONSHIPS_FILE = "stock_relationships.csv"
+
+    def infer_supply_chain_stage(category, relationship):
+        """Leitet eine Lieferketten-/Wertschöpfungsstufe aus Kategorie und Beschreibung ab."""
+
+        text_value = f"{category} {relationship}".lower()
+
+        stage_rules = [
+            ("1 - Rohstoffe / Energie", ["uran", "öl", "gas", "gold", "lithium", "kupfer", "rohstoff", "energie /", "stromerzeugung", "atomstrom"]),
+            ("2 - Energie- & Strominfrastruktur", ["strom", "netz", "elektrifizierung", "energieausrüstung", "strominfrastruktur", "rechenzentrum", "kühlung", "vertiv", "eaton"]),
+            ("3 - Produktionsausrüstung", ["lithografie", "chipausrüstung", "equipment", "prozesskontrolle", "maschinen", "fertigungsanlagen"]),
+            ("4 - Fertigung / Foundry", ["foundry", "fertigung", "chipfertigung", "tsmc", "samsung foundry"]),
+            ("5 - Komponenten / Speicher / Chips", ["speicher", "hbm", "dram", "nand", "gpu", "cpu", "custom chips", "chips", "beschleuniger", "netzwerk / custom"]),
+            ("6 - Server / Netzwerk / Infrastruktur", ["server", "netzwerk", "interconnect", "datacenter", "dateninfrastruktur", "ki-infrastruktur"]),
+            ("7 - Plattform / Cloud / Software", ["cloud", "hyperscaler", "azure", "aws", "google cloud", "oracle", "software", "cybersecurity", "identity"]),
+            ("8 - Endmarkt / Nachfrage", ["modelle", "nachfrage", "enterprise", "werbung", "automotive", "ev", "pharma", "kunden"]),
+            ("9 - Konkurrenz / Substitution", ["konkurrenz", "competition", "substitution", "eigene chips", "tpu", "trainium"]),
+            ("10 - Risiko / Geopolitik / Defense", ["verteidigung", "defense", "geopolitik", "drohnen", "sensorik", "sicherheit"]),
+        ]
+
+        for stage, keywords in stage_rules:
+            if any(keyword in text_value for keyword in keywords):
+                return stage
+
+        return "99 - Sonstige Verbindung"
+
+    def infer_connection_type(category, relationship, risk_note):
+        """Leitet die Art der Verbindung ab: Lieferant, Kunde, Konkurrenz, Infrastruktur usw."""
+
+        text_value = f"{category} {relationship} {risk_note}".lower()
+
+        if any(word in text_value for word in ["konkurrenz", "konkurriert", "competition", "substitution", "eigene chips", "tpu", "trainium"]):
+            return "Konkurrenz / Substitution"
+        if any(word in text_value for word in ["liefert", "anbieter", "zuliefer", "fertigt", "maschinen", "anlagen", "speicher", "hbm"]):
+            return "Lieferant / Zulieferer"
+        if any(word in text_value for word in ["nutzt", "kauft", "nachfrage", "kunde", "cloud", "hyperscaler", "enterprise"]):
+            return "Kunde / Nachfrage"
+        if any(word in text_value for word in ["strom", "energie", "kühlung", "netz", "rechenzentrum", "infrastruktur"]):
+            return "Infrastruktur / Ermöglicher"
+        if any(word in text_value for word in ["risiko", "taiwan", "regulierung", "export", "geopolitik", "defense", "verteidigung"]):
+            return "Risiko / Makro"
+
+        return "Strategische Verbindung"
 
     if not os.path.exists(RELATIONSHIPS_FILE):
 
@@ -1379,23 +1421,53 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
 
             relationships_df = relationships_df.copy()
 
-            relationships_df["source_ticker"] = (
-                relationships_df["source_ticker"]
-                .astype(str)
-                .str.strip()
-            )
+            for text_column in [
+                "source_ticker",
+                "target_ticker",
+                "target_name",
+                "category",
+                "relationship",
+                "importance",
+                "risk_note"
+            ]:
+                relationships_df[text_column] = (
+                    relationships_df[text_column]
+                    .astype(str)
+                    .str.strip()
+                )
 
-            relationships_df["target_ticker"] = (
-                relationships_df["target_ticker"]
-                .astype(str)
-                .str.strip()
-            )
+            # Neue Mapping-Logik: Auch wenn die CSV diese Spalten noch nicht hat,
+            # werden Lieferkettenstufe und Verbindungsart automatisch abgeleitet.
+            if "supply_chain_stage" not in relationships_df.columns:
+                relationships_df["supply_chain_stage"] = relationships_df.apply(
+                    lambda row: infer_supply_chain_stage(
+                        row.get("category", ""),
+                        row.get("relationship", "")
+                    ),
+                    axis=1
+                )
+            else:
+                relationships_df["supply_chain_stage"] = (
+                    relationships_df["supply_chain_stage"]
+                    .astype(str)
+                    .str.strip()
+                )
 
-            relationships_df["category"] = (
-                relationships_df["category"]
-                .astype(str)
-                .str.strip()
-            )
+            if "connection_type" not in relationships_df.columns:
+                relationships_df["connection_type"] = relationships_df.apply(
+                    lambda row: infer_connection_type(
+                        row.get("category", ""),
+                        row.get("relationship", ""),
+                        row.get("risk_note", "")
+                    ),
+                    axis=1
+                )
+            else:
+                relationships_df["connection_type"] = (
+                    relationships_df["connection_type"]
+                    .astype(str)
+                    .str.strip()
+                )
 
             available_network_tickers = sorted(
                 relationships_df["source_ticker"]
@@ -1411,67 +1483,119 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 key="network_selected_ticker"
             )
 
-            selected_relationships = relationships_df[
+            selected_relationships_base = relationships_df[
                 relationships_df["source_ticker"] == selected_network_ticker
             ].copy()
 
-            col_net_1, col_net_2, col_net_3 = st.columns(3)
+            col_net_1, col_net_2, col_net_3, col_net_4 = st.columns(4)
 
             with col_net_1:
                 st.metric(
                     "Verbindungen",
-                    len(selected_relationships)
+                    len(selected_relationships_base)
                 )
 
             with col_net_2:
                 st.metric(
                     "Kategorien",
-                    selected_relationships["category"].nunique()
-                    if not selected_relationships.empty else 0
+                    selected_relationships_base["category"].nunique()
+                    if not selected_relationships_base.empty else 0
                 )
 
             with col_net_3:
+                st.metric(
+                    "Lieferkettenstufen",
+                    selected_relationships_base["supply_chain_stage"].nunique()
+                    if not selected_relationships_base.empty else 0
+                )
+
+            with col_net_4:
                 high_count = (
-                    selected_relationships["importance"]
+                    selected_relationships_base["importance"]
                     .astype(str)
                     .str.lower()
                     .isin(["hoch", "high"])
                     .sum()
-                    if not selected_relationships.empty else 0
+                    if not selected_relationships_base.empty else 0
                 )
                 st.metric(
                     "Hohe Relevanz",
                     int(high_count)
                 )
 
-            if selected_relationships.empty:
+            if selected_relationships_base.empty:
 
                 st.info("Für diese Aktie sind noch keine Beziehungen hinterlegt.")
 
             else:
 
-                category_options = ["Alle"] + sorted(
-                    selected_relationships["category"]
-                    .dropna()
-                    .astype(str)
-                    .unique()
-                    .tolist()
-                )
+                filter_col_1, filter_col_2, filter_col_3 = st.columns(3)
 
-                selected_network_category = st.selectbox(
-                    "Kategorie filtern",
-                    options=category_options,
-                    index=0,
-                    key="network_selected_category"
-                )
+                with filter_col_1:
+                    category_options = ["Alle"] + sorted(
+                        selected_relationships_base["category"]
+                        .dropna()
+                        .astype(str)
+                        .unique()
+                        .tolist()
+                    )
+
+                    selected_network_category = st.selectbox(
+                        "Kategorie filtern",
+                        options=category_options,
+                        index=0,
+                        key="network_selected_category"
+                    )
+
+                with filter_col_2:
+                    stage_options = ["Alle"] + sorted(
+                        selected_relationships_base["supply_chain_stage"]
+                        .dropna()
+                        .astype(str)
+                        .unique()
+                        .tolist()
+                    )
+
+                    selected_supply_chain_stage = st.selectbox(
+                        "Lieferkettenstufe filtern",
+                        options=stage_options,
+                        index=0,
+                        key="network_selected_supply_chain_stage"
+                    )
+
+                with filter_col_3:
+                    connection_type_options = ["Alle"] + sorted(
+                        selected_relationships_base["connection_type"]
+                        .dropna()
+                        .astype(str)
+                        .unique()
+                        .tolist()
+                    )
+
+                    selected_connection_type = st.selectbox(
+                        "Verbindungsart filtern",
+                        options=connection_type_options,
+                        index=0,
+                        key="network_selected_connection_type"
+                    )
+
+                selected_relationships = selected_relationships_base.copy()
 
                 if selected_network_category != "Alle":
                     selected_relationships = selected_relationships[
                         selected_relationships["category"] == selected_network_category
                     ]
 
-                # Falls verbundene Aktien auch in deinem Haupt-Dashboard vorhanden sind,
-                # holen wir deren aktuelle Signale dazu.
+                if selected_supply_chain_stage != "Alle":
+                    selected_relationships = selected_relationships[
+                        selected_relationships["supply_chain_stage"] == selected_supply_chain_stage
+                    ]
+
+                if selected_connection_type != "Alle":
+                    selected_relationships = selected_relationships[
+                        selected_relationships["connection_type"] == selected_connection_type
+                    ]
+
                 dashboard_signal_columns = [
                     "Ticker",
                     "Company",
@@ -1507,7 +1631,6 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 else:
                     network_view["Company"] = network_view["target_name"]
 
-                # Wichtigkeit sortierbar machen
                 importance_order = {
                     "hoch": 1,
                     "high": 1,
@@ -1526,11 +1649,45 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 )
 
                 network_view = network_view.sort_values(
-                    by=["category", "Importance Sort", "Ticker"],
+                    by=["supply_chain_stage", "category", "Importance Sort", "Ticker"],
                     ascending=True
                 )
 
+                signal_summary = network_view["Action Signal"].fillna("Nicht in Hauptliste").value_counts()
+
+                with st.expander("📊 Netzwerk-Signal anzeigen", expanded=False):
+                    st.caption(
+                        "Zählt die aktuellen Dashboard-Signale der verbundenen Aktien, "
+                        "sofern sie in deiner Hauptliste vorhanden sind."
+                    )
+
+                    signal_summary_df = signal_summary.reset_index()
+                    signal_summary_df.columns = ["Action Signal", "Anzahl"]
+
+                    st.dataframe(
+                        signal_summary_df,
+                        width="stretch",
+                        hide_index=True
+                    )
+
+                    bullish_count = network_view["Action Signal"].astype(str).str.contains(
+                        "BUY", case=False, na=False
+                    ).sum()
+                    avoid_count = network_view["Action Signal"].astype(str).str.contains(
+                        "AVOID|SELL", case=False, na=False
+                    ).sum()
+                    watch_count = network_view["Action Signal"].astype(str).str.contains(
+                        "WATCH", case=False, na=False
+                    ).sum()
+
+                    col_signal_1, col_signal_2, col_signal_3 = st.columns(3)
+                    col_signal_1.metric("Bullish im Netzwerk", int(bullish_count))
+                    col_signal_2.metric("Watch / Beobachten", int(watch_count))
+                    col_signal_3.metric("Schwach / Avoid", int(avoid_count))
+
                 display_columns = [
+                    "supply_chain_stage",
+                    "connection_type",
                     "category",
                     "Ticker",
                     "Company",
@@ -1550,36 +1707,70 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                     if column in network_view.columns
                 ]
 
-                network_view = network_view[display_columns].rename(columns={
+                network_display = network_view[display_columns].rename(columns={
+                    "supply_chain_stage": "Lieferkettenstufe",
+                    "connection_type": "Verbindungsart",
                     "category": "Kategorie",
                     "importance": "Wichtigkeit",
-                    "relationship": "Verbindung",
+                    "relationship": "Warum verbunden?",
                     "risk_note": "Risiko-Hinweis"
                 })
 
+                st.markdown("### 🧾 Detailtabelle")
+
                 st.dataframe(
-                    network_view,
+                    network_display,
                     width="stretch",
                     hide_index=True
                 )
 
-                with st.expander("🧩 Netzwerk als Gruppenansicht anzeigen"):
+                with st.expander("🏭 Lieferkette als Stufenansicht anzeigen", expanded=True):
 
-                    grouped_categories = selected_relationships.groupby("category")
+                    stage_groups = network_view.groupby("supply_chain_stage", sort=True)
+
+                    for stage, stage_group in stage_groups:
+                        st.markdown(f"### {stage}")
+
+                        for _, rel_row in stage_group.iterrows():
+                            ticker = rel_row.get("Ticker", "")
+                            name = rel_row.get("Company", "")
+                            category = rel_row.get("category", "")
+                            connection_type = rel_row.get("connection_type", "")
+                            importance = rel_row.get("importance", "")
+                            relationship = rel_row.get("relationship", "")
+                            risk_note = rel_row.get("risk_note", "")
+                            action_signal = rel_row.get("Action Signal", "-")
+                            rating = rel_row.get("Rating", "-")
+                            score = rel_row.get("Score", "-")
+
+                            st.markdown(
+                                f"**{ticker} - {name}**  \n"
+                                f"Kategorie: **{category}** | Verbindungsart: **{connection_type}** | Wichtigkeit: **{importance}**  \n"
+                                f"Warum verbunden: {relationship}  \n"
+                                f"Risiko: {risk_note}  \n"
+                                f"Dashboard-Signal: **{action_signal}** | Rating: **{rating}** | Score: **{score}**"
+                            )
+                            st.divider()
+
+                with st.expander("🧩 Netzwerk als Kategorienansicht anzeigen", expanded=False):
+
+                    grouped_categories = network_view.groupby("category")
 
                     for category, group in grouped_categories:
                         st.markdown(f"### {category}")
 
                         for _, rel_row in group.iterrows():
-                            ticker = rel_row.get("target_ticker", "")
-                            name = rel_row.get("target_name", "")
+                            ticker = rel_row.get("Ticker", "")
+                            name = rel_row.get("Company", "")
+                            stage = rel_row.get("supply_chain_stage", "")
+                            connection_type = rel_row.get("connection_type", "")
                             importance = rel_row.get("importance", "")
                             relationship = rel_row.get("relationship", "")
                             risk_note = rel_row.get("risk_note", "")
 
                             st.markdown(
                                 f"**{ticker} - {name}**  \n"
-                                f"Wichtigkeit: **{importance}**  \n"
+                                f"Stufe: **{stage}** | Verbindungsart: **{connection_type}** | Wichtigkeit: **{importance}**  \n"
                                 f"Verbindung: {relationship}  \n"
                                 f"Risiko: {risk_note}"
                             )
