@@ -1017,6 +1017,150 @@ df = pd.concat(
 )
 
 # ============================================================
+# 💎 BEWERTUNGS-HINWEIS: UNTERBEWERTET / FAIR / ÜBERBEWERTET
+# ============================================================
+
+def build_valuation_status(row):
+    """
+    Einfache regelbasierte Bewertung.
+    Kein echter Fair Value, sondern ein Hinweis aus Bewertung + Wachstum + Qualität.
+    """
+
+    forward_pe = safe_float(row.get("Forward PE"))
+    trailing_pe = safe_float(row.get("Trailing PE"))
+    peg_ratio = safe_float(row.get("PEG Ratio"))
+    revenue_growth = safe_float(row.get("Revenue Growth"))
+    earnings_growth = safe_float(row.get("Earnings Growth"))
+    profit_margin = safe_float(row.get("Profit Margin"))
+    free_cashflow = safe_float(row.get("Free Cashflow"))
+    fundamental_score = safe_float(row.get("Fundamental Score"))
+
+    valuation_points = 0
+    reasons = []
+
+    # ----------------------------
+    # BEWERTUNG
+    # ----------------------------
+
+    if forward_pe is not None:
+        if forward_pe <= 15:
+            valuation_points += 2
+            reasons.append("günstiges Forward KGV")
+        elif forward_pe <= 25:
+            valuation_points += 1
+            reasons.append("moderates Forward KGV")
+        elif forward_pe >= 40:
+            valuation_points -= 2
+            reasons.append("hohes Forward KGV")
+        elif forward_pe >= 30:
+            valuation_points -= 1
+            reasons.append("erhöhtes Forward KGV")
+
+    if trailing_pe is not None:
+        if trailing_pe <= 18:
+            valuation_points += 1
+            reasons.append("moderates KGV")
+        elif trailing_pe >= 45:
+            valuation_points -= 1
+            reasons.append("hohes KGV")
+
+    if peg_ratio is not None and peg_ratio > 0:
+        if peg_ratio <= 1:
+            valuation_points += 2
+            reasons.append("attraktives PEG Ratio")
+        elif peg_ratio <= 2:
+            valuation_points += 1
+            reasons.append("PEG Ratio noch vertretbar")
+        elif peg_ratio >= 3:
+            valuation_points -= 2
+            reasons.append("PEG Ratio hoch")
+        elif peg_ratio > 2:
+            valuation_points -= 1
+            reasons.append("PEG Ratio erhöht")
+
+    # ----------------------------
+    # QUALITÄT / WACHSTUM
+    # ----------------------------
+
+    if revenue_growth is not None:
+        if revenue_growth > 0:
+            valuation_points += 1
+            reasons.append("positives Umsatzwachstum")
+        elif revenue_growth < 0:
+            valuation_points -= 1
+            reasons.append("negatives Umsatzwachstum")
+
+    if earnings_growth is not None:
+        if earnings_growth > 0:
+            valuation_points += 1
+            reasons.append("positives Gewinnwachstum")
+        elif earnings_growth < 0:
+            valuation_points -= 1
+            reasons.append("negatives Gewinnwachstum")
+
+    if profit_margin is not None:
+        if profit_margin > 0:
+            valuation_points += 1
+            reasons.append("positive Gewinnmarge")
+        elif profit_margin < 0:
+            valuation_points -= 1
+            reasons.append("negative Gewinnmarge")
+
+    if free_cashflow is not None:
+        if free_cashflow > 0:
+            valuation_points += 1
+            reasons.append("positiver Free Cashflow")
+        elif free_cashflow < 0:
+            valuation_points -= 1
+            reasons.append("negativer Free Cashflow")
+
+    if fundamental_score is not None:
+        if fundamental_score >= 6:
+            valuation_points += 1
+            reasons.append("starker Fundamental Score")
+        elif fundamental_score <= 2:
+            valuation_points -= 1
+            reasons.append("schwacher Fundamental Score")
+
+    # ----------------------------
+    # LABEL
+    # ----------------------------
+
+    if len(reasons) < 2:
+        valuation_status = "❓ Unklar"
+        valuation_summary = "Zu wenige Bewertungsdaten vorhanden."
+    elif valuation_points >= 4:
+        valuation_status = "💎 Eher unterbewertet"
+        valuation_summary = "Bewertung wirkt im Verhältnis zu Qualität und Wachstum attraktiv."
+    elif valuation_points >= 1:
+        valuation_status = "⚖️ Fair bewertet"
+        valuation_summary = "Bewertung wirkt grundsätzlich vertretbar."
+    elif valuation_points <= -3:
+        valuation_status = "🔥 Eher überbewertet"
+        valuation_summary = "Bewertung wirkt im Verhältnis zu Qualität und Wachstum anspruchsvoll."
+    else:
+        valuation_status = "⚖️ Fair bis leicht teuer"
+        valuation_summary = "Bewertung ist nicht extrem, aber nicht klar günstig."
+
+    return pd.Series({
+        "Valuation Status": valuation_status,
+        "Valuation Score": valuation_points,
+        "Valuation Reasons": " | ".join(unique_items(reasons)) if reasons else "-",
+        "Valuation Summary": valuation_summary
+    })
+
+
+valuation_columns = df.apply(
+    build_valuation_status,
+    axis=1
+)
+
+df = pd.concat(
+    [df, valuation_columns],
+    axis=1
+)
+
+# ============================================================
 # STREAMLIT-TABELLENKOMPATIBILITÄT
 # ============================================================
 
@@ -2655,6 +2799,8 @@ with st.expander("📋 Gesamttabelle", expanded=False):
         "Ticker",
         "Company",
         "Action Signal",
+        "Valuation Status",
+        "Valuation Score",
         "Strategy Mode"
     ]
 
@@ -2956,6 +3102,10 @@ with st.expander("🔥 Aktienübersicht / Karten", expanded=False):
     <p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
 
     <p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
+
+    <p style="font-size:18px; margin:0 0 18px 0;">💎 <b>Bewertungshinweis:</b> {row['Valuation Status']} | Punkte: {row['Valuation Score']}</p>
+
+    <div style="font-size:17px; margin:8px 0 14px 0; background:#f8fafc; padding:12px 14px; border-radius:12px;">💬 <b>Bewertungsgrund:</b> {row['Valuation Summary']}<br><b>Details:</b> {row['Valuation Reasons']}</div>
 
     <p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
 
