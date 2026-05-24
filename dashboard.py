@@ -1574,17 +1574,21 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
             if query_network_ticker is not None:
                 query_network_ticker = str(query_network_ticker).strip().upper()
 
-            # Wenn das Netzwerk per Doppelklick aus dem HTML gewechselt wird,
-            # setzen wir die Hauptaktie UND die Filter zurück.
-            # Sonst kann z. B. ein alter Kategorie-/Stufenfilter die neue Aktie leer wirken lassen.
+            # Wenn das Netzwerk über einen Link/Button gewechselt wird,
+            # setzen wir die Hauptaktie UND die Filter vor dem Erzeugen der Widgets zurück.
+            # Der Reset wird nur einmal pro Query-Wechsel angewendet, damit spätere Filteränderungen
+            # nicht sofort wieder überschrieben werden.
             if query_network_ticker in available_network_tickers:
                 old_network_ticker = st.session_state.get("network_selected_ticker")
+                current_query_key = f"{query_network_ticker}:{query_network_reset}"
+                last_query_key = st.session_state.get("_network_last_query_key")
 
-                if old_network_ticker != query_network_ticker or str(query_network_reset) == "1":
+                if old_network_ticker != query_network_ticker or (str(query_network_reset) == "1" and last_query_key != current_query_key):
                     st.session_state["network_selected_ticker"] = query_network_ticker
                     st.session_state["network_selected_category"] = "Alle"
                     st.session_state["network_selected_supply_chain_stage"] = "Alle"
                     st.session_state["network_selected_connection_type"] = "Alle"
+                    st.session_state["_network_last_query_key"] = current_query_key
 
             selected_network_ticker = st.selectbox(
                 "Aktie für Netzwerk auswählen",
@@ -2155,18 +2159,11 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                             button_columns = st.columns(6)
                             for idx, ticker in enumerate(drill_candidates[:30]):
                                 with button_columns[idx % 6]:
-                                    if st.button(
+                                    st.link_button(
                                         f"↻ {ticker}",
-                                        key=f"drill_center_{selected_network_ticker}_{ticker}_{idx}",
+                                        f"?network_ticker={ticker}&network_reset=1",
                                         use_container_width=True
-                                    ):
-                                        st.session_state["network_selected_ticker"] = ticker
-                                        st.session_state["network_selected_category"] = "Alle"
-                                        st.session_state["network_selected_supply_chain_stage"] = "Alle"
-                                        st.session_state["network_selected_connection_type"] = "Alle"
-                                        st.query_params["network_ticker"] = ticker
-                                        st.query_params["network_reset"] = "1"
-                                        st.rerun()
+                                    )
                         else:
                             st.caption("Keine verbundenen Aktien aus dieser Ansicht sind aktuell selbst als Hauptaktie im Mapping hinterlegt.")
 
