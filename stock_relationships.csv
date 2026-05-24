@@ -1,4 +1,4 @@
-﻿source_ticker,target_ticker,target_name,category,supply_chain_stage,connection_type,relationship,importance,risk_note
+source_ticker,target_ticker,target_name,category,supply_chain_stage,connection_type,relationship,importance,risk_note
 000660.KS,005930.KS,Samsung Electronics,Halbleiter / KI-Chips,4 - Halbleiter / Chip-Wertschöpfung,Lieferkette / Halbleiter-Ökosystem,Samsung Electronics ist Teil des gleichen Themen-/Lieferkettenclusters 'Halbleiter / KI-Chips' wie SK hynix.,Hoch,"Zyklik, Taiwan-Risiko, Exportkontrollen und Lagerbestände beachten"
 000660.KS,AAOI,Applied Optoelectronics,Halbleiter / KI-Chips,4 - Halbleiter / Chip-Wertschöpfung,Lieferkette / Halbleiter-Ökosystem,Applied Optoelectronics ist Teil des gleichen Themen-/Lieferkettenclusters 'Halbleiter / KI-Chips' wie SK hynix.,Hoch,"Zyklik, Taiwan-Risiko, Exportkontrollen und Lagerbestände beachten"
 000660.KS,ACLS,Axcelis,Halbleiter / KI-Chips,4 - Halbleiter / Chip-Wertschöpfung,Lieferkette / Halbleiter-Ökosystem,Axcelis ist Teil des gleichen Themen-/Lieferkettenclusters 'Halbleiter / KI-Chips' wie SK hynix.,Hoch,"Zyklik, Taiwan-Risiko, Exportkontrollen und Lagerbestände beachten"
