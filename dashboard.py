@@ -25,6 +25,73 @@ st.set_page_config(
     layout="wide"
 )
 
+# ============================================================
+# 🎨 PROFI-DESIGN / TERMINAL LOOK
+# ============================================================
+
+st.markdown(
+    """
+    <style>
+    .block-container {
+        padding-top: 1.2rem;
+        padding-bottom: 2.5rem;
+    }
+    div[data-testid="stMetric"] {
+        background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.94));
+        border: 1px solid rgba(148,163,184,0.28);
+        border-radius: 18px;
+        padding: 14px 16px;
+        box-shadow: 0 12px 28px rgba(15,23,42,0.14);
+    }
+    div[data-testid="stMetric"] label {
+        color: #cbd5e1 !important;
+    }
+    div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+        color: #f8fafc !important;
+        font-weight: 800;
+    }
+    .terminal-panel {
+        background: radial-gradient(circle at top left, rgba(59,130,246,0.28), transparent 28%),
+                    linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%);
+        border: 1px solid rgba(56,189,248,0.32);
+        border-radius: 24px;
+        padding: 22px 24px;
+        margin: 12px 0 18px 0;
+        box-shadow: 0 20px 50px rgba(2,6,23,0.36);
+        color: #e5e7eb;
+    }
+    .terminal-panel h3 {
+        margin: 0 0 8px 0;
+        color: #f8fafc;
+        font-size: 1.35rem;
+    }
+    .terminal-panel p {
+        margin: 0;
+        color: #cbd5e1;
+    }
+    .terminal-chip {
+        display: inline-block;
+        padding: 6px 10px;
+        margin: 8px 6px 0 0;
+        border-radius: 999px;
+        background: rgba(15,23,42,0.72);
+        border: 1px solid rgba(148,163,184,0.28);
+        color: #e5e7eb;
+        font-size: 0.82rem;
+        font-weight: 700;
+    }
+    .legend-dot {
+        display:inline-block;
+        width:10px;
+        height:10px;
+        border-radius:50%;
+        margin-right:6px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # ============================================================
 # 🔐 LOGIN-BEREICH
@@ -1321,9 +1388,19 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
 
     st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
 
-    st.caption(
-        "Bloomberg-Terminal-light: Wähle eine Hauptaktie aus und sieh, "
-        "welche Unternehmen, Sektoren, Lieferkettenstufen und Risiken damit verbunden sind."
+    st.markdown(
+        """
+        <div class="terminal-panel">
+            <h3>Market Relationship Terminal</h3>
+            <p>Wähle eine Hauptaktie und analysiere Lieferketten, Kunden, Konkurrenz, Energiebedarf, Speicher, Cloud und Risiken als Netzwerk.</p>
+            <span class="terminal-chip">Supply Chain</span>
+            <span class="terminal-chip">AI / Cloud</span>
+            <span class="terminal-chip">Energy / Datacenter</span>
+            <span class="terminal-chip">Competition</span>
+            <span class="terminal-chip">Risk Radar</span>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
     RELATIONSHIPS_FILE = "stock_relationships.csv"
@@ -1795,17 +1872,17 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                 if "avoid" in signal_text or "sell" in signal_text:
                                     return "#ef4444"
                                 if "konkurrenz" in connection_text or "substitution" in connection_text:
-                                    return "#f97316"
+                                    return "#fb923c"
                                 if "lieferant" in connection_text or "zulieferer" in connection_text:
                                     return "#22c55e"
                                 if "kunde" in connection_text or "nachfrage" in connection_text:
-                                    return "#8b5cf6"
+                                    return "#a855f7"
                                 if "infrastruktur" in connection_text or "energie" in connection_text:
                                     return "#f59e0b"
                                 if "risiko" in connection_text or "makro" in connection_text:
-                                    return "#dc2626"
+                                    return "#f43f5e"
 
-                                return "#3b82f6"
+                                return "#38bdf8"
 
                             def get_node_size(importance, action_signal):
                                 importance_text = str(importance).lower()
@@ -1858,19 +1935,20 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                 )
 
                             net = Network(
-                                height="760px",
+                                height="820px",
                                 width="100%",
-                                bgcolor="#ffffff",
-                                font_color="#111827",
+                                bgcolor="#020617",
+                                font_color="#e5e7eb",
                                 directed=False
                             )
 
                             net.add_node(
                                 selected_network_ticker,
                                 label=selected_network_ticker,
-                                title=f"Hauptaktie: {selected_network_ticker}",
-                                size=46,
-                                color="#111827",
+                                title=f"<b>Hauptaktie: {selected_network_ticker}</b>",
+                                size=58,
+                                color={"background": "#0ea5e9", "border": "#e0f2fe", "highlight": {"background": "#38bdf8", "border": "#ffffff"}},
+                                borderWidth=4,
                                 shape="dot"
                             )
 
@@ -1908,7 +1986,7 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                         target_ticker,
                                         title=edge_title,
                                         label=edge_label[:28],
-                                        color="#9ca3af"
+                                        color={"color": "rgba(148,163,184,0.42)", "highlight": "#38bdf8"}
                                     )
 
                             else:
@@ -1982,7 +2060,7 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                         target_ticker,
                                         title=edge_title,
                                         label=edge_label[:24],
-                                        color="#9ca3af"
+                                        color={"color": "rgba(148,163,184,0.42)", "highlight": "#38bdf8"}
                                     )
 
                             net.repulsion(
@@ -1997,33 +2075,60 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                             {
                               "nodes": {
                                 "font": {
-                                  "size": 16,
-                                  "face": "Arial"
+                                  "size": 18,
+                                  "face": "Inter, Arial",
+                                  "color": "#e5e7eb",
+                                  "strokeWidth": 4,
+                                  "strokeColor": "#020617"
                                 },
-                                "borderWidth": 2
+                                "borderWidth": 2,
+                                "shadow": {
+                                  "enabled": true,
+                                  "color": "rgba(0,0,0,0.45)",
+                                  "size": 18,
+                                  "x": 0,
+                                  "y": 6
+                                }
                               },
                               "edges": {
                                 "font": {
-                                  "size": 10,
-                                  "align": "middle"
+                                  "size": 11,
+                                  "align": "middle",
+                                  "color": "#cbd5e1",
+                                  "strokeWidth": 4,
+                                  "strokeColor": "#020617"
                                 },
                                 "smooth": {
                                   "enabled": true,
-                                  "type": "dynamic"
+                                  "type": "continuous",
+                                  "roundness": 0.45
                                 },
-                                "width": 1.5
+                                "width": 1.8,
+                                "selectionWidth": 3.5,
+                                "hoverWidth": 3
                               },
                               "interaction": {
                                 "hover": true,
-                                "tooltipDelay": 120,
+                                "tooltipDelay": 90,
                                 "navigationButtons": true,
-                                "keyboard": true
+                                "keyboard": true,
+                                "multiselect": true
                               },
                               "physics": {
                                 "enabled": true,
+                                "solver": "forceAtlas2Based",
+                                "forceAtlas2Based": {
+                                  "gravitationalConstant": -80,
+                                  "centralGravity": 0.018,
+                                  "springLength": 180,
+                                  "springConstant": 0.055,
+                                  "damping": 0.42,
+                                  "avoidOverlap": 0.85
+                                },
                                 "stabilization": {
                                   "enabled": true,
-                                  "iterations": 180
+                                  "iterations": 260,
+                                  "updateInterval": 25
                                 }
                               }
                             }
@@ -2035,9 +2140,47 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                     with open(tmp_file.name, "r", encoding="utf-8") as html_file:
                                         html_content = html_file.read()
 
+                                pro_network_css = """
+                                <style>
+                                body {
+                                    margin: 0 !important;
+                                    background: radial-gradient(circle at 20% 10%, rgba(14,165,233,0.18), transparent 28%),
+                                                radial-gradient(circle at 80% 20%, rgba(168,85,247,0.13), transparent 25%),
+                                                #020617 !important;
+                                    color: #e5e7eb !important;
+                                    font-family: Inter, Arial, sans-serif !important;
+                                }
+                                #mynetwork {
+                                    border-radius: 22px;
+                                    border: 1px solid rgba(56,189,248,0.35);
+                                    box-shadow: inset 0 0 60px rgba(14,165,233,0.08), 0 24px 60px rgba(2,6,23,0.55);
+                                    overflow: hidden;
+                                }
+                                .vis-tooltip {
+                                    background: rgba(15,23,42,0.96) !important;
+                                    color: #f8fafc !important;
+                                    border: 1px solid rgba(56,189,248,0.45) !important;
+                                    border-radius: 14px !important;
+                                    padding: 12px 14px !important;
+                                    box-shadow: 0 18px 40px rgba(0,0,0,0.35) !important;
+                                    max-width: 420px !important;
+                                    white-space: normal !important;
+                                    font-size: 13px !important;
+                                    line-height: 1.45 !important;
+                                }
+                                div.vis-network div.vis-navigation div.vis-button {
+                                    background-color: rgba(15,23,42,0.82) !important;
+                                    border: 1px solid rgba(148,163,184,0.35) !important;
+                                    border-radius: 12px !important;
+                                    box-shadow: 0 10px 24px rgba(0,0,0,0.24) !important;
+                                }
+                                </style>
+                                """
+                                html_content = html_content.replace("</head>", pro_network_css + "</head>")
+
                                 components.html(
                                     html_content,
-                                    height=790,
+                                    height=850,
                                     scrolling=True
                                 )
 
@@ -2045,8 +2188,17 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                 st.error(f"Spinnennetz konnte nicht erstellt werden: {error}")
 
                         st.markdown(
-                            "**Legende:** 🟢 Lieferant/Zulieferer · 🟣 Kunde/Nachfrage · "
-                            "🟠 Infrastruktur/Energie · 🔴 Risiko/Schwach · Orange Konkurrenz/Substitution"
+                            """
+                            <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
+                                <b>Legende:</b>
+                                <span class="terminal-chip"><span class="legend-dot" style="background:#22c55e"></span>Lieferant / Zulieferer</span>
+                                <span class="terminal-chip"><span class="legend-dot" style="background:#a855f7"></span>Kunde / Nachfrage</span>
+                                <span class="terminal-chip"><span class="legend-dot" style="background:#f59e0b"></span>Infrastruktur / Energie</span>
+                                <span class="terminal-chip"><span class="legend-dot" style="background:#fb923c"></span>Konkurrenz</span>
+                                <span class="terminal-chip"><span class="legend-dot" style="background:#f43f5e"></span>Risiko / Schwach</span>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
                         )
 
                 st.markdown("### 🧾 Detailtabelle")
