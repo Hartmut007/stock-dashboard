@@ -1562,6 +1562,17 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 .tolist()
             )
 
+            query_network_ticker = st.query_params.get("network_ticker", None)
+
+            if isinstance(query_network_ticker, list):
+                query_network_ticker = query_network_ticker[0] if query_network_ticker else None
+
+            if (
+                query_network_ticker in available_network_tickers
+                and st.session_state.get("network_selected_ticker") != query_network_ticker
+            ):
+                st.session_state["network_selected_ticker"] = query_network_ticker
+
             selected_network_ticker = st.selectbox(
                 "Aktie für Netzwerk auswählen",
                 options=available_network_tickers,
@@ -1807,31 +1818,30 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 # 🕸️ PROFI-SPINNENNETZ / WERTSCHÖPFUNGSKETTE
                 # ============================================================
 
-                with st.expander("🕸️ Spinnennetz / Wertschöpfungskette anzeigen", expanded=True):
+                # ============================================================
+                # 🕸️ PROFI-NETZWERK / FOKUS-WERTSCHÖPFUNGSKETTE
+                # ============================================================
+
+                with st.expander("🕸️ Netzwerk / Wertschöpfungskette anzeigen", expanded=True):
                     st.caption(
-                        "Statische Terminal-Ansicht ohne wildes Drehen: Hauptaktie in der Mitte, "
-                        "Lieferkettenstufen als Zwischenring und verbundene Aktien außen. "
-                        "Klicke einen Kreis an, um Details rechts groß anzuzeigen."
+                        "Ruhige Profi-Ansicht: keine Physik, kein Wackeln. "
+                        "Ein Klick zeigt Details rechts. Ein Doppelklick auf eine verfügbare Aktie macht sie zur neuen Hauptaktie."
                     )
 
                     import json
                     import math
                     import html
 
-                    def clean_html_text(value):
-                        value = "" if pd.isna(value) else str(value)
-                        return html.escape(value, quote=True)
-
                     def get_connection_color(connection_type, action_signal=""):
                         text_value = f"{connection_type} {action_signal}".lower()
                         if "avoid" in text_value or "sell" in text_value or "schwach" in text_value:
                             return "#ef4444"
                         if "konkurrenz" in text_value or "substitution" in text_value:
-                            return "#fb923c"
+                            return "#f97316"
                         if "lieferant" in text_value or "zulieferer" in text_value:
                             return "#22c55e"
                         if "kunde" in text_value or "nachfrage" in text_value:
-                            return "#a855f7"
+                            return "#8b5cf6"
                         if "infrastruktur" in text_value or "energie" in text_value or "strom" in text_value:
                             return "#f59e0b"
                         if "risk" in text_value or "risiko" in text_value:
@@ -1842,14 +1852,14 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                         text_value = str(action_signal)
                         low_value = text_value.lower()
                         if "buy" in low_value:
-                            return "Bullish", "#22c55e"
+                            return "BUY", "#22c55e"
                         if "watch" in low_value:
-                            return "Watch", "#eab308"
+                            return "WATCH", "#eab308"
                         if "avoid" in low_value or "sell" in low_value:
-                            return "Risk", "#ef4444"
+                            return "RISK", "#ef4444"
                         if text_value.strip() in ["", "nan", "None"]:
-                            return "Nicht in Liste", "#64748b"
-                        return text_value, "#38bdf8"
+                            return "N/A", "#64748b"
+                        return text_value[:10], "#38bdf8"
 
                     spider_records = network_view.fillna("").to_dict(orient="records")
 
@@ -1857,12 +1867,12 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                         st.info("Für die aktuelle Auswahl gibt es keine Netzwerkdaten.")
                     else:
                         max_visible_nodes = st.slider(
-                            "Maximale Knoten im Spinnennetz",
-                            min_value=12,
-                            max_value=80,
-                            value=min(36, max(12, len(spider_records))),
-                            step=4,
-                            key=f"spider_max_nodes_{selected_network_ticker}"
+                            "Maximale Aktien im Netzwerk",
+                            min_value=10,
+                            max_value=90,
+                            value=min(42, max(10, len(spider_records))),
+                            step=5,
+                            key=f"spider_max_nodes_static_{selected_network_ticker}"
                         )
 
                         spider_records_sorted = sorted(
@@ -1881,38 +1891,47 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                             if stage_name not in stage_names:
                                 stage_names.append(stage_name)
 
-                        width = 1260
+                        width = 1320
                         height = 760
-                        center_x = 500
+                        center_x = 470
                         center_y = 380
-                        stage_radius = 185
-                        node_radius = 335
-                        node_radius_alt = 420
+                        stage_radius = 190
+                        stock_radius_inner = 335
+                        stock_radius_outer = 435
 
+                        available_source_tickers = set(available_network_tickers)
                         nodes = []
                         edges = []
+
+                        center_company = selected_network_ticker
+                        if "Ticker" in df.columns and "Company" in df.columns:
+                            center_match = df[df["Ticker"].astype(str).str.strip() == selected_network_ticker]
+                            if not center_match.empty:
+                                center_company = str(center_match.iloc[0].get("Company", selected_network_ticker))
 
                         nodes.append({
                             "id": selected_network_ticker,
                             "label": selected_network_ticker,
-                            "name": selected_network_ticker,
+                            "name": center_company,
                             "type": "center",
                             "x": center_x,
                             "y": center_y,
-                            "r": 38,
+                            "w": 150,
+                            "h": 64,
                             "color": "#38bdf8",
                             "stage": "Hauptaktie",
-                            "category": "Ausgewählte Hauptaktie",
+                            "category": "Fokuswert",
                             "connection": "Zentrum",
-                            "relationship": "Ausgangspunkt der Wertschöpfungskette",
+                            "relationship": "Ausgangspunkt der Wertschöpfungskette und aller angezeigten Beziehungen.",
                             "risk": "-",
-                            "importance": "-",
+                            "importance": "Fokus",
                             "signal": "Fokus",
                             "rating": "-",
                             "score": "-",
                             "risk_level": "-",
                             "price": "-",
-                            "crv": "-"
+                            "crv": "-",
+                            "can_drill": False
                         })
 
                         stage_positions = {}
@@ -1923,36 +1942,46 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                             stage_x = center_x + stage_radius * math.cos(angle)
                             stage_y = center_y + stage_radius * math.sin(angle)
                             stage_id = f"stage::{stage_name}"
+                            stage_label = stage_name.split(" - ", 1)[-1]
+                            if len(stage_label) > 23:
+                                stage_label = stage_label[:21] + "…"
                             stage_positions[stage_name] = (stage_x, stage_y, angle, stage_id)
+
                             nodes.append({
                                 "id": stage_id,
-                                "label": stage_name.split(" - ", 1)[-1][:18],
+                                "label": stage_label,
                                 "name": stage_name,
                                 "type": "stage",
                                 "x": stage_x,
                                 "y": stage_y,
-                                "r": 24,
+                                "w": 158,
+                                "h": 42,
                                 "color": "#0f172a",
                                 "stage": stage_name,
                                 "category": "Lieferkettenstufe",
                                 "connection": "Zwischenstufe",
-                                "relationship": f"Stufe in der Wertschöpfungskette von {selected_network_ticker}",
+                                "relationship": f"Diese Stufe bündelt Beziehungen im Netzwerk von {selected_network_ticker}.",
                                 "risk": "-",
-                                "importance": "-",
+                                "importance": "Stage",
                                 "signal": "Stage",
                                 "rating": "-",
                                 "score": "-",
                                 "risk_level": "-",
                                 "price": "-",
-                                "crv": "-"
+                                "crv": "-",
+                                "can_drill": False
                             })
                             edges.append({"from": selected_network_ticker, "to": stage_id, "kind": "stage"})
 
                         for stage_name in stage_names:
-                            group = [row for row in spider_records_sorted if str(row.get("supply_chain_stage", "99 - Sonstige Verbindung")) == stage_name]
+                            group = [
+                                row for row in spider_records_sorted
+                                if str(row.get("supply_chain_stage", "99 - Sonstige Verbindung")) == stage_name
+                            ]
+
                             stage_x, stage_y, base_angle, stage_id = stage_positions[stage_name]
                             count = max(len(group), 1)
-                            spread = min(0.95, 0.24 * count)
+                            spread = min(1.10, 0.20 * count)
 
                             for item_index, row in enumerate(group):
                                 ticker = str(row.get("Ticker", row.get("target_ticker", ""))).strip()
@@ -1960,7 +1989,7 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                     continue
 
                                 local_angle = base_angle if count == 1 else base_angle - spread / 2 + spread * item_index / max(count - 1, 1)
-                                radius = node_radius if item_index % 2 == 0 else node_radius_alt
+                                radius = stock_radius_inner if item_index % 2 == 0 else stock_radius_outer
                                 node_x = center_x + radius * math.cos(local_angle)
                                 node_y = center_y + radius * math.sin(local_angle)
 
@@ -1969,11 +1998,11 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                 badge, badge_color = get_signal_badge(action_signal)
                                 color = get_connection_color(connection_type, action_signal)
                                 importance = str(row.get("importance", ""))
-                                node_size = 21
+                                node_w = 124
                                 if importance.lower() in ["hoch", "high"]:
-                                    node_size = 27
+                                    node_w = 140
                                 elif importance.lower() in ["mittel", "medium"]:
-                                    node_size = 23
+                                    node_w = 130
 
                                 nodes.append({
                                     "id": ticker,
@@ -1982,7 +2011,8 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                     "type": "stock",
                                     "x": node_x,
                                     "y": node_y,
-                                    "r": node_size,
+                                    "w": node_w,
+                                    "h": 50,
                                     "color": color,
                                     "badge": badge,
                                     "badge_color": badge_color,
@@ -1997,7 +2027,8 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                     "score": str(row.get("Score", "")),
                                     "risk_level": str(row.get("Risk Level", "")),
                                     "price": str(row.get("Price", "")),
-                                    "crv": str(row.get("CRV", ""))
+                                    "crv": str(row.get("CRV", "")),
+                                    "can_drill": ticker in available_source_tickers
                                 })
                                 edges.append({"from": stage_id, "to": ticker, "kind": "stock"})
 
@@ -2013,81 +2044,66 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                         <style>
                             * {{ box-sizing: border-box; }}
                             body {{ margin: 0; background: #020617; color: #e5e7eb; font-family: Inter, Arial, sans-serif; }}
-                            .terminal-wrap {{
-                                width: 100%; height: 800px; display: grid; grid-template-columns: minmax(760px, 1fr) 360px; gap: 16px;
-                                background: radial-gradient(circle at 18% 12%, rgba(56,189,248,0.18), transparent 30%), radial-gradient(circle at 80% 14%, rgba(168,85,247,0.12), transparent 28%), linear-gradient(135deg, #020617, #0f172a 54%, #111827);
-                                border: 1px solid rgba(56,189,248,0.28); border-radius: 24px; padding: 16px; overflow: hidden;
-                            }}
-                            .network-card {{ position: relative; min-width: 0; border: 1px solid rgba(148,163,184,0.18); border-radius: 20px; background: rgba(2,6,23,0.42); overflow: hidden; box-shadow: inset 0 0 60px rgba(14,165,233,0.06); }}
-                            .detail-card {{ border: 1px solid rgba(148,163,184,0.20); border-radius: 20px; padding: 18px; background: rgba(15,23,42,0.84); box-shadow: 0 18px 42px rgba(0,0,0,0.28); overflow: auto; }}
-                            .detail-kicker {{ color: #38bdf8; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; }}
-                            .detail-title {{ margin: 8px 0 4px; font-size: 26px; line-height: 1.05; font-weight: 900; color: #f8fafc; }}
+                            .terminal-wrap {{ width: 100%; height: 820px; display: grid; grid-template-columns: minmax(780px, 1fr) 390px; gap: 16px; background: radial-gradient(circle at 16% 16%, rgba(56,189,248,0.18), transparent 30%), radial-gradient(circle at 82% 10%, rgba(168,85,247,0.14), transparent 30%), linear-gradient(135deg, #020617, #0f172a 58%, #111827); border: 1px solid rgba(56,189,248,0.28); border-radius: 24px; padding: 16px; overflow: hidden; }}
+                            .network-card {{ position: relative; min-width: 0; border: 1px solid rgba(148,163,184,0.20); border-radius: 20px; background: rgba(2,6,23,0.48); overflow: hidden; box-shadow: inset 0 0 80px rgba(14,165,233,0.06); }}
+                            .detail-card {{ border: 1px solid rgba(148,163,184,0.22); border-radius: 20px; padding: 18px; background: rgba(15,23,42,0.90); box-shadow: 0 18px 42px rgba(0,0,0,0.30); overflow: auto; }}
+                            .detail-kicker {{ color: #38bdf8; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 900; }}
+                            .detail-title {{ margin: 8px 0 4px; font-size: 27px; line-height: 1.05; font-weight: 950; color: #f8fafc; }}
                             .detail-subtitle {{ color: #cbd5e1; font-size: 14px; margin-bottom: 14px; }}
                             .pill-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }}
-                            .pill {{ border-radius: 999px; border: 1px solid rgba(148,163,184,0.25); background: rgba(30,41,59,0.72); padding: 6px 9px; color: #e5e7eb; font-size: 12px; font-weight: 700; }}
-                            .section {{ margin-top: 14px; }}
+                            .pill {{ border-radius: 999px; border: 1px solid rgba(148,163,184,0.25); background: rgba(30,41,59,0.72); padding: 6px 9px; color: #e5e7eb; font-size: 12px; font-weight: 750; }}
+                            .section {{ margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(148,163,184,0.14); }}
                             .section h4 {{ margin: 0 0 6px; color: #93c5fd; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }}
                             .section p {{ margin: 0; color: #e5e7eb; font-size: 14px; line-height: 1.45; }}
-                            .legend {{ position: absolute; left: 16px; bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 680px; padding: 8px 10px; border-radius: 999px; background: rgba(2,6,23,0.70); border: 1px solid rgba(148,163,184,0.18); backdrop-filter: blur(10px); }}
+                            .hint {{ position: absolute; top: 14px; left: 16px; color: #cbd5e1; background: rgba(2,6,23,0.74); border: 1px solid rgba(148,163,184,0.18); border-radius: 999px; padding: 8px 11px; font-size: 12px; z-index: 3; }}
+                            .legend {{ position: absolute; left: 16px; bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 720px; padding: 8px 10px; border-radius: 999px; background: rgba(2,6,23,0.74); border: 1px solid rgba(148,163,184,0.18); backdrop-filter: blur(10px); }}
                             .legend span {{ font-size: 11px; color: #cbd5e1; }}
                             .dot {{ display:inline-block; width:9px; height:9px; border-radius:999px; margin-right:5px; vertical-align:middle; }}
+                            .tooltip {{ position: fixed; max-width: 360px; pointer-events: none; background: rgba(15,23,42,0.96); border: 1px solid rgba(56,189,248,0.30); color: #e5e7eb; border-radius: 14px; padding: 11px 12px; font-size: 12px; line-height: 1.35; box-shadow: 0 18px 42px rgba(0,0,0,0.38); opacity: 0; transform: translate(12px, 12px); transition: opacity .08s ease; z-index: 99; }}
+                            .tooltip b {{ color: #f8fafc; font-size: 13px; }}
                             svg {{ width: 100%; height: 100%; display: block; }}
-                            .edge {{ stroke: rgba(148,163,184,0.28); stroke-width: 1.4; fill: none; }}
-                            .edge-stage {{ stroke: rgba(56,189,248,0.30); stroke-width: 1.8; stroke-dasharray: 6 8; }}
-                            .node {{ cursor: pointer; transition: transform .18s ease, opacity .18s ease; transform-box: fill-box; transform-origin: center; }}
-                            .node circle {{ stroke: rgba(248,250,252,0.70); stroke-width: 1.6; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.40)); transition: all .18s ease; }}
-                            .node text {{ pointer-events: none; font-weight: 850; fill: #f8fafc; paint-order: stroke; stroke: #020617; stroke-width: 4px; stroke-linejoin: round; }}
-                            .node:hover {{ transform: scale(1.08); }}
-                            .node.active {{ transform: scale(1.32); }}
-                            .node.active circle {{ stroke: #f8fafc; stroke-width: 3; }}
-                            .stage-node circle {{ fill: #0f172a; stroke: rgba(56,189,248,0.58); stroke-width: 2; }}
-                            .stage-node text {{ font-size: 11px; fill: #bfdbfe; }}
-                            .center-node circle {{ fill: #38bdf8; stroke: #e0f2fe; stroke-width: 3; }}
+                            .edge {{ stroke: rgba(148,163,184,0.28); stroke-width: 1.5; fill: none; }}
+                            .edge-stage {{ stroke: rgba(56,189,248,0.30); stroke-width: 1.9; stroke-dasharray: 7 8; }}
+                            .node {{ cursor: pointer; transition: opacity .12s ease; }}
+                            .node rect {{ stroke: rgba(248,250,252,0.60); stroke-width: 1.25; filter: drop-shadow(0 10px 14px rgba(0,0,0,0.35)); }}
+                            .node text {{ pointer-events: none; font-weight: 900; fill: #f8fafc; paint-order: stroke; stroke: #020617; stroke-width: 3px; stroke-linejoin: round; }}
+                            .node:hover rect {{ stroke: #f8fafc; stroke-width: 2.2; }}
+                            .node.active rect {{ stroke: #f8fafc; stroke-width: 2.8; }}
+                            .center-node rect {{ fill: #0ea5e9; stroke: #e0f2fe; stroke-width: 2.8; }}
                             .center-node text {{ font-size: 21px; }}
-                            .stock-node text {{ font-size: 13px; }}
-                            .badge {{ font-size: 9px; font-weight: 900; fill: #020617; stroke: none; paint-order: normal; }}
-                            .hint {{ position: absolute; top: 14px; left: 16px; color: #cbd5e1; background: rgba(2,6,23,0.70); border: 1px solid rgba(148,163,184,0.18); border-radius: 999px; padding: 8px 11px; font-size: 12px; }}
+                            .stage-node rect {{ fill: rgba(15,23,42,0.94); stroke: rgba(56,189,248,0.58); stroke-width: 1.8; }}
+                            .stage-node text {{ font-size: 11px; fill: #bfdbfe; }}
+                            .stock-node text {{ font-size: 14px; }}
+                            .badge-text {{ font-size: 9px; font-weight: 950; fill: #020617; stroke: none; paint-order: normal; }}
+                            .drill {{ font-size: 10px; fill: #93c5fd; stroke: none; paint-order: normal; }}
                         </style>
                         </head>
                         <body>
-                            <div class="terminal-wrap">
-                                <div class="network-card">
-                                    <div class="hint">Klick auf einen Kreis → Details / Fokus rechts</div>
-                                    <svg viewBox="0 0 {width} {height}" id="networkSvg" preserveAspectRatio="xMidYMid meet">
-                                        <defs><radialGradient id="centerGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.95"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0.95"/></radialGradient></defs>
-                                        <g id="edges"></g><g id="nodes"></g>
-                                    </svg>
-                                    <div class="legend">
-                                        <span><i class="dot" style="background:#22c55e"></i>Lieferant</span><span><i class="dot" style="background:#a855f7"></i>Kunde/Nachfrage</span><span><i class="dot" style="background:#f59e0b"></i>Infrastruktur/Energie</span><span><i class="dot" style="background:#fb923c"></i>Konkurrenz</span><span><i class="dot" style="background:#ef4444"></i>Risk/Avoid</span><span><i class="dot" style="background:#38bdf8"></i>Strategisch</span>
-                                    </div>
-                                </div>
-                                <aside class="detail-card" id="detailCard"><div class="detail-kicker">Market Relationship Focus</div><div class="detail-title">{clean_html_text(selected_network_ticker)}</div><div class="detail-subtitle">Klicke links auf einen Kreis, um die Verbindung groß darzustellen.</div><div class="pill-row"><span class="pill">Zentrum</span><span class="pill">Wertschöpfungskette</span></div><div class="section"><h4>Lesart</h4><p>Innen liegt die Hauptaktie. Der Zwischenring zeigt die Lieferkettenstufen. Außen liegen die verbundenen Aktien.</p></div></aside>
-                            </div>
+                            <div class="terminal-wrap"><div class="network-card"><div class="hint">Klick = Detail · Doppelklick = Aktie als neues Zentrum, falls verfügbar</div><svg viewBox="0 0 {width} {height}" id="networkSvg" preserveAspectRatio="xMidYMid meet"><g id="edges"></g><g id="nodes"></g></svg><div class="legend"><span><i class="dot" style="background:#22c55e"></i>Lieferant</span><span><i class="dot" style="background:#8b5cf6"></i>Kunde/Nachfrage</span><span><i class="dot" style="background:#f59e0b"></i>Infrastruktur/Energie</span><span><i class="dot" style="background:#f97316"></i>Konkurrenz</span><span><i class="dot" style="background:#ef4444"></i>Risk/Avoid</span><span><i class="dot" style="background:#38bdf8"></i>Strategisch</span></div><div class="tooltip" id="tooltip"></div></div>
+                                <aside class="detail-card" id="detailCard"><div class="detail-kicker">Market Relationship Focus</div><div class="detail-title">{html.escape(selected_network_ticker)}</div><div class="detail-subtitle">Klicke auf eine Karte im Netzwerk, um die Verbindung im Detail zu sehen.</div><div class="pill-row"><span class="pill">Zentrum</span><span class="pill">Wertschöpfungskette</span></div><div class="section"><h4>Bedienung</h4><p>Mouseover zeigt Schnellinfos. Doppelklick auf eine verfügbare Aktie lädt diese Aktie als neues Zentrum.</p></div></aside></div>
                             <script>
                                 const nodes = {nodes_json}; const edges = {edges_json}; const centerId = {center_id_json};
                                 const nodesById = Object.fromEntries(nodes.map(n => [n.id, n]));
-                                const edgeLayer = document.getElementById('edges'); const nodeLayer = document.getElementById('nodes'); const detailCard = document.getElementById('detailCard');
+                                const edgeLayer = document.getElementById('edges'); const nodeLayer = document.getElementById('nodes'); const detailCard = document.getElementById('detailCard'); const tooltip = document.getElementById('tooltip');
                                 function esc(value) {{ return String(value ?? '').replace(/[&<>'"]/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}}[ch])); }}
-                                function showDetails(nodeId) {{
-                                    const n = nodesById[nodeId]; if (!n) return;
-                                    document.querySelectorAll('.node').forEach(el => el.classList.remove('active'));
-                                    const active = document.querySelector(`[data-node-id="${{CSS.escape(nodeId)}}"]`); if (active) active.classList.add('active');
-                                    detailCard.innerHTML = `<div class="detail-kicker">${{esc(n.type === 'center' ? 'Hauptaktie' : n.type === 'stage' ? 'Lieferkettenstufe' : 'Verbundene Aktie')}}</div><div class="detail-title">${{esc(n.label)}} <span style="font-size:16px;color:#94a3b8;">${{n.name && n.name !== n.label ? '— ' + esc(n.name) : ''}}</span></div><div class="detail-subtitle">${{esc(n.stage)}}</div><div class="pill-row"><span class="pill" style="border-color:${{esc(n.color)}};">${{esc(n.connection)}}</span><span class="pill">${{esc(n.category)}}</span><span class="pill">Wichtigkeit: ${{esc(n.importance || '-')}}</span></div><div class="section"><h4>Warum verbunden?</h4><p>${{esc(n.relationship || '-')}}</p></div><div class="section"><h4>Risiko / Hinweis</h4><p>${{esc(n.risk || '-')}}</p></div><div class="section"><h4>Dashboard-Signal</h4><p>${{esc(n.signal || '-')}} · Rating: ${{esc(n.rating || '-')}} · Score: ${{esc(n.score || '-')}} · Risk: ${{esc(n.risk_level || '-')}}</p></div><div class="section"><h4>Kurs / CRV</h4><p>Preis: ${{esc(n.price || '-')}} · CRV: ${{esc(n.crv || '-')}}</p></div>`;
-                                }}
+                                function detailHtml(n) {{ const typeLabel = n.type === 'center' ? 'Hauptaktie' : n.type === 'stage' ? 'Lieferkettenstufe' : 'Verbundene Aktie'; const drillInfo = n.can_drill ? '<span class="pill">Doppelklick: als Zentrum öffnen</span>' : ''; return `<div class="detail-kicker">${{esc(typeLabel)}}</div><div class="detail-title">${{esc(n.label)}} <span style="font-size:16px;color:#94a3b8;">${{n.name && n.name !== n.label ? '— ' + esc(n.name) : ''}}</span></div><div class="detail-subtitle">${{esc(n.stage || '-')}}</div><div class="pill-row"><span class="pill" style="border-color:${{esc(n.color)}};">${{esc(n.connection || '-')}}</span><span class="pill">${{esc(n.category || '-')}}</span><span class="pill">Wichtigkeit: ${{esc(n.importance || '-')}}</span>${{drillInfo}}</div><div class="section"><h4>Warum verbunden?</h4><p>${{esc(n.relationship || '-')}}</p></div><div class="section"><h4>Risiko / Hinweis</h4><p>${{esc(n.risk || '-')}}</p></div><div class="section"><h4>Dashboard-Signal</h4><p>${{esc(n.signal || '-')}} · Rating: ${{esc(n.rating || '-')}} · Score: ${{esc(n.score || '-')}} · Risk: ${{esc(n.risk_level || '-')}}</p></div><div class="section"><h4>Kurs / CRV</h4><p>Preis: ${{esc(n.price || '-')}} · CRV: ${{esc(n.crv || '-')}}</p></div>`; }}
+                                function tooltipHtml(n) {{ return `<b>${{esc(n.label)}}${{n.name && n.name !== n.label ? ' — ' + esc(n.name) : ''}}</b><br><span>Stufe: ${{esc(n.stage || '-')}}</span><br><span>Verbindung: ${{esc(n.connection || '-')}}</span><br><span>Signal: ${{esc(n.signal || '-')}} · Score: ${{esc(n.score || '-')}}</span><br><span>Warum: ${{esc(n.relationship || '-')}}</span>`; }}
+                                function showDetails(nodeId) {{ const n = nodesById[nodeId]; if (!n) return; document.querySelectorAll('.node').forEach(el => el.classList.remove('active')); const active = document.querySelector(`[data-node-id="${{CSS.escape(nodeId)}}"]`); if (active) active.classList.add('active'); detailCard.innerHTML = detailHtml(n); }}
+                                function navigateToTicker(ticker) {{ const n = nodesById[ticker]; if (!n || !n.can_drill) return; try {{ const url = new URL(window.parent.location.href); url.searchParams.set('network_ticker', ticker); window.parent.location.href = url.toString(); }} catch (e) {{ const url = new URL(window.location.href); url.searchParams.set('network_ticker', ticker); window.location.href = url.toString(); }} }}
                                 function drawEdges() {{ edges.forEach(e => {{ const a = nodesById[e.from]; const b = nodesById[e.to]; if (!a || !b) return; const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', a.x); line.setAttribute('y1', a.y); line.setAttribute('x2', b.x); line.setAttribute('y2', b.y); line.setAttribute('class', e.kind === 'stage' ? 'edge edge-stage' : 'edge'); edgeLayer.appendChild(line); }}); }}
-                                function drawNodes() {{ nodes.forEach(n => {{ const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', `node ${{n.type}}-node`); g.setAttribute('data-node-id', n.id); g.setAttribute('transform', `translate(${{n.x}}, ${{n.y}})`); const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); circle.setAttribute('r', n.r); circle.setAttribute('fill', n.type === 'center' ? 'url(#centerGlow)' : n.color); g.appendChild(circle); const text = document.createElementNS('http://www.w3.org/2000/svg', 'text'); text.setAttribute('text-anchor', 'middle'); text.setAttribute('dominant-baseline', 'central'); text.textContent = n.label; g.appendChild(text); if (n.type === 'stock' && n.badge) {{ const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); badgeBg.setAttribute('x', -28); badgeBg.setAttribute('y', n.r + 7); badgeBg.setAttribute('width', 56); badgeBg.setAttribute('height', 16); badgeBg.setAttribute('rx', 8); badgeBg.setAttribute('fill', n.badge_color || '#64748b'); g.appendChild(badgeBg); const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); badgeText.setAttribute('class', 'badge'); badgeText.setAttribute('text-anchor', 'middle'); badgeText.setAttribute('x', 0); badgeText.setAttribute('y', n.r + 18.5); badgeText.textContent = n.badge; g.appendChild(badgeText); }} g.addEventListener('click', () => showDetails(n.id)); nodeLayer.appendChild(g); }}); }}
+                                function drawNodes() {{ nodes.forEach(n => {{ const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', `node ${{n.type}}-node`); g.setAttribute('data-node-id', n.id); g.setAttribute('transform', `translate(${{n.x}}, ${{n.y}})`); const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); rect.setAttribute('x', -n.w / 2); rect.setAttribute('y', -n.h / 2); rect.setAttribute('width', n.w); rect.setAttribute('height', n.h); rect.setAttribute('rx', n.type === 'center' ? 18 : 14); rect.setAttribute('fill', n.type === 'stage' ? 'rgba(15,23,42,0.94)' : n.color); g.appendChild(rect); const title = document.createElementNS('http://www.w3.org/2000/svg', 'text'); title.setAttribute('text-anchor', 'middle'); title.setAttribute('dominant-baseline', 'central'); title.setAttribute('y', n.type === 'stock' ? -5 : 0); title.textContent = n.label; g.appendChild(title); if (n.type === 'stock') {{ const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); badgeBg.setAttribute('x', -30); badgeBg.setAttribute('y', 11); badgeBg.setAttribute('width', 60); badgeBg.setAttribute('height', 16); badgeBg.setAttribute('rx', 8); badgeBg.setAttribute('fill', n.badge_color || '#64748b'); g.appendChild(badgeBg); const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); badgeText.setAttribute('class', 'badge-text'); badgeText.setAttribute('text-anchor', 'middle'); badgeText.setAttribute('x', 0); badgeText.setAttribute('y', 22.5); badgeText.textContent = n.badge || 'N/A'; g.appendChild(badgeText); if (n.can_drill) {{ const drillText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); drillText.setAttribute('class', 'drill'); drillText.setAttribute('text-anchor', 'middle'); drillText.setAttribute('x', 0); drillText.setAttribute('y', -19); drillText.textContent = '↻'; g.appendChild(drillText); }} }} g.addEventListener('click', () => showDetails(n.id)); g.addEventListener('dblclick', (ev) => {{ ev.preventDefault(); navigateToTicker(n.id); }}); g.addEventListener('mouseenter', () => {{ tooltip.innerHTML = tooltipHtml(n); tooltip.style.opacity = '1'; }}); g.addEventListener('mousemove', (ev) => {{ tooltip.style.left = ev.clientX + 'px'; tooltip.style.top = ev.clientY + 'px'; }}); g.addEventListener('mouseleave', () => {{ tooltip.style.opacity = '0'; }}); nodeLayer.appendChild(g); }}); }}
                                 drawEdges(); drawNodes(); showDetails(centerId);
                             </script>
                         </body>
                         </html>
                         '''
 
-                        components.html(network_html, height=830, scrolling=False)
+                        components.html(network_html, height=850, scrolling=False)
 
                         st.markdown(
                             """
                             <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
-                                <b>Hinweis:</b> Diese Ansicht ist bewusst statisch und ruhig. Die Detailtabelle darunter bleibt vollständig; das Spinnennetz zeigt die wichtigsten Knoten für schnelle Übersicht.
+                                <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Doppelklick auf Aktien mit ↻ macht diese Aktie zum neuen Zentrum, sofern sie in stock_relationships.csv als Hauptaktie vorhanden ist.
                             </div>
                             """,
                             unsafe_allow_html=True
