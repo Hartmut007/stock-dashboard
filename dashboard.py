@@ -5,12 +5,11 @@ import subprocess
 import hmac
 from datetime import datetime
 from supabase import create_client, Client
+import streamlit.components.v1 as components
 
-# Optional für das interaktive Spinnennetz / Netzwerkdiagramm.
-# Falls pyvis noch nicht installiert ist, läuft das Dashboard weiter und zeigt einen Hinweis.
+# Optional: PyVis bleibt kompatibel, das neue Netzwerk nutzt aber ein eigenes statisches HTML/SVG.
 try:
     from pyvis.network import Network
-    import streamlit.components.v1 as components
     import tempfile
     PYVIS_AVAILABLE = True
 except Exception:
@@ -1804,398 +1803,291 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 })
 
                 # ============================================================
-                # 🕸️ INTERAKTIVES SPINNENNETZ / NETZWERKDIAGRAMM
+                # ============================================================
+                # 🕸️ PROFI-SPINNENNETZ / WERTSCHÖPFUNGSKETTE
                 # ============================================================
 
-                with st.expander("🕸️ Spinnennetz / Netzwerkdiagramm anzeigen", expanded=True):
+                with st.expander("🕸️ Spinnennetz / Wertschöpfungskette anzeigen", expanded=True):
+                    st.caption(
+                        "Statische Terminal-Ansicht ohne wildes Drehen: Hauptaktie in der Mitte, "
+                        "Lieferkettenstufen als Zwischenring und verbundene Aktien außen. "
+                        "Klicke einen Kreis an, um Details rechts groß anzuzeigen."
+                    )
 
-                    if not PYVIS_AVAILABLE:
-                        st.warning(
-                            "Für das interaktive Spinnennetz fehlt noch das Paket `pyvis`. "
-                            "Bitte ergänze `pyvis` und `networkx` in deiner requirements.txt und deploye neu."
-                        )
+                    import json
+                    import math
+                    import html
+
+                    def clean_html_text(value):
+                        value = "" if pd.isna(value) else str(value)
+                        return html.escape(value, quote=True)
+
+                    def get_connection_color(connection_type, action_signal=""):
+                        text_value = f"{connection_type} {action_signal}".lower()
+                        if "avoid" in text_value or "sell" in text_value or "schwach" in text_value:
+                            return "#ef4444"
+                        if "konkurrenz" in text_value or "substitution" in text_value:
+                            return "#fb923c"
+                        if "lieferant" in text_value or "zulieferer" in text_value:
+                            return "#22c55e"
+                        if "kunde" in text_value or "nachfrage" in text_value:
+                            return "#a855f7"
+                        if "infrastruktur" in text_value or "energie" in text_value or "strom" in text_value:
+                            return "#f59e0b"
+                        if "risk" in text_value or "risiko" in text_value:
+                            return "#f43f5e"
+                        return "#38bdf8"
+
+                    def get_signal_badge(action_signal):
+                        text_value = str(action_signal)
+                        low_value = text_value.lower()
+                        if "buy" in low_value:
+                            return "Bullish", "#22c55e"
+                        if "watch" in low_value:
+                            return "Watch", "#eab308"
+                        if "avoid" in low_value or "sell" in low_value:
+                            return "Risk", "#ef4444"
+                        if text_value.strip() in ["", "nan", "None"]:
+                            return "Nicht in Liste", "#64748b"
+                        return text_value, "#38bdf8"
+
+                    spider_records = network_view.fillna("").to_dict(orient="records")
+
+                    if not spider_records:
+                        st.info("Für die aktuelle Auswahl gibt es keine Netzwerkdaten.")
                     else:
-                        st.caption(
-                            "Interaktives Beziehungsnetz: Mittelpunkt ist die ausgewählte Aktie. "
-                            "Du kannst Knoten verschieben, zoomen und mit der Maus über Aktien fahren."
+                        max_visible_nodes = st.slider(
+                            "Maximale Knoten im Spinnennetz",
+                            min_value=12,
+                            max_value=80,
+                            value=min(36, max(12, len(spider_records))),
+                            step=4,
+                            key=f"spider_max_nodes_{selected_network_ticker}"
                         )
 
-                        spider_col_1, spider_col_2 = st.columns([1, 1])
-
-                        with spider_col_1:
-                            spider_mode = st.radio(
-                                "Darstellung",
-                                options=[
-                                    "Direkt: Hauptaktie → verbundene Aktien",
-                                    "Lieferkette: Hauptaktie → Stufen → Aktien"
-                                ],
-                                index=1,
-                                key="spider_network_mode"
+                        spider_records_sorted = sorted(
+                            spider_records,
+                            key=lambda row: (
+                                str(row.get("supply_chain_stage", "99")),
+                                str(row.get("category", "")),
+                                str(row.get("Importance Sort", "9")),
+                                str(row.get("Ticker", ""))
                             )
+                        )[:max_visible_nodes]
 
-                        with spider_col_2:
-                            use_current_filters_for_spider = st.checkbox(
-                                "Aktuelle Mapping-Filter verwenden",
-                                value=True,
-                                key="spider_use_current_filters"
-                            )
+                        stage_names = []
+                        for row in spider_records_sorted:
+                            stage_name = str(row.get("supply_chain_stage", "99 - Sonstige Verbindung"))
+                            if stage_name not in stage_names:
+                                stage_names.append(stage_name)
 
-                        spider_data = (
-                            selected_relationships.copy()
-                            if use_current_filters_for_spider
-                            else selected_relationships_base.copy()
-                        )
+                        width = 1260
+                        height = 760
+                        center_x = 500
+                        center_y = 380
+                        stage_radius = 185
+                        node_radius = 335
+                        node_radius_alt = 420
 
-                        if spider_data.empty:
-                            st.info("Für die aktuelle Filterauswahl gibt es keine Netzwerkdaten.")
-                        else:
-                            spider_network_view = spider_data.merge(
-                                signal_df,
-                                left_on="target_ticker",
-                                right_on="Ticker",
-                                how="left"
-                            )
+                        nodes = []
+                        edges = []
 
-                            spider_network_view["Ticker"] = spider_network_view["target_ticker"]
+                        nodes.append({
+                            "id": selected_network_ticker,
+                            "label": selected_network_ticker,
+                            "name": selected_network_ticker,
+                            "type": "center",
+                            "x": center_x,
+                            "y": center_y,
+                            "r": 38,
+                            "color": "#38bdf8",
+                            "stage": "Hauptaktie",
+                            "category": "Ausgewählte Hauptaktie",
+                            "connection": "Zentrum",
+                            "relationship": "Ausgangspunkt der Wertschöpfungskette",
+                            "risk": "-",
+                            "importance": "-",
+                            "signal": "Fokus",
+                            "rating": "-",
+                            "score": "-",
+                            "risk_level": "-",
+                            "price": "-",
+                            "crv": "-"
+                        })
 
-                            if "Company" in spider_network_view.columns:
-                                spider_network_view["Company"] = spider_network_view["Company"].fillna(
-                                    spider_network_view["target_name"]
-                                )
-                            else:
-                                spider_network_view["Company"] = spider_network_view["target_name"]
+                        stage_positions = {}
+                        total_stages = max(len(stage_names), 1)
 
-                            def get_node_color(connection_type, action_signal):
-                                connection_text = str(connection_type).lower()
-                                signal_text = str(action_signal).lower()
+                        for stage_index, stage_name in enumerate(stage_names):
+                            angle = -math.pi / 2 + (2 * math.pi * stage_index / total_stages)
+                            stage_x = center_x + stage_radius * math.cos(angle)
+                            stage_y = center_y + stage_radius * math.sin(angle)
+                            stage_id = f"stage::{stage_name}"
+                            stage_positions[stage_name] = (stage_x, stage_y, angle, stage_id)
+                            nodes.append({
+                                "id": stage_id,
+                                "label": stage_name.split(" - ", 1)[-1][:18],
+                                "name": stage_name,
+                                "type": "stage",
+                                "x": stage_x,
+                                "y": stage_y,
+                                "r": 24,
+                                "color": "#0f172a",
+                                "stage": stage_name,
+                                "category": "Lieferkettenstufe",
+                                "connection": "Zwischenstufe",
+                                "relationship": f"Stufe in der Wertschöpfungskette von {selected_network_ticker}",
+                                "risk": "-",
+                                "importance": "-",
+                                "signal": "Stage",
+                                "rating": "-",
+                                "score": "-",
+                                "risk_level": "-",
+                                "price": "-",
+                                "crv": "-"
+                            })
+                            edges.append({"from": selected_network_ticker, "to": stage_id, "kind": "stage"})
 
-                                if "avoid" in signal_text or "sell" in signal_text:
-                                    return "#ef4444"
-                                if "konkurrenz" in connection_text or "substitution" in connection_text:
-                                    return "#fb923c"
-                                if "lieferant" in connection_text or "zulieferer" in connection_text:
-                                    return "#22c55e"
-                                if "kunde" in connection_text or "nachfrage" in connection_text:
-                                    return "#a855f7"
-                                if "infrastruktur" in connection_text or "energie" in connection_text:
-                                    return "#f59e0b"
-                                if "risiko" in connection_text or "makro" in connection_text:
-                                    return "#f43f5e"
+                        for stage_name in stage_names:
+                            group = [row for row in spider_records_sorted if str(row.get("supply_chain_stage", "99 - Sonstige Verbindung")) == stage_name]
+                            stage_x, stage_y, base_angle, stage_id = stage_positions[stage_name]
+                            count = max(len(group), 1)
+                            spread = min(0.95, 0.24 * count)
 
-                                return "#38bdf8"
+                            for item_index, row in enumerate(group):
+                                ticker = str(row.get("Ticker", row.get("target_ticker", ""))).strip()
+                                if not ticker:
+                                    continue
 
-                            def get_node_size(importance, action_signal):
-                                importance_text = str(importance).lower()
-                                signal_text = str(action_signal).lower()
+                                local_angle = base_angle if count == 1 else base_angle - spread / 2 + spread * item_index / max(count - 1, 1)
+                                radius = node_radius if item_index % 2 == 0 else node_radius_alt
+                                node_x = center_x + radius * math.cos(local_angle)
+                                node_y = center_y + radius * math.sin(local_angle)
 
-                                size = 18
+                                connection_type = str(row.get("connection_type", "Strategische Verbindung"))
+                                action_signal = str(row.get("Action Signal", ""))
+                                badge, badge_color = get_signal_badge(action_signal)
+                                color = get_connection_color(connection_type, action_signal)
+                                importance = str(row.get("importance", ""))
+                                node_size = 21
+                                if importance.lower() in ["hoch", "high"]:
+                                    node_size = 27
+                                elif importance.lower() in ["mittel", "medium"]:
+                                    node_size = 23
 
-                                if importance_text in ["hoch", "high"]:
-                                    size = 28
-                                elif importance_text in ["mittel", "medium"]:
-                                    size = 22
+                                nodes.append({
+                                    "id": ticker,
+                                    "label": ticker,
+                                    "name": str(row.get("Company", row.get("target_name", ticker))),
+                                    "type": "stock",
+                                    "x": node_x,
+                                    "y": node_y,
+                                    "r": node_size,
+                                    "color": color,
+                                    "badge": badge,
+                                    "badge_color": badge_color,
+                                    "stage": stage_name,
+                                    "category": str(row.get("category", "")),
+                                    "connection": connection_type,
+                                    "relationship": str(row.get("relationship", "")),
+                                    "risk": str(row.get("risk_note", "")),
+                                    "importance": importance,
+                                    "signal": action_signal if action_signal else "Nicht in Hauptliste",
+                                    "rating": str(row.get("Rating", "")),
+                                    "score": str(row.get("Score", "")),
+                                    "risk_level": str(row.get("Risk Level", "")),
+                                    "price": str(row.get("Price", "")),
+                                    "crv": str(row.get("CRV", ""))
+                                })
+                                edges.append({"from": stage_id, "to": ticker, "kind": "stock"})
 
-                                if "strong buy" in signal_text or "buy zone" in signal_text:
-                                    size += 4
+                        nodes_json = json.dumps(nodes, ensure_ascii=False)
+                        edges_json = json.dumps(edges, ensure_ascii=False)
+                        center_id_json = json.dumps(selected_network_ticker, ensure_ascii=False)
 
-                                return size
+                        network_html = f'''
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                        <meta charset="utf-8" />
+                        <style>
+                            * {{ box-sizing: border-box; }}
+                            body {{ margin: 0; background: #020617; color: #e5e7eb; font-family: Inter, Arial, sans-serif; }}
+                            .terminal-wrap {{
+                                width: 100%; height: 800px; display: grid; grid-template-columns: minmax(760px, 1fr) 360px; gap: 16px;
+                                background: radial-gradient(circle at 18% 12%, rgba(56,189,248,0.18), transparent 30%), radial-gradient(circle at 80% 14%, rgba(168,85,247,0.12), transparent 28%), linear-gradient(135deg, #020617, #0f172a 54%, #111827);
+                                border: 1px solid rgba(56,189,248,0.28); border-radius: 24px; padding: 16px; overflow: hidden;
+                            }}
+                            .network-card {{ position: relative; min-width: 0; border: 1px solid rgba(148,163,184,0.18); border-radius: 20px; background: rgba(2,6,23,0.42); overflow: hidden; box-shadow: inset 0 0 60px rgba(14,165,233,0.06); }}
+                            .detail-card {{ border: 1px solid rgba(148,163,184,0.20); border-radius: 20px; padding: 18px; background: rgba(15,23,42,0.84); box-shadow: 0 18px 42px rgba(0,0,0,0.28); overflow: auto; }}
+                            .detail-kicker {{ color: #38bdf8; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; }}
+                            .detail-title {{ margin: 8px 0 4px; font-size: 26px; line-height: 1.05; font-weight: 900; color: #f8fafc; }}
+                            .detail-subtitle {{ color: #cbd5e1; font-size: 14px; margin-bottom: 14px; }}
+                            .pill-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }}
+                            .pill {{ border-radius: 999px; border: 1px solid rgba(148,163,184,0.25); background: rgba(30,41,59,0.72); padding: 6px 9px; color: #e5e7eb; font-size: 12px; font-weight: 700; }}
+                            .section {{ margin-top: 14px; }}
+                            .section h4 {{ margin: 0 0 6px; color: #93c5fd; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }}
+                            .section p {{ margin: 0; color: #e5e7eb; font-size: 14px; line-height: 1.45; }}
+                            .legend {{ position: absolute; left: 16px; bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 680px; padding: 8px 10px; border-radius: 999px; background: rgba(2,6,23,0.70); border: 1px solid rgba(148,163,184,0.18); backdrop-filter: blur(10px); }}
+                            .legend span {{ font-size: 11px; color: #cbd5e1; }}
+                            .dot {{ display:inline-block; width:9px; height:9px; border-radius:999px; margin-right:5px; vertical-align:middle; }}
+                            svg {{ width: 100%; height: 100%; display: block; }}
+                            .edge {{ stroke: rgba(148,163,184,0.28); stroke-width: 1.4; fill: none; }}
+                            .edge-stage {{ stroke: rgba(56,189,248,0.30); stroke-width: 1.8; stroke-dasharray: 6 8; }}
+                            .node {{ cursor: pointer; transition: transform .18s ease, opacity .18s ease; transform-box: fill-box; transform-origin: center; }}
+                            .node circle {{ stroke: rgba(248,250,252,0.70); stroke-width: 1.6; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.40)); transition: all .18s ease; }}
+                            .node text {{ pointer-events: none; font-weight: 850; fill: #f8fafc; paint-order: stroke; stroke: #020617; stroke-width: 4px; stroke-linejoin: round; }}
+                            .node:hover {{ transform: scale(1.08); }}
+                            .node.active {{ transform: scale(1.32); }}
+                            .node.active circle {{ stroke: #f8fafc; stroke-width: 3; }}
+                            .stage-node circle {{ fill: #0f172a; stroke: rgba(56,189,248,0.58); stroke-width: 2; }}
+                            .stage-node text {{ font-size: 11px; fill: #bfdbfe; }}
+                            .center-node circle {{ fill: #38bdf8; stroke: #e0f2fe; stroke-width: 3; }}
+                            .center-node text {{ font-size: 21px; }}
+                            .stock-node text {{ font-size: 13px; }}
+                            .badge {{ font-size: 9px; font-weight: 900; fill: #020617; stroke: none; paint-order: normal; }}
+                            .hint {{ position: absolute; top: 14px; left: 16px; color: #cbd5e1; background: rgba(2,6,23,0.70); border: 1px solid rgba(148,163,184,0.18); border-radius: 999px; padding: 8px 11px; font-size: 12px; }}
+                        </style>
+                        </head>
+                        <body>
+                            <div class="terminal-wrap">
+                                <div class="network-card">
+                                    <div class="hint">Klick auf einen Kreis → Details / Fokus rechts</div>
+                                    <svg viewBox="0 0 {width} {height}" id="networkSvg" preserveAspectRatio="xMidYMid meet">
+                                        <defs><radialGradient id="centerGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.95"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0.95"/></radialGradient></defs>
+                                        <g id="edges"></g><g id="nodes"></g>
+                                    </svg>
+                                    <div class="legend">
+                                        <span><i class="dot" style="background:#22c55e"></i>Lieferant</span><span><i class="dot" style="background:#a855f7"></i>Kunde/Nachfrage</span><span><i class="dot" style="background:#f59e0b"></i>Infrastruktur/Energie</span><span><i class="dot" style="background:#fb923c"></i>Konkurrenz</span><span><i class="dot" style="background:#ef4444"></i>Risk/Avoid</span><span><i class="dot" style="background:#38bdf8"></i>Strategisch</span>
+                                    </div>
+                                </div>
+                                <aside class="detail-card" id="detailCard"><div class="detail-kicker">Market Relationship Focus</div><div class="detail-title">{clean_html_text(selected_network_ticker)}</div><div class="detail-subtitle">Klicke links auf einen Kreis, um die Verbindung groß darzustellen.</div><div class="pill-row"><span class="pill">Zentrum</span><span class="pill">Wertschöpfungskette</span></div><div class="section"><h4>Lesart</h4><p>Innen liegt die Hauptaktie. Der Zwischenring zeigt die Lieferkettenstufen. Außen liegen die verbundenen Aktien.</p></div></aside>
+                            </div>
+                            <script>
+                                const nodes = {nodes_json}; const edges = {edges_json}; const centerId = {center_id_json};
+                                const nodesById = Object.fromEntries(nodes.map(n => [n.id, n]));
+                                const edgeLayer = document.getElementById('edges'); const nodeLayer = document.getElementById('nodes'); const detailCard = document.getElementById('detailCard');
+                                function esc(value) {{ return String(value ?? '').replace(/[&<>'"]/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}}[ch])); }}
+                                function showDetails(nodeId) {{
+                                    const n = nodesById[nodeId]; if (!n) return;
+                                    document.querySelectorAll('.node').forEach(el => el.classList.remove('active'));
+                                    const active = document.querySelector(`[data-node-id="${{CSS.escape(nodeId)}}"]`); if (active) active.classList.add('active');
+                                    detailCard.innerHTML = `<div class="detail-kicker">${{esc(n.type === 'center' ? 'Hauptaktie' : n.type === 'stage' ? 'Lieferkettenstufe' : 'Verbundene Aktie')}}</div><div class="detail-title">${{esc(n.label)}} <span style="font-size:16px;color:#94a3b8;">${{n.name && n.name !== n.label ? '— ' + esc(n.name) : ''}}</span></div><div class="detail-subtitle">${{esc(n.stage)}}</div><div class="pill-row"><span class="pill" style="border-color:${{esc(n.color)}};">${{esc(n.connection)}}</span><span class="pill">${{esc(n.category)}}</span><span class="pill">Wichtigkeit: ${{esc(n.importance || '-')}}</span></div><div class="section"><h4>Warum verbunden?</h4><p>${{esc(n.relationship || '-')}}</p></div><div class="section"><h4>Risiko / Hinweis</h4><p>${{esc(n.risk || '-')}}</p></div><div class="section"><h4>Dashboard-Signal</h4><p>${{esc(n.signal || '-')}} · Rating: ${{esc(n.rating || '-')}} · Score: ${{esc(n.score || '-')}} · Risk: ${{esc(n.risk_level || '-')}}</p></div><div class="section"><h4>Kurs / CRV</h4><p>Preis: ${{esc(n.price || '-')}} · CRV: ${{esc(n.crv || '-')}}</p></div>`;
+                                }}
+                                function drawEdges() {{ edges.forEach(e => {{ const a = nodesById[e.from]; const b = nodesById[e.to]; if (!a || !b) return; const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', a.x); line.setAttribute('y1', a.y); line.setAttribute('x2', b.x); line.setAttribute('y2', b.y); line.setAttribute('class', e.kind === 'stage' ? 'edge edge-stage' : 'edge'); edgeLayer.appendChild(line); }}); }}
+                                function drawNodes() {{ nodes.forEach(n => {{ const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', `node ${{n.type}}-node`); g.setAttribute('data-node-id', n.id); g.setAttribute('transform', `translate(${{n.x}}, ${{n.y}})`); const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); circle.setAttribute('r', n.r); circle.setAttribute('fill', n.type === 'center' ? 'url(#centerGlow)' : n.color); g.appendChild(circle); const text = document.createElementNS('http://www.w3.org/2000/svg', 'text'); text.setAttribute('text-anchor', 'middle'); text.setAttribute('dominant-baseline', 'central'); text.textContent = n.label; g.appendChild(text); if (n.type === 'stock' && n.badge) {{ const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); badgeBg.setAttribute('x', -28); badgeBg.setAttribute('y', n.r + 7); badgeBg.setAttribute('width', 56); badgeBg.setAttribute('height', 16); badgeBg.setAttribute('rx', 8); badgeBg.setAttribute('fill', n.badge_color || '#64748b'); g.appendChild(badgeBg); const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); badgeText.setAttribute('class', 'badge'); badgeText.setAttribute('text-anchor', 'middle'); badgeText.setAttribute('x', 0); badgeText.setAttribute('y', n.r + 18.5); badgeText.textContent = n.badge; g.appendChild(badgeText); }} g.addEventListener('click', () => showDetails(n.id)); nodeLayer.appendChild(g); }}); }}
+                                drawEdges(); drawNodes(); showDetails(centerId);
+                            </script>
+                        </body>
+                        </html>
+                        '''
 
-                            def build_tooltip(row):
-                                ticker = row.get("Ticker", row.get("target_ticker", ""))
-                                company = row.get("Company", row.get("target_name", ""))
-                                category = row.get("category", "")
-                                stage = row.get("supply_chain_stage", "")
-                                connection_type = row.get("connection_type", "")
-                                importance = row.get("importance", "")
-                                relationship = row.get("relationship", "")
-                                risk_note = row.get("risk_note", "")
-                                action_signal = row.get("Action Signal", "Nicht in Hauptliste")
-                                rating = row.get("Rating", "-")
-                                score = row.get("Score", "-")
-                                risk_level = row.get("Risk Level", "-")
-                                price = row.get("Price", "-")
-                                crv = row.get("CRV", "-")
-
-                                return (
-                                    f"<b>{ticker} - {company}</b><br>"
-                                    f"<hr>"
-                                    f"<b>Kategorie:</b> {category}<br>"
-                                    f"<b>Lieferkettenstufe:</b> {stage}<br>"
-                                    f"<b>Verbindungsart:</b> {connection_type}<br>"
-                                    f"<b>Wichtigkeit:</b> {importance}<br><br>"
-                                    f"<b>Warum verbunden?</b><br>{relationship}<br><br>"
-                                    f"<b>Risiko:</b><br>{risk_note}<br><br>"
-                                    f"<b>Dashboard:</b><br>"
-                                    f"Signal: {action_signal}<br>"
-                                    f"Rating: {rating}<br>"
-                                    f"Score: {score}<br>"
-                                    f"Risiko-Level: {risk_level}<br>"
-                                    f"Preis: {price}<br>"
-                                    f"CRV: {crv}"
-                                )
-
-                            net = Network(
-                                height="820px",
-                                width="100%",
-                                bgcolor="#020617",
-                                font_color="#e5e7eb",
-                                directed=False
-                            )
-
-                            net.add_node(
-                                selected_network_ticker,
-                                label=selected_network_ticker,
-                                title=f"<b>Hauptaktie: {selected_network_ticker}</b>",
-                                size=58,
-                                color={"background": "#0ea5e9", "border": "#e0f2fe", "highlight": {"background": "#38bdf8", "border": "#ffffff"}},
-                                borderWidth=4,
-                                shape="dot"
-                            )
-
-                            added_nodes = {selected_network_ticker}
-
-                            if spider_mode.startswith("Direkt"):
-                                for _, spider_row in spider_network_view.iterrows():
-                                    target_ticker = str(spider_row.get("target_ticker", "")).strip()
-
-                                    if not target_ticker:
-                                        continue
-
-                                    if target_ticker not in added_nodes:
-                                        net.add_node(
-                                            target_ticker,
-                                            label=target_ticker,
-                                            title=build_tooltip(spider_row),
-                                            size=get_node_size(
-                                                spider_row.get("importance", ""),
-                                                spider_row.get("Action Signal", "")
-                                            ),
-                                            color=get_node_color(
-                                                spider_row.get("connection_type", ""),
-                                                spider_row.get("Action Signal", "")
-                                            ),
-                                            shape="dot"
-                                        )
-                                        added_nodes.add(target_ticker)
-
-                                    edge_label = str(spider_row.get("connection_type", ""))
-                                    edge_title = str(spider_row.get("relationship", ""))
-
-                                    net.add_edge(
-                                        selected_network_ticker,
-                                        target_ticker,
-                                        title=edge_title,
-                                        label=edge_label[:28],
-                                        color={"color": "rgba(148,163,184,0.42)", "highlight": "#38bdf8"}
-                                    )
-
-                            else:
-                                stage_color_map = {
-                                    "1": "#f59e0b",
-                                    "2": "#f97316",
-                                    "3": "#22c55e",
-                                    "4": "#10b981",
-                                    "5": "#3b82f6",
-                                    "6": "#06b6d4",
-                                    "7": "#8b5cf6",
-                                    "8": "#ec4899",
-                                    "9": "#ef4444",
-                                    "10": "#dc2626",
-                                    "99": "#6b7280"
-                                }
-
-                                for stage in sorted(spider_network_view["supply_chain_stage"].dropna().astype(str).unique().tolist()):
-                                    stage_node_id = f"STAGE::{stage}"
-                                    stage_prefix = stage.split(" - ")[0].strip()
-                                    stage_color = stage_color_map.get(stage_prefix, "#6b7280")
-
-                                    if stage_node_id not in added_nodes:
-                                        net.add_node(
-                                            stage_node_id,
-                                            label=stage,
-                                            title=f"Lieferkettenstufe: {stage}",
-                                            size=30,
-                                            color=stage_color,
-                                            shape="box"
-                                        )
-                                        added_nodes.add(stage_node_id)
-
-                                    net.add_edge(
-                                        selected_network_ticker,
-                                        stage_node_id,
-                                        title=f"{selected_network_ticker} → {stage}",
-                                        color=stage_color
-                                    )
-
-                                for _, spider_row in spider_network_view.iterrows():
-                                    target_ticker = str(spider_row.get("target_ticker", "")).strip()
-                                    stage = str(spider_row.get("supply_chain_stage", "99 - Sonstige Verbindung")).strip()
-                                    stage_node_id = f"STAGE::{stage}"
-
-                                    if not target_ticker:
-                                        continue
-
-                                    if target_ticker not in added_nodes:
-                                        net.add_node(
-                                            target_ticker,
-                                            label=target_ticker,
-                                            title=build_tooltip(spider_row),
-                                            size=get_node_size(
-                                                spider_row.get("importance", ""),
-                                                spider_row.get("Action Signal", "")
-                                            ),
-                                            color=get_node_color(
-                                                spider_row.get("connection_type", ""),
-                                                spider_row.get("Action Signal", "")
-                                            ),
-                                            shape="dot"
-                                        )
-                                        added_nodes.add(target_ticker)
-
-                                    edge_label = str(spider_row.get("connection_type", ""))
-                                    edge_title = str(spider_row.get("relationship", ""))
-
-                                    net.add_edge(
-                                        stage_node_id,
-                                        target_ticker,
-                                        title=edge_title,
-                                        label=edge_label[:24],
-                                        color={"color": "rgba(148,163,184,0.42)", "highlight": "#38bdf8"}
-                                    )
-
-                            net.repulsion(
-                                node_distance=230,
-                                central_gravity=0.18,
-                                spring_length=190,
-                                spring_strength=0.04,
-                                damping=0.09
-                            )
-
-                            net.set_options("""
-                            {
-                              "nodes": {
-                                "font": {
-                                  "size": 18,
-                                  "face": "Inter, Arial",
-                                  "color": "#e5e7eb",
-                                  "strokeWidth": 4,
-                                  "strokeColor": "#020617"
-                                },
-                                "borderWidth": 2,
-                                "shadow": {
-                                  "enabled": true,
-                                  "color": "rgba(0,0,0,0.45)",
-                                  "size": 18,
-                                  "x": 0,
-                                  "y": 6
-                                }
-                              },
-                              "edges": {
-                                "font": {
-                                  "size": 11,
-                                  "align": "middle",
-                                  "color": "#cbd5e1",
-                                  "strokeWidth": 4,
-                                  "strokeColor": "#020617"
-                                },
-                                "smooth": {
-                                  "enabled": true,
-                                  "type": "continuous",
-                                  "roundness": 0.45
-                                },
-                                "width": 1.8,
-                                "selectionWidth": 3.5,
-                                "hoverWidth": 3
-                              },
-                              "interaction": {
-                                "hover": true,
-                                "tooltipDelay": 90,
-                                "navigationButtons": true,
-                                "keyboard": true,
-                                "multiselect": true
-                              },
-                              "physics": {
-                                "enabled": true,
-                                "solver": "forceAtlas2Based",
-                                "forceAtlas2Based": {
-                                  "gravitationalConstant": -80,
-                                  "centralGravity": 0.018,
-                                  "springLength": 180,
-                                  "springConstant": 0.055,
-                                  "damping": 0.42,
-                                  "avoidOverlap": 0.85
-                                },
-                                "stabilization": {
-                                  "enabled": true,
-                                  "iterations": 260,
-                                  "updateInterval": 25
-                                }
-                              }
-                            }
-                            """)
-
-                            try:
-                                with tempfile.NamedTemporaryFile(delete=False, suffix=".html") as tmp_file:
-                                    net.save_graph(tmp_file.name)
-                                    with open(tmp_file.name, "r", encoding="utf-8") as html_file:
-                                        html_content = html_file.read()
-
-                                pro_network_css = """
-                                <style>
-                                body {
-                                    margin: 0 !important;
-                                    background: radial-gradient(circle at 20% 10%, rgba(14,165,233,0.18), transparent 28%),
-                                                radial-gradient(circle at 80% 20%, rgba(168,85,247,0.13), transparent 25%),
-                                                #020617 !important;
-                                    color: #e5e7eb !important;
-                                    font-family: Inter, Arial, sans-serif !important;
-                                }
-                                #mynetwork {
-                                    border-radius: 22px;
-                                    border: 1px solid rgba(56,189,248,0.35);
-                                    box-shadow: inset 0 0 60px rgba(14,165,233,0.08), 0 24px 60px rgba(2,6,23,0.55);
-                                    overflow: hidden;
-                                }
-                                .vis-tooltip {
-                                    background: rgba(15,23,42,0.96) !important;
-                                    color: #f8fafc !important;
-                                    border: 1px solid rgba(56,189,248,0.45) !important;
-                                    border-radius: 14px !important;
-                                    padding: 12px 14px !important;
-                                    box-shadow: 0 18px 40px rgba(0,0,0,0.35) !important;
-                                    max-width: 420px !important;
-                                    white-space: normal !important;
-                                    font-size: 13px !important;
-                                    line-height: 1.45 !important;
-                                }
-                                div.vis-network div.vis-navigation div.vis-button {
-                                    background-color: rgba(15,23,42,0.82) !important;
-                                    border: 1px solid rgba(148,163,184,0.35) !important;
-                                    border-radius: 12px !important;
-                                    box-shadow: 0 10px 24px rgba(0,0,0,0.24) !important;
-                                }
-                                </style>
-                                """
-                                html_content = html_content.replace("</head>", pro_network_css + "</head>")
-
-                                components.html(
-                                    html_content,
-                                    height=850,
-                                    scrolling=True
-                                )
-
-                            except Exception as error:
-                                st.error(f"Spinnennetz konnte nicht erstellt werden: {error}")
+                        components.html(network_html, height=830, scrolling=False)
 
                         st.markdown(
                             """
                             <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
-                                <b>Legende:</b>
-                                <span class="terminal-chip"><span class="legend-dot" style="background:#22c55e"></span>Lieferant / Zulieferer</span>
-                                <span class="terminal-chip"><span class="legend-dot" style="background:#a855f7"></span>Kunde / Nachfrage</span>
-                                <span class="terminal-chip"><span class="legend-dot" style="background:#f59e0b"></span>Infrastruktur / Energie</span>
-                                <span class="terminal-chip"><span class="legend-dot" style="background:#fb923c"></span>Konkurrenz</span>
-                                <span class="terminal-chip"><span class="legend-dot" style="background:#f43f5e"></span>Risiko / Schwach</span>
+                                <b>Hinweis:</b> Diese Ansicht ist bewusst statisch und ruhig. Die Detailtabelle darunter bleibt vollständig; das Spinnennetz zeigt die wichtigsten Knoten für schnelle Übersicht.
                             </div>
                             """,
                             unsafe_allow_html=True
