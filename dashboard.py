@@ -1563,15 +1563,28 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
             )
 
             query_network_ticker = st.query_params.get("network_ticker", None)
+            query_network_reset = st.query_params.get("network_reset", None)
 
             if isinstance(query_network_ticker, list):
                 query_network_ticker = query_network_ticker[0] if query_network_ticker else None
 
-            if (
-                query_network_ticker in available_network_tickers
-                and st.session_state.get("network_selected_ticker") != query_network_ticker
-            ):
-                st.session_state["network_selected_ticker"] = query_network_ticker
+            if isinstance(query_network_reset, list):
+                query_network_reset = query_network_reset[0] if query_network_reset else None
+
+            if query_network_ticker is not None:
+                query_network_ticker = str(query_network_ticker).strip().upper()
+
+            # Wenn das Netzwerk per Doppelklick aus dem HTML gewechselt wird,
+            # setzen wir die Hauptaktie UND die Filter zurück.
+            # Sonst kann z. B. ein alter Kategorie-/Stufenfilter die neue Aktie leer wirken lassen.
+            if query_network_ticker in available_network_tickers:
+                old_network_ticker = st.session_state.get("network_selected_ticker")
+
+                if old_network_ticker != query_network_ticker or str(query_network_reset) == "1":
+                    st.session_state["network_selected_ticker"] = query_network_ticker
+                    st.session_state["network_selected_category"] = "Alle"
+                    st.session_state["network_selected_supply_chain_stage"] = "Alle"
+                    st.session_state["network_selected_connection_type"] = "Alle"
 
             selected_network_ticker = st.selectbox(
                 "Aktie für Netzwerk auswählen",
@@ -2089,7 +2102,16 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                 function detailHtml(n) {{ const typeLabel = n.type === 'center' ? 'Hauptaktie' : n.type === 'stage' ? 'Lieferkettenstufe' : 'Verbundene Aktie'; const drillInfo = n.can_drill ? '<span class="pill">Doppelklick: als Zentrum öffnen</span>' : ''; return `<div class="detail-kicker">${{esc(typeLabel)}}</div><div class="detail-title">${{esc(n.label)}} <span style="font-size:16px;color:#94a3b8;">${{n.name && n.name !== n.label ? '— ' + esc(n.name) : ''}}</span></div><div class="detail-subtitle">${{esc(n.stage || '-')}}</div><div class="pill-row"><span class="pill" style="border-color:${{esc(n.color)}};">${{esc(n.connection || '-')}}</span><span class="pill">${{esc(n.category || '-')}}</span><span class="pill">Wichtigkeit: ${{esc(n.importance || '-')}}</span>${{drillInfo}}</div><div class="section"><h4>Warum verbunden?</h4><p>${{esc(n.relationship || '-')}}</p></div><div class="section"><h4>Risiko / Hinweis</h4><p>${{esc(n.risk || '-')}}</p></div><div class="section"><h4>Dashboard-Signal</h4><p>${{esc(n.signal || '-')}} · Rating: ${{esc(n.rating || '-')}} · Score: ${{esc(n.score || '-')}} · Risk: ${{esc(n.risk_level || '-')}}</p></div><div class="section"><h4>Kurs / CRV</h4><p>Preis: ${{esc(n.price || '-')}} · CRV: ${{esc(n.crv || '-')}}</p></div>`; }}
                                 function tooltipHtml(n) {{ return `<b>${{esc(n.label)}}${{n.name && n.name !== n.label ? ' — ' + esc(n.name) : ''}}</b><br><span>Stufe: ${{esc(n.stage || '-')}}</span><br><span>Verbindung: ${{esc(n.connection || '-')}}</span><br><span>Signal: ${{esc(n.signal || '-')}} · Score: ${{esc(n.score || '-')}}</span><br><span>Warum: ${{esc(n.relationship || '-')}}</span>`; }}
                                 function showDetails(nodeId) {{ const n = nodesById[nodeId]; if (!n) return; document.querySelectorAll('.node').forEach(el => el.classList.remove('active')); const active = document.querySelector(`[data-node-id="${{CSS.escape(nodeId)}}"]`); if (active) active.classList.add('active'); detailCard.innerHTML = detailHtml(n); }}
-                                function navigateToTicker(ticker) {{ const n = nodesById[ticker]; if (!n || !n.can_drill) return; try {{ const url = new URL(window.parent.location.href); url.searchParams.set('network_ticker', ticker); window.parent.location.href = url.toString(); }} catch (e) {{ const url = new URL(window.location.href); url.searchParams.set('network_ticker', ticker); window.location.href = url.toString(); }} }}
+                                function navigateToTicker(ticker) {{
+                                    const n = nodesById[ticker];
+                                    if (!n || !n.can_drill) return;
+                                    const targetUrl = `?network_ticker=${{encodeURIComponent(String(ticker).toUpperCase())}}&network_reset=1`;
+                                    try {{
+                                        window.top.location.assign(targetUrl);
+                                    }} catch (e) {{
+                                        try {{ window.open(targetUrl, '_top'); }} catch (e2) {{ window.location.href = targetUrl; }}
+                                    }}
+                                }}
                                 function drawEdges() {{ edges.forEach(e => {{ const a = nodesById[e.from]; const b = nodesById[e.to]; if (!a || !b) return; const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', a.x); line.setAttribute('y1', a.y); line.setAttribute('x2', b.x); line.setAttribute('y2', b.y); line.setAttribute('class', e.kind === 'stage' ? 'edge edge-stage' : 'edge'); edgeLayer.appendChild(line); }}); }}
                                 function drawNodes() {{ nodes.forEach(n => {{ const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', `node ${{n.type}}-node`); g.setAttribute('data-node-id', n.id); g.setAttribute('transform', `translate(${{n.x}}, ${{n.y}})`); const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); rect.setAttribute('x', -n.w / 2); rect.setAttribute('y', -n.h / 2); rect.setAttribute('width', n.w); rect.setAttribute('height', n.h); rect.setAttribute('rx', n.type === 'center' ? 18 : 14); rect.setAttribute('fill', n.type === 'stage' ? 'rgba(15,23,42,0.94)' : n.color); g.appendChild(rect); const title = document.createElementNS('http://www.w3.org/2000/svg', 'text'); title.setAttribute('text-anchor', 'middle'); title.setAttribute('dominant-baseline', 'central'); title.setAttribute('y', n.type === 'stock' ? -5 : 0); title.textContent = n.label; g.appendChild(title); if (n.type === 'stock') {{ const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); badgeBg.setAttribute('x', -30); badgeBg.setAttribute('y', 11); badgeBg.setAttribute('width', 60); badgeBg.setAttribute('height', 16); badgeBg.setAttribute('rx', 8); badgeBg.setAttribute('fill', n.badge_color || '#64748b'); g.appendChild(badgeBg); const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); badgeText.setAttribute('class', 'badge-text'); badgeText.setAttribute('text-anchor', 'middle'); badgeText.setAttribute('x', 0); badgeText.setAttribute('y', 22.5); badgeText.textContent = n.badge || 'N/A'; g.appendChild(badgeText); if (n.can_drill) {{ const drillText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); drillText.setAttribute('class', 'drill'); drillText.setAttribute('text-anchor', 'middle'); drillText.setAttribute('x', 0); drillText.setAttribute('y', -19); drillText.textContent = '↻'; g.appendChild(drillText); }} }} g.addEventListener('click', () => showDetails(n.id)); g.addEventListener('dblclick', (ev) => {{ ev.preventDefault(); navigateToTicker(n.id); }}); g.addEventListener('mouseenter', () => {{ tooltip.innerHTML = tooltipHtml(n); tooltip.style.opacity = '1'; }}); g.addEventListener('mousemove', (ev) => {{ tooltip.style.left = ev.clientX + 'px'; tooltip.style.top = ev.clientY + 'px'; }}); g.addEventListener('mouseleave', () => {{ tooltip.style.opacity = '0'; }}); nodeLayer.appendChild(g); }}); }}
                                 drawEdges(); drawNodes(); showDetails(centerId);
@@ -2103,7 +2125,7 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                         st.markdown(
                             """
                             <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
-                                <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Doppelklick auf Aktien mit ↻ macht diese Aktie zum neuen Zentrum, sofern sie in stock_relationships.csv als Hauptaktie vorhanden ist.
+                                <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Doppelklick auf Aktien mit ↻ macht diese Aktie zum neuen Zentrum und setzt Netzwerkfilter zurück, sofern sie in stock_relationships.csv als Hauptaktie vorhanden ist.
                             </div>
                             """,
                             unsafe_allow_html=True
