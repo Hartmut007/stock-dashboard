@@ -1562,39 +1562,56 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 .tolist()
             )
 
-            query_network_ticker = st.query_params.get("network_ticker", None)
-            query_network_reset = st.query_params.get("network_reset", None)
+            def reset_network_filters():
+                """Setzt die Netzwerkfilter zurück, bevor die Filter-Widgets neu aufgebaut werden."""
+                st.session_state["network_selected_category"] = "Alle"
+                st.session_state["network_selected_supply_chain_stage"] = "Alle"
+                st.session_state["network_selected_connection_type"] = "Alle"
 
-            if isinstance(query_network_ticker, list):
-                query_network_ticker = query_network_ticker[0] if query_network_ticker else None
+            def switch_network_center(ticker):
+                """Wechselt das Netzwerk-Zentrum ohne URL-Wechsel, damit der Login erhalten bleibt."""
+                ticker = str(ticker).strip().upper()
 
-            if isinstance(query_network_reset, list):
-                query_network_reset = query_network_reset[0] if query_network_reset else None
+                if ticker in available_network_tickers:
+                    st.session_state["_network_center_ticker"] = ticker
+                    st.session_state["_network_picker"] = ticker
+                    reset_network_filters()
 
-            if query_network_ticker is not None:
-                query_network_ticker = str(query_network_ticker).strip().upper()
+            def on_network_picker_change():
+                """Reagiert auf manuelle Auswahl im Dropdown."""
+                ticker = str(st.session_state.get("_network_picker", "")).strip().upper()
 
-            # Wenn das Netzwerk über einen Link/Button gewechselt wird,
-            # setzen wir die Hauptaktie UND die Filter vor dem Erzeugen der Widgets zurück.
-            # Der Reset wird nur einmal pro Query-Wechsel angewendet, damit spätere Filteränderungen
-            # nicht sofort wieder überschrieben werden.
-            if query_network_ticker in available_network_tickers:
-                old_network_ticker = st.session_state.get("network_selected_ticker")
-                current_query_key = f"{query_network_ticker}:{query_network_reset}"
-                last_query_key = st.session_state.get("_network_last_query_key")
+                if ticker in available_network_tickers:
+                    st.session_state["_network_center_ticker"] = ticker
+                    reset_network_filters()
 
-                if old_network_ticker != query_network_ticker or (str(query_network_reset) == "1" and last_query_key != current_query_key):
-                    st.session_state["network_selected_ticker"] = query_network_ticker
-                    st.session_state["network_selected_category"] = "Alle"
-                    st.session_state["network_selected_supply_chain_stage"] = "Alle"
-                    st.session_state["network_selected_connection_type"] = "Alle"
-                    st.session_state["_network_last_query_key"] = current_query_key
+            if "_network_center_ticker" not in st.session_state:
+                st.session_state["_network_center_ticker"] = available_network_tickers[0]
+
+            if st.session_state["_network_center_ticker"] not in available_network_tickers:
+                st.session_state["_network_center_ticker"] = available_network_tickers[0]
+
+            if "_network_picker" not in st.session_state:
+                st.session_state["_network_picker"] = st.session_state["_network_center_ticker"]
+
+            if st.session_state["_network_picker"] not in available_network_tickers:
+                st.session_state["_network_picker"] = st.session_state["_network_center_ticker"]
+
+            selected_index = available_network_tickers.index(
+                st.session_state["_network_center_ticker"]
+            )
 
             selected_network_ticker = st.selectbox(
                 "Aktie für Netzwerk auswählen",
                 options=available_network_tickers,
-                index=0,
-                key="network_selected_ticker"
+                index=selected_index,
+                key="_network_picker",
+                on_change=on_network_picker_change
+            )
+
+            selected_network_ticker = st.session_state.get(
+                "_network_center_ticker",
+                selected_network_ticker
             )
 
             selected_relationships_base = relationships_df[
@@ -2129,13 +2146,13 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                         st.markdown(
                             """
                             <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
-                                <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Das Zentrum wechselst du über die Buttons unten — stabiler als Doppelklick im eingebetteten Netzwerk.
+                                <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Das Zentrum wechselst du über die Buttons unten — ohne URL-Wechsel, der Login bleibt erhalten.
                             </div>
                             """,
                             unsafe_allow_html=True
                         )
 
-                        # Streamlit-native Navigation: zuverlässiger als JavaScript-Doppelklick im iframe.
+                        # Streamlit-native Navigation: zuverlässig und ohne URL-Wechsel, damit der Login erhalten bleibt.
                         drill_candidates = (
                             network_view["target_ticker"]
                             .dropna()
@@ -2153,16 +2170,18 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
 
                         if drill_candidates:
                             st.markdown("#### 🔁 Verbundene Aktie als neues Zentrum öffnen")
-                            st.caption("Diese Auswahl setzt Kategorie-, Lieferketten- und Verbindungsfilter automatisch zurück.")
+                            st.caption("Diese Auswahl setzt Kategorie-, Lieferketten- und Verbindungsfilter automatisch zurück, ohne den Login zu verlassen.")
 
                             # Kompakte Button-Matrix
                             button_columns = st.columns(6)
                             for idx, ticker in enumerate(drill_candidates[:30]):
                                 with button_columns[idx % 6]:
-                                    st.link_button(
+                                    st.button(
                                         f"↻ {ticker}",
-                                        f"?network_ticker={ticker}&network_reset=1",
-                                        use_container_width=True
+                                        key=f"switch_network_center_{selected_network_ticker}_{ticker}",
+                                        use_container_width=True,
+                                        on_click=switch_network_center,
+                                        args=(ticker,)
                                     )
                         else:
                             st.caption("Keine verbundenen Aktien aus dieser Ansicht sind aktuell selbst als Hauptaktie im Mapping hinterlegt.")
