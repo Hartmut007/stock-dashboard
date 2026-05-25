@@ -32,14 +32,14 @@ st.markdown(
     """
     <style>
     .block-container {
-        padding-top: 1.2rem;
-        padding-bottom: 2.5rem;
+        padding-top: 0.8rem;
+        padding-bottom: 1.6rem;
     }
     div[data-testid="stMetric"] {
         background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.94));
         border: 1px solid rgba(148,163,184,0.28);
-        border-radius: 18px;
-        padding: 14px 16px;
+        border-radius: 14px;
+        padding: 9px 11px;
         box-shadow: 0 12px 28px rgba(15,23,42,0.14);
     }
     div[data-testid="stMetric"] label {
@@ -62,7 +62,7 @@ st.markdown(
     .terminal-panel h3 {
         margin: 0 0 8px 0;
         color: #f8fafc;
-        font-size: 1.35rem;
+        font-size: 1.08rem;
     }
     .terminal-panel p {
         margin: 0;
@@ -76,7 +76,7 @@ st.markdown(
         background: rgba(15,23,42,0.72);
         border: 1px solid rgba(148,163,184,0.28);
         color: #e5e7eb;
-        font-size: 0.82rem;
+        font-size: 0.72rem;
         font-weight: 700;
     }
     .legend-dot {
@@ -86,6 +86,112 @@ st.markdown(
         border-radius:50%;
         margin-right:6px;
     }
+
+
+    /* Kompaktere Standardschrift im Dashboard */
+    html, body, [class*="css"] {
+        font-size: 14px;
+    }
+
+    .stMarkdown, .stText, p, li, span, div {
+        font-size: 0.88rem;
+    }
+
+    h1 {
+        font-size: 1.65rem !important;
+        margin-bottom: 0.55rem !important;
+    }
+
+    h2 {
+        font-size: 1.32rem !important;
+        margin-top: 0.75rem !important;
+        margin-bottom: 0.45rem !important;
+    }
+
+    h3 {
+        font-size: 1.08rem !important;
+        margin-top: 0.6rem !important;
+        margin-bottom: 0.35rem !important;
+    }
+
+    div[data-testid="stMetric"] label {
+        font-size: 0.70rem !important;
+    }
+
+    div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+        font-size: 1.05rem !important;
+        line-height: 1.15 !important;
+    }
+
+    div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
+        font-size: 0.70rem !important;
+    }
+
+    /* Sidebar kompakter */
+    section[data-testid="stSidebar"] {
+        font-size: 0.80rem !important;
+    }
+
+    section[data-testid="stSidebar"] * {
+        font-size: 0.80rem !important;
+    }
+
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        font-size: 0.95rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.35rem !important;
+    }
+
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span {
+        font-size: 0.76rem !important;
+    }
+
+    section[data-testid="stSidebar"] div[data-baseweb="select"] * {
+        font-size: 0.76rem !important;
+    }
+
+    section[data-testid="stSidebar"] input {
+        font-size: 0.76rem !important;
+        min-height: 32px !important;
+    }
+
+    section[data-testid="stSidebar"] button {
+        font-size: 0.76rem !important;
+        padding: 0.25rem 0.45rem !important;
+        min-height: 32px !important;
+    }
+
+    /* Tabellen und Tabs kompakter */
+    div[data-testid="stDataFrame"] {
+        font-size: 0.78rem !important;
+    }
+
+    button[data-baseweb="tab"] p {
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+    }
+
+    .terminal-panel {
+        padding: 14px 16px;
+        border-radius: 18px;
+        margin: 8px 0 12px 0;
+    }
+
+    .terminal-panel p {
+        font-size: 0.82rem;
+        line-height: 1.35;
+    }
+
+    .terminal-chip {
+        padding: 4px 8px;
+        margin: 5px 4px 0 0;
+        font-size: 0.68rem;
+    }
+
     </style>
     """,
     unsafe_allow_html=True
@@ -2921,7 +3027,7 @@ with tab_network:
                                 .stock-node text {{ font-size: 14px; }}
                                 .badge-text {{ font-size: 9px; font-weight: 950; fill: #020617; stroke: none; paint-order: normal; }}
                                 .drill {{ font-size: 10px; fill: #93c5fd; stroke: none; paint-order: normal; }}
-                            </style>
+                        
                             </head>
                             <body>
                                 <div class="terminal-wrap"><div class="network-card"><div class="hint">Klick = Detail · Zentrum wechseln über Buttons unter dem Netzwerk</div><svg viewBox="0 0 {width} {height}" id="networkSvg" preserveAspectRatio="xMidYMid meet"><g id="edges"></g><g id="nodes"></g></svg><div class="legend"><span><i class="dot" style="background:#22c55e"></i>Lieferant</span><span><i class="dot" style="background:#8b5cf6"></i>Kunde/Nachfrage</span><span><i class="dot" style="background:#f59e0b"></i>Infrastruktur/Energie</span><span><i class="dot" style="background:#f97316"></i>Konkurrenz</span><span><i class="dot" style="background:#ef4444"></i>Risk/Avoid</span><span><i class="dot" style="background:#38bdf8"></i>Strategisch</span></div><div class="tooltip" id="tooltip"></div></div>
@@ -3854,53 +3960,53 @@ with tab_analysis:
             risk_light = get_risk_light(row["Risk Level"])
 
             card_html = f"""
-        <div style="background-color:#ffffff; padding:24px 26px; border-radius:22px; margin-bottom:26px; border-left:13px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
-        <h2 style="margin:0 0 16px 0; font-size:27px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
+        <div style="background-color:#ffffff; padding:16px 18px; border-radius:16px; margin-bottom:16px; border-left:8px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
+        <h2 style="margin:0 0 16px 0; font-size:21px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
         <hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
 
-        <p style="font-size:18px; margin:0 0 18px 0;">💰 <b>Preis:</b> {row['Price']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">💰 <b>Preis:</b> {row['Price']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']} | 🕒 <b>Horizont:</b> {row['Strategy Mode']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']} | 🕒 <b>Horizont:</b> {row['Strategy Mode']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']} | 🧱 <b>Zielbasis:</b> {row['Target Basis']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']} | 🧱 <b>Zielbasis:</b> {row['Target Basis']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🧭 <b>Terminal-Grade:</b> {row['Terminal Grade']} | Terminal Score: {row['Terminal Score']}/100</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🧭 <b>Terminal-Grade:</b> {row['Terminal Grade']} | Terminal Score: {row['Terminal Score']}/100</p>
 
-        <div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Terminal-Fazit:</b> {row['Terminal Summary']}</div>
+        <div style="font-size:13px; margin:6px 0 10px 0; background:#eef2ff; padding:9px 11px; border-radius:10px;">🧭 <b>Terminal-Fazit:</b> {row['Terminal Summary']}</div>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">💎 <b>Bewertungshinweis:</b> {row['Valuation Status']} | Punkte: {row['Valuation Score']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">💎 <b>Bewertungshinweis:</b> {row['Valuation Status']} | Punkte: {row['Valuation Score']}</p>
 
-        <div style="font-size:17px; margin:8px 0 14px 0; background:#f8fafc; padding:12px 14px; border-radius:12px;">💬 <b>Bewertungsgrund:</b> {row['Valuation Summary']}<br><b>Details:</b> {row['Valuation Reasons']}</div>
+        <div style="font-size:13px; margin:6px 0 10px 0; background:#f8fafc; padding:9px 11px; border-radius:10px;">💬 <b>Bewertungsgrund:</b> {row['Valuation Summary']}<br><b>Details:</b> {row['Valuation Reasons']}</div>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
 
-        <p style="font-size:18px; margin:0 0 18px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
 
-        <div style="font-size:17px; margin:8px 0 14px 0; background:#ecfdf5; padding:12px 14px; border-radius:12px;">✅ <b>Pro:</b> {row['Pros']}</div>
+        <div style="font-size:13px; margin:6px 0 10px 0; background:#ecfdf5; padding:9px 11px; border-radius:10px;">✅ <b>Pro:</b> {row['Pros']}</div>
 
-        <div style="font-size:17px; margin:8px 0 14px 0; background:#fff7ed; padding:12px 14px; border-radius:12px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
+        <div style="font-size:13px; margin:6px 0 10px 0; background:#fff7ed; padding:9px 11px; border-radius:10px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
 
-        <div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
+        <div style="font-size:13px; margin:6px 0 10px 0; background:#eef2ff; padding:9px 11px; border-radius:10px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
 
-        <div style="font-size:17px; margin:8px 0 0 0; background:#f3f4f6; padding:12px 14px; border-radius:12px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
+        <div style="font-size:13px; margin:8px 0 0 0; background:#f3f4f6; padding:9px 11px; border-radius:10px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
         </div>
         """
 
