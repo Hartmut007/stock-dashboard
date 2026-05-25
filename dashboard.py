@@ -1161,6 +1161,88 @@ df = pd.concat(
 )
 
 # ============================================================
+# 🧭 TERMINAL SCORE / RESEARCH-GRADE
+# ============================================================
+
+def build_terminal_score(row):
+    """Kompakter Research-Score aus Technik, Fundamental, Bewertung, CRV und Risiko.
+    Hinweis: Regelbasiertes Ranking, kein Finanzrat und kein echtes Kurszielmodell.
+    """
+
+    tech_score = safe_float(row.get("Score"))
+    fundamental_score = safe_float(row.get("Fundamental Score"))
+    valuation_score = safe_float(row.get("Valuation Score"))
+    crv = safe_float(row.get("CRV"))
+    risk_level = str(row.get("Risk Level", ""))
+    action_signal = str(row.get("Action Signal", ""))
+
+    total = 0
+
+    if tech_score is not None:
+        total += max(0, min(tech_score, 8)) / 8 * 25
+
+    if fundamental_score is not None:
+        total += max(0, min(fundamental_score, 8)) / 8 * 20
+
+    if valuation_score is not None:
+        # Valuation Score grob von -5 bis +5 auf 0 bis 20 Punkte normalisieren.
+        total += max(0, min((valuation_score + 5) / 10, 1)) * 20
+
+    if crv is not None:
+        total += max(0, min(crv / 3, 1)) * 15
+
+    if risk_level == "LOW RISK":
+        total += 10
+    elif risk_level == "MEDIUM RISK":
+        total += 5
+    elif risk_level == "HIGH RISK":
+        total -= 5
+
+    if "BUY ZONE" in action_signal:
+        total += 10
+    elif "WATCH" in action_signal:
+        total += 5
+    elif "OVERHEATED" in action_signal or "TAKE PROFIT" in action_signal:
+        total += 0
+    elif "SELL" in action_signal or "AVOID" in action_signal:
+        total -= 10
+
+    total = int(round(max(0, min(total, 100))))
+
+    if total >= 80:
+        grade = "A · Stark"
+        summary = "Sehr starkes Gesamtbild aus Signal, Qualität, Bewertung und Risiko."
+    elif total >= 65:
+        grade = "B · Interessant"
+        summary = "Interessantes Setup, aber einzelne Punkte sollten geprüft werden."
+    elif total >= 50:
+        grade = "C · Beobachten"
+        summary = "Gemischtes Bild. Eher Watchlist als klare Aktion."
+    elif total >= 35:
+        grade = "D · Schwach"
+        summary = "Viele Signale sind noch nicht überzeugend. Vorsichtig bleiben."
+    else:
+        grade = "E · Meiden"
+        summary = "Schwaches Gesamtbild oder zu viele Risikofaktoren."
+
+    return pd.Series({
+        "Terminal Score": total,
+        "Terminal Grade": grade,
+        "Terminal Summary": summary
+    })
+
+
+terminal_columns = df.apply(
+    build_terminal_score,
+    axis=1
+)
+
+df = pd.concat(
+    [df, terminal_columns],
+    axis=1
+)
+
+# ============================================================
 # STREAMLIT-TABELLENKOMPATIBILITÄT
 # ============================================================
 
@@ -1202,456 +1284,917 @@ st.write(
     "Turnaround-Erkennung, Risiko, Dividenden und Strategie-Horizont."
 )
 
-
 # ============================================================
-# LEGENDE
+# TERMINAL DESIGN / COCKPIT
 # ============================================================
 
-with st.expander("📖 Dashboard Legende"):
+st.markdown(
+    """
+<style>
+    .terminal-hero {
+        background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #020617 100%);
+        border: 1px solid rgba(148, 163, 184, 0.30);
+        border-radius: 22px;
+        padding: 22px 24px;
+        margin: 12px 0 18px 0;
+        box-shadow: 0 12px 34px rgba(2, 6, 23, 0.22);
+    }
+    .terminal-title {
+        color: #f8fafc;
+        font-size: 26px;
+        font-weight: 850;
+        margin-bottom: 5px;
+        letter-spacing: -0.02em;
+    }
+    .terminal-subtitle {
+        color: #cbd5e1;
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+    .terminal-chip {
+        display: inline-block;
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        color: #e5e7eb;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-right: 6px;
+        margin-top: 8px;
+    }
+    .terminal-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 16px 18px;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+        margin-bottom: 12px;
+    }
+    .terminal-card-title {
+        font-size: 14px;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 4px;
+    }
+    .terminal-card-value {
+        font-size: 22px;
+        color: #0f172a;
+        font-weight: 850;
+        margin-bottom: 4px;
+    }
+    .terminal-small {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.45;
+    }
+</style>
+""",
+    unsafe_allow_html=True
+)
 
-    st.markdown("""
-
-    ## ⭐ Ratings
-
-    - **STRONG BUY** → sehr starke technische Struktur
-    - **BUY** → bullish
-    - **HOLD** → neutral
-    - **TURNAROUND** → mögliche Trendwende
-    - **WATCH - OVERBOUGHT** → stark gelaufen, Rücksetzer möglich
-    - **AVOID** → schwache technische Lage
-
-    ---
-
-    ## 🕒 Strategie-Horizont
-
-    Über den Sidebar-Schalter **Strategie-Horizont** kannst du die Bewertung umstellen:
-
-    - **Kurzfristig** → Fokus auf EMA20, RSI, 1M-Momentum, kurzfristigen Stop und CRV. Geeignet für aktive Einstiege oder Swing-Ideen.
-    - **Mittelfristig** → Mischung aus technischem Score, Risiko, RSI, CRV und Fundamentaldaten. Das ist der Standardmodus.
-    - **Langfristig** → Fokus auf Fundamental Score, Cashflow, Marge, Wachstum, Verschuldung und EMA100/Langfristtrend.
-
-    Dadurch kann dieselbe Aktie je nach Zeithorizont ein anderes Signal bekommen.
-
-    ---
-
-    ## 🎯 Action Signale
-
-    Die Action Signale sind eine regelbasierte Entscheidungshilfe. Sie ersetzen keine eigene Prüfung, zeigen aber klar, warum eine Aktie gerade interessant, riskant oder überhitzt wirkt.
-
-    ### 🟢 BUY ZONE
-
-    **Kurzfristig:**
-
-    - Score mindestens **6 von 8**
-    - Rating **BUY** oder **STRONG BUY**
-    - Risk Level nicht **HIGH RISK**
-    - RSI zwischen **42 und 68**
-    - 1M Performance positiv
-    - Kurs über EMA20
-    - realistisches CRV mindestens **1,4**
-
-    **Mittelfristig:**
-
-    - Score mindestens **6 von 8**
-    - Rating **BUY** oder **STRONG BUY**
-    - Risk Level nicht **HIGH RISK**
-    - RSI zwischen **40 und 70**
-    - realistisches CRV mindestens **1,5**
-    - Fundamental Score mindestens **5** oder Fundamentaldaten sind nicht vollständig verfügbar
-
-    **Langfristig:**
-
-    - Fundamental Score mindestens **6 von 8**
-    - Fundamental Rating **SOLID** oder **VERY SOLID**
-    - Free Cashflow, Marge und Umsatzwachstum nicht klar negativ
-    - Debt/Equity nicht extrem hoch
-    - Langfristtrend okay, z. B. Kurs über EMA100 oder Score mindestens 5
-    - Risk Level nicht **HIGH RISK**
-    - RSI nicht extrem überhitzt
-
-    ---
-
-    ### 🟡 WATCH
-
-    **WATCH** bedeutet: Die Aktie ist interessant, aber mindestens ein wichtiger Punkt fehlt noch. Typische Gründe sind ein zu schwaches CRV, ein zu hoher RSI, gemischte Fundamentaldaten oder ein noch nicht bestätigter Trend.
-
-    ---
-
-    ### 🔵 TURNAROUND WATCH
-
-    Eine Aktie bekommt **TURNAROUND WATCH**, wenn sie als Turnaround-Kandidat erkannt wurde:
-
-    - 6M Performance unter **-15 %**
-    - 1M Performance über **+5 %**
-    - Kurs zurück über EMA20
-    - RSI über 40
-
-    Bedeutung: Erste Trendwende möglich, aber spekulativer als BUY ZONE.
-
-    ---
-
-    ### 🟠 TAKE PROFIT / OVERHEATED
-
-    **TAKE PROFIT** erscheint im kurz- oder mittelfristigen Modus, wenn die Aktie kurzfristig heiß gelaufen ist:
-
-    - RSI über **72**
-    - 1M Performance über **+8 %**
-
-    Im langfristigen Modus heißt das Signal **OVERHEATED**, weil eine starke Aktie langfristig nicht automatisch verkauft werden muss, nur weil sie kurzfristig überhitzt ist.
-
-    ---
-
-    ### 🔴 SELL / AVOID
-
-    Eine Aktie bekommt **SELL / AVOID**, wenn klare Warnsignale vorliegen:
-
-    - Rating **AVOID**
-    - Score **3 oder niedriger**
-    - wirklich schwacher Fundamental Score, nicht nur fehlende Daten
-    - HIGH RISK plus negative Performance
-
-    ---
-
-    ## ⚖️ CRV / Chance-Risiko-Verhältnis
-
-    Das CRV wird jetzt nicht mehr künstlich aus dem Stop-Loss erzeugt. Ziel 1 basiert bevorzugt auf dem **52-Wochen-Hoch**, sofern dieses sinnvoll über dem aktuellen Kurs liegt. Falls kein brauchbares 52W-Ziel vorhanden ist, nutzt das Dashboard einen vorsichtigen Fallback je nach Zeithorizont.
-
-    - **Kurzfristig:** Stop näher am EMA20
-    - **Mittelfristig:** Stop am EMA50
-    - **Langfristig:** Stop stärker am EMA100 orientiert
-
-    Dadurch ist das CRV realistischer als vorher.
-
-    ---
-
-    ## 📈 Score System
-
-    Jede Aktie bekommt Punkte für:
-
-    - Kurs über EMA20
-    - Kurs über EMA50
-    - Kurs über EMA100
-    - EMA20 > EMA50
-    - EMA50 > EMA100
-    - positive Wochenperformance
-    - positive Monatsperformance
-    - gesunder RSI
-
-    Maximaler Score: **8**
-
-    ---
-
-    ## 📉 RSI
-
-    RSI = Relative Strength Index
-
-    - unter 30 → überverkauft
-    - 30–70 → gesund
-    - über 70 → heiß gelaufen
-
-    ---
-
-    ## 🔄 Turnaround Kandidat
-
-    Eine Aktie gilt als Turnaround-Kandidat, wenn sie zuvor stark gefallen ist, aber Momentum zurückkommt, der Kurs EMA20 zurückerobert und der RSI sich stabilisiert.
-
-    ---
-
-    ## ⚠ Risk Level
-
-    Risiko basiert auf RSI, Volatilität, Abstand zum EMA20 und Beta.
-
-    ---
-
-    ## 🛑 Stop-Loss-Idee
-
-    Vorschlag basierend auf den gleitenden Durchschnitten. Kein Finanzrat, nur technische Orientierung.
-
-    ---
-
-    ## 📅 Dividendenkalender
-
-    Der Dividendenkalender filtert nach dem Ex-Dividenden-Datum. In der Übersicht und Gesamttabelle bleiben trotzdem alle Aktien sichtbar.
-
-    """)
+st.markdown(
+    """
+<div class="terminal-hero">
+    <div class="terminal-title">🧭 Research Terminal Cockpit</div>
+    <p class="terminal-subtitle">
+        Kompakte Startzentrale für Signal, Bewertung, Risiko, Dividende und Lieferketten-Netzwerk.
+    </p>
+    <span class="terminal-chip">Technik</span>
+    <span class="terminal-chip">Fundamental</span>
+    <span class="terminal-chip">Bewertung</span>
+    <span class="terminal-chip">Supply Chain</span>
+    <span class="terminal-chip">Watchlist</span>
+</div>
+""",
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
-# 🍕 PIZZINT / GEOPOLITISCHER STRESS-INDIKATOR
+# TERMINAL NAVIGATION / TABS
 # ============================================================
 
-with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
-    st.divider()
+# ============================================================
+# INITIALER FILTER-FALLBACK
+# ============================================================
 
-    st.subheader("🍕 PizzINT / Geopolitischer Stress-Indikator")
+# Einige Übersichtsmodule werden vor dem Sidebar-Filterblock gerendert.
+# Damit diese Module nicht abbrechen, startet df_filtered zunächst als Kopie
+# der vollständigen Analyse-Daten. Weiter unten wird df_filtered dann durch
+# die echten Sidebar-Filter sauber überschrieben.
+df_filtered = df.copy()
 
-    st.caption(
-        "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
-        "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
-    )
+tab_overview, tab_analysis, tab_network, tab_lists, tab_dividends, tab_admin = st.tabs([
+    "📊 Übersicht",
+    "🧠 Analyse",
+    "🕸️ Netzwerk",
+    "⭐ Listen",
+    "📅 Dividenden",
+    "👑 Admin"
+])
 
-    # Manuelle Einschätzung, kann später automatisiert werden.
-    doughcon_level = st.selectbox(
-        "DOUGHCON-Level einschätzen",
-        options=[
-            "1 - Ruhig",
-            "2 - Beobachten",
-            "3 - Erhöhte Aufmerksamkeit",
-            "4 - Hoher Stress",
-            "5 - Krisenmodus"
-        ],
-        index=2
-    )
+with tab_overview:
+    # Schneller Aktien-Fokus, ohne die bestehenden Dashboard-Module zu verändern.
+    terminal_options_df = df.dropna(subset=["Ticker"]).copy()
+    terminal_options_df["Ticker"] = terminal_options_df["Ticker"].astype(str).str.strip()
+    terminal_options_df["Company"] = terminal_options_df.get("Company", terminal_options_df["Ticker"]).astype(str).str.strip()
+    terminal_options_df = terminal_options_df.drop_duplicates(subset=["Ticker"])
+    terminal_options_df["display"] = terminal_options_df["Ticker"] + " - " + terminal_options_df["Company"]
+    terminal_options_df = terminal_options_df.sort_values("display")
 
-    if doughcon_level.startswith("1"):
-        stress_label = "🟢 Niedrig"
-        market_view = (
-            "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
-            "Bewertungen und Trendstruktur."
+    with st.expander("🧠 Aktien-Schnellprofil / Terminal-Fokus", expanded=True):
+        selected_terminal_display = st.selectbox(
+            "Aktie schnell prüfen",
+            options=terminal_options_df["display"].tolist(),
+            index=0,
+            key="terminal_focus_stock"
         )
-        focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
-    elif doughcon_level.startswith("2"):
-        stress_label = "🟡 Leicht erhöht"
-        market_view = (
-            "Etwas mehr Vorsicht. Watchlist enger beobachten, "
-            "aber keine Paniksignale."
-        )
-        focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
-    elif doughcon_level.startswith("3"):
-        stress_label = "🟠 Erhöht"
-        market_view = (
-            "Geopolitische Risiken könnten stärker eingepreist werden. "
-            "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
-        )
-        focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
-    elif doughcon_level.startswith("4"):
-        stress_label = "🔴 Hoch"
-        market_view = (
-            "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
-            "volatile Titel reduzieren."
-        )
-        focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
-    else:
-        stress_label = "🚨 Extrem"
-        market_view = (
-            "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
-            "Marktreaktionen abwarten."
-        )
-        focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
 
-    col_geo1, col_geo2, col_geo3 = st.columns(3)
+        selected_terminal_ticker = selected_terminal_display.split(" - ")[0]
+        terminal_row_df = df[df["Ticker"].astype(str).str.strip() == selected_terminal_ticker]
 
-    with col_geo1:
-        st.metric("Geopolitischer Stress", stress_label)
+        if not terminal_row_df.empty:
+            terminal_row = terminal_row_df.iloc[0]
 
-    with col_geo2:
-        st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
+            c1, c2, c3, c4, c5, c6 = st.columns(6)
+            c1.metric("Terminal", str(terminal_row.get("Terminal Grade", "-")))
+            c2.metric("T-Score", str(terminal_row.get("Terminal Score", "-")))
+            c3.metric("Signal", str(terminal_row.get("Action Signal", "-")))
+            c4.metric("Bewertung", str(terminal_row.get("Valuation Status", "-")))
+            c5.metric("Risiko", str(terminal_row.get("Risk Level", "-")))
+            c6.metric("CRV", str(terminal_row.get("CRV", "-")))
 
-    with col_geo3:
-        st.metric("Marktmodus", "Risk Check")
-
-    st.info(market_view)
-    st.caption(f"Aktuell besonders beobachten: {focus_assets}")
-
-    geo_focus_df = pd.DataFrame([
-        {
-            "Bereich": "Energie",
-            "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
-            "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
-        },
-        {
-            "Bereich": "Rüstung / Verteidigung",
-            "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
-            "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
-        },
-        {
-            "Bereich": "Cybersecurity",
-            "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
-            "Beispiele": "CRWD, PANW, FTNT, ZS"
-        },
-        {
-            "Bereich": "Gold / Sicherheit",
-            "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
-            "Beispiele": "GOLD, NEM, AEM, GLD"
-        },
-        {
-            "Bereich": "High-Risk / Turnaround",
-            "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
-            "Beispiele": "enger prüfen, Positionsgröße reduzieren"
-        }
-    ])
-
-    st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
-
-    st.dataframe(
-        geo_focus_df,
-        width="stretch",
-        hide_index=True
-    )
-
-    st.markdown("### 🍕 PizzINT Watch")
-
-    pizza_watch_df = pd.DataFrame([
-        {
-            "Signal": "Pizza-Aktivität",
-            "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
-            "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
-        },
-        {
-            "Signal": "DOUGHCON steigt",
-            "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
-            "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
-        },
-        {
-            "Signal": "DOUGHCON fällt",
-            "Interpretation": "Lage wirkt entspannter.",
-            "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
-        }
-    ])
-
-    st.dataframe(
-        pizza_watch_df,
-        width="stretch",
-        hide_index=True
-    )
-
-    st.link_button(
-        "🍕 PizzINT extern öffnen",
-        "https://www.pizzint.watch/"
-    )
-
-
-
-# ============================================================
-# 🕸️ AKTIEN-NETZWERK / THEMEN-MAPPING
-# ============================================================
-
-with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
-    st.divider()
-
-    st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
-
-    st.markdown(
-        """
-        <div class="terminal-panel">
-            <h3>Market Relationship Terminal</h3>
-            <p>Wähle eine Hauptaktie und analysiere Lieferketten, Kunden, Konkurrenz, Energiebedarf, Speicher, Cloud und Risiken als Netzwerk.</p>
-            <span class="terminal-chip">Supply Chain</span>
-            <span class="terminal-chip">AI / Cloud</span>
-            <span class="terminal-chip">Energy / Datacenter</span>
-            <span class="terminal-chip">Competition</span>
-            <span class="terminal-chip">Risk Radar</span>
+            left, right = st.columns([1.2, 1])
+            with left:
+                st.markdown(
+                    f"""
+    <div class="terminal-card">
+        <div class="terminal-card-title">Kurzprofil</div>
+        <div class="terminal-card-value">{terminal_row.get('Ticker', '-')} · {terminal_row.get('Company', '-')}</div>
+        <div class="terminal-small">
+            Preis: <b>{terminal_row.get('Price', '-')}</b><br>
+            Fundamental: <b>{terminal_row.get('Fundamental Rating', '-')}</b> · Score {terminal_row.get('Fundamental Score', '-')}/8<br>
+            Dividende: <b>{terminal_row.get('Dividend Yield %', '-')}</b> · Ex-Tag: {terminal_row.get('Ex Dividend Date', '-')}
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+    </div>
+    """,
+                    unsafe_allow_html=True
+                )
+            with right:
+                st.markdown(
+                    f"""
+    <div class="terminal-card">
+        <div class="terminal-card-title">Bewertungslogik</div>
+        <div class="terminal-card-value">{terminal_row.get('Valuation Status', '-')}</div>
+        <div class="terminal-small">
+            {terminal_row.get('Valuation Summary', '-')}<br>
+            <b>Details:</b> {terminal_row.get('Valuation Reasons', '-')}
+        </div>
+    </div>
+    """,
+                    unsafe_allow_html=True
+                )
 
-    RELATIONSHIPS_FILE = "stock_relationships.csv"
+            st.markdown(
+                f"""
+    <div class="terminal-card">
+        <div class="terminal-card-title">Terminal-Fazit</div>
+        <div class="terminal-card-value">{terminal_row.get('Terminal Grade', '-')} · Score {terminal_row.get('Terminal Score', '-')}</div>
+        <div class="terminal-small">
+            {terminal_row.get('Terminal Summary', '-')}<br>
+            <b>Pro:</b> {terminal_row.get('Pros', '-')}<br>
+            <b>Contra:</b> {terminal_row.get('Cons', '-')}
+        </div>
+    </div>
+    """,
+                unsafe_allow_html=True
+            )
 
-    def infer_supply_chain_stage(category, relationship):
-        """Leitet eine Lieferketten-/Wertschöpfungsstufe aus Kategorie und Beschreibung ab."""
+            st.caption(
+                "Tipp: Für die vollständige Analyse nutze unten die Aktienkarten, Tabellen und das Netzwerkmodul."
+            )
 
-        text_value = f"{category} {relationship}".lower()
+    # ============================================================
+    # 🧬 AKTIENPROFIL 360: QUALITÄT / BEWERTUNG / RISIKO / NETZWERK
+    # ============================================================
 
-        stage_rules = [
-            ("1 - Rohstoffe / Energie", ["uran", "öl", "gas", "gold", "lithium", "kupfer", "rohstoff", "energie /", "stromerzeugung", "atomstrom"]),
-            ("2 - Energie- & Strominfrastruktur", ["strom", "netz", "elektrifizierung", "energieausrüstung", "strominfrastruktur", "rechenzentrum", "kühlung", "vertiv", "eaton"]),
-            ("3 - Produktionsausrüstung", ["lithografie", "chipausrüstung", "equipment", "prozesskontrolle", "maschinen", "fertigungsanlagen"]),
-            ("4 - Fertigung / Foundry", ["foundry", "fertigung", "chipfertigung", "tsmc", "samsung foundry"]),
-            ("5 - Komponenten / Speicher / Chips", ["speicher", "hbm", "dram", "nand", "gpu", "cpu", "custom chips", "chips", "beschleuniger", "netzwerk / custom"]),
-            ("6 - Server / Netzwerk / Infrastruktur", ["server", "netzwerk", "interconnect", "datacenter", "dateninfrastruktur", "ki-infrastruktur"]),
-            ("7 - Plattform / Cloud / Software", ["cloud", "hyperscaler", "azure", "aws", "google cloud", "oracle", "software", "cybersecurity", "identity"]),
-            ("8 - Endmarkt / Nachfrage", ["modelle", "nachfrage", "enterprise", "werbung", "automotive", "ev", "pharma", "kunden"]),
-            ("9 - Konkurrenz / Substitution", ["konkurrenz", "competition", "substitution", "eigene chips", "tpu", "trainium"]),
-            ("10 - Risiko / Geopolitik / Defense", ["verteidigung", "defense", "geopolitik", "drohnen", "sensorik", "sicherheit"]),
+    with st.expander("🧬 Aktienprofil 360: kompakte Terminal-Einschätzung", expanded=True):
+        profile_ticker = selected_terminal_ticker
+        profile_df = df[df["Ticker"].astype(str).str.strip() == str(profile_ticker).strip()].copy()
+
+        if profile_df.empty:
+            st.info("Für diese Aktie konnten keine Profildaten geladen werden.")
+        else:
+            profile_row = profile_df.iloc[0]
+
+            def profile_num(value, fallback=0):
+                try:
+                    if pd.isna(value):
+                        return fallback
+                    value = str(value).replace("%", "").replace(",", ".").replace("-", "").strip()
+                    if value == "":
+                        return fallback
+                    return float(value)
+                except Exception:
+                    return fallback
+
+            profile_score = profile_num(profile_row.get("Score", 0))
+            profile_fundamental = profile_num(profile_row.get("Fundamental Score", 0))
+            profile_valuation = profile_num(profile_row.get("Valuation Score", 0))
+            profile_rsi = profile_num(profile_row.get("RSI", 0))
+            profile_crv = profile_num(profile_row.get("CRV", 0))
+
+            # Einfache Terminal-Scores von 0 bis 100, damit man die Aktie schnell einordnen kann.
+            quality_score_100 = max(0, min(100, round((profile_fundamental / 8) * 100)))
+            momentum_score_100 = max(0, min(100, round((profile_score / 8) * 100)))
+            valuation_score_100 = max(0, min(100, round(50 + profile_valuation * 8)))
+            risk_penalty = 0
+            if str(profile_row.get("Risk Level", "")) == "HIGH RISK":
+                risk_penalty += 35
+            elif str(profile_row.get("Risk Level", "")) == "MEDIUM RISK":
+                risk_penalty += 18
+            if profile_rsi > 72:
+                risk_penalty += 15
+            risk_score_100 = max(0, min(100, 100 - risk_penalty))
+
+            profile_cols = st.columns(4)
+            profile_cols[0].metric("Qualität", f"{quality_score_100}/100")
+            profile_cols[1].metric("Momentum", f"{momentum_score_100}/100")
+            profile_cols[2].metric("Bewertung", f"{valuation_score_100}/100")
+            profile_cols[3].metric("Risiko-Puffer", f"{risk_score_100}/100")
+
+            profile_left, profile_right = st.columns([1.1, 1])
+
+            with profile_left:
+                st.markdown("#### 🧭 Terminal-Fazit")
+
+                quick_take = []
+                action_signal = str(profile_row.get("Action Signal", "-"))
+                valuation_status = str(profile_row.get("Valuation Status", "-"))
+                risk_level = str(profile_row.get("Risk Level", "-"))
+
+                if "BUY" in action_signal:
+                    quick_take.append("Technisches Setup wirkt konstruktiv.")
+                elif "TURNAROUND" in action_signal:
+                    quick_take.append("Mögliche Turnaround-Situation, aber Bestätigung wichtig.")
+                elif "AVOID" in action_signal or "SELL" in action_signal:
+                    quick_take.append("Aktuell eher vorsichtig behandeln.")
+                else:
+                    quick_take.append("Noch kein klares Kaufsignal, eher beobachten.")
+
+                if "unterbewertet" in valuation_status.lower():
+                    quick_take.append("Bewertung wirkt relativ attraktiv.")
+                elif "überbewertet" in valuation_status.lower():
+                    quick_take.append("Bewertung wirkt anspruchsvoll.")
+                elif "fair" in valuation_status.lower():
+                    quick_take.append("Bewertung wirkt eher vertretbar.")
+
+                if risk_level == "HIGH RISK":
+                    quick_take.append("Risikostufe ist hoch: Positionsgröße und Stop besonders beachten.")
+                elif risk_level == "LOW RISK":
+                    quick_take.append("Risikostufe ist vergleichsweise niedrig.")
+
+                st.info(" ".join(quick_take))
+
+                detail_cols = [
+                    "Ticker", "Company", "Action Signal", "Valuation Status", "Rating", "Score",
+                    "Risk Level", "Price", "CRV", "Fundamental Rating", "Fundamental Score",
+                    "Dividend Yield %", "Ex Dividend Date"
+                ]
+                detail_cols = [col for col in detail_cols if col in profile_df.columns]
+                st.dataframe(profile_df[detail_cols], width="stretch", hide_index=True)
+
+            with profile_right:
+                st.markdown("#### 🕸️ Netzwerk-Snapshot")
+
+                rel_file = "stock_relationships.csv"
+                if not os.path.exists(rel_file):
+                    st.caption("Keine stock_relationships.csv gefunden.")
+                else:
+                    try:
+                        try:
+                            profile_rel = pd.read_csv(rel_file, encoding="utf-8-sig", sep=None, engine="python")
+                        except UnicodeDecodeError:
+                            profile_rel = pd.read_csv(rel_file, encoding="latin1", sep=None, engine="python")
+
+                        profile_rel.columns = [str(c).replace("\ufeff", "").strip() for c in profile_rel.columns]
+
+                        if "source_ticker" in profile_rel.columns and "target_ticker" in profile_rel.columns:
+                            profile_rel["source_ticker"] = profile_rel["source_ticker"].astype(str).str.strip()
+                            profile_rel["target_ticker"] = profile_rel["target_ticker"].astype(str).str.strip()
+                            focus_rel = profile_rel[profile_rel["source_ticker"] == profile_ticker].copy()
+
+                            total_rel = len(focus_rel)
+                            high_rel = 0
+                            if "importance" in focus_rel.columns:
+                                high_rel = focus_rel["importance"].astype(str).str.contains("Hoch", case=False, na=False).sum()
+                            stages = focus_rel["supply_chain_stage"].nunique() if "supply_chain_stage" in focus_rel.columns else 0
+                            types = focus_rel["connection_type"].nunique() if "connection_type" in focus_rel.columns else 0
+
+                            n1, n2, n3, n4 = st.columns(4)
+                            n1.metric("Beziehungen", total_rel)
+                            n2.metric("Hoch", high_rel)
+                            n3.metric("Stufen", stages)
+                            n4.metric("Typen", types)
+
+                            if not focus_rel.empty:
+                                preview_cols = [
+                                    "target_ticker", "target_name", "supply_chain_stage",
+                                    "connection_type", "importance", "relationship"
+                                ]
+                                preview_cols = [col for col in preview_cols if col in focus_rel.columns]
+
+                                if "importance" in focus_rel.columns:
+                                    importance_order = {"Hoch": 1, "Mittel": 2, "Niedrig": 3}
+                                    focus_rel["_importance_sort"] = focus_rel["importance"].map(importance_order).fillna(9)
+                                    focus_rel = focus_rel.sort_values(["_importance_sort", "target_ticker"])
+
+                                st.dataframe(
+                                    focus_rel[preview_cols].head(8).rename(columns={
+                                        "target_ticker": "Ticker",
+                                        "target_name": "Name",
+                                        "supply_chain_stage": "Stufe",
+                                        "connection_type": "Verbindung",
+                                        "importance": "Wichtigkeit",
+                                        "relationship": "Warum verbunden"
+                                    }),
+                                    width="stretch",
+                                    hide_index=True
+                                )
+                            else:
+                                st.caption("Für diese Aktie sind noch keine Beziehungen als Hauptaktie hinterlegt.")
+                        else:
+                            st.caption("Mapping-Datei erkannt, aber source_ticker/target_ticker fehlen.")
+                    except Exception as error:
+                        st.caption(f"Netzwerk-Snapshot konnte nicht geladen werden: {error}")
+
+            st.markdown("#### ✅ Pro / ⚠️ Contra")
+            pro_col, contra_col = st.columns(2)
+            with pro_col:
+                st.success(str(profile_row.get("Pros", "-")))
+            with contra_col:
+                st.warning(str(profile_row.get("Cons", "-")))
+
+    # ============================================================
+    # 📡 TERMINAL-RADAR: CHANCEN / RISIKEN / DIVIDENDEN
+    # ============================================================
+
+    with st.expander("📡 Terminal-Radar: Chancen, Risiken & Dividenden", expanded=True):
+        radar_df = df_filtered.copy()
+
+        for radar_numeric_column in [
+            "Score",
+            "Fundamental Score",
+            "Valuation Score",
+            "1M %",
+            "6M %",
+            "RSI"
+        ]:
+            if radar_numeric_column in radar_df.columns:
+                radar_df[radar_numeric_column] = pd.to_numeric(
+                    radar_df[radar_numeric_column],
+                    errors="coerce"
+                ).fillna(0)
+
+        if "CRV" in radar_df.columns:
+            radar_df["CRV Radar"] = pd.to_numeric(
+                radar_df["CRV"],
+                errors="coerce"
+            ).fillna(0)
+        else:
+            radar_df["CRV Radar"] = 0
+
+        if "Dividend Yield %" in radar_df.columns:
+            radar_df["Dividend Yield Radar"] = pd.to_numeric(
+                radar_df["Dividend Yield %"]
+                .astype(str)
+                .str.replace("%", "", regex=False)
+                .str.replace(",", ".", regex=False)
+                .replace("-", "0"),
+                errors="coerce"
+            ).fillna(0)
+        else:
+            radar_df["Dividend Yield Radar"] = 0
+
+        radar_display_columns = [
+            "Ticker",
+            "Company",
+            "Action Signal",
+            "Valuation Status",
+            "Score",
+            "Fundamental Score",
+            "Risk Level",
+            "Price",
+            "CRV",
+            "Dividend Yield %"
         ]
 
-        for stage, keywords in stage_rules:
-            if any(keyword in text_value for keyword in keywords):
-                return stage
+        radar_display_columns = [
+            column for column in radar_display_columns
+            if column in radar_df.columns
+        ]
 
-        return "99 - Sonstige Verbindung"
+        radar_col1, radar_col2, radar_col3 = st.columns(3)
 
-    def infer_connection_type(category, relationship, risk_note):
-        """Leitet die Art der Verbindung ab: Lieferant, Kunde, Konkurrenz, Infrastruktur usw."""
+        with radar_col1:
+            st.markdown("#### 🟢 Top-Chancen")
+            top_opportunities = radar_df.copy()
+            if "Action Signal" in top_opportunities.columns:
+                top_opportunities = top_opportunities[
+                    top_opportunities["Action Signal"].astype(str).str.contains(
+                        "BUY|TURNAROUND",
+                        case=False,
+                        na=False
+                    )
+                ]
+            top_opportunities = top_opportunities.sort_values(
+                by=["Score", "Fundamental Score", "CRV Radar", "Valuation Score"],
+                ascending=[False, False, False, False]
+            ).head(8)
 
-        text_value = f"{category} {relationship} {risk_note}".lower()
+            if top_opportunities.empty:
+                st.info("Keine klaren Top-Chancen im aktuellen Filter.")
+            else:
+                st.dataframe(
+                    top_opportunities[radar_display_columns],
+                    width="stretch",
+                    hide_index=True
+                )
 
-        if any(word in text_value for word in ["konkurrenz", "konkurriert", "competition", "substitution", "eigene chips", "tpu", "trainium"]):
-            return "Konkurrenz / Substitution"
-        if any(word in text_value for word in ["liefert", "anbieter", "zuliefer", "fertigt", "maschinen", "anlagen", "speicher", "hbm"]):
-            return "Lieferant / Zulieferer"
-        if any(word in text_value for word in ["nutzt", "kauft", "nachfrage", "kunde", "cloud", "hyperscaler", "enterprise"]):
-            return "Kunde / Nachfrage"
-        if any(word in text_value for word in ["strom", "energie", "kühlung", "netz", "rechenzentrum", "infrastruktur"]):
-            return "Infrastruktur / Ermöglicher"
-        if any(word in text_value for word in ["risiko", "taiwan", "regulierung", "export", "geopolitik", "defense", "verteidigung"]):
-            return "Risiko / Makro"
+        with radar_col2:
+            st.markdown("#### 🔴 Risiko-/Überhitzungsradar")
+            risk_radar = radar_df.copy()
+            risk_mask = pd.Series(False, index=risk_radar.index)
 
-        return "Strategische Verbindung"
+            if "Risk Level" in risk_radar.columns:
+                risk_mask = risk_mask | (risk_radar["Risk Level"].astype(str) == "HIGH RISK")
+            if "Action Signal" in risk_radar.columns:
+                risk_mask = risk_mask | risk_radar["Action Signal"].astype(str).str.contains(
+                    "AVOID|OVERHEATED|TAKE PROFIT",
+                    case=False,
+                    na=False
+                )
+            if "Valuation Status" in risk_radar.columns:
+                risk_mask = risk_mask | risk_radar["Valuation Status"].astype(str).str.contains(
+                    "überbewertet|teuer",
+                    case=False,
+                    na=False
+                )
 
-    if not os.path.exists(RELATIONSHIPS_FILE):
+            risk_radar = risk_radar[risk_mask].sort_values(
+                by=["Risk Level", "RSI", "1M %"],
+                ascending=[True, False, False]
+            ).head(8)
 
-        st.warning(
-            "Die Datei stock_relationships.csv wurde nicht gefunden. "
-            "Bitte lege sie in den gleichen Ordner wie dashboard.py."
+            if risk_radar.empty:
+                st.info("Keine auffälligen Risiken im aktuellen Filter.")
+            else:
+                st.dataframe(
+                    risk_radar[radar_display_columns],
+                    width="stretch",
+                    hide_index=True
+                )
+
+        with radar_col3:
+            st.markdown("#### 💸 Dividendenradar")
+            dividend_radar = radar_df[radar_df["Dividend Yield Radar"] > 0].copy()
+            dividend_radar = dividend_radar.sort_values(
+                by=["Dividend Yield Radar", "Fundamental Score", "Score"],
+                ascending=[False, False, False]
+            ).head(8)
+
+            if dividend_radar.empty:
+                st.info("Keine Dividendenwerte im aktuellen Filter.")
+            else:
+                st.dataframe(
+                    dividend_radar[radar_display_columns],
+                    width="stretch",
+                    hide_index=True
+                )
+
+
+    # ============================================================
+    # LEGENDE
+    # ============================================================
+
+    with st.expander("📖 Dashboard Legende"):
+
+        st.markdown("""
+
+        ## ⭐ Ratings
+
+        - **STRONG BUY** → sehr starke technische Struktur
+        - **BUY** → bullish
+        - **HOLD** → neutral
+        - **TURNAROUND** → mögliche Trendwende
+        - **WATCH - OVERBOUGHT** → stark gelaufen, Rücksetzer möglich
+        - **AVOID** → schwache technische Lage
+
+        ---
+
+        ## 🕒 Strategie-Horizont
+
+        Über den Sidebar-Schalter **Strategie-Horizont** kannst du die Bewertung umstellen:
+
+        - **Kurzfristig** → Fokus auf EMA20, RSI, 1M-Momentum, kurzfristigen Stop und CRV. Geeignet für aktive Einstiege oder Swing-Ideen.
+        - **Mittelfristig** → Mischung aus technischem Score, Risiko, RSI, CRV und Fundamentaldaten. Das ist der Standardmodus.
+        - **Langfristig** → Fokus auf Fundamental Score, Cashflow, Marge, Wachstum, Verschuldung und EMA100/Langfristtrend.
+
+        Dadurch kann dieselbe Aktie je nach Zeithorizont ein anderes Signal bekommen.
+
+        ---
+
+        ## 🎯 Action Signale
+
+        Die Action Signale sind eine regelbasierte Entscheidungshilfe. Sie ersetzen keine eigene Prüfung, zeigen aber klar, warum eine Aktie gerade interessant, riskant oder überhitzt wirkt.
+
+        ### 🟢 BUY ZONE
+
+        **Kurzfristig:**
+
+        - Score mindestens **6 von 8**
+        - Rating **BUY** oder **STRONG BUY**
+        - Risk Level nicht **HIGH RISK**
+        - RSI zwischen **42 und 68**
+        - 1M Performance positiv
+        - Kurs über EMA20
+        - realistisches CRV mindestens **1,4**
+
+        **Mittelfristig:**
+
+        - Score mindestens **6 von 8**
+        - Rating **BUY** oder **STRONG BUY**
+        - Risk Level nicht **HIGH RISK**
+        - RSI zwischen **40 und 70**
+        - realistisches CRV mindestens **1,5**
+        - Fundamental Score mindestens **5** oder Fundamentaldaten sind nicht vollständig verfügbar
+
+        **Langfristig:**
+
+        - Fundamental Score mindestens **6 von 8**
+        - Fundamental Rating **SOLID** oder **VERY SOLID**
+        - Free Cashflow, Marge und Umsatzwachstum nicht klar negativ
+        - Debt/Equity nicht extrem hoch
+        - Langfristtrend okay, z. B. Kurs über EMA100 oder Score mindestens 5
+        - Risk Level nicht **HIGH RISK**
+        - RSI nicht extrem überhitzt
+
+        ---
+
+        ### 🟡 WATCH
+
+        **WATCH** bedeutet: Die Aktie ist interessant, aber mindestens ein wichtiger Punkt fehlt noch. Typische Gründe sind ein zu schwaches CRV, ein zu hoher RSI, gemischte Fundamentaldaten oder ein noch nicht bestätigter Trend.
+
+        ---
+
+        ### 🔵 TURNAROUND WATCH
+
+        Eine Aktie bekommt **TURNAROUND WATCH**, wenn sie als Turnaround-Kandidat erkannt wurde:
+
+        - 6M Performance unter **-15 %**
+        - 1M Performance über **+5 %**
+        - Kurs zurück über EMA20
+        - RSI über 40
+
+        Bedeutung: Erste Trendwende möglich, aber spekulativer als BUY ZONE.
+
+        ---
+
+        ### 🟠 TAKE PROFIT / OVERHEATED
+
+        **TAKE PROFIT** erscheint im kurz- oder mittelfristigen Modus, wenn die Aktie kurzfristig heiß gelaufen ist:
+
+        - RSI über **72**
+        - 1M Performance über **+8 %**
+
+        Im langfristigen Modus heißt das Signal **OVERHEATED**, weil eine starke Aktie langfristig nicht automatisch verkauft werden muss, nur weil sie kurzfristig überhitzt ist.
+
+        ---
+
+        ### 🔴 SELL / AVOID
+
+        Eine Aktie bekommt **SELL / AVOID**, wenn klare Warnsignale vorliegen:
+
+        - Rating **AVOID**
+        - Score **3 oder niedriger**
+        - wirklich schwacher Fundamental Score, nicht nur fehlende Daten
+        - HIGH RISK plus negative Performance
+
+        ---
+
+        ## ⚖️ CRV / Chance-Risiko-Verhältnis
+
+        Das CRV wird jetzt nicht mehr künstlich aus dem Stop-Loss erzeugt. Ziel 1 basiert bevorzugt auf dem **52-Wochen-Hoch**, sofern dieses sinnvoll über dem aktuellen Kurs liegt. Falls kein brauchbares 52W-Ziel vorhanden ist, nutzt das Dashboard einen vorsichtigen Fallback je nach Zeithorizont.
+
+        - **Kurzfristig:** Stop näher am EMA20
+        - **Mittelfristig:** Stop am EMA50
+        - **Langfristig:** Stop stärker am EMA100 orientiert
+
+        Dadurch ist das CRV realistischer als vorher.
+
+        ---
+
+        ## 📈 Score System
+
+        Jede Aktie bekommt Punkte für:
+
+        - Kurs über EMA20
+        - Kurs über EMA50
+        - Kurs über EMA100
+        - EMA20 > EMA50
+        - EMA50 > EMA100
+        - positive Wochenperformance
+        - positive Monatsperformance
+        - gesunder RSI
+
+        Maximaler Score: **8**
+
+        ---
+
+        ## 📉 RSI
+
+        RSI = Relative Strength Index
+
+        - unter 30 → überverkauft
+        - 30–70 → gesund
+        - über 70 → heiß gelaufen
+
+        ---
+
+        ## 🔄 Turnaround Kandidat
+
+        Eine Aktie gilt als Turnaround-Kandidat, wenn sie zuvor stark gefallen ist, aber Momentum zurückkommt, der Kurs EMA20 zurückerobert und der RSI sich stabilisiert.
+
+        ---
+
+        ## ⚠ Risk Level
+
+        Risiko basiert auf RSI, Volatilität, Abstand zum EMA20 und Beta.
+
+        ---
+
+        ## 🛑 Stop-Loss-Idee
+
+        Vorschlag basierend auf den gleitenden Durchschnitten. Kein Finanzrat, nur technische Orientierung.
+
+        ---
+
+        ## 📅 Dividendenkalender
+
+        Der Dividendenkalender filtert nach dem Ex-Dividenden-Datum. In der Übersicht und Gesamttabelle bleiben trotzdem alle Aktien sichtbar.
+
+        """)
+
+
+    # ============================================================
+    # 🍕 PIZZINT / GEOPOLITISCHER STRESS-INDIKATOR
+    # ============================================================
+
+    with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
+        st.divider()
+
+        st.subheader("🍕 PizzINT / Geopolitischer Stress-Indikator")
+
+        st.caption(
+            "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
+            "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
         )
 
-    else:
+        # Manuelle Einschätzung, kann später automatisiert werden.
+        doughcon_level = st.selectbox(
+            "DOUGHCON-Level einschätzen",
+            options=[
+                "1 - Ruhig",
+                "2 - Beobachten",
+                "3 - Erhöhte Aufmerksamkeit",
+                "4 - Hoher Stress",
+                "5 - Krisenmodus"
+            ],
+            index=2
+        )
 
-        try:
-            relationships_df = pd.read_csv(
-                RELATIONSHIPS_FILE,
-                encoding="utf-8",
-                sep=None,
-                engine="python"
+        if doughcon_level.startswith("1"):
+            stress_label = "🟢 Niedrig"
+            market_view = (
+                "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
+                "Bewertungen und Trendstruktur."
             )
-        except UnicodeDecodeError:
-            try:
-                relationships_df = pd.read_csv(
-                    RELATIONSHIPS_FILE,
-                    encoding="latin1",
-                    sep=None,
-                    engine="python"
-                )
-            except Exception as error:
-                st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
-                relationships_df = pd.DataFrame()
-        except Exception as error:
-            st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
-            relationships_df = pd.DataFrame()
+            focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
+        elif doughcon_level.startswith("2"):
+            stress_label = "🟡 Leicht erhöht"
+            market_view = (
+                "Etwas mehr Vorsicht. Watchlist enger beobachten, "
+                "aber keine Paniksignale."
+            )
+            focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
+        elif doughcon_level.startswith("3"):
+            stress_label = "🟠 Erhöht"
+            market_view = (
+                "Geopolitische Risiken könnten stärker eingepreist werden. "
+                "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
+            )
+            focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
+        elif doughcon_level.startswith("4"):
+            stress_label = "🔴 Hoch"
+            market_view = (
+                "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
+                "volatile Titel reduzieren."
+            )
+            focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
+        else:
+            stress_label = "🚨 Extrem"
+            market_view = (
+                "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
+                "Marktreaktionen abwarten."
+            )
+            focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
 
-        needed_relationship_columns = [
-            "source_ticker",
-            "target_ticker",
-            "target_name",
-            "category",
-            "relationship",
-            "importance",
-            "risk_note"
-        ]
+        col_geo1, col_geo2, col_geo3 = st.columns(3)
 
-        missing_relationship_columns = [
-            column for column in needed_relationship_columns
-            if column not in relationships_df.columns
-        ]
+        with col_geo1:
+            st.metric("Geopolitischer Stress", stress_label)
 
-        if relationships_df.empty:
+        with col_geo2:
+            st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
 
-            st.info("Die Datei stock_relationships.csv ist noch leer.")
+        with col_geo3:
+            st.metric("Marktmodus", "Risk Check")
 
-        elif missing_relationship_columns:
+        st.info(market_view)
+        st.caption(f"Aktuell besonders beobachten: {focus_assets}")
 
-            st.error(
-                "In stock_relationships.csv fehlen diese Spalten: "
-                + ", ".join(missing_relationship_columns)
+        geo_focus_df = pd.DataFrame([
+            {
+                "Bereich": "Energie",
+                "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
+                "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
+            },
+            {
+                "Bereich": "Rüstung / Verteidigung",
+                "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
+                "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
+            },
+            {
+                "Bereich": "Cybersecurity",
+                "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
+                "Beispiele": "CRWD, PANW, FTNT, ZS"
+            },
+            {
+                "Bereich": "Gold / Sicherheit",
+                "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
+                "Beispiele": "GOLD, NEM, AEM, GLD"
+            },
+            {
+                "Bereich": "High-Risk / Turnaround",
+                "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
+                "Beispiele": "enger prüfen, Positionsgröße reduzieren"
+            }
+        ])
+
+        st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
+
+        st.dataframe(
+            geo_focus_df,
+            width="stretch",
+            hide_index=True
+        )
+
+        st.markdown("### 🍕 PizzINT Watch")
+
+        pizza_watch_df = pd.DataFrame([
+            {
+                "Signal": "Pizza-Aktivität",
+                "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
+                "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
+            },
+            {
+                "Signal": "DOUGHCON steigt",
+                "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
+                "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
+            },
+            {
+                "Signal": "DOUGHCON fällt",
+                "Interpretation": "Lage wirkt entspannter.",
+                "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
+            }
+        ])
+
+        st.dataframe(
+            pizza_watch_df,
+            width="stretch",
+            hide_index=True
+        )
+
+        st.link_button(
+            "🍕 PizzINT extern öffnen",
+            "https://www.pizzint.watch/"
+        )
+
+
+
+with tab_network:
+    # ============================================================
+    # 🕸️ AKTIEN-NETZWERK / THEMEN-MAPPING
+    # ============================================================
+
+    with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
+        st.divider()
+
+        st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
+
+        st.markdown(
+            """
+            <div class="terminal-panel">
+                <h3>Market Relationship Terminal</h3>
+                <p>Wähle eine Hauptaktie und analysiere Lieferketten, Kunden, Konkurrenz, Energiebedarf, Speicher, Cloud und Risiken als Netzwerk.</p>
+                <span class="terminal-chip">Supply Chain</span>
+                <span class="terminal-chip">AI / Cloud</span>
+                <span class="terminal-chip">Energy / Datacenter</span>
+                <span class="terminal-chip">Competition</span>
+                <span class="terminal-chip">Risk Radar</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        RELATIONSHIPS_FILE = "stock_relationships.csv"
+
+        def infer_supply_chain_stage(category, relationship):
+            """Leitet eine Lieferketten-/Wertschöpfungsstufe aus Kategorie und Beschreibung ab."""
+
+            text_value = f"{category} {relationship}".lower()
+
+            stage_rules = [
+                ("1 - Rohstoffe / Energie", ["uran", "öl", "gas", "gold", "lithium", "kupfer", "rohstoff", "energie /", "stromerzeugung", "atomstrom"]),
+                ("2 - Energie- & Strominfrastruktur", ["strom", "netz", "elektrifizierung", "energieausrüstung", "strominfrastruktur", "rechenzentrum", "kühlung", "vertiv", "eaton"]),
+                ("3 - Produktionsausrüstung", ["lithografie", "chipausrüstung", "equipment", "prozesskontrolle", "maschinen", "fertigungsanlagen"]),
+                ("4 - Fertigung / Foundry", ["foundry", "fertigung", "chipfertigung", "tsmc", "samsung foundry"]),
+                ("5 - Komponenten / Speicher / Chips", ["speicher", "hbm", "dram", "nand", "gpu", "cpu", "custom chips", "chips", "beschleuniger", "netzwerk / custom"]),
+                ("6 - Server / Netzwerk / Infrastruktur", ["server", "netzwerk", "interconnect", "datacenter", "dateninfrastruktur", "ki-infrastruktur"]),
+                ("7 - Plattform / Cloud / Software", ["cloud", "hyperscaler", "azure", "aws", "google cloud", "oracle", "software", "cybersecurity", "identity"]),
+                ("8 - Endmarkt / Nachfrage", ["modelle", "nachfrage", "enterprise", "werbung", "automotive", "ev", "pharma", "kunden"]),
+                ("9 - Konkurrenz / Substitution", ["konkurrenz", "competition", "substitution", "eigene chips", "tpu", "trainium"]),
+                ("10 - Risiko / Geopolitik / Defense", ["verteidigung", "defense", "geopolitik", "drohnen", "sensorik", "sicherheit"]),
+            ]
+
+            for stage, keywords in stage_rules:
+                if any(keyword in text_value for keyword in keywords):
+                    return stage
+
+            return "99 - Sonstige Verbindung"
+
+        def infer_connection_type(category, relationship, risk_note):
+            """Leitet die Art der Verbindung ab: Lieferant, Kunde, Konkurrenz, Infrastruktur usw."""
+
+            text_value = f"{category} {relationship} {risk_note}".lower()
+
+            if any(word in text_value for word in ["konkurrenz", "konkurriert", "competition", "substitution", "eigene chips", "tpu", "trainium"]):
+                return "Konkurrenz / Substitution"
+            if any(word in text_value for word in ["liefert", "anbieter", "zuliefer", "fertigt", "maschinen", "anlagen", "speicher", "hbm"]):
+                return "Lieferant / Zulieferer"
+            if any(word in text_value for word in ["nutzt", "kauft", "nachfrage", "kunde", "cloud", "hyperscaler", "enterprise"]):
+                return "Kunde / Nachfrage"
+            if any(word in text_value for word in ["strom", "energie", "kühlung", "netz", "rechenzentrum", "infrastruktur"]):
+                return "Infrastruktur / Ermöglicher"
+            if any(word in text_value for word in ["risiko", "taiwan", "regulierung", "export", "geopolitik", "defense", "verteidigung"]):
+                return "Risiko / Makro"
+
+            return "Strategische Verbindung"
+
+        if not os.path.exists(RELATIONSHIPS_FILE):
+
+            st.warning(
+                "Die Datei stock_relationships.csv wurde nicht gefunden. "
+                "Bitte lege sie in den gleichen Ordner wie dashboard.py."
             )
 
         else:
 
-            relationships_df = relationships_df.copy()
+            try:
+                relationships_df = pd.read_csv(
+                    RELATIONSHIPS_FILE,
+                    encoding="utf-8",
+                    sep=None,
+                    engine="python"
+                )
+            except UnicodeDecodeError:
+                try:
+                    relationships_df = pd.read_csv(
+                        RELATIONSHIPS_FILE,
+                        encoding="latin1",
+                        sep=None,
+                        engine="python"
+                    )
+                except Exception as error:
+                    st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
+                    relationships_df = pd.DataFrame()
+            except Exception as error:
+                st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
+                relationships_df = pd.DataFrame()
 
-            for text_column in [
+            needed_relationship_columns = [
                 "source_ticker",
                 "target_ticker",
                 "target_name",
@@ -1659,489 +2202,575 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                 "relationship",
                 "importance",
                 "risk_note"
-            ]:
-                relationships_df[text_column] = (
-                    relationships_df[text_column]
-                    .astype(str)
-                    .str.strip()
+            ]
+
+            missing_relationship_columns = [
+                column for column in needed_relationship_columns
+                if column not in relationships_df.columns
+            ]
+
+            if relationships_df.empty:
+
+                st.info("Die Datei stock_relationships.csv ist noch leer.")
+
+            elif missing_relationship_columns:
+
+                st.error(
+                    "In stock_relationships.csv fehlen diese Spalten: "
+                    + ", ".join(missing_relationship_columns)
                 )
-
-            # Neue Mapping-Logik: Auch wenn die CSV diese Spalten noch nicht hat,
-            # werden Lieferkettenstufe und Verbindungsart automatisch abgeleitet.
-            if "supply_chain_stage" not in relationships_df.columns:
-                relationships_df["supply_chain_stage"] = relationships_df.apply(
-                    lambda row: infer_supply_chain_stage(
-                        row.get("category", ""),
-                        row.get("relationship", "")
-                    ),
-                    axis=1
-                )
-            else:
-                relationships_df["supply_chain_stage"] = (
-                    relationships_df["supply_chain_stage"]
-                    .astype(str)
-                    .str.strip()
-                )
-
-            if "connection_type" not in relationships_df.columns:
-                relationships_df["connection_type"] = relationships_df.apply(
-                    lambda row: infer_connection_type(
-                        row.get("category", ""),
-                        row.get("relationship", ""),
-                        row.get("risk_note", "")
-                    ),
-                    axis=1
-                )
-            else:
-                relationships_df["connection_type"] = (
-                    relationships_df["connection_type"]
-                    .astype(str)
-                    .str.strip()
-                )
-
-            available_network_tickers = sorted(
-                relationships_df["source_ticker"]
-                .dropna()
-                .unique()
-                .tolist()
-            )
-
-            def reset_network_filters():
-                """Setzt die Netzwerkfilter zurück, bevor die Filter-Widgets neu aufgebaut werden."""
-                st.session_state["network_selected_category"] = "Alle"
-                st.session_state["network_selected_supply_chain_stage"] = "Alle"
-                st.session_state["network_selected_connection_type"] = "Alle"
-
-            def switch_network_center(ticker):
-                """Wechselt das Netzwerk-Zentrum ohne URL-Wechsel, damit der Login erhalten bleibt."""
-                ticker = str(ticker).strip().upper()
-
-                if ticker in available_network_tickers:
-                    st.session_state["_network_center_ticker"] = ticker
-                    st.session_state["_network_picker"] = ticker
-                    reset_network_filters()
-
-            def on_network_picker_change():
-                """Reagiert auf manuelle Auswahl im Dropdown."""
-                ticker = str(st.session_state.get("_network_picker", "")).strip().upper()
-
-                if ticker in available_network_tickers:
-                    st.session_state["_network_center_ticker"] = ticker
-                    reset_network_filters()
-
-            if "_network_center_ticker" not in st.session_state:
-                st.session_state["_network_center_ticker"] = available_network_tickers[0]
-
-            if st.session_state["_network_center_ticker"] not in available_network_tickers:
-                st.session_state["_network_center_ticker"] = available_network_tickers[0]
-
-            if "_network_picker" not in st.session_state:
-                st.session_state["_network_picker"] = st.session_state["_network_center_ticker"]
-
-            if st.session_state["_network_picker"] not in available_network_tickers:
-                st.session_state["_network_picker"] = st.session_state["_network_center_ticker"]
-
-            selected_index = available_network_tickers.index(
-                st.session_state["_network_center_ticker"]
-            )
-
-            selected_network_ticker = st.selectbox(
-                "Aktie für Netzwerk auswählen",
-                options=available_network_tickers,
-                index=selected_index,
-                key="_network_picker",
-                on_change=on_network_picker_change
-            )
-
-            selected_network_ticker = st.session_state.get(
-                "_network_center_ticker",
-                selected_network_ticker
-            )
-
-            selected_relationships_base = relationships_df[
-                relationships_df["source_ticker"] == selected_network_ticker
-            ].copy()
-
-            col_net_1, col_net_2, col_net_3, col_net_4 = st.columns(4)
-
-            with col_net_1:
-                st.metric(
-                    "Verbindungen",
-                    len(selected_relationships_base)
-                )
-
-            with col_net_2:
-                st.metric(
-                    "Kategorien",
-                    selected_relationships_base["category"].nunique()
-                    if not selected_relationships_base.empty else 0
-                )
-
-            with col_net_3:
-                st.metric(
-                    "Lieferkettenstufen",
-                    selected_relationships_base["supply_chain_stage"].nunique()
-                    if not selected_relationships_base.empty else 0
-                )
-
-            with col_net_4:
-                high_count = (
-                    selected_relationships_base["importance"]
-                    .astype(str)
-                    .str.lower()
-                    .isin(["hoch", "high"])
-                    .sum()
-                    if not selected_relationships_base.empty else 0
-                )
-                st.metric(
-                    "Hohe Relevanz",
-                    int(high_count)
-                )
-
-            if selected_relationships_base.empty:
-
-                st.info("Für diese Aktie sind noch keine Beziehungen hinterlegt.")
 
             else:
 
-                filter_col_1, filter_col_2, filter_col_3 = st.columns(3)
+                relationships_df = relationships_df.copy()
 
-                with filter_col_1:
-                    category_options = ["Alle"] + sorted(
-                        selected_relationships_base["category"]
-                        .dropna()
+                for text_column in [
+                    "source_ticker",
+                    "target_ticker",
+                    "target_name",
+                    "category",
+                    "relationship",
+                    "importance",
+                    "risk_note"
+                ]:
+                    relationships_df[text_column] = (
+                        relationships_df[text_column]
                         .astype(str)
-                        .unique()
-                        .tolist()
+                        .str.strip()
                     )
 
-                    selected_network_category = st.selectbox(
-                        "Kategorie filtern",
-                        options=category_options,
-                        index=0,
-                        key="network_selected_category"
-                    )
-
-                with filter_col_2:
-                    stage_options = ["Alle"] + sorted(
-                        selected_relationships_base["supply_chain_stage"]
-                        .dropna()
-                        .astype(str)
-                        .unique()
-                        .tolist()
-                    )
-
-                    selected_supply_chain_stage = st.selectbox(
-                        "Lieferkettenstufe filtern",
-                        options=stage_options,
-                        index=0,
-                        key="network_selected_supply_chain_stage"
-                    )
-
-                with filter_col_3:
-                    connection_type_options = ["Alle"] + sorted(
-                        selected_relationships_base["connection_type"]
-                        .dropna()
-                        .astype(str)
-                        .unique()
-                        .tolist()
-                    )
-
-                    selected_connection_type = st.selectbox(
-                        "Verbindungsart filtern",
-                        options=connection_type_options,
-                        index=0,
-                        key="network_selected_connection_type"
-                    )
-
-                selected_relationships = selected_relationships_base.copy()
-
-                if selected_network_category != "Alle":
-                    selected_relationships = selected_relationships[
-                        selected_relationships["category"] == selected_network_category
-                    ]
-
-                if selected_supply_chain_stage != "Alle":
-                    selected_relationships = selected_relationships[
-                        selected_relationships["supply_chain_stage"] == selected_supply_chain_stage
-                    ]
-
-                if selected_connection_type != "Alle":
-                    selected_relationships = selected_relationships[
-                        selected_relationships["connection_type"] == selected_connection_type
-                    ]
-
-                dashboard_signal_columns = [
-                    "Ticker",
-                    "Company",
-                    "Action Signal",
-                    "Rating",
-                    "Score",
-                    "Risk Level",
-                    "Price",
-                    "CRV"
-                ]
-
-                available_signal_columns = [
-                    column for column in dashboard_signal_columns
-                    if column in df.columns
-                ]
-
-                signal_df = df[available_signal_columns].copy()
-                signal_df["Ticker"] = signal_df["Ticker"].astype(str).str.strip()
-
-                network_view = selected_relationships.merge(
-                    signal_df,
-                    left_on="target_ticker",
-                    right_on="Ticker",
-                    how="left"
-                )
-
-                network_view["Ticker"] = network_view["target_ticker"]
-
-                if "Company" in network_view.columns:
-                    network_view["Company"] = network_view["Company"].fillna(
-                        network_view["target_name"]
+                # Neue Mapping-Logik: Auch wenn die CSV diese Spalten noch nicht hat,
+                # werden Lieferkettenstufe und Verbindungsart automatisch abgeleitet.
+                if "supply_chain_stage" not in relationships_df.columns:
+                    relationships_df["supply_chain_stage"] = relationships_df.apply(
+                        lambda row: infer_supply_chain_stage(
+                            row.get("category", ""),
+                            row.get("relationship", "")
+                        ),
+                        axis=1
                     )
                 else:
-                    network_view["Company"] = network_view["target_name"]
+                    relationships_df["supply_chain_stage"] = (
+                        relationships_df["supply_chain_stage"]
+                        .astype(str)
+                        .str.strip()
+                    )
 
-                importance_order = {
-                    "hoch": 1,
-                    "high": 1,
-                    "mittel": 2,
-                    "medium": 2,
-                    "niedrig": 3,
-                    "low": 3
-                }
+                if "connection_type" not in relationships_df.columns:
+                    relationships_df["connection_type"] = relationships_df.apply(
+                        lambda row: infer_connection_type(
+                            row.get("category", ""),
+                            row.get("relationship", ""),
+                            row.get("risk_note", "")
+                        ),
+                        axis=1
+                    )
+                else:
+                    relationships_df["connection_type"] = (
+                        relationships_df["connection_type"]
+                        .astype(str)
+                        .str.strip()
+                    )
 
-                network_view["Importance Sort"] = (
-                    network_view["importance"]
-                    .astype(str)
-                    .str.lower()
-                    .map(importance_order)
-                    .fillna(9)
+                available_network_tickers = sorted(
+                    relationships_df["source_ticker"]
+                    .dropna()
+                    .unique()
+                    .tolist()
                 )
 
-                network_view = network_view.sort_values(
-                    by=["supply_chain_stage", "category", "Importance Sort", "Ticker"],
-                    ascending=True
+                def reset_network_filters():
+                    """Setzt die Netzwerkfilter zurück, bevor die Filter-Widgets neu aufgebaut werden."""
+                    st.session_state["network_selected_category"] = "Alle"
+                    st.session_state["network_selected_supply_chain_stage"] = "Alle"
+                    st.session_state["network_selected_connection_type"] = "Alle"
+
+                def switch_network_center(ticker):
+                    """Wechselt das Netzwerk-Zentrum ohne URL-Wechsel, damit der Login erhalten bleibt."""
+                    ticker = str(ticker).strip().upper()
+
+                    if ticker in available_network_tickers:
+                        st.session_state["_network_center_ticker"] = ticker
+                        st.session_state["_network_picker"] = ticker
+                        reset_network_filters()
+
+                def on_network_picker_change():
+                    """Reagiert auf manuelle Auswahl im Dropdown."""
+                    ticker = str(st.session_state.get("_network_picker", "")).strip().upper()
+
+                    if ticker in available_network_tickers:
+                        st.session_state["_network_center_ticker"] = ticker
+                        reset_network_filters()
+
+                if "_network_center_ticker" not in st.session_state:
+                    st.session_state["_network_center_ticker"] = available_network_tickers[0]
+
+                if st.session_state["_network_center_ticker"] not in available_network_tickers:
+                    st.session_state["_network_center_ticker"] = available_network_tickers[0]
+
+                if "_network_picker" not in st.session_state:
+                    st.session_state["_network_picker"] = st.session_state["_network_center_ticker"]
+
+                if st.session_state["_network_picker"] not in available_network_tickers:
+                    st.session_state["_network_picker"] = st.session_state["_network_center_ticker"]
+
+                selected_index = available_network_tickers.index(
+                    st.session_state["_network_center_ticker"]
                 )
 
-                signal_summary = network_view["Action Signal"].fillna("Nicht in Hauptliste").value_counts()
+                selected_network_ticker = st.selectbox(
+                    "Aktie für Netzwerk auswählen",
+                    options=available_network_tickers,
+                    index=selected_index,
+                    key="_network_picker",
+                    on_change=on_network_picker_change
+                )
 
-                with st.expander("📊 Netzwerk-Signal anzeigen", expanded=False):
-                    st.caption(
-                        "Zählt die aktuellen Dashboard-Signale der verbundenen Aktien, "
-                        "sofern sie in deiner Hauptliste vorhanden sind."
+                selected_network_ticker = st.session_state.get(
+                    "_network_center_ticker",
+                    selected_network_ticker
+                )
+
+                selected_relationships_base = relationships_df[
+                    relationships_df["source_ticker"] == selected_network_ticker
+                ].copy()
+
+                col_net_1, col_net_2, col_net_3, col_net_4 = st.columns(4)
+
+                with col_net_1:
+                    st.metric(
+                        "Verbindungen",
+                        len(selected_relationships_base)
                     )
 
-                    signal_summary_df = signal_summary.reset_index()
-                    signal_summary_df.columns = ["Action Signal", "Anzahl"]
-
-                    st.dataframe(
-                        signal_summary_df,
-                        width="stretch",
-                        hide_index=True
+                with col_net_2:
+                    st.metric(
+                        "Kategorien",
+                        selected_relationships_base["category"].nunique()
+                        if not selected_relationships_base.empty else 0
                     )
 
-                    bullish_count = network_view["Action Signal"].astype(str).str.contains(
-                        "BUY", case=False, na=False
-                    ).sum()
-                    avoid_count = network_view["Action Signal"].astype(str).str.contains(
-                        "AVOID|SELL", case=False, na=False
-                    ).sum()
-                    watch_count = network_view["Action Signal"].astype(str).str.contains(
-                        "WATCH", case=False, na=False
-                    ).sum()
-
-                    col_signal_1, col_signal_2, col_signal_3 = st.columns(3)
-                    col_signal_1.metric("Bullish im Netzwerk", int(bullish_count))
-                    col_signal_2.metric("Watch / Beobachten", int(watch_count))
-                    col_signal_3.metric("Schwach / Avoid", int(avoid_count))
-
-                display_columns = [
-                    "supply_chain_stage",
-                    "connection_type",
-                    "category",
-                    "Ticker",
-                    "Company",
-                    "importance",
-                    "relationship",
-                    "risk_note",
-                    "Action Signal",
-                    "Rating",
-                    "Score",
-                    "Risk Level",
-                    "Price",
-                    "CRV"
-                ]
-
-                display_columns = [
-                    column for column in display_columns
-                    if column in network_view.columns
-                ]
-
-                network_display = network_view[display_columns].rename(columns={
-                    "supply_chain_stage": "Lieferkettenstufe",
-                    "connection_type": "Verbindungsart",
-                    "category": "Kategorie",
-                    "importance": "Wichtigkeit",
-                    "relationship": "Warum verbunden?",
-                    "risk_note": "Risiko-Hinweis"
-                })
-
-                # ============================================================
-                # ============================================================
-                # 🕸️ PROFI-SPINNENNETZ / WERTSCHÖPFUNGSKETTE
-                # ============================================================
-
-                # ============================================================
-                # 🕸️ PROFI-NETZWERK / FOKUS-WERTSCHÖPFUNGSKETTE
-                # ============================================================
-
-                with st.expander("🕸️ Netzwerk / Wertschöpfungskette anzeigen", expanded=True):
-                    st.caption(
-                        "Ruhige Profi-Ansicht: keine Physik, kein Wackeln. "
-                        "Ein Klick zeigt Details rechts. Den Mittelpunkt wechselst du zuverlässig über die Buttons unter dem Netzwerk."
+                with col_net_3:
+                    st.metric(
+                        "Lieferkettenstufen",
+                        selected_relationships_base["supply_chain_stage"].nunique()
+                        if not selected_relationships_base.empty else 0
                     )
 
-                    import json
-                    import math
-                    import html
+                with col_net_4:
+                    high_count = (
+                        selected_relationships_base["importance"]
+                        .astype(str)
+                        .str.lower()
+                        .isin(["hoch", "high"])
+                        .sum()
+                        if not selected_relationships_base.empty else 0
+                    )
+                    st.metric(
+                        "Hohe Relevanz",
+                        int(high_count)
+                    )
 
-                    def get_connection_color(connection_type, action_signal=""):
-                        text_value = f"{connection_type} {action_signal}".lower()
-                        if "avoid" in text_value or "sell" in text_value or "schwach" in text_value:
-                            return "#ef4444"
-                        if "konkurrenz" in text_value or "substitution" in text_value:
-                            return "#f97316"
-                        if "lieferant" in text_value or "zulieferer" in text_value:
-                            return "#22c55e"
-                        if "kunde" in text_value or "nachfrage" in text_value:
-                            return "#8b5cf6"
-                        if "infrastruktur" in text_value or "energie" in text_value or "strom" in text_value:
-                            return "#f59e0b"
-                        if "risk" in text_value or "risiko" in text_value:
-                            return "#f43f5e"
-                        return "#38bdf8"
+                if selected_relationships_base.empty:
 
-                    def get_signal_badge(action_signal):
-                        text_value = str(action_signal)
-                        low_value = text_value.lower()
-                        if "buy" in low_value:
-                            return "BUY", "#22c55e"
-                        if "watch" in low_value:
-                            return "WATCH", "#eab308"
-                        if "avoid" in low_value or "sell" in low_value:
-                            return "RISK", "#ef4444"
-                        if text_value.strip() in ["", "nan", "None"]:
-                            return "N/A", "#64748b"
-                        return text_value[:10], "#38bdf8"
+                    st.info("Für diese Aktie sind noch keine Beziehungen hinterlegt.")
 
-                    spider_records = network_view.fillna("").to_dict(orient="records")
+                else:
 
-                    if not spider_records:
-                        st.info("Für die aktuelle Auswahl gibt es keine Netzwerkdaten.")
-                    else:
-                        max_visible_nodes = st.slider(
-                            "Maximale Aktien im Netzwerk",
-                            min_value=10,
-                            max_value=90,
-                            value=min(42, max(10, len(spider_records))),
-                            step=5,
-                            key=f"spider_max_nodes_static_{selected_network_ticker}"
+                    filter_col_1, filter_col_2, filter_col_3 = st.columns(3)
+
+                    with filter_col_1:
+                        category_options = ["Alle"] + sorted(
+                            selected_relationships_base["category"]
+                            .dropna()
+                            .astype(str)
+                            .unique()
+                            .tolist()
                         )
 
-                        spider_records_sorted = sorted(
-                            spider_records,
-                            key=lambda row: (
-                                str(row.get("supply_chain_stage", "99")),
-                                str(row.get("category", "")),
-                                str(row.get("Importance Sort", "9")),
-                                str(row.get("Ticker", ""))
+                        selected_network_category = st.selectbox(
+                            "Kategorie filtern",
+                            options=category_options,
+                            index=0,
+                            key="network_selected_category"
+                        )
+
+                    with filter_col_2:
+                        stage_options = ["Alle"] + sorted(
+                            selected_relationships_base["supply_chain_stage"]
+                            .dropna()
+                            .astype(str)
+                            .unique()
+                            .tolist()
+                        )
+
+                        selected_supply_chain_stage = st.selectbox(
+                            "Lieferkettenstufe filtern",
+                            options=stage_options,
+                            index=0,
+                            key="network_selected_supply_chain_stage"
+                        )
+
+                    with filter_col_3:
+                        connection_type_options = ["Alle"] + sorted(
+                            selected_relationships_base["connection_type"]
+                            .dropna()
+                            .astype(str)
+                            .unique()
+                            .tolist()
+                        )
+
+                        selected_connection_type = st.selectbox(
+                            "Verbindungsart filtern",
+                            options=connection_type_options,
+                            index=0,
+                            key="network_selected_connection_type"
+                        )
+
+                    selected_relationships = selected_relationships_base.copy()
+
+                    if selected_network_category != "Alle":
+                        selected_relationships = selected_relationships[
+                            selected_relationships["category"] == selected_network_category
+                        ]
+
+                    if selected_supply_chain_stage != "Alle":
+                        selected_relationships = selected_relationships[
+                            selected_relationships["supply_chain_stage"] == selected_supply_chain_stage
+                        ]
+
+                    if selected_connection_type != "Alle":
+                        selected_relationships = selected_relationships[
+                            selected_relationships["connection_type"] == selected_connection_type
+                        ]
+
+                    dashboard_signal_columns = [
+                        "Ticker",
+                        "Company",
+                        "Action Signal",
+                        "Rating",
+                        "Score",
+                        "Risk Level",
+                        "Price",
+                        "CRV"
+                    ]
+
+                    available_signal_columns = [
+                        column for column in dashboard_signal_columns
+                        if column in df.columns
+                    ]
+
+                    signal_df = df[available_signal_columns].copy()
+                    signal_df["Ticker"] = signal_df["Ticker"].astype(str).str.strip()
+
+                    network_view = selected_relationships.merge(
+                        signal_df,
+                        left_on="target_ticker",
+                        right_on="Ticker",
+                        how="left"
+                    )
+
+                    network_view["Ticker"] = network_view["target_ticker"]
+
+                    if "Company" in network_view.columns:
+                        network_view["Company"] = network_view["Company"].fillna(
+                            network_view["target_name"]
+                        )
+                    else:
+                        network_view["Company"] = network_view["target_name"]
+
+                    importance_order = {
+                        "hoch": 1,
+                        "high": 1,
+                        "mittel": 2,
+                        "medium": 2,
+                        "niedrig": 3,
+                        "low": 3
+                    }
+
+                    network_view["Importance Sort"] = (
+                        network_view["importance"]
+                        .astype(str)
+                        .str.lower()
+                        .map(importance_order)
+                        .fillna(9)
+                    )
+
+                    network_view = network_view.sort_values(
+                        by=["supply_chain_stage", "category", "Importance Sort", "Ticker"],
+                        ascending=True
+                    )
+
+                    signal_summary = network_view["Action Signal"].fillna("Nicht in Hauptliste").value_counts()
+
+                    with st.expander("📊 Netzwerk-Signal anzeigen", expanded=False):
+                        st.caption(
+                            "Zählt die aktuellen Dashboard-Signale der verbundenen Aktien, "
+                            "sofern sie in deiner Hauptliste vorhanden sind."
+                        )
+
+                        signal_summary_df = signal_summary.reset_index()
+                        signal_summary_df.columns = ["Action Signal", "Anzahl"]
+
+                        st.dataframe(
+                            signal_summary_df,
+                            width="stretch",
+                            hide_index=True
+                        )
+
+                        bullish_count = network_view["Action Signal"].astype(str).str.contains(
+                            "BUY", case=False, na=False
+                        ).sum()
+                        avoid_count = network_view["Action Signal"].astype(str).str.contains(
+                            "AVOID|SELL", case=False, na=False
+                        ).sum()
+                        watch_count = network_view["Action Signal"].astype(str).str.contains(
+                            "WATCH", case=False, na=False
+                        ).sum()
+
+                        col_signal_1, col_signal_2, col_signal_3 = st.columns(3)
+                        col_signal_1.metric("Bullish im Netzwerk", int(bullish_count))
+                        col_signal_2.metric("Watch / Beobachten", int(watch_count))
+                        col_signal_3.metric("Schwach / Avoid", int(avoid_count))
+
+                    display_columns = [
+                        "supply_chain_stage",
+                        "connection_type",
+                        "category",
+                        "Ticker",
+                        "Company",
+                        "importance",
+                        "relationship",
+                        "risk_note",
+                        "Action Signal",
+                        "Rating",
+                        "Score",
+                        "Risk Level",
+                        "Price",
+                        "CRV"
+                    ]
+
+                    display_columns = [
+                        column for column in display_columns
+                        if column in network_view.columns
+                    ]
+
+                    network_display = network_view[display_columns].rename(columns={
+                        "supply_chain_stage": "Lieferkettenstufe",
+                        "connection_type": "Verbindungsart",
+                        "category": "Kategorie",
+                        "importance": "Wichtigkeit",
+                        "relationship": "Warum verbunden?",
+                        "risk_note": "Risiko-Hinweis"
+                    })
+
+                    # ============================================================
+                    # ============================================================
+                    # 🕸️ PROFI-SPINNENNETZ / WERTSCHÖPFUNGSKETTE
+                    # ============================================================
+
+                    # ============================================================
+                    # 🕸️ PROFI-NETZWERK / FOKUS-WERTSCHÖPFUNGSKETTE
+                    # ============================================================
+
+                    with st.expander("🕸️ Netzwerk / Wertschöpfungskette anzeigen", expanded=True):
+                        st.caption(
+                            "Ruhige Profi-Ansicht: keine Physik, kein Wackeln. "
+                            "Ein Klick zeigt Details rechts. Den Mittelpunkt wechselst du zuverlässig über die Buttons unter dem Netzwerk."
+                        )
+
+                        import json
+                        import math
+                        import html
+
+                        def get_connection_color(connection_type, action_signal=""):
+                            text_value = f"{connection_type} {action_signal}".lower()
+                            if "avoid" in text_value or "sell" in text_value or "schwach" in text_value:
+                                return "#ef4444"
+                            if "konkurrenz" in text_value or "substitution" in text_value:
+                                return "#f97316"
+                            if "lieferant" in text_value or "zulieferer" in text_value:
+                                return "#22c55e"
+                            if "kunde" in text_value or "nachfrage" in text_value:
+                                return "#8b5cf6"
+                            if "infrastruktur" in text_value or "energie" in text_value or "strom" in text_value:
+                                return "#f59e0b"
+                            if "risk" in text_value or "risiko" in text_value:
+                                return "#f43f5e"
+                            return "#38bdf8"
+
+                        def get_signal_badge(action_signal):
+                            text_value = str(action_signal)
+                            low_value = text_value.lower()
+                            if "buy" in low_value:
+                                return "BUY", "#22c55e"
+                            if "watch" in low_value:
+                                return "WATCH", "#eab308"
+                            if "avoid" in low_value or "sell" in low_value:
+                                return "RISK", "#ef4444"
+                            if text_value.strip() in ["", "nan", "None"]:
+                                return "N/A", "#64748b"
+                            return text_value[:10], "#38bdf8"
+
+                        spider_records = network_view.fillna("").to_dict(orient="records")
+
+                        if not spider_records:
+                            st.info("Für die aktuelle Auswahl gibt es keine Netzwerkdaten.")
+                        else:
+                            total_network_records = len(spider_records)
+
+                            st.caption(
+                                f"Für {selected_network_ticker} sind {total_network_records} Beziehungen vorhanden. "
+                                "Für das Spinnennetz werden nur die wichtigsten angezeigt; die vollständige Liste bleibt unten als Tabelle sichtbar."
                             )
-                        )[:max_visible_nodes]
 
-                        stage_names = []
-                        for row in spider_records_sorted:
-                            stage_name = str(row.get("supply_chain_stage", "99 - Sonstige Verbindung"))
-                            if stage_name not in stage_names:
-                                stage_names.append(stage_name)
+                            network_display_mode = st.radio(
+                                "Darstellung im Spinnennetz",
+                                options=[
+                                    "Top-Beziehungen",
+                                    "Ausbalanciert nach Lieferkettenstufen",
+                                    "Alle gefilterten Beziehungen"
+                                ],
+                                index=0,
+                                horizontal=True,
+                                key=f"spider_display_mode_{selected_network_ticker}"
+                            )
 
-                        width = 1320
-                        height = 760
-                        center_x = 470
-                        center_y = 380
-                        stage_radius = 190
-                        stock_radius_inner = 335
-                        stock_radius_outer = 435
+                            max_slider_upper = min(80, max(10, total_network_records))
+                            default_nodes = min(28, max_slider_upper)
 
-                        available_source_tickers = set(available_network_tickers)
-                        nodes = []
-                        edges = []
+                            max_visible_nodes = st.slider(
+                                "Maximale Aktien im Spinnennetz",
+                                min_value=10,
+                                max_value=max_slider_upper,
+                                value=default_nodes,
+                                step=5,
+                                key=f"spider_max_nodes_static_{selected_network_ticker}"
+                            )
 
-                        center_company = selected_network_ticker
-                        if "Ticker" in df.columns and "Company" in df.columns:
-                            center_match = df[df["Ticker"].astype(str).str.strip() == selected_network_ticker]
-                            if not center_match.empty:
-                                center_company = str(center_match.iloc[0].get("Company", selected_network_ticker))
+                            def relationship_priority(row):
+                                importance_sort = row.get("Importance Sort", 9)
+                                try:
+                                    importance_sort = int(float(importance_sort))
+                                except Exception:
+                                    importance_sort = 9
 
-                        nodes.append({
-                            "id": selected_network_ticker,
-                            "label": selected_network_ticker,
-                            "name": center_company,
-                            "type": "center",
-                            "x": center_x,
-                            "y": center_y,
-                            "w": 150,
-                            "h": 64,
-                            "color": "#38bdf8",
-                            "stage": "Hauptaktie",
-                            "category": "Fokuswert",
-                            "connection": "Zentrum",
-                            "relationship": "Ausgangspunkt der Wertschöpfungskette und aller angezeigten Beziehungen.",
-                            "risk": "-",
-                            "importance": "Fokus",
-                            "signal": "Fokus",
-                            "rating": "-",
-                            "score": "-",
-                            "risk_level": "-",
-                            "price": "-",
-                            "crv": "-",
-                            "can_drill": False
-                        })
+                                action_signal = str(row.get("Action Signal", "")).lower()
+                                has_dashboard_signal = 0 if action_signal and action_signal not in ["nan", "none"] else 1
 
-                        stage_positions = {}
-                        total_stages = max(len(stage_names), 1)
+                                if "strong buy" in action_signal:
+                                    signal_sort = 0
+                                elif "buy" in action_signal:
+                                    signal_sort = 1
+                                elif "turnaround" in action_signal:
+                                    signal_sort = 2
+                                elif "watch" in action_signal:
+                                    signal_sort = 3
+                                elif "avoid" in action_signal or "sell" in action_signal:
+                                    signal_sort = 5
+                                else:
+                                    signal_sort = 4
 
-                        for stage_index, stage_name in enumerate(stage_names):
-                            angle = -math.pi / 2 + (2 * math.pi * stage_index / total_stages)
-                            stage_x = center_x + stage_radius * math.cos(angle)
-                            stage_y = center_y + stage_radius * math.sin(angle)
-                            stage_id = f"stage::{stage_name}"
-                            stage_label = stage_name.split(" - ", 1)[-1]
-                            if len(stage_label) > 23:
-                                stage_label = stage_label[:21] + "…"
-                            stage_positions[stage_name] = (stage_x, stage_y, angle, stage_id)
+                                stage = str(row.get("supply_chain_stage", "99"))
+                                category = str(row.get("category", ""))
+                                ticker = str(row.get("Ticker", row.get("target_ticker", "")))
+
+                                return (
+                                    importance_sort,
+                                    has_dashboard_signal,
+                                    signal_sort,
+                                    stage,
+                                    category,
+                                    ticker
+                                )
+
+                            prioritized_records = sorted(
+                                spider_records,
+                                key=relationship_priority
+                            )
+
+                            if network_display_mode == "Alle gefilterten Beziehungen":
+                                spider_records_sorted = prioritized_records[:max_visible_nodes]
+
+                            elif network_display_mode == "Ausbalanciert nach Lieferkettenstufen":
+                                grouped_records = {}
+                                for row in prioritized_records:
+                                    stage_name = str(row.get("supply_chain_stage", "99 - Sonstige Verbindung"))
+                                    grouped_records.setdefault(stage_name, []).append(row)
+
+                                stage_count = max(1, len(grouped_records))
+                                per_stage_limit = max(1, max_visible_nodes // stage_count)
+
+                                balanced_records = []
+                                used_tickers = set()
+
+                                for stage_name in sorted(grouped_records.keys()):
+                                    for row in grouped_records[stage_name][:per_stage_limit]:
+                                        ticker = str(row.get("Ticker", row.get("target_ticker", "")))
+                                        if ticker not in used_tickers:
+                                            balanced_records.append(row)
+                                            used_tickers.add(ticker)
+
+                                if len(balanced_records) < max_visible_nodes:
+                                    for row in prioritized_records:
+                                        ticker = str(row.get("Ticker", row.get("target_ticker", "")))
+                                        if ticker not in used_tickers:
+                                            balanced_records.append(row)
+                                            used_tickers.add(ticker)
+                                        if len(balanced_records) >= max_visible_nodes:
+                                            break
+
+                                spider_records_sorted = balanced_records[:max_visible_nodes]
+
+                            else:
+                                # Empfohlener Modus: Wichtigkeit + vorhandenes Dashboard-Signal + saubere Sortierung.
+                                spider_records_sorted = prioritized_records[:max_visible_nodes]
+
+                            st.caption(
+                                f"Im Spinnennetz sichtbar: {len(spider_records_sorted)} von {total_network_records} Beziehungen."
+                            )
+
+                            stage_names = []
+                            for row in spider_records_sorted:
+                                stage_name = str(row.get("supply_chain_stage", "99 - Sonstige Verbindung"))
+                                if stage_name not in stage_names:
+                                    stage_names.append(stage_name)
+
+                            width = 1320
+                            height = 760
+                            center_x = 470
+                            center_y = 380
+                            stage_radius = 190
+                            stock_radius_inner = 335
+                            stock_radius_outer = 435
+
+                            available_source_tickers = set(available_network_tickers)
+                            nodes = []
+                            edges = []
+
+                            center_company = selected_network_ticker
+                            if "Ticker" in df.columns and "Company" in df.columns:
+                                center_match = df[df["Ticker"].astype(str).str.strip() == selected_network_ticker]
+                                if not center_match.empty:
+                                    center_company = str(center_match.iloc[0].get("Company", selected_network_ticker))
 
                             nodes.append({
-                                "id": stage_id,
-                                "label": stage_label,
-                                "name": stage_name,
-                                "type": "stage",
-                                "x": stage_x,
-                                "y": stage_y,
-                                "w": 158,
-                                "h": 42,
-                                "color": "#0f172a",
-                                "stage": stage_name,
-                                "category": "Lieferkettenstufe",
-                                "connection": "Zwischenstufe",
-                                "relationship": f"Diese Stufe bündelt Beziehungen im Netzwerk von {selected_network_ticker}.",
+                                "id": selected_network_ticker,
+                                "label": selected_network_ticker,
+                                "name": center_company,
+                                "type": "center",
+                                "x": center_x,
+                                "y": center_y,
+                                "w": 150,
+                                "h": 64,
+                                "color": "#38bdf8",
+                                "stage": "Hauptaktie",
+                                "category": "Fokuswert",
+                                "connection": "Zentrum",
+                                "relationship": "Ausgangspunkt der Wertschöpfungskette und aller angezeigten Beziehungen.",
                                 "risk": "-",
-                                "importance": "Stage",
-                                "signal": "Stage",
+                                "importance": "Fokus",
+                                "signal": "Fokus",
                                 "rating": "-",
                                 "score": "-",
                                 "risk_level": "-",
@@ -2149,246 +2778,284 @@ with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
                                 "crv": "-",
                                 "can_drill": False
                             })
-                            edges.append({"from": selected_network_ticker, "to": stage_id, "kind": "stage"})
 
-                        for stage_name in stage_names:
-                            group = [
-                                row for row in spider_records_sorted
-                                if str(row.get("supply_chain_stage", "99 - Sonstige Verbindung")) == stage_name
-                            ]
+                            stage_positions = {}
+                            total_stages = max(len(stage_names), 1)
 
-                            stage_x, stage_y, base_angle, stage_id = stage_positions[stage_name]
-                            count = max(len(group), 1)
-                            spread = min(1.10, 0.20 * count)
-
-                            for item_index, row in enumerate(group):
-                                ticker = str(row.get("Ticker", row.get("target_ticker", ""))).strip()
-                                if not ticker:
-                                    continue
-
-                                local_angle = base_angle if count == 1 else base_angle - spread / 2 + spread * item_index / max(count - 1, 1)
-                                radius = stock_radius_inner if item_index % 2 == 0 else stock_radius_outer
-                                node_x = center_x + radius * math.cos(local_angle)
-                                node_y = center_y + radius * math.sin(local_angle)
-
-                                connection_type = str(row.get("connection_type", "Strategische Verbindung"))
-                                action_signal = str(row.get("Action Signal", ""))
-                                badge, badge_color = get_signal_badge(action_signal)
-                                color = get_connection_color(connection_type, action_signal)
-                                importance = str(row.get("importance", ""))
-                                node_w = 124
-                                if importance.lower() in ["hoch", "high"]:
-                                    node_w = 140
-                                elif importance.lower() in ["mittel", "medium"]:
-                                    node_w = 130
+                            for stage_index, stage_name in enumerate(stage_names):
+                                angle = -math.pi / 2 + (2 * math.pi * stage_index / total_stages)
+                                stage_x = center_x + stage_radius * math.cos(angle)
+                                stage_y = center_y + stage_radius * math.sin(angle)
+                                stage_id = f"stage::{stage_name}"
+                                stage_label = stage_name.split(" - ", 1)[-1]
+                                if len(stage_label) > 23:
+                                    stage_label = stage_label[:21] + "…"
+                                stage_positions[stage_name] = (stage_x, stage_y, angle, stage_id)
 
                                 nodes.append({
-                                    "id": ticker,
-                                    "label": ticker,
-                                    "name": str(row.get("Company", row.get("target_name", ticker))),
-                                    "type": "stock",
-                                    "x": node_x,
-                                    "y": node_y,
-                                    "w": node_w,
-                                    "h": 50,
-                                    "color": color,
-                                    "badge": badge,
-                                    "badge_color": badge_color,
+                                    "id": stage_id,
+                                    "label": stage_label,
+                                    "name": stage_name,
+                                    "type": "stage",
+                                    "x": stage_x,
+                                    "y": stage_y,
+                                    "w": 158,
+                                    "h": 42,
+                                    "color": "#0f172a",
                                     "stage": stage_name,
-                                    "category": str(row.get("category", "")),
-                                    "connection": connection_type,
-                                    "relationship": str(row.get("relationship", "")),
-                                    "risk": str(row.get("risk_note", "")),
-                                    "importance": importance,
-                                    "signal": action_signal if action_signal else "Nicht in Hauptliste",
-                                    "rating": str(row.get("Rating", "")),
-                                    "score": str(row.get("Score", "")),
-                                    "risk_level": str(row.get("Risk Level", "")),
-                                    "price": str(row.get("Price", "")),
-                                    "crv": str(row.get("CRV", "")),
-                                    "can_drill": ticker in available_source_tickers
+                                    "category": "Lieferkettenstufe",
+                                    "connection": "Zwischenstufe",
+                                    "relationship": f"Diese Stufe bündelt Beziehungen im Netzwerk von {selected_network_ticker}.",
+                                    "risk": "-",
+                                    "importance": "Stage",
+                                    "signal": "Stage",
+                                    "rating": "-",
+                                    "score": "-",
+                                    "risk_level": "-",
+                                    "price": "-",
+                                    "crv": "-",
+                                    "can_drill": False
                                 })
-                                edges.append({"from": stage_id, "to": ticker, "kind": "stock"})
+                                edges.append({"from": selected_network_ticker, "to": stage_id, "kind": "stage"})
 
-                        nodes_json = json.dumps(nodes, ensure_ascii=False)
-                        edges_json = json.dumps(edges, ensure_ascii=False)
-                        center_id_json = json.dumps(selected_network_ticker, ensure_ascii=False)
+                            for stage_name in stage_names:
+                                group = [
+                                    row for row in spider_records_sorted
+                                    if str(row.get("supply_chain_stage", "99 - Sonstige Verbindung")) == stage_name
+                                ]
 
-                        network_html = f'''
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                        <meta charset="utf-8" />
-                        <style>
-                            * {{ box-sizing: border-box; }}
-                            body {{ margin: 0; background: #020617; color: #e5e7eb; font-family: Inter, Arial, sans-serif; }}
-                            .terminal-wrap {{ width: 100%; height: 820px; display: grid; grid-template-columns: minmax(780px, 1fr) 390px; gap: 16px; background: radial-gradient(circle at 16% 16%, rgba(56,189,248,0.18), transparent 30%), radial-gradient(circle at 82% 10%, rgba(168,85,247,0.14), transparent 30%), linear-gradient(135deg, #020617, #0f172a 58%, #111827); border: 1px solid rgba(56,189,248,0.28); border-radius: 24px; padding: 16px; overflow: hidden; }}
-                            .network-card {{ position: relative; min-width: 0; border: 1px solid rgba(148,163,184,0.20); border-radius: 20px; background: rgba(2,6,23,0.48); overflow: hidden; box-shadow: inset 0 0 80px rgba(14,165,233,0.06); }}
-                            .detail-card {{ border: 1px solid rgba(148,163,184,0.22); border-radius: 20px; padding: 18px; background: rgba(15,23,42,0.90); box-shadow: 0 18px 42px rgba(0,0,0,0.30); overflow: auto; }}
-                            .detail-kicker {{ color: #38bdf8; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 900; }}
-                            .detail-title {{ margin: 8px 0 4px; font-size: 27px; line-height: 1.05; font-weight: 950; color: #f8fafc; }}
-                            .detail-subtitle {{ color: #cbd5e1; font-size: 14px; margin-bottom: 14px; }}
-                            .pill-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }}
-                            .pill {{ border-radius: 999px; border: 1px solid rgba(148,163,184,0.25); background: rgba(30,41,59,0.72); padding: 6px 9px; color: #e5e7eb; font-size: 12px; font-weight: 750; }}
-                            .section {{ margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(148,163,184,0.14); }}
-                            .section h4 {{ margin: 0 0 6px; color: #93c5fd; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }}
-                            .section p {{ margin: 0; color: #e5e7eb; font-size: 14px; line-height: 1.45; }}
-                            .hint {{ position: absolute; top: 14px; left: 16px; color: #cbd5e1; background: rgba(2,6,23,0.74); border: 1px solid rgba(148,163,184,0.18); border-radius: 999px; padding: 8px 11px; font-size: 12px; z-index: 3; }}
-                            .legend {{ position: absolute; left: 16px; bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 720px; padding: 8px 10px; border-radius: 999px; background: rgba(2,6,23,0.74); border: 1px solid rgba(148,163,184,0.18); backdrop-filter: blur(10px); }}
-                            .legend span {{ font-size: 11px; color: #cbd5e1; }}
-                            .dot {{ display:inline-block; width:9px; height:9px; border-radius:999px; margin-right:5px; vertical-align:middle; }}
-                            .tooltip {{ position: fixed; max-width: 360px; pointer-events: none; background: rgba(15,23,42,0.96); border: 1px solid rgba(56,189,248,0.30); color: #e5e7eb; border-radius: 14px; padding: 11px 12px; font-size: 12px; line-height: 1.35; box-shadow: 0 18px 42px rgba(0,0,0,0.38); opacity: 0; transform: translate(12px, 12px); transition: opacity .08s ease; z-index: 99; }}
-                            .tooltip b {{ color: #f8fafc; font-size: 13px; }}
-                            svg {{ width: 100%; height: 100%; display: block; }}
-                            .edge {{ stroke: rgba(148,163,184,0.28); stroke-width: 1.5; fill: none; }}
-                            .edge-stage {{ stroke: rgba(56,189,248,0.30); stroke-width: 1.9; stroke-dasharray: 7 8; }}
-                            .node {{ cursor: pointer; transition: opacity .12s ease; }}
-                            .node rect {{ stroke: rgba(248,250,252,0.60); stroke-width: 1.25; filter: drop-shadow(0 10px 14px rgba(0,0,0,0.35)); }}
-                            .node text {{ pointer-events: none; font-weight: 900; fill: #f8fafc; paint-order: stroke; stroke: #020617; stroke-width: 3px; stroke-linejoin: round; }}
-                            .node:hover rect {{ stroke: #f8fafc; stroke-width: 2.2; }}
-                            .node.active rect {{ stroke: #f8fafc; stroke-width: 2.8; }}
-                            .center-node rect {{ fill: #0ea5e9; stroke: #e0f2fe; stroke-width: 2.8; }}
-                            .center-node text {{ font-size: 21px; }}
-                            .stage-node rect {{ fill: rgba(15,23,42,0.94); stroke: rgba(56,189,248,0.58); stroke-width: 1.8; }}
-                            .stage-node text {{ font-size: 11px; fill: #bfdbfe; }}
-                            .stock-node text {{ font-size: 14px; }}
-                            .badge-text {{ font-size: 9px; font-weight: 950; fill: #020617; stroke: none; paint-order: normal; }}
-                            .drill {{ font-size: 10px; fill: #93c5fd; stroke: none; paint-order: normal; }}
-                        </style>
-                        </head>
-                        <body>
-                            <div class="terminal-wrap"><div class="network-card"><div class="hint">Klick = Detail · Zentrum wechseln über Buttons unter dem Netzwerk</div><svg viewBox="0 0 {width} {height}" id="networkSvg" preserveAspectRatio="xMidYMid meet"><g id="edges"></g><g id="nodes"></g></svg><div class="legend"><span><i class="dot" style="background:#22c55e"></i>Lieferant</span><span><i class="dot" style="background:#8b5cf6"></i>Kunde/Nachfrage</span><span><i class="dot" style="background:#f59e0b"></i>Infrastruktur/Energie</span><span><i class="dot" style="background:#f97316"></i>Konkurrenz</span><span><i class="dot" style="background:#ef4444"></i>Risk/Avoid</span><span><i class="dot" style="background:#38bdf8"></i>Strategisch</span></div><div class="tooltip" id="tooltip"></div></div>
-                                <aside class="detail-card" id="detailCard"><div class="detail-kicker">Market Relationship Focus</div><div class="detail-title">{html.escape(selected_network_ticker)}</div><div class="detail-subtitle">Klicke auf eine Karte im Netzwerk, um die Verbindung im Detail zu sehen.</div><div class="pill-row"><span class="pill">Zentrum</span><span class="pill">Wertschöpfungskette</span></div><div class="section"><h4>Bedienung</h4><p>Mouseover zeigt Schnellinfos. Das Zentrum wechselst du über die Streamlit-Buttons unter dem Netzwerk.</p></div></aside></div>
-                            <script>
-                                const nodes = {nodes_json}; const edges = {edges_json}; const centerId = {center_id_json};
-                                const nodesById = Object.fromEntries(nodes.map(n => [n.id, n]));
-                                const edgeLayer = document.getElementById('edges'); const nodeLayer = document.getElementById('nodes'); const detailCard = document.getElementById('detailCard'); const tooltip = document.getElementById('tooltip');
-                                function esc(value) {{ return String(value ?? '').replace(/[&<>'"]/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}}[ch])); }}
-                                function detailHtml(n) {{ const typeLabel = n.type === 'center' ? 'Hauptaktie' : n.type === 'stage' ? 'Lieferkettenstufe' : 'Verbundene Aktie'; const drillInfo = n.can_drill ? '<span class="pill">Als Zentrum verfügbar</span>' : ''; return `<div class="detail-kicker">${{esc(typeLabel)}}</div><div class="detail-title">${{esc(n.label)}} <span style="font-size:16px;color:#94a3b8;">${{n.name && n.name !== n.label ? '— ' + esc(n.name) : ''}}</span></div><div class="detail-subtitle">${{esc(n.stage || '-')}}</div><div class="pill-row"><span class="pill" style="border-color:${{esc(n.color)}};">${{esc(n.connection || '-')}}</span><span class="pill">${{esc(n.category || '-')}}</span><span class="pill">Wichtigkeit: ${{esc(n.importance || '-')}}</span>${{drillInfo}}</div><div class="section"><h4>Warum verbunden?</h4><p>${{esc(n.relationship || '-')}}</p></div><div class="section"><h4>Risiko / Hinweis</h4><p>${{esc(n.risk || '-')}}</p></div><div class="section"><h4>Dashboard-Signal</h4><p>${{esc(n.signal || '-')}} · Rating: ${{esc(n.rating || '-')}} · Score: ${{esc(n.score || '-')}} · Risk: ${{esc(n.risk_level || '-')}}</p></div><div class="section"><h4>Kurs / CRV</h4><p>Preis: ${{esc(n.price || '-')}} · CRV: ${{esc(n.crv || '-')}}</p></div>`; }}
-                                function tooltipHtml(n) {{ return `<b>${{esc(n.label)}}${{n.name && n.name !== n.label ? ' — ' + esc(n.name) : ''}}</b><br><span>Stufe: ${{esc(n.stage || '-')}}</span><br><span>Verbindung: ${{esc(n.connection || '-')}}</span><br><span>Signal: ${{esc(n.signal || '-')}} · Score: ${{esc(n.score || '-')}}</span><br><span>Warum: ${{esc(n.relationship || '-')}}</span>`; }}
-                                function showDetails(nodeId) {{ const n = nodesById[nodeId]; if (!n) return; document.querySelectorAll('.node').forEach(el => el.classList.remove('active')); const active = document.querySelector(`[data-node-id="${{CSS.escape(nodeId)}}"]`); if (active) active.classList.add('active'); detailCard.innerHTML = detailHtml(n); }}
-                                function navigateToTicker(ticker) {{
-                                    const n = nodesById[ticker];
-                                    if (!n || !n.can_drill) return;
-                                    const targetUrl = `?network_ticker=${{encodeURIComponent(String(ticker).toUpperCase())}}&network_reset=1`;
-                                    try {{
-                                        window.top.location.assign(targetUrl);
-                                    }} catch (e) {{
-                                        try {{ window.open(targetUrl, '_top'); }} catch (e2) {{ window.location.href = targetUrl; }}
+                                stage_x, stage_y, base_angle, stage_id = stage_positions[stage_name]
+                                count = max(len(group), 1)
+                                spread = min(1.10, 0.20 * count)
+
+                                for item_index, row in enumerate(group):
+                                    ticker = str(row.get("Ticker", row.get("target_ticker", ""))).strip()
+                                    if not ticker:
+                                        continue
+
+                                    local_angle = base_angle if count == 1 else base_angle - spread / 2 + spread * item_index / max(count - 1, 1)
+                                    radius = stock_radius_inner if item_index % 2 == 0 else stock_radius_outer
+                                    node_x = center_x + radius * math.cos(local_angle)
+                                    node_y = center_y + radius * math.sin(local_angle)
+
+                                    connection_type = str(row.get("connection_type", "Strategische Verbindung"))
+                                    action_signal = str(row.get("Action Signal", ""))
+                                    badge, badge_color = get_signal_badge(action_signal)
+                                    color = get_connection_color(connection_type, action_signal)
+                                    importance = str(row.get("importance", ""))
+                                    node_w = 124
+                                    if importance.lower() in ["hoch", "high"]:
+                                        node_w = 140
+                                    elif importance.lower() in ["mittel", "medium"]:
+                                        node_w = 130
+
+                                    nodes.append({
+                                        "id": ticker,
+                                        "label": ticker,
+                                        "name": str(row.get("Company", row.get("target_name", ticker))),
+                                        "type": "stock",
+                                        "x": node_x,
+                                        "y": node_y,
+                                        "w": node_w,
+                                        "h": 50,
+                                        "color": color,
+                                        "badge": badge,
+                                        "badge_color": badge_color,
+                                        "stage": stage_name,
+                                        "category": str(row.get("category", "")),
+                                        "connection": connection_type,
+                                        "relationship": str(row.get("relationship", "")),
+                                        "risk": str(row.get("risk_note", "")),
+                                        "importance": importance,
+                                        "signal": action_signal if action_signal else "Nicht in Hauptliste",
+                                        "rating": str(row.get("Rating", "")),
+                                        "score": str(row.get("Score", "")),
+                                        "risk_level": str(row.get("Risk Level", "")),
+                                        "price": str(row.get("Price", "")),
+                                        "crv": str(row.get("CRV", "")),
+                                        "can_drill": ticker in available_source_tickers
+                                    })
+                                    edges.append({"from": stage_id, "to": ticker, "kind": "stock"})
+
+                            nodes_json = json.dumps(nodes, ensure_ascii=False)
+                            edges_json = json.dumps(edges, ensure_ascii=False)
+                            center_id_json = json.dumps(selected_network_ticker, ensure_ascii=False)
+
+                            network_html = f'''
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                            <meta charset="utf-8" />
+                            <style>
+                                * {{ box-sizing: border-box; }}
+                                body {{ margin: 0; background: #020617; color: #e5e7eb; font-family: Inter, Arial, sans-serif; }}
+                                .terminal-wrap {{ width: 100%; height: 820px; display: grid; grid-template-columns: minmax(780px, 1fr) 390px; gap: 16px; background: radial-gradient(circle at 16% 16%, rgba(56,189,248,0.18), transparent 30%), radial-gradient(circle at 82% 10%, rgba(168,85,247,0.14), transparent 30%), linear-gradient(135deg, #020617, #0f172a 58%, #111827); border: 1px solid rgba(56,189,248,0.28); border-radius: 24px; padding: 16px; overflow: hidden; }}
+                                .network-card {{ position: relative; min-width: 0; border: 1px solid rgba(148,163,184,0.20); border-radius: 20px; background: rgba(2,6,23,0.48); overflow: hidden; box-shadow: inset 0 0 80px rgba(14,165,233,0.06); }}
+                                .detail-card {{ border: 1px solid rgba(148,163,184,0.22); border-radius: 20px; padding: 18px; background: rgba(15,23,42,0.90); box-shadow: 0 18px 42px rgba(0,0,0,0.30); overflow: auto; }}
+                                .detail-kicker {{ color: #38bdf8; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 900; }}
+                                .detail-title {{ margin: 8px 0 4px; font-size: 27px; line-height: 1.05; font-weight: 950; color: #f8fafc; }}
+                                .detail-subtitle {{ color: #cbd5e1; font-size: 14px; margin-bottom: 14px; }}
+                                .pill-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }}
+                                .pill {{ border-radius: 999px; border: 1px solid rgba(148,163,184,0.25); background: rgba(30,41,59,0.72); padding: 6px 9px; color: #e5e7eb; font-size: 12px; font-weight: 750; }}
+                                .section {{ margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(148,163,184,0.14); }}
+                                .section h4 {{ margin: 0 0 6px; color: #93c5fd; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }}
+                                .section p {{ margin: 0; color: #e5e7eb; font-size: 14px; line-height: 1.45; }}
+                                .hint {{ position: absolute; top: 14px; left: 16px; color: #cbd5e1; background: rgba(2,6,23,0.74); border: 1px solid rgba(148,163,184,0.18); border-radius: 999px; padding: 8px 11px; font-size: 12px; z-index: 3; }}
+                                .legend {{ position: absolute; left: 16px; bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 720px; padding: 8px 10px; border-radius: 999px; background: rgba(2,6,23,0.74); border: 1px solid rgba(148,163,184,0.18); backdrop-filter: blur(10px); }}
+                                .legend span {{ font-size: 11px; color: #cbd5e1; }}
+                                .dot {{ display:inline-block; width:9px; height:9px; border-radius:999px; margin-right:5px; vertical-align:middle; }}
+                                .tooltip {{ position: fixed; max-width: 360px; pointer-events: none; background: rgba(15,23,42,0.96); border: 1px solid rgba(56,189,248,0.30); color: #e5e7eb; border-radius: 14px; padding: 11px 12px; font-size: 12px; line-height: 1.35; box-shadow: 0 18px 42px rgba(0,0,0,0.38); opacity: 0; transform: translate(12px, 12px); transition: opacity .08s ease; z-index: 99; }}
+                                .tooltip b {{ color: #f8fafc; font-size: 13px; }}
+                                svg {{ width: 100%; height: 100%; display: block; }}
+                                .edge {{ stroke: rgba(148,163,184,0.28); stroke-width: 1.5; fill: none; }}
+                                .edge-stage {{ stroke: rgba(56,189,248,0.30); stroke-width: 1.9; stroke-dasharray: 7 8; }}
+                                .node {{ cursor: pointer; transition: opacity .12s ease; }}
+                                .node rect {{ stroke: rgba(248,250,252,0.60); stroke-width: 1.25; filter: drop-shadow(0 10px 14px rgba(0,0,0,0.35)); }}
+                                .node text {{ pointer-events: none; font-weight: 900; fill: #f8fafc; paint-order: stroke; stroke: #020617; stroke-width: 3px; stroke-linejoin: round; }}
+                                .node:hover rect {{ stroke: #f8fafc; stroke-width: 2.2; }}
+                                .node.active rect {{ stroke: #f8fafc; stroke-width: 2.8; }}
+                                .center-node rect {{ fill: #0ea5e9; stroke: #e0f2fe; stroke-width: 2.8; }}
+                                .center-node text {{ font-size: 21px; }}
+                                .stage-node rect {{ fill: rgba(15,23,42,0.94); stroke: rgba(56,189,248,0.58); stroke-width: 1.8; }}
+                                .stage-node text {{ font-size: 11px; fill: #bfdbfe; }}
+                                .stock-node text {{ font-size: 14px; }}
+                                .badge-text {{ font-size: 9px; font-weight: 950; fill: #020617; stroke: none; paint-order: normal; }}
+                                .drill {{ font-size: 10px; fill: #93c5fd; stroke: none; paint-order: normal; }}
+                            </style>
+                            </head>
+                            <body>
+                                <div class="terminal-wrap"><div class="network-card"><div class="hint">Klick = Detail · Zentrum wechseln über Buttons unter dem Netzwerk</div><svg viewBox="0 0 {width} {height}" id="networkSvg" preserveAspectRatio="xMidYMid meet"><g id="edges"></g><g id="nodes"></g></svg><div class="legend"><span><i class="dot" style="background:#22c55e"></i>Lieferant</span><span><i class="dot" style="background:#8b5cf6"></i>Kunde/Nachfrage</span><span><i class="dot" style="background:#f59e0b"></i>Infrastruktur/Energie</span><span><i class="dot" style="background:#f97316"></i>Konkurrenz</span><span><i class="dot" style="background:#ef4444"></i>Risk/Avoid</span><span><i class="dot" style="background:#38bdf8"></i>Strategisch</span></div><div class="tooltip" id="tooltip"></div></div>
+                                    <aside class="detail-card" id="detailCard"><div class="detail-kicker">Market Relationship Focus</div><div class="detail-title">{html.escape(selected_network_ticker)}</div><div class="detail-subtitle">Klicke auf eine Karte im Netzwerk, um die Verbindung im Detail zu sehen.</div><div class="pill-row"><span class="pill">Zentrum</span><span class="pill">Wertschöpfungskette</span></div><div class="section"><h4>Bedienung</h4><p>Mouseover zeigt Schnellinfos. Das Zentrum wechselst du über die Streamlit-Buttons unter dem Netzwerk.</p></div></aside></div>
+                                <script>
+                                    const nodes = {nodes_json}; const edges = {edges_json}; const centerId = {center_id_json};
+                                    const nodesById = Object.fromEntries(nodes.map(n => [n.id, n]));
+                                    const edgeLayer = document.getElementById('edges'); const nodeLayer = document.getElementById('nodes'); const detailCard = document.getElementById('detailCard'); const tooltip = document.getElementById('tooltip');
+                                    function esc(value) {{ return String(value ?? '').replace(/[&<>'"]/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}}[ch])); }}
+                                    function detailHtml(n) {{ const typeLabel = n.type === 'center' ? 'Hauptaktie' : n.type === 'stage' ? 'Lieferkettenstufe' : 'Verbundene Aktie'; const drillInfo = n.can_drill ? '<span class="pill">Als Zentrum verfügbar</span>' : ''; return `<div class="detail-kicker">${{esc(typeLabel)}}</div><div class="detail-title">${{esc(n.label)}} <span style="font-size:16px;color:#94a3b8;">${{n.name && n.name !== n.label ? '— ' + esc(n.name) : ''}}</span></div><div class="detail-subtitle">${{esc(n.stage || '-')}}</div><div class="pill-row"><span class="pill" style="border-color:${{esc(n.color)}};">${{esc(n.connection || '-')}}</span><span class="pill">${{esc(n.category || '-')}}</span><span class="pill">Wichtigkeit: ${{esc(n.importance || '-')}}</span>${{drillInfo}}</div><div class="section"><h4>Warum verbunden?</h4><p>${{esc(n.relationship || '-')}}</p></div><div class="section"><h4>Risiko / Hinweis</h4><p>${{esc(n.risk || '-')}}</p></div><div class="section"><h4>Dashboard-Signal</h4><p>${{esc(n.signal || '-')}} · Rating: ${{esc(n.rating || '-')}} · Score: ${{esc(n.score || '-')}} · Risk: ${{esc(n.risk_level || '-')}}</p></div><div class="section"><h4>Kurs / CRV</h4><p>Preis: ${{esc(n.price || '-')}} · CRV: ${{esc(n.crv || '-')}}</p></div>`; }}
+                                    function tooltipHtml(n) {{ return `<b>${{esc(n.label)}}${{n.name && n.name !== n.label ? ' — ' + esc(n.name) : ''}}</b><br><span>Stufe: ${{esc(n.stage || '-')}}</span><br><span>Verbindung: ${{esc(n.connection || '-')}}</span><br><span>Signal: ${{esc(n.signal || '-')}} · Score: ${{esc(n.score || '-')}}</span><br><span>Warum: ${{esc(n.relationship || '-')}}</span>`; }}
+                                    function showDetails(nodeId) {{ const n = nodesById[nodeId]; if (!n) return; document.querySelectorAll('.node').forEach(el => el.classList.remove('active')); const active = document.querySelector(`[data-node-id="${{CSS.escape(nodeId)}}"]`); if (active) active.classList.add('active'); detailCard.innerHTML = detailHtml(n); }}
+                                    function navigateToTicker(ticker) {{
+                                        const n = nodesById[ticker];
+                                        if (!n || !n.can_drill) return;
+                                        const targetUrl = `?network_ticker=${{encodeURIComponent(String(ticker).toUpperCase())}}&network_reset=1`;
+                                        try {{
+                                            window.top.location.assign(targetUrl);
+                                        }} catch (e) {{
+                                            try {{ window.open(targetUrl, '_top'); }} catch (e2) {{ window.location.href = targetUrl; }}
+                                        }}
                                     }}
-                                }}
-                                function drawEdges() {{ edges.forEach(e => {{ const a = nodesById[e.from]; const b = nodesById[e.to]; if (!a || !b) return; const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', a.x); line.setAttribute('y1', a.y); line.setAttribute('x2', b.x); line.setAttribute('y2', b.y); line.setAttribute('class', e.kind === 'stage' ? 'edge edge-stage' : 'edge'); edgeLayer.appendChild(line); }}); }}
-                                function drawNodes() {{ nodes.forEach(n => {{ const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', `node ${{n.type}}-node`); g.setAttribute('data-node-id', n.id); g.setAttribute('transform', `translate(${{n.x}}, ${{n.y}})`); const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); rect.setAttribute('x', -n.w / 2); rect.setAttribute('y', -n.h / 2); rect.setAttribute('width', n.w); rect.setAttribute('height', n.h); rect.setAttribute('rx', n.type === 'center' ? 18 : 14); rect.setAttribute('fill', n.type === 'stage' ? 'rgba(15,23,42,0.94)' : n.color); g.appendChild(rect); const title = document.createElementNS('http://www.w3.org/2000/svg', 'text'); title.setAttribute('text-anchor', 'middle'); title.setAttribute('dominant-baseline', 'central'); title.setAttribute('y', n.type === 'stock' ? -5 : 0); title.textContent = n.label; g.appendChild(title); if (n.type === 'stock') {{ const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); badgeBg.setAttribute('x', -30); badgeBg.setAttribute('y', 11); badgeBg.setAttribute('width', 60); badgeBg.setAttribute('height', 16); badgeBg.setAttribute('rx', 8); badgeBg.setAttribute('fill', n.badge_color || '#64748b'); g.appendChild(badgeBg); const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); badgeText.setAttribute('class', 'badge-text'); badgeText.setAttribute('text-anchor', 'middle'); badgeText.setAttribute('x', 0); badgeText.setAttribute('y', 22.5); badgeText.textContent = n.badge || 'N/A'; g.appendChild(badgeText); if (n.can_drill) {{ const drillText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); drillText.setAttribute('class', 'drill'); drillText.setAttribute('text-anchor', 'middle'); drillText.setAttribute('x', 0); drillText.setAttribute('y', -19); drillText.textContent = '↻'; g.appendChild(drillText); }} }} g.addEventListener('click', () => showDetails(n.id)); g.addEventListener('dblclick', (ev) => {{ ev.preventDefault(); showDetails(n.id); }}); g.addEventListener('mouseenter', () => {{ tooltip.innerHTML = tooltipHtml(n); tooltip.style.opacity = '1'; }}); g.addEventListener('mousemove', (ev) => {{ tooltip.style.left = ev.clientX + 'px'; tooltip.style.top = ev.clientY + 'px'; }}); g.addEventListener('mouseleave', () => {{ tooltip.style.opacity = '0'; }}); nodeLayer.appendChild(g); }}); }}
-                                drawEdges(); drawNodes(); showDetails(centerId);
-                            </script>
-                        </body>
-                        </html>
-                        '''
+                                    function drawEdges() {{ edges.forEach(e => {{ const a = nodesById[e.from]; const b = nodesById[e.to]; if (!a || !b) return; const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', a.x); line.setAttribute('y1', a.y); line.setAttribute('x2', b.x); line.setAttribute('y2', b.y); line.setAttribute('class', e.kind === 'stage' ? 'edge edge-stage' : 'edge'); edgeLayer.appendChild(line); }}); }}
+                                    function drawNodes() {{ nodes.forEach(n => {{ const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', `node ${{n.type}}-node`); g.setAttribute('data-node-id', n.id); g.setAttribute('transform', `translate(${{n.x}}, ${{n.y}})`); const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); rect.setAttribute('x', -n.w / 2); rect.setAttribute('y', -n.h / 2); rect.setAttribute('width', n.w); rect.setAttribute('height', n.h); rect.setAttribute('rx', n.type === 'center' ? 18 : 14); rect.setAttribute('fill', n.type === 'stage' ? 'rgba(15,23,42,0.94)' : n.color); g.appendChild(rect); const title = document.createElementNS('http://www.w3.org/2000/svg', 'text'); title.setAttribute('text-anchor', 'middle'); title.setAttribute('dominant-baseline', 'central'); title.setAttribute('y', n.type === 'stock' ? -5 : 0); title.textContent = n.label; g.appendChild(title); if (n.type === 'stock') {{ const badgeBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); badgeBg.setAttribute('x', -30); badgeBg.setAttribute('y', 11); badgeBg.setAttribute('width', 60); badgeBg.setAttribute('height', 16); badgeBg.setAttribute('rx', 8); badgeBg.setAttribute('fill', n.badge_color || '#64748b'); g.appendChild(badgeBg); const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); badgeText.setAttribute('class', 'badge-text'); badgeText.setAttribute('text-anchor', 'middle'); badgeText.setAttribute('x', 0); badgeText.setAttribute('y', 22.5); badgeText.textContent = n.badge || 'N/A'; g.appendChild(badgeText); if (n.can_drill) {{ const drillText = document.createElementNS('http://www.w3.org/2000/svg', 'text'); drillText.setAttribute('class', 'drill'); drillText.setAttribute('text-anchor', 'middle'); drillText.setAttribute('x', 0); drillText.setAttribute('y', -19); drillText.textContent = '↻'; g.appendChild(drillText); }} }} g.addEventListener('click', () => showDetails(n.id)); g.addEventListener('dblclick', (ev) => {{ ev.preventDefault(); showDetails(n.id); }}); g.addEventListener('mouseenter', () => {{ tooltip.innerHTML = tooltipHtml(n); tooltip.style.opacity = '1'; }}); g.addEventListener('mousemove', (ev) => {{ tooltip.style.left = ev.clientX + 'px'; tooltip.style.top = ev.clientY + 'px'; }}); g.addEventListener('mouseleave', () => {{ tooltip.style.opacity = '0'; }}); nodeLayer.appendChild(g); }}); }}
+                                    drawEdges(); drawNodes(); showDetails(centerId);
+                                </script>
+                            </body>
+                            </html>
+                            '''
 
-                        components.html(network_html, height=850, scrolling=False)
-
-                        st.markdown(
-                            """
-                            <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
-                                <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Das Zentrum wechselst du über die Buttons unten — ohne URL-Wechsel, der Login bleibt erhalten.
-                            </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
-
-                        # Streamlit-native Navigation: zuverlässig und ohne URL-Wechsel, damit der Login erhalten bleibt.
-                        drill_candidates = (
-                            network_view["target_ticker"]
-                            .dropna()
-                            .astype(str)
-                            .str.strip()
-                            .str.upper()
-                            .unique()
-                            .tolist()
-                        )
-
-                        drill_candidates = [
-                            ticker for ticker in drill_candidates
-                            if ticker in available_network_tickers and ticker != selected_network_ticker
-                        ]
-
-                        if drill_candidates:
-                            st.markdown("#### 🔁 Verbundene Aktie als neues Zentrum öffnen")
-                            st.caption("Diese Auswahl setzt Kategorie-, Lieferketten- und Verbindungsfilter automatisch zurück, ohne den Login zu verlassen.")
-
-                            # Kompakte Button-Matrix
-                            button_columns = st.columns(6)
-                            for idx, ticker in enumerate(drill_candidates[:30]):
-                                with button_columns[idx % 6]:
-                                    st.button(
-                                        f"↻ {ticker}",
-                                        key=f"switch_network_center_{selected_network_ticker}_{ticker}",
-                                        use_container_width=True,
-                                        on_click=switch_network_center,
-                                        args=(ticker,)
-                                    )
-                        else:
-                            st.caption("Keine verbundenen Aktien aus dieser Ansicht sind aktuell selbst als Hauptaktie im Mapping hinterlegt.")
-
-                st.markdown("### 🧾 Detailtabelle")
-
-                st.dataframe(
-                    network_display,
-                    width="stretch",
-                    hide_index=True
-                )
-
-                with st.expander("🏭 Lieferkette als Stufenansicht anzeigen", expanded=True):
-
-                    stage_groups = network_view.groupby("supply_chain_stage", sort=True)
-
-                    for stage, stage_group in stage_groups:
-                        st.markdown(f"### {stage}")
-
-                        for _, rel_row in stage_group.iterrows():
-                            ticker = rel_row.get("Ticker", "")
-                            name = rel_row.get("Company", "")
-                            category = rel_row.get("category", "")
-                            connection_type = rel_row.get("connection_type", "")
-                            importance = rel_row.get("importance", "")
-                            relationship = rel_row.get("relationship", "")
-                            risk_note = rel_row.get("risk_note", "")
-                            action_signal = rel_row.get("Action Signal", "-")
-                            rating = rel_row.get("Rating", "-")
-                            score = rel_row.get("Score", "-")
+                            components.html(network_html, height=850, scrolling=False)
 
                             st.markdown(
-                                f"**{ticker} - {name}**  \n"
-                                f"Kategorie: **{category}** | Verbindungsart: **{connection_type}** | Wichtigkeit: **{importance}**  \n"
-                                f"Warum verbunden: {relationship}  \n"
-                                f"Risiko: {risk_note}  \n"
-                                f"Dashboard-Signal: **{action_signal}** | Rating: **{rating}** | Score: **{score}**"
+                                """
+                                <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
+                                    <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Das Zentrum wechselst du über die Buttons unten — ohne URL-Wechsel, der Login bleibt erhalten.
+                                </div>
+                                """,
+                                unsafe_allow_html=True
                             )
-                            st.divider()
 
-                with st.expander("🧩 Netzwerk als Kategorienansicht anzeigen", expanded=False):
-
-                    grouped_categories = network_view.groupby("category")
-
-                    for category, group in grouped_categories:
-                        st.markdown(f"### {category}")
-
-                        for _, rel_row in group.iterrows():
-                            ticker = rel_row.get("Ticker", "")
-                            name = rel_row.get("Company", "")
-                            stage = rel_row.get("supply_chain_stage", "")
-                            connection_type = rel_row.get("connection_type", "")
-                            importance = rel_row.get("importance", "")
-                            relationship = rel_row.get("relationship", "")
-                            risk_note = rel_row.get("risk_note", "")
-
-                            st.markdown(
-                                f"**{ticker} - {name}**  \n"
-                                f"Stufe: **{stage}** | Verbindungsart: **{connection_type}** | Wichtigkeit: **{importance}**  \n"
-                                f"Verbindung: {relationship}  \n"
-                                f"Risiko: {risk_note}"
+                            # Streamlit-native Navigation: zuverlässig und ohne URL-Wechsel, damit der Login erhalten bleibt.
+                            drill_candidates = (
+                                network_view["target_ticker"]
+                                .dropna()
+                                .astype(str)
+                                .str.strip()
+                                .str.upper()
+                                .unique()
+                                .tolist()
                             )
-                            st.divider()
+
+                            drill_candidates = [
+                                ticker for ticker in drill_candidates
+                                if ticker in available_network_tickers and ticker != selected_network_ticker
+                            ]
+
+                            if drill_candidates:
+                                st.markdown("#### 🔁 Verbundene Aktie als neues Zentrum öffnen")
+                                st.caption("Diese Auswahl setzt Kategorie-, Lieferketten- und Verbindungsfilter automatisch zurück, ohne den Login zu verlassen.")
+
+                                # Kompakte Button-Matrix
+                                button_columns = st.columns(6)
+                                for idx, ticker in enumerate(drill_candidates[:30]):
+                                    with button_columns[idx % 6]:
+                                        st.button(
+                                            f"↻ {ticker}",
+                                            key=f"switch_network_center_{selected_network_ticker}_{ticker}",
+                                            use_container_width=True,
+                                            on_click=switch_network_center,
+                                            args=(ticker,)
+                                        )
+                            else:
+                                st.caption("Keine verbundenen Aktien aus dieser Ansicht sind aktuell selbst als Hauptaktie im Mapping hinterlegt.")
+
+                    st.markdown("### 🧾 Detailtabelle")
+
+                    st.dataframe(
+                        network_display,
+                        width="stretch",
+                        hide_index=True
+                    )
+
+                    with st.expander("🏭 Lieferkette als Stufenansicht anzeigen", expanded=True):
+
+                        stage_groups = network_view.groupby("supply_chain_stage", sort=True)
+
+                        for stage, stage_group in stage_groups:
+                            st.markdown(f"### {stage}")
+
+                            for _, rel_row in stage_group.iterrows():
+                                ticker = rel_row.get("Ticker", "")
+                                name = rel_row.get("Company", "")
+                                category = rel_row.get("category", "")
+                                connection_type = rel_row.get("connection_type", "")
+                                importance = rel_row.get("importance", "")
+                                relationship = rel_row.get("relationship", "")
+                                risk_note = rel_row.get("risk_note", "")
+                                action_signal = rel_row.get("Action Signal", "-")
+                                rating = rel_row.get("Rating", "-")
+                                score = rel_row.get("Score", "-")
+
+                                st.markdown(
+                                    f"**{ticker} - {name}**  \n"
+                                    f"Kategorie: **{category}** | Verbindungsart: **{connection_type}** | Wichtigkeit: **{importance}**  \n"
+                                    f"Warum verbunden: {relationship}  \n"
+                                    f"Risiko: {risk_note}  \n"
+                                    f"Dashboard-Signal: **{action_signal}** | Rating: **{rating}** | Score: **{score}**"
+                                )
+                                st.divider()
+
+                    with st.expander("🧩 Netzwerk als Kategorienansicht anzeigen", expanded=False):
+
+                        grouped_categories = network_view.groupby("category")
+
+                        for category, group in grouped_categories:
+                            st.markdown(f"### {category}")
+
+                            for _, rel_row in group.iterrows():
+                                ticker = rel_row.get("Ticker", "")
+                                name = rel_row.get("Company", "")
+                                stage = rel_row.get("supply_chain_stage", "")
+                                connection_type = rel_row.get("connection_type", "")
+                                importance = rel_row.get("importance", "")
+                                relationship = rel_row.get("relationship", "")
+                                risk_note = rel_row.get("risk_note", "")
+
+                                st.markdown(
+                                    f"**{ticker} - {name}**  \n"
+                                    f"Stufe: **{stage}** | Verbindungsart: **{connection_type}** | Wichtigkeit: **{importance}**  \n"
+                                    f"Verbindung: {relationship}  \n"
+                                    f"Risiko: {risk_note}"
+                                )
+                                st.divider()
 
 # ============================================================
 # SIDEBAR FILTER
@@ -2620,52 +3287,53 @@ if sort_option in df_filtered.columns:
         )
 
 
-# ============================================================
-# METRICS
-# ============================================================
+with tab_overview:
+    # ============================================================
+    # METRICS
+    # ============================================================
 
-st.divider()
+    st.divider()
 
-col1, col2, col3, col4, col5, col6 = st.columns(6)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
 
-col1.metric(
-    "Aktien",
-    len(df_filtered)
-)
+    col1.metric(
+        "Aktien",
+        len(df_filtered)
+    )
 
-col2.metric(
-    "Ø Score",
-    round(df_filtered["Score"].mean(), 2)
-    if len(df_filtered) > 0 else 0
-)
+    col2.metric(
+        "Ø Score",
+        round(df_filtered["Score"].mean(), 2)
+        if len(df_filtered) > 0 else 0
+    )
 
-col3.metric(
-    "Beste 1M %",
-    f"{round(df_filtered['1M %'].max(), 2)}%"
-    if len(df_filtered) > 0 else "0%"
-)
+    col3.metric(
+        "Beste 1M %",
+        f"{round(df_filtered['1M %'].max(), 2)}%"
+        if len(df_filtered) > 0 else "0%"
+    )
 
-col4.metric(
-    "Turnaround",
-    (
-        df_filtered["Turnaround Candidate"]
-        == "YES"
-    ).sum()
-)
+    col4.metric(
+        "Turnaround",
+        (
+            df_filtered["Turnaround Candidate"]
+            == "YES"
+        ).sum()
+    )
 
-col5.metric(
-    "Strong Buy",
-    (
-        df_filtered["Rating"]
-        == "STRONG BUY"
-    ).sum()
-)
+    col5.metric(
+        "Strong Buy",
+        (
+            df_filtered["Rating"]
+            == "STRONG BUY"
+        ).sum()
+    )
 
-col6.metric(
-    "Ø Fundamental",
-    round(df_filtered["Fundamental Score"].mean(), 2)
-    if len(df_filtered) > 0 else 0
-)
+    col6.metric(
+        "Ø Fundamental",
+        round(df_filtered["Fundamental Score"].mean(), 2)
+        if len(df_filtered) > 0 else 0
+    )
 
 
 # ============================================================
@@ -2729,400 +3397,511 @@ def get_risk_light(risk):
     return "⚪"
 
 
-# ============================================================
-# DIVIDENDENKALENDER
-# ============================================================
-
-with st.expander("📅 Dividendenkalender", expanded=True):
-    st.divider()
-
-    st.subheader("📅 Dividendenkalender")
-
-    dividend_calendar = df_filtered[
-        (df_filtered["Ex Dividend Parsed"].notna())
-        &
-        (df_filtered["Dividend Year"] >= 2026)
-    ]
-
-    if selected_year != "Alle":
-
-        dividend_calendar = dividend_calendar[
-            dividend_calendar["Dividend Year"] == selected_year
-        ]
-
-    if selected_month is not None:
-
-        dividend_calendar = dividend_calendar[
-            dividend_calendar["Dividend Month"] == selected_month
-        ]
-
-    dividend_calendar = dividend_calendar.sort_values(
-        by="Ex Dividend Parsed",
-        ascending=True
-    )[
-        [
-            "Ticker",
-            "Company",
-            "Dividend Yield %",
-            "Dividend Rate",
-            "Ex Dividend Date",
-            "Price",
-            "Rating",
-            "Score",
-            "Fundamental Score",
-            "Fundamental Rating",
-            "Action Signal",
-            "Strategy Mode",
-            "CRV",
-            "Target Basis"
-        ]
-    ]
-
-    st.dataframe(
-        dividend_calendar,
-        width="stretch"
-    )
-
-
-# ============================================================
-# TABELLE
-# ============================================================
-
-with st.expander("📋 Gesamttabelle", expanded=False):
-    st.divider()
-
-    st.subheader("📋 Gesamttabelle")
-
-    # Action Signal bewusst direkt nach Ticker und Company anzeigen,
-    # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
-    priority_columns = [
-        "Ticker",
-        "Company",
-        "Action Signal",
-        "Valuation Status",
-        "Valuation Score",
-        "Strategy Mode"
-    ]
-
-    remaining_columns = [
-        column for column in df_filtered.columns
-        if column not in priority_columns
-    ]
-
-    table_columns = [
-        column for column in priority_columns
-        if column in df_filtered.columns
-    ] + remaining_columns
-
-    st.dataframe(
-        df_filtered[table_columns],
-        width="stretch"
-    )
-
-
-# ============================================================
-# ⭐ PERSÖNLICHE WATCHLIST & KAUFLIST
-# ============================================================
-
-with st.expander("⭐ Persönliche Watchlist & Kaufliste", expanded=True):
-    st.divider()
-
-    st.subheader("⭐ Persönliche Aktienlisten")
-
-    current_user = st.session_state.get("current_user", "").strip()
-
-    stock_options_df = df.dropna(subset=["Ticker"]).copy()
-    stock_options_df["Ticker"] = stock_options_df["Ticker"].astype(str).str.strip()
-    stock_options_df["Company"] = stock_options_df["Company"].astype(str).str.strip()
-
-    # Doppelte Ticker vermeiden, damit die Auswahl stabil bleibt
-    stock_options_df = stock_options_df.drop_duplicates(subset=["Ticker"])
-
-    stock_options_df["display"] = (
-        stock_options_df["Ticker"] + " - " + stock_options_df["Company"]
-    )
-
-    stock_options_df = stock_options_df.sort_values(by="display")
-
-    ticker_to_display = dict(
-        zip(stock_options_df["Ticker"], stock_options_df["display"])
-    )
-
-    display_to_ticker = dict(
-        zip(stock_options_df["display"], stock_options_df["Ticker"])
-    )
-
-    all_displays = stock_options_df["display"].tolist()
-
-    saved_watchlist_tickers = get_saved_tickers(
-        current_user,
-        "watchlist"
-    )
-
-    saved_buy_tickers = get_saved_tickers(
-        current_user,
-        "buy"
-    )
-
-    saved_watchlist_displays = [
-        ticker_to_display[ticker]
-        for ticker in saved_watchlist_tickers
-        if ticker in ticker_to_display
-    ]
-
-    saved_buy_displays = [
-        ticker_to_display[ticker]
-        for ticker in saved_buy_tickers
-        if ticker in ticker_to_display
-    ]
-
-    col_watchlist, col_buylist = st.columns(2)
-
-    with col_watchlist:
-
-        st.markdown("### ⭐ Watchlist-Aktien")
-
-        selected_watchlist_displays = st.multiselect(
-            "Aktien auswählen, die auf deiner Watchlist bleiben sollen",
-            options=all_displays,
-            default=saved_watchlist_displays,
-            key=f"watchlist_select_{current_user}"
-        )
-
-        selected_watchlist_tickers = [
-            display_to_ticker[item]
-            for item in selected_watchlist_displays
-        ]
-
-        if st.button(
-            "Watchlist speichern",
-            key=f"save_watchlist_{current_user}"
-        ):
-            update_user_list(
-                username=current_user,
-                list_type="watchlist",
-                selected_tickers=selected_watchlist_tickers,
-                stock_df=df
-            )
-
-            st.success("Watchlist gespeichert.")
-            st.rerun()
-
-        if selected_watchlist_tickers:
-
-            user_watchlist_df = df[
-                df["Ticker"].astype(str).isin(selected_watchlist_tickers)
-            ].copy()
-
-            watchlist_columns = [
-                "Ticker",
-                "Company",
-                "Action Signal",
-                "Rating",
-                "Score",
-                "Risk Level",
-                "Price",
-                "CRV"
-            ]
-
-            watchlist_columns = [
-                column for column in watchlist_columns
-                if column in user_watchlist_df.columns
-            ]
-
-            st.dataframe(
-                user_watchlist_df[watchlist_columns],
-                width="stretch",
-                hide_index=True
-            )
-
-        else:
-
-            st.info("Noch keine Watchlist-Aktien ausgewählt.")
-
-
-    with col_buylist:
-
-        st.markdown("### 🛒 Kauf-Aktien")
-
-        selected_buy_displays = st.multiselect(
-            "Aktien auswählen, die auf deiner Kaufliste bleiben sollen",
-            options=all_displays,
-            default=saved_buy_displays,
-            key=f"buy_select_{current_user}"
-        )
-
-        selected_buy_tickers = [
-            display_to_ticker[item]
-            for item in selected_buy_displays
-        ]
-
-        if st.button(
-            "Kaufliste speichern",
-            key=f"save_buy_{current_user}"
-        ):
-            update_user_list(
-                username=current_user,
-                list_type="buy",
-                selected_tickers=selected_buy_tickers,
-                stock_df=df
-            )
-
-            st.success("Kaufliste gespeichert.")
-            st.rerun()
-
-        if selected_buy_tickers:
-
-            user_buy_df = df[
-                df["Ticker"].astype(str).isin(selected_buy_tickers)
-            ].copy()
-
-            buy_columns = [
-                "Ticker",
-                "Company",
-                "Action Signal",
-                "Rating",
-                "Score",
-                "Risk Level",
-                "Price",
-                "CRV"
-            ]
-
-            buy_columns = [
-                column for column in buy_columns
-                if column in user_buy_df.columns
-            ]
-
-            st.dataframe(
-                user_buy_df[buy_columns],
-                width="stretch",
-                hide_index=True
-            )
-
-        else:
-
-            st.info("Noch keine Kauf-Aktien ausgewählt.")
-
-
-# ============================================================
-# 👑 SUPERUSER-ANSICHT
-# ============================================================
-
-superusers = st.secrets.get("app", {}).get("superusers", [])
-
-if current_user in superusers:
-
-    with st.expander("👑 Superuser-Übersicht", expanded=False):
-
+with tab_dividends:
+    # ============================================================
+    # DIVIDENDENKALENDER
+    # ============================================================
+
+    with st.expander("📅 Dividendenkalender", expanded=True):
         st.divider()
 
-        st.subheader("👑 Superuser-Übersicht")
+        st.subheader("📅 Dividendenkalender")
 
-        all_user_lists = load_user_lists()
+        dividend_calendar = df_filtered[
+            (df_filtered["Ex Dividend Parsed"].notna())
+            &
+            (df_filtered["Dividend Year"] >= 2026)
+        ]
 
-        if all_user_lists.empty:
+        if selected_year != "Alle":
 
-            st.info("Noch keine gespeicherten Nutzerlisten vorhanden.")
+            dividend_calendar = dividend_calendar[
+                dividend_calendar["Dividend Year"] == selected_year
+            ]
 
-        else:
+        if selected_month is not None:
 
-            all_user_lists = all_user_lists.copy()
+            dividend_calendar = dividend_calendar[
+                dividend_calendar["Dividend Month"] == selected_month
+            ]
 
-            all_user_lists["Liste"] = all_user_lists["list_type"].replace({
-                "watchlist": "Watchlist",
-                "buy": "Kauf"
-            })
+        dividend_calendar = dividend_calendar.sort_values(
+            by="Ex Dividend Parsed",
+            ascending=True
+        )[
+            [
+                "Ticker",
+                "Company",
+                "Dividend Yield %",
+                "Dividend Rate",
+                "Ex Dividend Date",
+                "Price",
+                "Rating",
+                "Score",
+                "Fundamental Score",
+                "Fundamental Rating",
+                "Action Signal",
+                "Strategy Mode",
+                "CRV",
+                "Target Basis"
+            ]
+        ]
 
-            all_user_lists = all_user_lists.rename(columns={
-                "username": "User",
-                "ticker": "Ticker",
-                "name": "Company",
-                "created_at": "Gespeichert am"
-            })
+        st.dataframe(
+            dividend_calendar,
+            width="stretch"
+        )
 
-            all_user_lists = all_user_lists[
-                [
-                    "Liste",
-                    "Ticker",
-                    "Company",
-                    "User",
-                    "Gespeichert am"
-                ]
-            ].sort_values(
-                by=[
-                    "Liste",
-                    "User",
-                    "Ticker"
-                ]
+        st.download_button(
+            "⬇️ Dividendenkalender als CSV exportieren",
+            data=dividend_calendar.to_csv(index=False, sep=";").encode("utf-8-sig"),
+            file_name="hartmut_terminal_dividendenkalender.csv",
+            mime="text/csv"
+        )
+
+
+with tab_analysis:
+    # ============================================================
+    # TABELLE
+    # ============================================================
+
+    with st.expander("📋 Gesamttabelle", expanded=False):
+        st.divider()
+
+        st.subheader("📋 Gesamttabelle")
+
+        # Action Signal bewusst direkt nach Ticker und Company anzeigen,
+        # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
+        priority_columns = [
+            "Ticker",
+            "Company",
+            "Terminal Grade",
+            "Terminal Score",
+            "Action Signal",
+            "Valuation Status",
+            "Valuation Score",
+            "Strategy Mode"
+        ]
+
+        remaining_columns = [
+            column for column in df_filtered.columns
+            if column not in priority_columns
+        ]
+
+        table_columns = [
+            column for column in priority_columns
+            if column in df_filtered.columns
+        ] + remaining_columns
+
+        st.dataframe(
+            df_filtered[table_columns],
+            width="stretch"
+        )
+
+        st.download_button(
+            "⬇️ Gefilterte Gesamttabelle als CSV exportieren",
+            data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
+            file_name="hartmut_terminal_gefilterte_gesamttabelle.csv",
+            mime="text/csv"
+        )
+
+
+with tab_lists:
+    # ============================================================
+    # ⭐ PERSÖNLICHE WATCHLIST & KAUFLIST
+    # ============================================================
+
+    with st.expander("⭐ Persönliche Watchlist & Kaufliste", expanded=True):
+        st.divider()
+
+        st.subheader("⭐ Persönliche Aktienlisten")
+
+        current_user = st.session_state.get("current_user", "").strip()
+
+        stock_options_df = df.dropna(subset=["Ticker"]).copy()
+        stock_options_df["Ticker"] = stock_options_df["Ticker"].astype(str).str.strip()
+        stock_options_df["Company"] = stock_options_df["Company"].astype(str).str.strip()
+
+        # Doppelte Ticker vermeiden, damit die Auswahl stabil bleibt
+        stock_options_df = stock_options_df.drop_duplicates(subset=["Ticker"])
+
+        stock_options_df["display"] = (
+            stock_options_df["Ticker"] + " - " + stock_options_df["Company"]
+        )
+
+        stock_options_df = stock_options_df.sort_values(by="display")
+
+        ticker_to_display = dict(
+            zip(stock_options_df["Ticker"], stock_options_df["display"])
+        )
+
+        display_to_ticker = dict(
+            zip(stock_options_df["display"], stock_options_df["Ticker"])
+        )
+
+        all_displays = stock_options_df["display"].tolist()
+
+        saved_watchlist_tickers = get_saved_tickers(
+            current_user,
+            "watchlist"
+        )
+
+        saved_buy_tickers = get_saved_tickers(
+            current_user,
+            "buy"
+        )
+
+        saved_watchlist_displays = [
+            ticker_to_display[ticker]
+            for ticker in saved_watchlist_tickers
+            if ticker in ticker_to_display
+        ]
+
+        saved_buy_displays = [
+            ticker_to_display[ticker]
+            for ticker in saved_buy_tickers
+            if ticker in ticker_to_display
+        ]
+
+        col_watchlist, col_buylist = st.columns(2)
+
+        with col_watchlist:
+
+            st.markdown("### ⭐ Watchlist-Aktien")
+
+            selected_watchlist_displays = st.multiselect(
+                "Aktien auswählen, die auf deiner Watchlist bleiben sollen",
+                options=all_displays,
+                default=saved_watchlist_displays,
+                key=f"watchlist_select_{current_user}"
             )
 
+            selected_watchlist_tickers = [
+                display_to_ticker[item]
+                for item in selected_watchlist_displays
+            ]
+
+            if st.button(
+                "Watchlist speichern",
+                key=f"save_watchlist_{current_user}"
+            ):
+                update_user_list(
+                    username=current_user,
+                    list_type="watchlist",
+                    selected_tickers=selected_watchlist_tickers,
+                    stock_df=df
+                )
+
+                st.success("Watchlist gespeichert.")
+                st.rerun()
+
+            if selected_watchlist_tickers:
+
+                user_watchlist_df = df[
+                    df["Ticker"].astype(str).isin(selected_watchlist_tickers)
+                ].copy()
+
+                watchlist_columns = [
+                    "Ticker",
+                    "Company",
+                    "Action Signal",
+                    "Rating",
+                    "Score",
+                    "Risk Level",
+                    "Price",
+                    "CRV"
+                ]
+
+                watchlist_columns = [
+                    column for column in watchlist_columns
+                    if column in user_watchlist_df.columns
+                ]
+
+                st.dataframe(
+                    user_watchlist_df[watchlist_columns],
+                    width="stretch",
+                    hide_index=True
+                )
+
+            else:
+
+                st.info("Noch keine Watchlist-Aktien ausgewählt.")
+
+
+        with col_buylist:
+
+            st.markdown("### 🛒 Kauf-Aktien")
+
+            selected_buy_displays = st.multiselect(
+                "Aktien auswählen, die auf deiner Kaufliste bleiben sollen",
+                options=all_displays,
+                default=saved_buy_displays,
+                key=f"buy_select_{current_user}"
+            )
+
+            selected_buy_tickers = [
+                display_to_ticker[item]
+                for item in selected_buy_displays
+            ]
+
+            if st.button(
+                "Kaufliste speichern",
+                key=f"save_buy_{current_user}"
+            ):
+                update_user_list(
+                    username=current_user,
+                    list_type="buy",
+                    selected_tickers=selected_buy_tickers,
+                    stock_df=df
+                )
+
+                st.success("Kaufliste gespeichert.")
+                st.rerun()
+
+            if selected_buy_tickers:
+
+                user_buy_df = df[
+                    df["Ticker"].astype(str).isin(selected_buy_tickers)
+                ].copy()
+
+                buy_columns = [
+                    "Ticker",
+                    "Company",
+                    "Action Signal",
+                    "Rating",
+                    "Score",
+                    "Risk Level",
+                    "Price",
+                    "CRV"
+                ]
+
+                buy_columns = [
+                    column for column in buy_columns
+                    if column in user_buy_df.columns
+                ]
+
+                st.dataframe(
+                    user_buy_df[buy_columns],
+                    width="stretch",
+                    hide_index=True
+                )
+
+            else:
+
+                st.info("Noch keine Kauf-Aktien ausgewählt.")
+
+
+        # ============================================================
+        # 📡 LISTEN-RADAR: EIGENE LISTEN MIT SIGNALEN
+        # ============================================================
+
+        st.markdown("### 📡 Listen-Radar")
+
+        combined_user_tickers = sorted(
+            set(selected_watchlist_tickers + selected_buy_tickers)
+        )
+
+        if not combined_user_tickers:
+            st.caption("Noch keine Aktien in Watchlist oder Kaufliste gespeichert.")
+        else:
+            list_radar_df = df[
+                df["Ticker"].astype(str).str.strip().isin(combined_user_tickers)
+            ].copy()
+
+            list_radar_df["Liste"] = list_radar_df["Ticker"].astype(str).apply(
+                lambda ticker: "Watchlist & Kauf"
+                if ticker in selected_watchlist_tickers and ticker in selected_buy_tickers
+                else "Watchlist"
+                if ticker in selected_watchlist_tickers
+                else "Kauf"
+            )
+
+            list_radar_columns = [
+                "Liste",
+                "Ticker",
+                "Company",
+                "Terminal Grade",
+                "Terminal Score",
+                "Action Signal",
+                "Valuation Status",
+                "Score",
+                "Fundamental Score",
+                "Risk Level",
+                "Price",
+                "CRV",
+                "Dividend Yield %"
+            ]
+
+            list_radar_columns = [
+                column for column in list_radar_columns
+                if column in list_radar_df.columns
+            ]
+
+            signal_counts = (
+                list_radar_df["Action Signal"].astype(str).value_counts()
+                if "Action Signal" in list_radar_df.columns
+                else pd.Series(dtype=int)
+            )
+
+            lr1, lr2, lr3, lr4 = st.columns(4)
+            lr1.metric("Listen-Aktien", len(list_radar_df))
+            lr2.metric("BUY/STRONG", int(signal_counts[signal_counts.index.str.contains("BUY", case=False, na=False)].sum()) if not signal_counts.empty else 0)
+            lr3.metric("WATCH", int(signal_counts[signal_counts.index.str.contains("WATCH", case=False, na=False)].sum()) if not signal_counts.empty else 0)
+            lr4.metric("AVOID/RISK", int(signal_counts[signal_counts.index.str.contains("AVOID|SELL|OVERHEATED|TAKE", case=False, na=False)].sum()) if not signal_counts.empty else 0)
+
             st.dataframe(
-                all_user_lists,
+                list_radar_df[list_radar_columns],
                 width="stretch",
                 hide_index=True
             )
 
 
-# ============================================================
-# AKTIENKARTEN
-# ============================================================
+with tab_admin:
+    # ============================================================
+    # 👑 SUPERUSER-ANSICHT / SYSTEMSTATUS
+    # ============================================================
 
-with st.expander("🔥 Aktienübersicht / Karten", expanded=False):
-    st.divider()
+    superusers = st.secrets.get("app", {}).get("superusers", [])
 
-    st.subheader("🔥 Aktienübersicht")
+    if current_user in superusers:
 
-    for _, row in df_filtered.iterrows():
+        with st.expander("🩺 Systemstatus & Datenqualität", expanded=True):
+            rel_file_exists = os.path.exists("stock_relationships.csv")
+            portfolio_file_exists = os.path.exists("portfolio_analysis.csv")
+            missing_fundamental = 0
+            if "Fundamental Rating" in df.columns:
+                missing_fundamental = (df["Fundamental Rating"].astype(str).isin(["WEAK / UNKNOWN", "UNKNOWN", "-"])).sum()
 
-        color = get_border_color(row["Rating"])
-        rating_light = get_rating_light(row["Rating"])
-        risk_light = get_risk_light(row["Risk Level"])
+            s1, s2, s3, s4 = st.columns(4)
+            s1.metric("Aktien geladen", len(df))
+            s2.metric("Beziehungen", len(relationships_df) if 'relationships_df' in globals() else 0)
+            s3.metric("Unklare Fundamentals", int(missing_fundamental))
+            s4.metric("Supabase", "aktiv" if "supabase" in st.secrets else "fehlt")
 
-        card_html = f"""
-    <div style="background-color:#ffffff; padding:24px 26px; border-radius:22px; margin-bottom:26px; border-left:13px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
-    <h2 style="margin:0 0 16px 0; font-size:27px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
-    <hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
+            status_df = pd.DataFrame([
+                {"Prüfung": "portfolio_analysis.csv", "Status": "OK" if portfolio_file_exists else "Fehlt"},
+                {"Prüfung": "stock_relationships.csv", "Status": "OK" if rel_file_exists else "Fehlt"},
+                {"Prüfung": "Supabase Secrets", "Status": "OK" if "supabase" in st.secrets else "Fehlt"},
+                {"Prüfung": "Nutzerlisten-Tabelle", "Status": "wird beim Laden geprüft"},
+            ])
+            st.dataframe(status_df, width="stretch", hide_index=True)
 
-    <p style="font-size:18px; margin:0 0 18px 0;">💰 <b>Preis:</b> {row['Price']}</p>
+        with st.expander("👑 Superuser-Übersicht", expanded=False):
 
-    <p style="font-size:18px; margin:0 0 18px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
+            st.divider()
 
-    <p style="font-size:18px; margin:0 0 18px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']} | 🕒 <b>Horizont:</b> {row['Strategy Mode']}</p>
+            st.subheader("👑 Superuser-Übersicht")
 
-    <p style="font-size:18px; margin:0 0 18px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']} | 🧱 <b>Zielbasis:</b> {row['Target Basis']}</p>
+            all_user_lists = load_user_lists()
 
-    <p style="font-size:18px; margin:0 0 18px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
+            if all_user_lists.empty:
 
-    <p style="font-size:18px; margin:0 0 18px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
+                st.info("Noch keine gespeicherten Nutzerlisten vorhanden.")
 
-    <p style="font-size:18px; margin:0 0 18px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
+            else:
 
-    <p style="font-size:18px; margin:0 0 18px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
+                all_user_lists = all_user_lists.copy()
 
-    <p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
+                all_user_lists["Liste"] = all_user_lists["list_type"].replace({
+                    "watchlist": "Watchlist",
+                    "buy": "Kauf"
+                })
 
-    <p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
+                all_user_lists = all_user_lists.rename(columns={
+                    "username": "User",
+                    "ticker": "Ticker",
+                    "name": "Company",
+                    "created_at": "Gespeichert am"
+                })
 
-    <p style="font-size:18px; margin:0 0 18px 0;">💎 <b>Bewertungshinweis:</b> {row['Valuation Status']} | Punkte: {row['Valuation Score']}</p>
+                all_user_lists = all_user_lists[
+                    [
+                        "Liste",
+                        "Ticker",
+                        "Company",
+                        "User",
+                        "Gespeichert am"
+                    ]
+                ].sort_values(
+                    by=[
+                        "Liste",
+                        "User",
+                        "Ticker"
+                    ]
+                )
 
-    <div style="font-size:17px; margin:8px 0 14px 0; background:#f8fafc; padding:12px 14px; border-radius:12px;">💬 <b>Bewertungsgrund:</b> {row['Valuation Summary']}<br><b>Details:</b> {row['Valuation Reasons']}</div>
+                st.dataframe(
+                    all_user_lists,
+                    width="stretch",
+                    hide_index=True
+                )
 
-    <p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
 
-    <p style="font-size:18px; margin:0 0 18px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
+with tab_analysis:
+    # ============================================================
+    # AKTIENKARTEN
+    # ============================================================
 
-    <p style="font-size:18px; margin:0 0 18px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
+    with st.expander("🔥 Aktienübersicht / Karten", expanded=False):
+        st.divider()
 
-    <p style="font-size:18px; margin:0 0 18px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
+        st.subheader("🔥 Aktienübersicht")
 
-    <div style="font-size:17px; margin:8px 0 14px 0; background:#ecfdf5; padding:12px 14px; border-radius:12px;">✅ <b>Pro:</b> {row['Pros']}</div>
+        for _, row in df_filtered.iterrows():
 
-    <div style="font-size:17px; margin:8px 0 14px 0; background:#fff7ed; padding:12px 14px; border-radius:12px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
+            color = get_border_color(row["Rating"])
+            rating_light = get_rating_light(row["Rating"])
+            risk_light = get_risk_light(row["Risk Level"])
 
-    <div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
+            card_html = f"""
+        <div style="background-color:#ffffff; padding:24px 26px; border-radius:22px; margin-bottom:26px; border-left:13px solid {color}; box-shadow:0 4px 14px rgba(0,0,0,0.10); font-family:Arial, sans-serif; color:#111827; line-height:1.55; overflow-wrap:break-word; word-break:break-word;">
+        <h2 style="margin:0 0 16px 0; font-size:27px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
+        <hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
 
-    <div style="font-size:17px; margin:8px 0 0 0; background:#f3f4f6; padding:12px 14px; border-radius:12px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
-    </div>
-    """
+        <p style="font-size:18px; margin:0 0 18px 0;">💰 <b>Preis:</b> {row['Price']}</p>
 
-        st.markdown(card_html, unsafe_allow_html=True)
+        <p style="font-size:18px; margin:0 0 18px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🎯 <b>Signal:</b> {row['Action Signal']} | 🧭 <b>Setup:</b> {row['Setup Quality']} | 🕒 <b>Horizont:</b> {row['Strategy Mode']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">📍 <b>Einstiegszone:</b> {row['Entry Zone']} | 🛑 <b>Stop:</b> {row['Stop Loss New']} | 🎯 <b>Ziel 1:</b> {row['Target 1']} | 🚀 <b>Ziel 2:</b> {row['Target 2']} | ⚖️ <b>CRV:</b> {row['CRV']} | 🧱 <b>Zielbasis:</b> {row['Target Basis']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">📊 <b>Performance:</b><br>1D: {row['1D %']}% | 1W: {row['1W %']}% | 1M: {row['1M %']}% | 3M: {row['3M %']}% | 6M: {row['6M %']}%</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">📉 <b>EMA:</b><br>EMA20: {row['EMA20']} | EMA50: {row['EMA50']} | EMA100: {row['EMA100']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">💵 <b>Dividende:</b> {row['Dividend Yield %']} | 📅 <b>Ex-Dividende:</b> {row['Ex Dividend Date']} | 🪙 <b>Dividendensatz:</b> {row['Dividend Rate']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🛑 <b>Stop-Loss-Idee:</b> {row['Stop Loss Idea']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🏢 <b>Market Cap:</b> {row['Market Cap Class']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🧾 <b>Fundamental:</b> {row['Fundamental Rating']} | 📊 <b>Fundamental Score:</b> {row['Fundamental Score']}/8</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🧭 <b>Terminal-Grade:</b> {row['Terminal Grade']} | Terminal Score: {row['Terminal Score']}/100</p>
+
+        <div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Terminal-Fazit:</b> {row['Terminal Summary']}</div>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">💎 <b>Bewertungshinweis:</b> {row['Valuation Status']} | Punkte: {row['Valuation Score']}</p>
+
+        <div style="font-size:17px; margin:8px 0 14px 0; background:#f8fafc; padding:12px 14px; border-radius:12px;">💬 <b>Bewertungsgrund:</b> {row['Valuation Summary']}<br><b>Details:</b> {row['Valuation Reasons']}</div>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🏦 <b>Bewertung:</b><br>Forward KGV: {row['Forward PE']} | KGV: {row['Trailing PE']} | PEG: {row['PEG Ratio']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">📈 <b>Fundamentales Wachstum:</b><br>Umsatzwachstum: {row['Revenue Growth']} | Gewinnwachstum: {row['Earnings Growth']} | Marge: {row['Profit Margin']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">💸 <b>Cashflow / Verschuldung:</b><br>Free Cashflow: {row['Free Cashflow']} | Operating Cashflow: {row['Operating Cashflow']} | Debt/Equity: {row['Debt To Equity']}</p>
+
+        <p style="font-size:18px; margin:0 0 18px 0;">🔄 <b>Turnaround:</b> {row['Turnaround Candidate']}</p>
+
+        <div style="font-size:17px; margin:8px 0 14px 0; background:#ecfdf5; padding:12px 14px; border-radius:12px;">✅ <b>Pro:</b> {row['Pros']}</div>
+
+        <div style="font-size:17px; margin:8px 0 14px 0; background:#fff7ed; padding:12px 14px; border-radius:12px;">⚠️ <b>Contra:</b> {row['Cons']}</div>
+
+        <div style="font-size:17px; margin:8px 0 14px 0; background:#eef2ff; padding:12px 14px; border-radius:12px;">🧭 <b>Entscheidung:</b> {row['Decision Summary']}</div>
+
+        <div style="font-size:17px; margin:8px 0 0 0; background:#f3f4f6; padding:12px 14px; border-radius:12px;">🧠 <b>Analyse:</b> {row['Reason']}</div>
+        </div>
+        """
+
+            st.markdown(card_html, unsafe_allow_html=True)
