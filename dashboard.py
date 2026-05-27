@@ -1510,7 +1510,7 @@ with tab_overview:
     terminal_options_df["display"] = terminal_options_df["Ticker"] + " - " + terminal_options_df["Company"]
     terminal_options_df = terminal_options_df.sort_values("display")
 
-    with st.expander("🧠 Aktien-Schnellprofil / Terminal-Fokus", expanded=True):
+    with st.expander("🧠 Aktien-Schnellprofil / Terminal-Fokus", expanded=False):
         selected_terminal_display = st.selectbox(
             "Aktie schnell prüfen",
             options=terminal_options_df["display"].tolist(),
@@ -1586,7 +1586,7 @@ with tab_overview:
     # 🧬 AKTIENPROFIL 360: QUALITÄT / BEWERTUNG / RISIKO / NETZWERK
     # ============================================================
 
-    with st.expander("🧬 Aktienprofil 360: kompakte Terminal-Einschätzung", expanded=True):
+    with st.expander("🧬 Aktienprofil 360: kompakte Terminal-Einschätzung", expanded=False):
         profile_ticker = selected_terminal_ticker
         profile_df = df[df["Ticker"].astype(str).str.strip() == str(profile_ticker).strip()].copy()
 
@@ -1885,7 +1885,7 @@ with tab_overview:
     # LEGENDE
     # ============================================================
 
-    with st.expander("📖 Dashboard Legende"):
+    with st.expander("📖 Dashboard Legende", expanded=False):
 
         st.markdown("""
 
@@ -3713,48 +3713,49 @@ with tab_overview:
     # METRICS
     # ============================================================
 
-    st.divider()
+    with st.expander("📊 Markt-Metriken / Filter-Zusammenfassung", expanded=False):
+        st.divider()
 
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+        col1, col2, col3, col4, col5, col6 = st.columns(6)
 
-    col1.metric(
-        "Aktien",
-        len(df_filtered)
-    )
+        col1.metric(
+            "Aktien",
+            len(df_filtered)
+        )
 
-    col2.metric(
-        "Ø Score",
-        round(df_filtered["Score"].mean(), 2)
-        if len(df_filtered) > 0 else 0
-    )
+        col2.metric(
+            "Ø Score",
+            round(df_filtered["Score"].mean(), 2)
+            if len(df_filtered) > 0 else 0
+        )
 
-    col3.metric(
-        "Beste 1M %",
-        f"{round(df_filtered['1M %'].max(), 2)}%"
-        if len(df_filtered) > 0 else "0%"
-    )
+        col3.metric(
+            "Beste 1M %",
+            f"{round(df_filtered['1M %'].max(), 2)}%"
+            if len(df_filtered) > 0 else "0%"
+        )
 
-    col4.metric(
-        "Turnaround",
-        (
-            df_filtered["Turnaround Candidate"]
-            == "YES"
-        ).sum()
-    )
+        col4.metric(
+            "Turnaround",
+            (
+                df_filtered["Turnaround Candidate"]
+                == "YES"
+            ).sum()
+        )
 
-    col5.metric(
-        "Strong Buy",
-        (
-            df_filtered["Rating"]
-            == "STRONG BUY"
-        ).sum()
-    )
+        col5.metric(
+            "Strong Buy",
+            (
+                df_filtered["Rating"]
+                == "STRONG BUY"
+            ).sum()
+        )
 
-    col6.metric(
-        "Ø Fundamental",
-        round(df_filtered["Fundamental Score"].mean(), 2)
-        if len(df_filtered) > 0 else 0
-    )
+        col6.metric(
+            "Ø Fundamental",
+            round(df_filtered["Fundamental Score"].mean(), 2)
+            if len(df_filtered) > 0 else 0
+        )
 
 
 # ============================================================
@@ -4222,6 +4223,113 @@ with tab_admin:
             else:
 
                 all_user_lists = all_user_lists.copy()
+
+                # ============================================================
+                # 📡 SUPERUSER-LISTEN-RADAR
+                # ============================================================
+                # Gleiche Idee wie im Tab "Listen", aber für alle Nutzer.
+                # Die Original-Superuser-Übersicht bleibt darunter erhalten.
+                admin_lists_raw = all_user_lists.copy()
+                admin_lists_raw["Ticker"] = admin_lists_raw["ticker"].astype(str).str.strip()
+                admin_lists_raw["User"] = admin_lists_raw["username"].astype(str).str.strip()
+                admin_lists_raw["Liste"] = admin_lists_raw["list_type"].replace({
+                    "watchlist": "Watchlist",
+                    "buy": "Kauf"
+                })
+
+                admin_signal_columns = [
+                    "Ticker",
+                    "Company",
+                    "Terminal Grade",
+                    "Terminal Score",
+                    "Action Signal",
+                    "Valuation Status",
+                    "Valuation Score",
+                    "Score",
+                    "Fundamental Score",
+                    "Risk Level",
+                    "Price",
+                    "CRV",
+                    "Dividend Yield %"
+                ]
+
+                admin_signal_columns = [
+                    column for column in admin_signal_columns
+                    if column in df.columns
+                ]
+
+                admin_signal_df = df[admin_signal_columns].copy()
+                admin_signal_df["Ticker"] = admin_signal_df["Ticker"].astype(str).str.strip()
+
+                admin_radar_df = admin_lists_raw.merge(
+                    admin_signal_df,
+                    on="Ticker",
+                    how="left"
+                )
+
+                if "Company" not in admin_radar_df.columns:
+                    admin_radar_df["Company"] = admin_radar_df.get("name", "")
+                else:
+                    admin_radar_df["Company"] = admin_radar_df["Company"].fillna(
+                        admin_radar_df.get("name", "")
+                    )
+
+                admin_radar_columns = [
+                    "Liste",
+                    "User",
+                    "Ticker",
+                    "Company",
+                    "Terminal Grade",
+                    "Terminal Score",
+                    "Action Signal",
+                    "Valuation Status",
+                    "Valuation Score",
+                    "Score",
+                    "Fundamental Score",
+                    "Risk Level",
+                    "Price",
+                    "CRV",
+                    "Dividend Yield %"
+                ]
+
+                admin_radar_columns = [
+                    column for column in admin_radar_columns
+                    if column in admin_radar_df.columns
+                ]
+
+                st.markdown("### 📡 Superuser-Listen-Radar")
+
+                admin_signal_counts = (
+                    admin_radar_df["Action Signal"].astype(str).value_counts()
+                    if "Action Signal" in admin_radar_df.columns
+                    else pd.Series(dtype=int)
+                )
+
+                ar1, ar2, ar3, ar4, ar5 = st.columns(5)
+                ar1.metric("Einträge", len(admin_radar_df))
+                ar2.metric("Nutzer", admin_radar_df["User"].nunique() if "User" in admin_radar_df.columns else 0)
+                ar3.metric("Ticker", admin_radar_df["Ticker"].nunique() if "Ticker" in admin_radar_df.columns else 0)
+                ar4.metric(
+                    "BUY/STRONG",
+                    int(admin_signal_counts[admin_signal_counts.index.str.contains("BUY", case=False, na=False)].sum())
+                    if not admin_signal_counts.empty else 0
+                )
+                ar5.metric(
+                    "Risiko/Exit",
+                    int(admin_signal_counts[admin_signal_counts.index.str.contains("AVOID|SELL|OVERHEATED|TAKE", case=False, na=False)].sum())
+                    if not admin_signal_counts.empty else 0
+                )
+
+                st.dataframe(
+                    admin_radar_df[admin_radar_columns].sort_values(
+                        by=[column for column in ["Liste", "User", "Terminal Score", "Ticker"] if column in admin_radar_columns],
+                        ascending=[True, True, False, True][:len([column for column in ["Liste", "User", "Terminal Score", "Ticker"] if column in admin_radar_columns])]
+                    ),
+                    width="stretch",
+                    hide_index=True
+                )
+
+                st.markdown("### 👑 Rohübersicht aller Nutzerlisten")
 
                 all_user_lists["Liste"] = all_user_lists["list_type"].replace({
                     "watchlist": "Watchlist",
