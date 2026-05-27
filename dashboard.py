@@ -3211,6 +3211,78 @@ action_signals = st.sidebar.multiselect(
     default=action_signal_options
 )
 
+# ----------------------------
+# Zusätzliche Bewertungs-/Preisfilter
+# ----------------------------
+
+if "Valuation Status" in df.columns:
+    valuation_status_options = sorted(
+        df["Valuation Status"].dropna().astype(str).unique().tolist()
+    )
+else:
+    valuation_status_options = []
+
+selected_valuation_status = st.sidebar.multiselect(
+    "Valuation Status",
+    options=valuation_status_options,
+    default=valuation_status_options
+)
+
+if "Setup Quality" in df.columns:
+    setup_quality_options = sorted(
+        df["Setup Quality"].dropna().astype(str).unique().tolist()
+    )
+else:
+    setup_quality_options = []
+
+selected_setup_quality = st.sidebar.multiselect(
+    "Setup Quality",
+    options=setup_quality_options,
+    default=setup_quality_options
+)
+
+# Preisbereich: Price ist im Dashboard eine Anzeige-Spalte und kann Text enthalten.
+# Deshalb wird für den Filter eine separate numerische Serie verwendet.
+price_filter_values = df["Price"].apply(safe_float) if "Price" in df.columns else pd.Series(dtype=float)
+valid_price_values = price_filter_values.dropna()
+
+if not valid_price_values.empty:
+    price_min = float(valid_price_values.min())
+    price_max = float(valid_price_values.max())
+
+    selected_price_range = st.sidebar.slider(
+        "Price Range",
+        min_value=price_min,
+        max_value=price_max,
+        value=(price_min, price_max),
+        step=max(round((price_max - price_min) / 200, 2), 0.01)
+    )
+else:
+    selected_price_range = None
+    st.sidebar.caption("Price Range: keine verwertbaren Preisdaten")
+
+valuation_score_values = (
+    pd.to_numeric(df["Valuation Score"], errors="coerce")
+    if "Valuation Score" in df.columns
+    else pd.Series(dtype=float)
+)
+valid_valuation_scores = valuation_score_values.dropna()
+
+if not valid_valuation_scores.empty:
+    valuation_score_min = int(valid_valuation_scores.min())
+    valuation_score_max = int(valid_valuation_scores.max())
+
+    selected_valuation_score_range = st.sidebar.slider(
+        "Valuation Score",
+        min_value=valuation_score_min,
+        max_value=valuation_score_max,
+        value=(valuation_score_min, valuation_score_max),
+        step=1
+    )
+else:
+    selected_valuation_score_range = None
+    st.sidebar.caption("Valuation Score: keine Daten")
+
 turnaround_only = st.sidebar.checkbox(
     "Nur Turnaround Kandidaten"
 )
@@ -3219,6 +3291,11 @@ sort_option = st.sidebar.selectbox(
     "Sortieren nach",
     [
         "Action Signal",
+        "Terminal Score",
+        "Valuation Score",
+        "Valuation Status",
+        "Setup Quality",
+        "Price",
         "Score",
         "Fundamental Score",
         "CRV",
@@ -3284,6 +3361,32 @@ df_filtered = df[
     &
     (df["Action Signal"].isin(action_signals))
 ].copy()
+
+if selected_valuation_status and "Valuation Status" in df_filtered.columns:
+    df_filtered = df_filtered[
+        df_filtered["Valuation Status"].astype(str).isin(selected_valuation_status)
+    ]
+
+if selected_setup_quality and "Setup Quality" in df_filtered.columns:
+    df_filtered = df_filtered[
+        df_filtered["Setup Quality"].astype(str).isin(selected_setup_quality)
+    ]
+
+if selected_price_range is not None and "Price" in df.columns:
+    price_mask = price_filter_values.loc[df_filtered.index].between(
+        selected_price_range[0],
+        selected_price_range[1],
+        inclusive="both"
+    )
+    df_filtered = df_filtered[price_mask.fillna(False)]
+
+if selected_valuation_score_range is not None and "Valuation Score" in df.columns:
+    valuation_score_mask = valuation_score_values.loc[df_filtered.index].between(
+        selected_valuation_score_range[0],
+        selected_valuation_score_range[1],
+        inclusive="both"
+    )
+    df_filtered = df_filtered[valuation_score_mask.fillna(False)]
 
 if search_text != "":
 
@@ -3355,6 +3458,46 @@ if sort_option in df_filtered.columns:
 
         df_filtered = df_filtered.sort_values(
             by="Risk Sort",
+            ascending=True
+        )
+
+    elif sort_option == "Price":
+
+        df_filtered["Price Numeric"] = df_filtered["Price"].apply(safe_float).fillna(0)
+
+        df_filtered = df_filtered.sort_values(
+            by="Price Numeric",
+            ascending=False
+        )
+
+    elif sort_option == "Valuation Score":
+
+        df_filtered["Valuation Score Numeric"] = pd.to_numeric(
+            df_filtered["Valuation Score"],
+            errors="coerce"
+        ).fillna(0)
+
+        df_filtered = df_filtered.sort_values(
+            by="Valuation Score Numeric",
+            ascending=False
+        )
+
+    elif sort_option == "Terminal Score":
+
+        df_filtered["Terminal Score Numeric"] = pd.to_numeric(
+            df_filtered["Terminal Score"],
+            errors="coerce"
+        ).fillna(0)
+
+        df_filtered = df_filtered.sort_values(
+            by="Terminal Score Numeric",
+            ascending=False
+        )
+
+    elif sort_option in ["Setup Quality", "Valuation Status"]:
+
+        df_filtered = df_filtered.sort_values(
+            by=sort_option,
             ascending=True
         )
 
