@@ -1818,7 +1818,7 @@ with tab_overview:
             top_opportunities = top_opportunities.sort_values(
                 by=["Score", "Fundamental Score", "CRV Radar", "Valuation Score"],
                 ascending=[False, False, False, False]
-            ).head(8)
+            ).head(20)
 
             if top_opportunities.empty:
                 st.info("Keine klaren Top-Chancen im aktuellen Filter.")
@@ -1852,7 +1852,7 @@ with tab_overview:
             risk_radar = risk_radar[risk_mask].sort_values(
                 by=["Risk Level", "RSI", "1M %"],
                 ascending=[True, False, False]
-            ).head(8)
+            ).head(20)
 
             if risk_radar.empty:
                 st.info("Keine auffälligen Risiken im aktuellen Filter.")
@@ -1869,7 +1869,7 @@ with tab_overview:
             dividend_radar = dividend_radar.sort_values(
                 by=["Dividend Yield Radar", "Fundamental Score", "Score"],
                 ascending=[False, False, False]
-            ).head(8)
+            ).head(20)
 
             if dividend_radar.empty:
                 st.info("Keine Dividendenwerte im aktuellen Filter.")
@@ -1889,167 +1889,339 @@ with tab_overview:
 
         st.markdown("""
 
-        ## ⭐ Ratings
+        # 📖 Dashboard-Legende & Entscheidungslogik
 
-        - **STRONG BUY** → sehr starke technische Struktur
-        - **BUY** → bullish
-        - **HOLD** → neutral
-        - **TURNAROUND** → mögliche Trendwende
-        - **WATCH - OVERBOUGHT** → stark gelaufen, Rücksetzer möglich
-        - **AVOID** → schwache technische Lage
+        Dieses Dashboard ist als **Research-Terminal** gedacht. Es kombiniert technische Signale, Fundamentaldaten, Bewertungsindikatoren, Dividenden, Watchlists und Lieferketten-Mapping. Die Signale sind **keine Kaufempfehlung**, sondern eine strukturierte Vorauswahl, damit interessante Aktien schneller sichtbar werden.
 
         ---
 
-        ## 🕒 Strategie-Horizont
+        ## 🧭 Grundidee
 
-        Über den Sidebar-Schalter **Strategie-Horizont** kannst du die Bewertung umstellen:
+        Eine Aktie wird nicht nur nach einem einzigen Wert beurteilt. Das Dashboard schaut gleichzeitig auf:
 
-        - **Kurzfristig** → Fokus auf EMA20, RSI, 1M-Momentum, kurzfristigen Stop und CRV. Geeignet für aktive Einstiege oder Swing-Ideen.
-        - **Mittelfristig** → Mischung aus technischem Score, Risiko, RSI, CRV und Fundamentaldaten. Das ist der Standardmodus.
-        - **Langfristig** → Fokus auf Fundamental Score, Cashflow, Marge, Wachstum, Verschuldung und EMA100/Langfristtrend.
-
-        Dadurch kann dieselbe Aktie je nach Zeithorizont ein anderes Signal bekommen.
+        - **Trend / Momentum**: Läuft die Aktie technisch stabil oder schwach?
+        - **Risiko**: Ist sie überhitzt, volatil oder technisch angeschlagen?
+        - **Fundamentaldaten**: Gibt es Wachstum, Marge, Cashflow und solide Bewertung?
+        - **Bewertung**: Wirkt sie im Verhältnis zu Qualität und Wachstum eher günstig oder teuer?
+        - **Chance-Risiko-Verhältnis**: Passt das mögliche Ziel zum angenommenen Risiko?
+        - **Kontext**: Hängt die Aktie an starken Trends wie KI, Cloud, Energie, Defense oder Cybersecurity?
 
         ---
 
-        ## 🎯 Action Signale
+        ## 📈 Technischer Score / Score-System
 
-        Die Action Signale sind eine regelbasierte Entscheidungshilfe. Sie ersetzen keine eigene Prüfung, zeigen aber klar, warum eine Aktie gerade interessant, riskant oder überhitzt wirkt.
+        Der normale **Score** ist ein technischer Punktwert. Er misst, ob Trend und Momentum stimmen.
+
+        Eine Aktie bekommt Punkte für:
+
+        - Kurs über **EMA20**
+        - Kurs über **EMA50**
+        - Kurs über **EMA100**
+        - **EMA20 > EMA50**
+        - **EMA50 > EMA100**
+        - positive Wochenperformance
+        - positive Monatsperformance
+        - RSI im gesunden Bereich
+
+        **Maximaler Score: 8**
+
+        Interpretation:
+
+        - **0–2** → technisch schwach
+        - **3–4** → gemischt / noch kein klares Setup
+        - **5–6** → technisch interessant
+        - **7–8** → technisch stark
+
+        Wichtig: Ein hoher Score heißt nicht automatisch „kaufen“. Eine Aktie kann technisch stark sein, aber trotzdem teuer, überhitzt oder fundamental schwach.
+
+        ---
+
+        ## 🧬 Fundamental Score
+
+        Der **Fundamental Score** bewertet grob die Qualität einer Aktie anhand vorhandener Daten wie:
+
+        - Umsatzwachstum
+        - Gewinnwachstum
+        - Gewinnmarge
+        - Free Cashflow
+        - Operating Cashflow
+        - Verschuldung
+        - KGV / Forward KGV
+        - PEG Ratio
+
+        Interpretation:
+
+        - **0–2** → schwach oder Daten fehlen
+        - **3–4** → gemischt
+        - **5–6** → solide
+        - **7–8** → sehr solide
+
+        Wenn Fundamentaldaten fehlen, wertet das Dashboard die Aktie nicht automatisch schlecht. Es zeigt dann eher „unvollständige Daten“ oder „Unklar“.
+
+        ---
+
+        ## 💎 Valuation Status / Bewertungshinweis
+
+        Der **Valuation Status** ist eine regelbasierte Einordnung:
+
+        - **💎 Eher unterbewertet** → Bewertung wirkt im Verhältnis zu Qualität, Wachstum und Cashflow attraktiv.
+        - **⚖️ Fair bewertet** → Bewertung wirkt vertretbar, aber nicht extrem günstig.
+        - **⚖️ Fair bis leicht teuer** → nicht dramatisch teuer, aber kein klarer Bewertungsabschlag.
+        - **🔥 Eher überbewertet** → Bewertung wirkt anspruchsvoll, vor allem wenn KGV/PEG hoch sind.
+        - **❓ Unklar** → zu wenige Daten vorhanden.
+
+        Verwendete Faktoren:
+
+        - Forward KGV
+        - Trailing KGV
+        - PEG Ratio
+        - Umsatzwachstum
+        - Gewinnwachstum
+        - Gewinnmarge
+        - Free Cashflow
+        - Fundamental Score
+
+        Wichtig: Das ist **kein echter Fair Value** und kein DCF-Modell. Es ist ein Bewertungsfilter, der dir hilft, teure Hype-Aktien und mögliche Preis-Leistungs-Chancen schneller zu erkennen.
+
+        ---
+
+        ## 🧮 Valuation Score
+
+        Der **Valuation Score** ist der Zahlenwert hinter dem Bewertungshinweis.
+
+        Grobe Interpretation:
+
+        - **ab +4** → eher günstig im Verhältnis zur Qualität
+        - **+1 bis +3** → fair / vertretbar
+        - **0 bis -2** → fair bis teuer / gemischt
+        - **ab -3** → eher teuer oder fundamental schwach
+
+        Der Score wird besser, wenn z. B. KGV/PEG attraktiv sind, Wachstum positiv ist und Cashflow/Marge stimmen. Er wird schlechter, wenn Bewertung hoch ist, Wachstum negativ ist oder Cashflow/Marge schwach sind.
+
+        ---
+
+        ## 🧭 Setup Quality
+
+        **Setup Quality** beschreibt die Qualität des aktuellen Setups abhängig vom gewählten Strategie-Horizont.
+
+        Beispiele:
+
+        - **Sehr gut** → Technik, Risiko, CRV und Fundamentaldaten passen gut zusammen.
+        - **Kurzfristig stark** → gutes Momentum, gesunder RSI, Kurs über wichtigen EMAs.
+        - **Langfristig solide** → Fundamentaldaten und Langfristtrend wirken stabil.
+        - **Spekulativ** → Aktie könnte interessant sein, aber Risiko/Unsicherheit ist höher.
+        - **Neutral / beobachten** → kein klares Kauf- oder Verkaufssignal.
+        - **Überhitzt** → Aktie ist stark gelaufen, RSI und Momentum wirken heiß.
+        - **Schwach** → technische oder fundamentale Warnsignale überwiegen.
+
+        Setup Quality ist also die textliche Kurzbeschreibung des aktuellen Setups.
+
+        ---
+
+        ## 🎯 Action Signal
+
+        Das **Action Signal** ist die wichtigste Ampel des Dashboards.
 
         ### 🟢 BUY ZONE
 
-        **Kurzfristig:**
+        Eine Aktie kommt in die BUY ZONE, wenn mehrere Bedingungen zusammenpassen:
 
-        - Score mindestens **6 von 8**
-        - Rating **BUY** oder **STRONG BUY**
-        - Risk Level nicht **HIGH RISK**
-        - RSI zwischen **42 und 68**
-        - 1M Performance positiv
-        - Kurs über EMA20
-        - realistisches CRV mindestens **1,4**
+        - technischer Score stark genug
+        - Rating positiv
+        - Risiko nicht zu hoch
+        - RSI nicht überhitzt
+        - Chance-Risiko-Verhältnis sinnvoll
+        - je nach Strategie-Horizont auch Fundamentaldaten ausreichend solide
 
-        **Mittelfristig:**
-
-        - Score mindestens **6 von 8**
-        - Rating **BUY** oder **STRONG BUY**
-        - Risk Level nicht **HIGH RISK**
-        - RSI zwischen **40 und 70**
-        - realistisches CRV mindestens **1,5**
-        - Fundamental Score mindestens **5** oder Fundamentaldaten sind nicht vollständig verfügbar
-
-        **Langfristig:**
-
-        - Fundamental Score mindestens **6 von 8**
-        - Fundamental Rating **SOLID** oder **VERY SOLID**
-        - Free Cashflow, Marge und Umsatzwachstum nicht klar negativ
-        - Debt/Equity nicht extrem hoch
-        - Langfristtrend okay, z. B. Kurs über EMA100 oder Score mindestens 5
-        - Risk Level nicht **HIGH RISK**
-        - RSI nicht extrem überhitzt
-
-        ---
+        Bedeutung: Die Aktie ist interessant genug, um genauer geprüft zu werden. Es ist keine automatische Kaufempfehlung.
 
         ### 🟡 WATCH
 
-        **WATCH** bedeutet: Die Aktie ist interessant, aber mindestens ein wichtiger Punkt fehlt noch. Typische Gründe sind ein zu schwaches CRV, ein zu hoher RSI, gemischte Fundamentaldaten oder ein noch nicht bestätigter Trend.
+        WATCH bedeutet: Die Aktie ist interessant, aber ein wichtiger Baustein fehlt noch.
 
-        ---
+        Häufige Gründe:
+
+        - CRV noch zu schwach
+        - RSI zu hoch oder zu niedrig
+        - Trend noch nicht bestätigt
+        - Fundamentaldaten gemischt
+        - Bewertung nicht klar attraktiv
 
         ### 🔵 TURNAROUND WATCH
 
-        Eine Aktie bekommt **TURNAROUND WATCH**, wenn sie als Turnaround-Kandidat erkannt wurde:
+        TURNAROUND WATCH ist für Aktien gedacht, die vorher deutlich gefallen sind, aber erste Stabilisierung zeigen.
 
-        - 6M Performance unter **-15 %**
-        - 1M Performance über **+5 %**
+        Typische Kriterien:
+
+        - 6M Performance stark negativ
+        - 1M Performance wieder positiv
         - Kurs zurück über EMA20
-        - RSI über 40
+        - RSI erholt sich über 40
 
-        Bedeutung: Erste Trendwende möglich, aber spekulativer als BUY ZONE.
-
-        ---
+        Bedeutung: Erste Trendwende möglich, aber spekulativer als BUY ZONE. Hier ist Bestätigung besonders wichtig.
 
         ### 🟠 TAKE PROFIT / OVERHEATED
 
-        **TAKE PROFIT** erscheint im kurz- oder mittelfristigen Modus, wenn die Aktie kurzfristig heiß gelaufen ist:
+        Dieses Signal erscheint, wenn eine Aktie kurzfristig stark gelaufen ist.
 
-        - RSI über **72**
-        - 1M Performance über **+8 %**
+        Typische Merkmale:
 
-        Im langfristigen Modus heißt das Signal **OVERHEATED**, weil eine starke Aktie langfristig nicht automatisch verkauft werden muss, nur weil sie kurzfristig überhitzt ist.
+        - RSI über 72
+        - starke 1M Performance
+        - Kurs deutlich über kurzfristigen Durchschnitten
 
-        ---
+        Bedeutung: Nicht automatisch verkaufen, aber Risiko von Rücksetzern steigt.
 
         ### 🔴 SELL / AVOID
 
-        Eine Aktie bekommt **SELL / AVOID**, wenn klare Warnsignale vorliegen:
+        SELL / AVOID erscheint bei klaren Warnsignalen:
 
-        - Rating **AVOID**
-        - Score **3 oder niedriger**
-        - wirklich schwacher Fundamental Score, nicht nur fehlende Daten
-        - HIGH RISK plus negative Performance
+        - technischer Score sehr schwach
+        - Rating negativ
+        - hohes Risiko plus schwache Performance
+        - schwacher Fundamental Score
+        - negativer Trend
+
+        Bedeutung: Aktie aktuell eher meiden oder sehr kritisch prüfen.
+
+        ---
+
+        ## 🧭 Strategie-Horizont
+
+        Der Sidebar-Schalter **Strategie-Horizont** verändert die Bewertung:
+
+        - **Kurzfristig** → Fokus auf EMA20, RSI, 1M-Momentum, kurzfristigen Stop und CRV.
+        - **Mittelfristig** → Mischung aus Technik, Risiko, CRV und Fundamentaldaten. Das ist der Standardmodus.
+        - **Langfristig** → Fokus auf Fundamental Score, Cashflow, Marge, Wachstum, Verschuldung und EMA100.
+
+        Dadurch kann dieselbe Aktie je nach Horizont unterschiedlich bewertet werden. Eine Aktie kann kurzfristig überhitzt sein, aber langfristig trotzdem solide.
 
         ---
 
         ## ⚖️ CRV / Chance-Risiko-Verhältnis
 
-        Das CRV wird jetzt nicht mehr künstlich aus dem Stop-Loss erzeugt. Ziel 1 basiert bevorzugt auf dem **52-Wochen-Hoch**, sofern dieses sinnvoll über dem aktuellen Kurs liegt. Falls kein brauchbares 52W-Ziel vorhanden ist, nutzt das Dashboard einen vorsichtigen Fallback je nach Zeithorizont.
+        Das **CRV** vergleicht mögliches Ziel mit möglichem Risiko.
 
-        - **Kurzfristig:** Stop näher am EMA20
-        - **Mittelfristig:** Stop am EMA50
-        - **Langfristig:** Stop stärker am EMA100 orientiert
+        Vereinfacht:
 
-        Dadurch ist das CRV realistischer als vorher.
+        - **CRV unter 1,2** → eher schwach
+        - **CRV 1,2 bis 1,5** → okay, aber nicht stark
+        - **CRV ab 1,5** → interessant
+        - **CRV ab 2,0** → sehr attraktiv, wenn die Annahmen realistisch sind
 
-        ---
-
-        ## 📈 Score System
-
-        Jede Aktie bekommt Punkte für:
-
-        - Kurs über EMA20
-        - Kurs über EMA50
-        - Kurs über EMA100
-        - EMA20 > EMA50
-        - EMA50 > EMA100
-        - positive Wochenperformance
-        - positive Monatsperformance
-        - gesunder RSI
-
-        Maximaler Score: **8**
+        Ziel 1 basiert bevorzugt auf dem **52-Wochen-Hoch**, sofern dieses sinnvoll über dem aktuellen Kurs liegt. Falls nicht, nutzt das Dashboard ein vorsichtiges Fallback-Ziel je nach Strategie-Horizont.
 
         ---
 
         ## 📉 RSI
 
-        RSI = Relative Strength Index
+        RSI = Relative Strength Index.
 
-        - unter 30 → überverkauft
-        - 30–70 → gesund
-        - über 70 → heiß gelaufen
-
-        ---
-
-        ## 🔄 Turnaround Kandidat
-
-        Eine Aktie gilt als Turnaround-Kandidat, wenn sie zuvor stark gefallen ist, aber Momentum zurückkommt, der Kurs EMA20 zurückerobert und der RSI sich stabilisiert.
+        - **unter 30** → überverkauft / sehr schwach
+        - **30–40** → angeschlagen, aber mögliche Stabilisierung
+        - **40–70** → gesunder Bereich
+        - **über 70** → überkauft / heiß gelaufen
+        - **über 72/78** → Risiko für Rücksetzer steigt je nach Strategie-Modus
 
         ---
 
         ## ⚠ Risk Level
 
-        Risiko basiert auf RSI, Volatilität, Abstand zum EMA20 und Beta.
+        Das Risk Level betrachtet technische Risikofaktoren wie:
+
+        - Abstand zum EMA20
+        - RSI-Überhitzung
+        - Volatilität
+        - Beta
+        - schwache Trendstruktur
+
+        Interpretation:
+
+        - **LOW RISK** → ruhigeres Setup
+        - **MEDIUM RISK** → normales Risiko
+        - **HIGH RISK** → größere Schwankungen oder technische Warnsignale
 
         ---
 
-        ## 🛑 Stop-Loss-Idee
+        ## 🧪 Terminal Score / Terminal Grade
 
-        Vorschlag basierend auf den gleitenden Durchschnitten. Kein Finanzrat, nur technische Orientierung.
+        Der **Terminal Score** fasst mehrere Module zusammen:
+
+        - Action Signal
+        - technischer Score
+        - Fundamental Score
+        - Bewertung
+        - Risiko
+        - CRV
+
+        Daraus entsteht ein Terminal Grade, z. B.:
+
+        - **A · Stark** → viele Faktoren passen zusammen
+        - **B · Interessant** → gutes Setup, aber nicht perfekt
+        - **C · Beobachten** → gemischt, noch kein klarer Vorteil
+        - **D · Schwach** → mehrere Warnsignale
+
+        Der Terminal Score soll dir helfen, viele Aktien schneller zu sortieren.
+
+        ---
+
+        ## 📡 Terminal-Radar
+
+        Der Terminal-Radar zeigt schnelle Vorauswahlen:
+
+        - **Top-Chancen** → Aktien mit BUY/TURNAROUND-Signal, hohem Score, guter Bewertung oder gutem CRV.
+        - **Risiko-/Überhitzungsradar** → Aktien mit HIGH RISK, AVOID, TAKE PROFIT, OVERHEATED oder teurer Bewertung.
+        - **Dividendenradar** → Aktien mit Dividendenrendite, sortiert nach Rendite und Qualität.
+
+        Der Radar ersetzt keine Einzelprüfung, ist aber gut, um Kandidaten schneller zu finden.
+
+        ---
+
+        ## 🕸️ Netzwerk / Lieferketten-Mapping
+
+        Das Mapping zeigt, welche Aktien miteinander verbunden sind.
+
+        Beispiele:
+
+        - **NVIDIA → TSMC / ASML / Micron / Vertiv / Microsoft**
+        - **Apple → TSMC / Foxconn / Qualcomm / Broadcom**
+        - **Defense → Rheinmetall / Hensoldt / Lockheed / RTX**
+
+        Die Verbindung kann sein:
+
+        - Lieferant / Zulieferer
+        - Kunde / Nachfrage
+        - Konkurrenz
+        - Infrastruktur / Ermöglicher
+        - Energie / Strombedarf
+        - Speicher / HBM
+        - Cloud / Plattform
+
+        Ziel: Du sollst erkennen, **welche Aktien indirekt mit einem Trend oder einer Hauptaktie zusammenhängen**.
+
+        ---
+
+        ## 🍕 PizzINT / Geopolitischer Stress
+
+        Der PizzINT-Bereich ist ein experimenteller OSINT-/Stressindikator. Das DOUGHCON-Level wird aktuell manuell gesetzt, weil wir keine offizielle stabile API von PizzINT verwenden.
+
+        Die Idee dahinter:
+
+        - bei höherem geopolitischem Stress defensive Sektoren stärker beobachten
+        - Energie, Gold, Cybersecurity, Defense und Cash-Risiko stärker einordnen
+        - spekulative High-Risk-/Turnaround-Aktien vorsichtiger bewerten
 
         ---
 
         ## 📅 Dividendenkalender
 
-        Der Dividendenkalender filtert nach dem Ex-Dividenden-Datum. In der Übersicht und Gesamttabelle bleiben trotzdem alle Aktien sichtbar.
+        Der Dividendenkalender filtert nach Ex-Dividenden-Datum. Wichtig: Der Kalender zeigt nur passende Dividendenereignisse, aber die Aktien bleiben in Übersicht und Gesamttabelle weiterhin sichtbar.
+
+        ---
+
+        ## Wichtig
+
+        Alle Signale sind regelbasierte Orientierungshilfen. Sie ersetzen keine eigene Recherche, keine Fundamentalanalyse und keine Risikoprüfung. Das Dashboard soll helfen, schneller zu sortieren und Zusammenhänge zu erkennen.
 
         """)
 
