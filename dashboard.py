@@ -3,8 +3,9 @@ import streamlit as st
 import os
 import subprocess
 import hmac
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from supabase import create_client, Client
+import yfinance as yf
 import streamlit.components.v1 as components
 
 # Optional: PyVis bleibt kompatibel, das neue Netzwerk nutzt aber ein eigenes statisches HTML/SVG.
@@ -1380,6 +1381,285 @@ for column in display_text_columns:
         df[column] = df[column].astype(str)
 
 # ============================================================
+# 📆 EARNINGS-KALENDER HILFSFUNKTIONEN
+# ============================================================
+
+def _format_earnings_date(value):
+    """Normalisiert Earnings-Daten aus unterschiedlichen Yahoo/yfinance-Formaten."""
+    try:
+        if value is None or value == "" or pd.isna(value):
+            return None
+    except Exception:
+        pass
+
+    try:
+        if isinstance(value, (list, tuple)) and len(value) > 0:
+            value = value[0]
+
+        dt = pd.to_datetime(value, errors="coerce")
+
+        if pd.isna(dt):
+            return None
+
+        if hasattr(dt, "tz_convert"):
+            try:
+                dt = dt.tz_convert(None)
+            except Exception:
+                try:
+                    dt = dt.tz_localize(None)
+                except Exception:
+                    pass
+
+        return dt
+
+    except Exception:
+        return None
+
+
+def _format_estimate_value(value, suffix=""):
+    """Formatiert Schätzwerte kompakt."""
+    try:
+        if value is None or pd.isna(value):
+            return "-"
+
+        numeric = float(value)
+
+        if abs(numeric) >= 1_000_000_000:
+            return f"{numeric / 1_000_000_000:.2f} Mrd.{suffix}"
+
+        if abs(numeric) >= 1_000_000:
+            return f"{numeric / 1_000_000:.2f} Mio.{suffix}"
+
+        return f"{numeric:.2f}{suffix}"
+
+    except Exception:
+        if value in [None, "", "nan", "None"]:
+            return "-"
+        return str(value)
+
+
+def _extract_estimate_from_frame(frame):
+    """Versucht aus yfinance-Schätztabellen den aktuellen Durchschnittswert zu ziehen."""
+    try:
+        if frame is None or frame.empty:
+            return None
+
+        candidate_rows = [
+            "current qtr", "current quarter", "0q",
+            "next qtr", "next quarter", "+1q"
+        ]
+        candidate_cols = ["avg", "Avg", "Average", "average"]
+
+        lower_index = {str(idx).strip().lower(): idx for idx in frame.index}
+
+        for row_name in candidate_rows:
+            if row_name in lower_index:
+                row_idx = lower_index[row_name]
+                for col in candidate_cols:
+                    if col in frame.columns:
+                        return frame.loc[row_idx, col]
+
+        for col in candidate_cols:
+            if col in frame.columns and len(frame[col].dropna()) > 0:
+                return frame[col].dropna().iloc[0]
+
+    except Exception:
+        return None
+
+    return None
+
+
+@st.cache_data(ttl=6 * 60 * 60, show_spinner=False)
+def fetch_earnings_snapshot(ticker):
+    """
+    Holt Earnings-Datum und Schätzwerte pro Ticker.
+    Daten kommen über yfinance/Yahoo Finance und können je nach Börsenplatz fehlen.
+    """
+
+    result = {
+        "ticker": ticker,
+        "earnings_date": None,
+        "earnings_time": "-",
+        "eps_estimate": "-",
+        "revenue_estimate": "-",
+        "source_status": "keine Daten",
+    }
+
+    try:
+        ticker_object = yf.Ticker(ticker)
+
+        # 1) Hauptquelle: Earnings-Dates-Tabelle
+        try:
+            earnings_dates = ticker_object.get_earnings_dates(limit=12)
+
+            if earnings_dates is not None and not earnings_dates.empty:
+                dates_frame = earnings_dates.copy()
+                dates_frame = dates_frame.reset_index()
+
+                date_column = dates_frame.columns[0]
+                dates_frame["_parsed_date"] = pd.to_datetime(
+                    dates_frame[date_column],
+                    errors="coerce"
+                )
+
+                today_ts = pd.Timestamp.today().normalize()
+                future_dates = dates_frame[dates_frame["_parsed_date"] >= today_ts].copy()
+
+                if not future_dates.empty:
+                    selected_row = future_dates.sort_values("_parsed_date").iloc[0]
+                else:
+                    selected_row = dates_frame.sort_values("_parsed_date", ascending=False).iloc[0]
+
+                result["earnings_date"] = _format_earnings_date(selected_row.get("_parsed_date"))
+
+                for eps_col in ["EPS Estimate", "epsEstimate", "EPS Est."]:
+                    if eps_col in selected_row.index and not pd.isna(selected_row.get(eps_col)):
+                        result["eps_estimate"] = _format_estimate_value(selected_row.get(eps_col))
+                        break
+
+                for time_col in ["Time", "time"]:
+                    if time_col in selected_row.index and not pd.isna(selected_row.get(time_col)):
+                        result["earnings_time"] = str(selected_row.get(time_col))
+                        break
+
+                result["source_status"] = "Earnings-Dates"
+
+        except Exception:
+            pass
+
+        # 2) Fallback: calendar dict
+        if result["earnings_date"] is None:
+            try:
+                calendar_data = ticker_object.calendar
+
+                if isinstance(calendar_data, dict):
+                    earnings_date = (
+                        calendar_data.get("Earnings Date")
+                        or calendar_data.get("EarningsDate")
+                        or calendar_data.get("earningsDate")
+                    )
+                    parsed_date = _format_earnings_date(earnings_date)
+
+                    if parsed_date is not None:
+                        result["earnings_date"] = parsed_date
+                        result["source_status"] = "Calendar"
+
+                    eps_average = (
+                        calendar_data.get("Earnings Average")
+                        or calendar_data.get("EarningsAverage")
+                    )
+
+                    if eps_average is not None and result["eps_estimate"] == "-":
+                        result["eps_estimate"] = _format_estimate_value(eps_average)
+
+                    revenue_average = (
+                        calendar_data.get("Revenue Average")
+                        or calendar_data.get("RevenueAverage")
+                    )
+
+                    if revenue_average is not None:
+                        result["revenue_estimate"] = _format_estimate_value(revenue_average)
+
+            except Exception:
+                pass
+
+        # 3) Zusatz: EPS-/Umsatz-Schätzungen, falls verfügbar
+        try:
+            earnings_estimate = ticker_object.get_earnings_estimate()
+            eps_estimate = _extract_estimate_from_frame(earnings_estimate)
+
+            if eps_estimate is not None and result["eps_estimate"] == "-":
+                result["eps_estimate"] = _format_estimate_value(eps_estimate)
+        except Exception:
+            pass
+
+        try:
+            revenue_estimate = ticker_object.get_revenue_estimate()
+            revenue_avg = _extract_estimate_from_frame(revenue_estimate)
+
+            if revenue_avg is not None and result["revenue_estimate"] == "-":
+                result["revenue_estimate"] = _format_estimate_value(revenue_avg)
+        except Exception:
+            pass
+
+    except Exception as error:
+        result["source_status"] = f"Fehler: {error}"
+
+    return result
+
+
+def build_earnings_calendar(universe_df, max_tickers):
+    """Baut einen Earningskalender für die angezeigte/gewählte Aktienmenge."""
+
+    if universe_df.empty or "Ticker" not in universe_df.columns:
+        return pd.DataFrame()
+
+    ticker_frame = universe_df.dropna(subset=["Ticker"]).copy()
+    ticker_frame["Ticker"] = ticker_frame["Ticker"].astype(str).str.strip()
+    ticker_frame = ticker_frame.drop_duplicates(subset=["Ticker"]).head(max_tickers)
+
+    rows = []
+
+    progress = st.progress(0, text="Earningskalender wird aktualisiert...")
+    total = len(ticker_frame)
+
+    for idx, (_, stock_row) in enumerate(ticker_frame.iterrows(), start=1):
+        ticker = str(stock_row.get("Ticker", "")).strip()
+
+        if ticker:
+            snapshot = fetch_earnings_snapshot(ticker)
+            earnings_date = snapshot.get("earnings_date")
+
+            if earnings_date is not None:
+                days_until = (pd.Timestamp(earnings_date).normalize() - pd.Timestamp.today().normalize()).days
+                earnings_date_text = pd.Timestamp(earnings_date).strftime("%d.%m.%Y")
+            else:
+                days_until = None
+                earnings_date_text = "-"
+
+            rows.append({
+                "Ticker": ticker,
+                "Company": stock_row.get("Company", ticker),
+                "Earnings Date": earnings_date_text,
+                "Days Until": days_until if days_until is not None else "-",
+                "Time": snapshot.get("earnings_time", "-"),
+                "EPS Estimate": snapshot.get("eps_estimate", "-"),
+                "Revenue Estimate": snapshot.get("revenue_estimate", "-"),
+                "Action Signal": stock_row.get("Action Signal", "-"),
+                "Terminal Grade": stock_row.get("Terminal Grade", "-"),
+                "Terminal Score": stock_row.get("Terminal Score", "-"),
+                "Valuation Status": stock_row.get("Valuation Status", "-"),
+                "Setup Quality": stock_row.get("Setup Quality", "-"),
+                "Risk Level": stock_row.get("Risk Level", "-"),
+                "Short Info": (
+                    f"{stock_row.get('Action Signal', '-')} | "
+                    f"{stock_row.get('Valuation Status', '-')} | "
+                    f"Setup: {stock_row.get('Setup Quality', '-')} | "
+                    f"Risiko: {stock_row.get('Risk Level', '-')}"
+                ),
+                "Data Source": snapshot.get("source_status", "-"),
+            })
+
+        progress.progress(idx / total if total else 1, text=f"Earningskalender: {idx}/{total} Aktien geprüft")
+
+    progress.empty()
+
+    earnings_df = pd.DataFrame(rows)
+
+    if earnings_df.empty:
+        return earnings_df
+
+    earnings_df["_sort_days"] = pd.to_numeric(earnings_df["Days Until"], errors="coerce")
+    earnings_df = earnings_df.sort_values(
+        by=["_sort_days", "Ticker"],
+        ascending=[True, True],
+        na_position="last"
+    ).drop(columns=["_sort_days"])
+
+    return earnings_df
+
+
+# ============================================================
 # TITEL
 # ============================================================
 
@@ -1492,11 +1772,12 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_analysis, tab_network, tab_lists, tab_dividends, tab_admin = st.tabs([
+tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends, tab_admin = st.tabs([
     "📊 Übersicht",
     "🧠 Analyse",
     "🕸️ Netzwerk",
     "⭐ Listen",
+    "📆 Earnings",
     "📅 Dividenden",
     "👑 Admin"
 ])
@@ -3817,6 +4098,154 @@ def get_risk_light(risk):
         return "🔴"
 
     return "⚪"
+
+
+with tab_earnings:
+    # ============================================================
+    # 📆 EARNINGSKALENDER
+    # ============================================================
+
+    with st.expander("📆 Earningskalender: Termine, Erwartungen & Kontext", expanded=True):
+        st.caption(
+            "Zeigt kommende Earnings-Termine und verfügbare EPS-/Umsatzschätzungen. "
+            "Nicht jede Aktie liefert über Yahoo/yfinance saubere Zukunftsdaten; fehlende Werte werden bewusst als '-' angezeigt."
+        )
+
+        earnings_universe_mode = st.radio(
+            "Earnings-Universum",
+            options=[
+                "Aktuell gefilterte Aktien",
+                "Alle Aktien aus der Analyse"
+            ],
+            horizontal=True,
+            key="earnings_universe_mode"
+        )
+
+        earnings_universe_df = df_filtered.copy() if earnings_universe_mode == "Aktuell gefilterte Aktien" else df.copy()
+
+        earnings_universe_df = earnings_universe_df.dropna(subset=["Ticker"]).copy()
+        earnings_universe_df["Ticker"] = earnings_universe_df["Ticker"].astype(str).str.strip()
+        earnings_universe_df = earnings_universe_df.drop_duplicates(subset=["Ticker"])
+
+        col_earn_1, col_earn_2, col_earn_3 = st.columns([1, 1, 2])
+
+        with col_earn_1:
+            earnings_days_forward = st.selectbox(
+                "Zeitraum",
+                options=[7, 14, 30, 60, 90, 180, 365],
+                index=4,
+                format_func=lambda value: f"nächste {value} Tage",
+                key="earnings_days_forward"
+            )
+
+        with col_earn_2:
+            max_possible_earnings = max(1, len(earnings_universe_df))
+            default_scan = min(200, max_possible_earnings)
+            max_earnings_scan = st.slider(
+                "Max. Aktien scannen",
+                min_value=1,
+                max_value=max_possible_earnings,
+                value=default_scan,
+                step=1 if max_possible_earnings < 50 else 10,
+                key="max_earnings_scan"
+            )
+
+        with col_earn_3:
+            st.info(
+                "Für große Watchlists kann der Scan etwas dauern. "
+                "Die Ergebnisse werden 6 Stunden gecacht."
+            )
+
+        run_earnings_scan = st.button(
+            "📆 Earningskalender aktualisieren",
+            key="run_earnings_scan"
+        )
+
+        if run_earnings_scan:
+            earnings_calendar_df = build_earnings_calendar(
+                earnings_universe_df,
+                max_tickers=max_earnings_scan
+            )
+
+            st.session_state["earnings_calendar_df"] = earnings_calendar_df
+        else:
+            earnings_calendar_df = st.session_state.get(
+                "earnings_calendar_df",
+                pd.DataFrame()
+            )
+
+        if earnings_calendar_df.empty:
+            st.info(
+                "Noch keine Earnings-Daten geladen. Klicke auf 'Earningskalender aktualisieren'."
+            )
+        else:
+            earnings_calendar_view = earnings_calendar_df.copy()
+
+            earnings_calendar_view["Days Until Numeric"] = pd.to_numeric(
+                earnings_calendar_view["Days Until"],
+                errors="coerce"
+            )
+
+            earnings_calendar_view = earnings_calendar_view[
+                (earnings_calendar_view["Days Until Numeric"].notna())
+                &
+                (earnings_calendar_view["Days Until Numeric"] >= 0)
+                &
+                (earnings_calendar_view["Days Until Numeric"] <= earnings_days_forward)
+            ].copy()
+
+            upcoming_count = len(earnings_calendar_view)
+            next_7_count = int((earnings_calendar_view["Days Until Numeric"] <= 7).sum()) if upcoming_count else 0
+            next_30_count = int((earnings_calendar_view["Days Until Numeric"] <= 30).sum()) if upcoming_count else 0
+
+            e1, e2, e3, e4 = st.columns(4)
+            e1.metric("Treffer im Zeitraum", upcoming_count)
+            e2.metric("nächste 7 Tage", next_7_count)
+            e3.metric("nächste 30 Tage", next_30_count)
+            e4.metric("gescannte Aktien", len(earnings_calendar_df))
+
+            display_earnings_columns = [
+                "Ticker",
+                "Company",
+                "Earnings Date",
+                "Days Until",
+                "Time",
+                "EPS Estimate",
+                "Revenue Estimate",
+                "Terminal Grade",
+                "Terminal Score",
+                "Action Signal",
+                "Valuation Status",
+                "Setup Quality",
+                "Risk Level",
+                "Short Info",
+                "Data Source"
+            ]
+
+            display_earnings_columns = [
+                column for column in display_earnings_columns
+                if column in earnings_calendar_view.columns
+            ]
+
+            st.dataframe(
+                earnings_calendar_view[display_earnings_columns],
+                width="stretch",
+                hide_index=True
+            )
+
+            st.download_button(
+                "⬇️ Earningskalender als CSV exportieren",
+                data=earnings_calendar_view[display_earnings_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
+                file_name="hartmut_terminal_earningskalender.csv",
+                mime="text/csv"
+            )
+
+            with st.expander("ℹ️ Hinweis zur Datenqualität", expanded=False):
+                st.write(
+                    "Earnings-Daten und Analystenerwartungen kommen über Yahoo/yfinance. "
+                    "Bei deutschen Nebenwerten, exotischen Börsenplätzen oder sehr kleinen Titeln fehlen diese Daten häufig. "
+                    "Ein '-' bedeutet daher nicht automatisch, dass keine Earnings existieren, sondern dass keine verwertbare Schätzung gefunden wurde."
+                )
 
 
 with tab_dividends:
