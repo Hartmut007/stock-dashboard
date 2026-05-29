@@ -1421,192 +1421,6 @@ df = pd.concat(
 
 
 # ============================================================
-# ✅ HANDELS-CHECKLISTE: EINSTIEG / WATCH / KEIN EINSTIEG
-# ============================================================
-
-def build_trade_check(row):
-    """Regelbasierte Handels-Checkliste.
-    Ziel: keine Kaufempfehlung, sondern eine klare Vorauswahl für die manuelle Prüfung.
-    """
-
-    terminal_score = safe_float(row.get("Terminal Score"))
-    terminal_grade = str(row.get("Terminal Grade", ""))
-    action_signal = str(row.get("Action Signal", ""))
-    valuation_status = str(row.get("Valuation Status", ""))
-    valuation_score = safe_float(row.get("Valuation Score"))
-    risk_level = str(row.get("Risk Level", ""))
-    setup_quality = str(row.get("Setup Quality", ""))
-    crv = safe_float(row.get("CRV"))
-    rsi = safe_float(row.get("RSI"))
-    score = safe_float(row.get("Score"))
-    fundamental_score = safe_float(row.get("Fundamental Score"))
-    turnaround = str(row.get("Turnaround Candidate", ""))
-
-    trade_score = 0
-    positives = []
-    negatives = []
-
-    # Terminal-Bild
-    if terminal_score is not None:
-        if terminal_score >= 80:
-            trade_score += 3
-            positives.append("Terminal Score sehr stark")
-        elif terminal_score >= 65:
-            trade_score += 2
-            positives.append("Terminal Score stark")
-        elif terminal_score >= 50:
-            trade_score += 1
-            positives.append("Terminal Score beobachtbar")
-        elif terminal_score < 35:
-            trade_score -= 2
-            negatives.append("Terminal Score schwach")
-
-    if terminal_grade.startswith("A"):
-        trade_score += 2
-        positives.append("Terminal Grade A")
-    elif terminal_grade.startswith("B"):
-        trade_score += 1
-        positives.append("Terminal Grade B")
-    elif terminal_grade.startswith("D") or terminal_grade.startswith("E"):
-        trade_score -= 1
-        negatives.append("Terminal Grade schwach")
-
-    # Signal / Setup
-    if "BUY ZONE" in action_signal:
-        trade_score += 3
-        positives.append("BUY ZONE")
-    elif "TURNAROUND" in action_signal:
-        trade_score += 1
-        positives.append("Turnaround-Watch")
-    elif "WATCH" in action_signal:
-        trade_score += 1
-        positives.append("Watchlist-Signal")
-    elif "TAKE PROFIT" in action_signal:
-        trade_score -= 1
-        negatives.append("Take-Profit/Überhitzung")
-    elif "SELL" in action_signal or "AVOID" in action_signal:
-        trade_score -= 4
-        negatives.append("Sell/Avoid-Signal")
-
-    if setup_quality in ["Sehr gut", "Gut"]:
-        trade_score += 1
-        positives.append("Setup Qualität gut")
-    elif setup_quality in ["Schwach", "Überhitzt", "Langfristig schwach"]:
-        trade_score -= 1
-        negatives.append("Setup Qualität schwach/überhitzt")
-
-    # Bewertung
-    if "unterbewertet" in valuation_status.lower():
-        trade_score += 2
-        positives.append("eher unterbewertet")
-    elif "fair" in valuation_status.lower():
-        trade_score += 1
-        positives.append("Bewertung fair/vertretbar")
-    elif "überbewertet" in valuation_status.lower() or "teuer" in valuation_status.lower():
-        trade_score -= 2
-        negatives.append("Bewertung teuer/überbewertet")
-
-    if valuation_score is not None:
-        if valuation_score >= 3:
-            trade_score += 1
-        elif valuation_score <= -3:
-            trade_score -= 1
-
-    # Risiko / CRV / Momentum
-    if risk_level == "LOW RISK":
-        trade_score += 1
-        positives.append("niedriges Risiko")
-    elif risk_level == "HIGH RISK":
-        trade_score -= 3
-        negatives.append("High Risk")
-
-    if crv is not None:
-        if crv >= 2:
-            trade_score += 2
-            positives.append("CRV attraktiv")
-        elif crv >= 1.5:
-            trade_score += 1
-            positives.append("CRV brauchbar")
-        elif crv < 1:
-            trade_score -= 1
-            negatives.append("CRV schwach")
-
-    if rsi is not None:
-        if 40 <= rsi <= 68:
-            trade_score += 1
-            positives.append("RSI nicht überhitzt")
-        elif rsi >= 75:
-            trade_score -= 2
-            negatives.append("RSI stark überhitzt")
-        elif rsi <= 30:
-            trade_score -= 1
-            negatives.append("RSI sehr schwach/überverkauft")
-
-    if score is not None:
-        if score >= 6:
-            trade_score += 1
-            positives.append("technischer Score gut")
-        elif score <= 3:
-            trade_score -= 1
-            negatives.append("technischer Score schwach")
-
-    if fundamental_score is not None:
-        if fundamental_score >= 6:
-            trade_score += 1
-            positives.append("Fundamental Score gut")
-        elif fundamental_score <= 2:
-            trade_score -= 1
-            negatives.append("Fundamental Score schwach")
-
-    if turnaround == "YES":
-        trade_score += 1
-        positives.append("Turnaround-Kandidat")
-
-    # Harte Bremsen: diese Punkte verhindern ein klares Einstiegssignal.
-    hard_stop = (
-        risk_level == "HIGH RISK"
-        or "SELL" in action_signal
-        or "AVOID" in action_signal
-        or ("überbewertet" in valuation_status.lower() and terminal_score is not None and terminal_score < 65)
-    )
-
-    trade_score = int(max(0, min(10, trade_score)))
-
-    if trade_score >= 7 and not hard_stop:
-        trade_check = "✅ Einstieg prüfenswert"
-        trade_summary = "Mehrere Kernsignale passen zusammen. Manuelle Prüfung von News, Earnings und Positionsgröße sinnvoll."
-    elif trade_score <= 3 or hard_stop:
-        trade_check = "❌ Kein Einstieg"
-        trade_summary = "Aktuell sprechen Risiko, Signal, Bewertung oder schwaches Gesamtbild gegen einen Einstieg."
-    else:
-        trade_check = "⚠️ Beobachten"
-        trade_summary = "Interessant, aber noch nicht sauber genug. Auf Bestätigung, Rücksetzer oder bessere Daten warten."
-
-    reason_parts = []
-    if positives:
-        reason_parts.append("Plus: " + " | ".join(unique_items(positives)[:5]))
-    if negatives:
-        reason_parts.append("Minus: " + " | ".join(unique_items(negatives)[:5]))
-
-    return pd.Series({
-        "Trade Check": trade_check,
-        "Trade Score": trade_score,
-        "Trade Reason": " · ".join(reason_parts) if reason_parts else "Zu wenige klare Signale.",
-        "Trade Summary": trade_summary
-    })
-
-
-trade_columns = df.apply(
-    build_trade_check,
-    axis=1
-)
-
-df = pd.concat(
-    [df, trade_columns],
-    axis=1
-)
-
-# ============================================================
 # STREAMLIT-TABELLENKOMPATIBILITÄT
 # ============================================================
 
@@ -2505,8 +2319,6 @@ with tab_overview:
             "Ticker",
             "Company",
             "Currency",
-            "Trade Check",
-            "Trade Score",
             "Action Signal",
             "Valuation Status",
             "Score",
@@ -2602,72 +2414,6 @@ with tab_overview:
                 hide_index=True
             )
 
-        st.markdown("---")
-        st.markdown("#### ✅ Handels-Checkliste")
-        st.caption("Regelbasierte Vorauswahl: kein automatisches Kaufsignal, sondern ein sauberer Startpunkt für deine finale Prüfung.")
-
-        trade_display_columns = [
-            "Ticker",
-            "Company",
-            "Currency",
-            "Trade Check",
-            "Trade Score",
-            "Trade Reason",
-            "Terminal Grade",
-            "Terminal Score",
-            "Action Signal",
-            "Valuation Status",
-            "Risk Level",
-            "CRV",
-            "Price"
-        ]
-        trade_display_columns = [
-            column for column in trade_display_columns
-            if column in radar_df.columns
-        ]
-
-        trade_rank_df = radar_df.copy()
-        if "Trade Score" in trade_rank_df.columns:
-            trade_rank_df["Trade Score"] = pd.to_numeric(
-                trade_rank_df["Trade Score"],
-                errors="coerce"
-            ).fillna(0)
-
-        if "Terminal Score" in trade_rank_df.columns:
-            trade_rank_df["Terminal Score"] = pd.to_numeric(
-                trade_rank_df["Terminal Score"],
-                errors="coerce"
-            ).fillna(0)
-
-        entry_df = trade_rank_df[
-            trade_rank_df["Trade Check"].astype(str).str.contains("Einstieg", case=False, na=False)
-        ].sort_values(by=["Trade Score", "Terminal Score"], ascending=[False, False]).head(30)
-
-        watch_df = trade_rank_df[
-            trade_rank_df["Trade Check"].astype(str).str.contains("Beobachten", case=False, na=False)
-        ].sort_values(by=["Trade Score", "Terminal Score"], ascending=[False, False]).head(30)
-
-        no_entry_df = trade_rank_df[
-            trade_rank_df["Trade Check"].astype(str).str.contains("Kein Einstieg", case=False, na=False)
-        ].sort_values(by=["Trade Score", "Terminal Score"], ascending=[True, True]).head(30)
-
-        st.markdown("##### ✅ Einstieg prüfenswert")
-        if entry_df.empty:
-            st.info("Aktuell kein sauberer Einstiegskandidat im Filter.")
-        else:
-            st.dataframe(entry_df[trade_display_columns], width="stretch", hide_index=True)
-
-        st.markdown("##### ⚠️ Beobachten")
-        if watch_df.empty:
-            st.info("Aktuell keine reinen Beobachtungskandidaten im Filter.")
-        else:
-            st.dataframe(watch_df[trade_display_columns], width="stretch", hide_index=True)
-
-        st.markdown("##### ❌ Kein Einstieg")
-        if no_entry_df.empty:
-            st.info("Aktuell keine klaren Meiden-Kandidaten im Filter.")
-        else:
-            st.dataframe(no_entry_df[trade_display_columns], width="stretch", hide_index=True)
 
 
     # ============================================================
@@ -4907,9 +4653,6 @@ with tab_analysis:
             "Ticker",
             "Company",
             "Currency",
-            "Trade Check",
-            "Trade Score",
-            "Trade Reason",
             "Terminal Grade",
             "Terminal Score",
             "Action Signal",
@@ -5391,7 +5134,6 @@ with tab_analysis:
 
         <p style="font-size:14px; margin:0 0 10px 0;">💰 <b>Preis:</b> {row['Price']} | 🌍 <b>Währung:</b> {row.get('Currency', '-')}</p>
 
-        <div style="font-size:14px; margin:6px 0 12px 0; background:#f0fdf4; padding:10px 12px; border-radius:12px; border:1px solid #bbf7d0;">✅ <b>Handels-Check:</b> {row['Trade Check']} | Score: {row['Trade Score']}/10<br><b>Grund:</b> {row['Trade Reason']}<br><b>Fazit:</b> {row['Trade Summary']}</div>
 
         <p style="font-size:14px; margin:0 0 10px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
 
