@@ -2297,8 +2297,6 @@ with tab_overview:
     # ============================================================
 
     with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
-        st.divider()
-
         st.caption(
             "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
             "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
@@ -2442,8 +2440,6 @@ with tab_network:
     # ============================================================
 
     with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
-        st.divider()
-
         st.markdown(
             """
             <div class="terminal-panel">
@@ -3772,8 +3768,6 @@ with tab_overview:
     # ============================================================
 
     with st.expander("📊 Markt-Metriken / Filter-Zusammenfassung", expanded=False):
-        st.divider()
-
         col1, col2, col3, col4, col5, col6 = st.columns(6)
 
         col1.metric(
@@ -4051,8 +4045,6 @@ with tab_dividends:
     # ============================================================
 
     with st.expander("📅 Dividendenkalender", expanded=True):
-        st.divider()
-
         dividend_calendar = df_filtered[
             (df_filtered["Ex Dividend Parsed"].notna())
             &
@@ -4112,8 +4104,6 @@ with tab_analysis:
     # ============================================================
 
     with st.expander("📋 Gesamttabelle", expanded=False):
-        st.divider()
-
         # Action Signal bewusst direkt nach Ticker und Company anzeigen,
         # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
         priority_columns = [
@@ -4156,8 +4146,6 @@ with tab_lists:
     # ============================================================
 
     with st.expander("⭐ Persönliche Watchlist & Kaufliste", expanded=True):
-        st.divider()
-
         current_user = st.session_state.get("current_user", "").strip()
 
         stock_options_df = df.dropna(subset=["Ticker"]).copy()
@@ -4589,8 +4577,6 @@ with tab_analysis:
     # ============================================================
 
     with st.expander("🔥 Aktienübersicht / Karten", expanded=False):
-        st.divider()
-
         for _, row in df_filtered.iterrows():
 
             color = get_border_color(row["Rating"])
