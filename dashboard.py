@@ -4438,11 +4438,8 @@ with tab_admin:
             ])
             st.dataframe(status_df, width="stretch", hide_index=True)
 
-        with st.expander("👑 Superuser-Übersicht", expanded=False):
+        with st.expander("👑 Superuser-Übersicht", expanded=True):
 
-            st.divider()
-
-            st.subheader("👑 Superuser-Übersicht")
 
             all_user_lists = load_user_lists()
 
