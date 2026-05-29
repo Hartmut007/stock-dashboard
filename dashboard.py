@@ -4139,16 +4139,36 @@ with tab_earnings:
             )
 
         with col_earn_2:
-            max_possible_earnings = max(1, len(earnings_universe_df))
-            default_scan = min(200, max_possible_earnings)
-            max_earnings_scan = st.slider(
-                "Max. Aktien scannen",
-                min_value=1,
-                max_value=max_possible_earnings,
-                value=default_scan,
-                step=1 if max_possible_earnings < 50 else 10,
-                key="max_earnings_scan"
-            )
+            earnings_count = len(earnings_universe_df)
+
+            if earnings_count == 0:
+                max_earnings_scan = 0
+                st.warning("Keine Aktien für den Earnings-Scan verfügbar.")
+
+            elif earnings_count == 1:
+                max_earnings_scan = 1
+                st.caption("1 Aktie für den Earnings-Scan verfügbar.")
+
+            else:
+                slider_max = earnings_count
+                slider_default = min(200, slider_max)
+
+                # Eigener Key je Universum/Anzahl, damit Streamlit keinen alten
+                # Slider-Wert verwendet, der außerhalb der neuen Range liegt.
+                earnings_slider_key = (
+                    f"max_earnings_scan_{earnings_universe_mode}_{earnings_count}"
+                    .replace(" ", "_")
+                    .replace("ä", "ae")
+                )
+
+                max_earnings_scan = st.slider(
+                    "Max. Aktien scannen",
+                    min_value=1,
+                    max_value=slider_max,
+                    value=slider_default,
+                    step=1 if slider_max < 50 else 10,
+                    key=earnings_slider_key
+                )
 
         with col_earn_3:
             st.info(
