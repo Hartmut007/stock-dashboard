@@ -2660,7 +2660,18 @@ with tab_overview:
         - **4 Risk-Off** → neue Käufe strenger prüfen, High-Risk-Titel vorsichtiger behandeln.
         - **5 Stress / Panik** → Kapitalerhalt, Cash und defensive Sektoren priorisieren.
 
-        Einbezogen werden u. a. **SPY, QQQ, VIX, High-Yield-Bonds, US-Bonds, US-Dollar, Gold, Silber, Öl, Gas, Kupfer, Platin, Palladium, Agrarrohstoffe, Uran und Lithium/Batterie-Themen**. Die Werte kommen über Yahoo/yfinance und dienen als Markt-Kontext, nicht als einzelnes Kaufsignal.
+        Einbezogen werden u. a. **SPY, QQQ, VIX, High-Yield-Bonds, US-Bonds, US-Dollar, Gold, Silber, Öl, Gas, Kupfer, Platin, Palladium, Kakao, Kaffee, Agrarrohstoffe, Uran und Lithium/Batterie-Themen**. Die Werte kommen über Yahoo/yfinance und dienen als Markt-Kontext, nicht als einzelnes Kaufsignal.
+
+        Die Rohstoffwerte helfen dabei, Inflation, Energiepreise und Risikoappetit besser einzuordnen:
+
+        - **Gold / Silber** → Sicherheits- und Inflationssignal. Stärke kann auf Unsicherheit, Zinserwartungen oder Absicherungsbedarf hindeuten.
+        - **Öl / Gas** → Energie- und Inflationsdruck. Starke Bewegungen können Energieaktien, Industrie und Verbraucher belasten oder begünstigen.
+        - **Kupfer** → Industrie- und Konjunktursignal. Kupferstärke kann auf Nachfrage aus Bau, Stromnetzen, Rechenzentren und Elektrifizierung hindeuten.
+        - **Platin / Palladium** → Industrie-, Auto- und Spezialmetall-Signal.
+        - **Kakao / Kaffee** → Agrar- und Lebensmittelpreissignal. Starke Preisanstiege können ein Hinweis auf Agrarpreis-Stress und mögliche Inflationseffekte sein.
+        - **Uran / Lithium-Battery** → Zukunfts- und Energiewende-Themen. Uran steht eher für Atomstrom/Grundlast, Lithium/Battery für Batterien, Speicher und E-Mobilität.
+
+        Der Markt-Tacho gewichtet diese Signale nicht als direkte Kaufempfehlung, sondern als **Umfeldanzeige**: In einem Risk-Off- oder Stress-Umfeld sollten spekulative, hoch bewertete oder schwache Aktien vorsichtiger behandelt werden; in einem Risk-On-Umfeld können gute Setups eher Rückenwind bekommen.
 
         ---
 
