@@ -2278,7 +2278,7 @@ with tab_overview:
             top_opportunities = top_opportunities.sort_values(
                 by=["Score", "Fundamental Score", "CRV Radar", "Valuation Score"],
                 ascending=[False, False, False, False]
-            ).head(20)
+            ).head(30)
 
             if top_opportunities.empty:
                 st.info("Keine klaren Top-Chancen im aktuellen Filter.")
@@ -2312,7 +2312,7 @@ with tab_overview:
             risk_radar = risk_radar[risk_mask].sort_values(
                 by=["Risk Level", "RSI", "1M %"],
                 ascending=[True, False, False]
-            ).head(20)
+            ).head(30)
 
             if risk_radar.empty:
                 st.info("Keine auffälligen Risiken im aktuellen Filter.")
@@ -2329,7 +2329,7 @@ with tab_overview:
             dividend_radar = dividend_radar.sort_values(
                 by=["Dividend Yield Radar", "Fundamental Score", "Score"],
                 ascending=[False, False, False]
-            ).head(20)
+            ).head(30)
 
             if dividend_radar.empty:
                 st.info("Keine Dividendenwerte im aktuellen Filter.")
