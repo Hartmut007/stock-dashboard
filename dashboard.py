@@ -1666,8 +1666,8 @@ def build_earnings_calendar(universe_df, max_tickers):
 st.title("📊 Hartmuts Dashboard")
 
 st.write(
-    "Aktienanalyse mit Momentum, RSI, EMA, "
-    "Turnaround-Erkennung, Risiko, Dividenden und Strategie-Horizont."
+    "Persönliches Aktien-Research-Terminal mit Signalen, Bewertung, Dividenden, "
+    "Earnings, Watchlists und Lieferketten-Netzwerk."
 )
 
 # ============================================================
@@ -1743,15 +1743,15 @@ st.markdown(
 st.markdown(
     """
 <div class="terminal-hero">
-    <div class="terminal-title">🧭 Research Terminal Cockpit</div>
+    <div class="terminal-title">🧭 Hartmut Research Terminal</div>
     <p class="terminal-subtitle">
-        Kompakte Startzentrale für Signal, Bewertung, Risiko, Dividende und Lieferketten-Netzwerk.
+        Deine zentrale Marktübersicht: Chancen, Risiken, Dividenden, Earnings, Nutzerlisten und Lieferketten-Zusammenhänge in einem kompakten Cockpit.
     </p>
-    <span class="terminal-chip">Technik</span>
-    <span class="terminal-chip">Fundamental</span>
+    <span class="terminal-chip">Terminal Radar</span>
     <span class="terminal-chip">Bewertung</span>
-    <span class="terminal-chip">Supply Chain</span>
-    <span class="terminal-chip">Watchlist</span>
+    <span class="terminal-chip">Earnings</span>
+    <span class="terminal-chip">Dividenden</span>
+    <span class="terminal-chip">Netzwerk</span>
 </div>
 """,
     unsafe_allow_html=True
@@ -1783,10 +1783,6 @@ tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends,
 ])
 
 with tab_overview:
-    st.caption(
-        "Übersicht ist bewusst schlank gehalten: Terminal-Radar zuerst. "
-        "Detailanalyse findest du im Tab 🧠 Analyse."
-    )
 
     # ============================================================
     # 📡 TERMINAL-RADAR: CHANCEN / RISIKEN / DIVIDENDEN
@@ -2210,6 +2206,31 @@ with tab_overview:
 
         ---
 
+
+        ---
+
+        ## 📆 Earnings / Earningskalender
+
+        Der **Earningskalender** zeigt kommende Quartalszahlen-Termine, soweit sie über die Datenquelle verfügbar sind. Er hilft dir, vor wichtigen Unternehmensereignissen nicht überrascht zu werden.
+
+        Angezeigt werden unter anderem:
+
+        - erwartetes Earnings-Datum
+        - Tage bis zum Termin
+        - verfügbare EPS-Schätzungen
+        - verfügbare Umsatz-Schätzungen
+        - aktuelles Terminal Grade / Terminal Score
+        - Action Signal, Bewertung und Risiko der Aktie
+
+        Interpretation:
+
+        - **Kurz vor Earnings** können Kurse stärker schwanken.
+        - Eine Aktie mit gutem Setup kann nach starken Zahlen weiterlaufen, aber bei Enttäuschung auch stark fallen.
+        - Bei High-Risk- oder Turnaround-Aktien sind Earnings besonders wichtig, weil sie die These bestätigen oder zerstören können.
+        - Fehlende Schätzwerte bedeuten nicht automatisch, dass keine Earnings existieren — manchmal liefert Yahoo/yfinance nur keine verwertbaren Daten.
+
+        Der Earningskalender ist deshalb ein **Risikokalender** und kein Kaufsignal. Vor Earnings sollte man Positionsgröße, Stop-Loss und Erwartungshaltung prüfen.
+
         ## 📡 Terminal-Radar
 
         Der Terminal-Radar zeigt schnelle Vorauswahlen:
@@ -2431,12 +2452,7 @@ with tab_network:
             """
             <div class="terminal-panel">
                 <h3>Market Relationship Terminal</h3>
-                <p>Wähle eine Hauptaktie und analysiere Lieferketten, Kunden, Konkurrenz, Energiebedarf, Speicher, Cloud und Risiken als Netzwerk.</p>
-                <span class="terminal-chip">Supply Chain</span>
-                <span class="terminal-chip">AI / Cloud</span>
-                <span class="terminal-chip">Energy / Datacenter</span>
-                <span class="terminal-chip">Competition</span>
-                <span class="terminal-chip">Risk Radar</span>
+                <p>Wähle eine Hauptaktie und erkenne, welche Unternehmen in der Wertschöpfungskette, als Zulieferer, Kunden, Konkurrenz oder Infrastrukturpartner daran hängen.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -2823,38 +2839,6 @@ with tab_network:
                         by=["supply_chain_stage", "category", "Importance Sort", "Ticker"],
                         ascending=True
                     )
-
-                    signal_summary = network_view["Action Signal"].fillna("Nicht in Hauptliste").value_counts()
-
-                    with st.expander("📊 Netzwerk-Signal anzeigen", expanded=False):
-                        st.caption(
-                            "Zählt die aktuellen Dashboard-Signale der verbundenen Aktien, "
-                            "sofern sie in deiner Hauptliste vorhanden sind."
-                        )
-
-                        signal_summary_df = signal_summary.reset_index()
-                        signal_summary_df.columns = ["Action Signal", "Anzahl"]
-
-                        st.dataframe(
-                            signal_summary_df,
-                            width="stretch",
-                            hide_index=True
-                        )
-
-                        bullish_count = network_view["Action Signal"].astype(str).str.contains(
-                            "BUY", case=False, na=False
-                        ).sum()
-                        avoid_count = network_view["Action Signal"].astype(str).str.contains(
-                            "AVOID|SELL", case=False, na=False
-                        ).sum()
-                        watch_count = network_view["Action Signal"].astype(str).str.contains(
-                            "WATCH", case=False, na=False
-                        ).sum()
-
-                        col_signal_1, col_signal_2, col_signal_3 = st.columns(3)
-                        col_signal_1.metric("Bullish im Netzwerk", int(bullish_count))
-                        col_signal_2.metric("Watch / Beobachten", int(watch_count))
-                        col_signal_3.metric("Schwach / Avoid", int(avoid_count))
 
                     display_columns = [
                         "supply_chain_stage",
@@ -3378,7 +3362,40 @@ with tab_network:
                                     f"Verbindung: {relationship}  \n"
                                     f"Risiko: {risk_note}"
                                 )
+
                                 st.divider()
+
+                    signal_summary = network_view["Action Signal"].fillna("Nicht in Hauptliste").value_counts()
+
+                    with st.expander("📊 Netzwerk-Signal anzeigen", expanded=False):
+                        st.caption(
+                            "Zählt die aktuellen Dashboard-Signale der verbundenen Aktien, "
+                            "sofern sie in deiner Hauptliste vorhanden sind. Diese Auswertung steht bewusst unter der Detail- und Kategorienansicht, damit erst die Beziehungen sichtbar sind und danach die Zusammenfassung folgt."
+                        )
+
+                        signal_summary_df = signal_summary.reset_index()
+                        signal_summary_df.columns = ["Action Signal", "Anzahl"]
+
+                        st.dataframe(
+                            signal_summary_df,
+                            width="stretch",
+                            hide_index=True
+                        )
+
+                        bullish_count = network_view["Action Signal"].astype(str).str.contains(
+                            "BUY", case=False, na=False
+                        ).sum()
+                        avoid_count = network_view["Action Signal"].astype(str).str.contains(
+                            "AVOID|SELL", case=False, na=False
+                        ).sum()
+                        watch_count = network_view["Action Signal"].astype(str).str.contains(
+                            "WATCH", case=False, na=False
+                        ).sum()
+
+                        col_signal_1, col_signal_2, col_signal_3 = st.columns(3)
+                        col_signal_1.metric("Bullish im Netzwerk", int(bullish_count))
+                        col_signal_2.metric("Watch / Beobachten", int(watch_count))
+                        col_signal_3.metric("Schwach / Avoid", int(avoid_count))
 
 # ============================================================
 # SIDEBAR FILTER
