@@ -1669,9 +1669,20 @@ MARKET_SIGNAL_TICKERS = {
     "QQQ": "Nasdaq 100 ETF",
     "^VIX": "VIX Volatilität",
     "HYG": "High-Yield Bonds",
-    "GLD": "Gold ETF",
-    "USO": "Öl ETF",
-    "TLT": "US Langläufer-Bonds"
+    "TLT": "US Langläufer-Bonds",
+    "DX-Y.NYB": "US-Dollar Index",
+    "GC=F": "Gold Future",
+    "SI=F": "Silber Future",
+    "CL=F": "WTI Öl Future",
+    "NG=F": "Erdgas Future",
+    "HG=F": "Kupfer Future",
+    "PL=F": "Platin Future",
+    "PA=F": "Palladium Future",
+    "CC=F": "Kakao Future",
+    "KC=F": "Kaffee Future",
+    "DBA": "Agrarrohstoffe ETF",
+    "URA": "Uran ETF",
+    "LIT": "Lithium/Battery ETF"
 }
 
 
@@ -1769,23 +1780,75 @@ def load_market_mode_data():
                     notes.append("High-Yield unter SMA50: Kreditrisiko beobachten")
                 row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
 
-            elif ticker in ["GLD", "TLT"]:
+            elif ticker == "TLT":
                 if above_50 and perf_1m is not None and perf_1m > 3:
-                    row["Signal"] = "Sicherer Hafen gefragt"
+                    row["Signal"] = "Bonds gefragt"
                     risk_points += 1
+                    notes.append("US-Langläufer steigen: Markt sucht Sicherheit / Renditen fallen")
                 elif above_50:
                     row["Signal"] = "Stabil"
                 else:
                     row["Signal"] = "Schwach"
                 row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
 
-            elif ticker == "USO":
-                if perf_1m is not None and perf_1m > 10:
-                    row["Signal"] = "Ölpreis-Stress"
+            elif ticker == "DX-Y.NYB":
+                if perf_1m is not None and perf_1m > 3:
+                    row["Signal"] = "Dollar-Stärke"
                     risk_points += 1
-                    notes.append("Öl stark gestiegen: Inflations-/Energieeffekt beobachten")
+                    notes.append("US-Dollar steigt deutlich: Gegenwind für Rohstoffe/Emerging Markets möglich")
+                elif perf_1m is not None and perf_1m < -3:
+                    row["Signal"] = "Dollar schwächer"
+                else:
+                    row["Signal"] = "Neutral"
+                row["Trend"] = "1M Momentum"
+
+            elif ticker in ["GC=F", "SI=F", "PL=F", "PA=F"]:
+                if above_50 and perf_1m is not None and perf_1m > 5:
+                    row["Signal"] = "Edelmetall-Stärke"
+                    risk_points += 1
+                    notes.append(f"{name} stark: Sicherheits-/Inflationssignal beobachten")
+                elif above_50:
+                    row["Signal"] = "Stabil / gefragt"
+                else:
+                    row["Signal"] = "Schwach"
+                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
+
+            elif ticker in ["CL=F", "NG=F"]:
+                if perf_1m is not None and perf_1m > 10:
+                    row["Signal"] = "Energiepreis-Stress"
+                    risk_points += 1
+                    notes.append(f"{name} stark gestiegen: Inflations-/Energieeffekt beachten")
                 elif perf_1m is not None and perf_1m < -10:
-                    row["Signal"] = "Öl schwach"
+                    row["Signal"] = "Energie schwach"
+                elif above_50:
+                    row["Signal"] = "Stabil"
+                else:
+                    row["Signal"] = "Neutral"
+                row["Trend"] = "1M Momentum"
+
+            elif ticker in ["HG=F", "URA", "LIT"]:
+                if above_50 and perf_1m is not None and perf_1m > 5:
+                    row["Signal"] = "Industrie-/Zukunftsrohstoff stark"
+                    risk_points -= 1
+                elif perf_1m is not None and perf_1m < -8:
+                    row["Signal"] = "Wachstumssignal schwach"
+                    risk_points += 1
+                    notes.append(f"{name} schwach: zyklische Nachfrage beobachten")
+                elif above_50:
+                    row["Signal"] = "Stabil"
+                else:
+                    row["Signal"] = "Neutral"
+                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
+
+            elif ticker in ["CC=F", "KC=F", "DBA"]:
+                if perf_1m is not None and perf_1m > 10:
+                    row["Signal"] = "Agrarpreis-Stress"
+                    risk_points += 1
+                    notes.append(f"{name} stark: Nahrungsmittel-/Inflationssignal beobachten")
+                elif perf_1m is not None and perf_1m < -10:
+                    row["Signal"] = "Agrar schwach"
+                elif above_50:
+                    row["Signal"] = "Stabil"
                 else:
                     row["Signal"] = "Neutral"
                 row["Trend"] = "1M Momentum"
@@ -2083,9 +2146,8 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_smartmoney, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends, tab_admin = st.tabs([
+tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends, tab_admin = st.tabs([
     "📊 Übersicht",
-    "🐋 Markt & Haie",
     "🧠 Analyse",
     "🕸️ Netzwerk",
     "⭐ Listen",
@@ -2095,6 +2157,39 @@ tab_overview, tab_smartmoney, tab_analysis, tab_network, tab_lists, tab_earnings
 ])
 
 with tab_overview:
+
+    # ============================================================
+    # 🧭 MARKTSIGNALE / MARKT-TACHO
+    # ============================================================
+
+    with st.expander("🧭 Marktsignale / Markt-Tacho", expanded=False):
+        market_data = load_market_mode_data()
+
+        gauge_col, detail_col = st.columns([1, 1.7])
+
+        with gauge_col:
+            render_market_gauge(
+                market_data["level"],
+                market_data["label"]
+            )
+            st.info(market_data["interpretation"])
+
+        with detail_col:
+            st.caption(
+                "Regelbasierter Markt-Kontext aus Aktienindizes, Volatilität, Kreditmarkt, Bonds, US-Dollar, Gold, Silber, Öl, Gas, Kupfer und weiteren Rohstoff-/Zukunftssegmenten."
+            )
+            st.dataframe(
+                pd.DataFrame(market_data["details"]),
+                width="stretch",
+                hide_index=True
+            )
+
+            if market_data["notes"]:
+                st.markdown("**Auffällige Hinweise:**")
+                for note in market_data["notes"]:
+                    st.write(f"- {note}")
+            else:
+                st.caption("Keine starken Stress-Hinweise aus den verwendeten Marktindikatoren.")
 
     # ============================================================
     # 📡 TERMINAL-RADAR: CHANCEN / RISIKEN / DIVIDENDEN
@@ -2543,14 +2638,19 @@ with tab_overview:
 
         Der Earningskalender ist deshalb ein **Risikokalender** und kein Kaufsignal. Vor Earnings sollte man Positionsgröße, Stop-Loss und Erwartungshaltung prüfen.
 
-        ## 🐋 Markt & Haie / Smart-Money-Light
+        ## 🧭 Marktsignale / Markt-Tacho
 
-        Das Modul **Markt & Haie** besteht aus zwei Teilen:
+        Die Marktsignale zeigen den aktuellen Gesamtmarkt-Kontext in 5 Stufen:
 
-        - **Markt-Tacho:** Zeigt, ob das Gesamtmarktumfeld eher Risk-On, neutral oder Risk-Off wirkt. Dafür werden VIX, SPY, QQQ, High-Yield-Bonds, Gold, Öl und Bonds regelbasiert ausgewertet.
-        - **Haifisch-Radar light:** Zeigt verfügbare Hinweise zu Shortquote, Days-to-cover, institutioneller Beteiligung, Insider-Beteiligung, Volumenauffälligkeit und Beta.
+        - **1 Risk-On** → Markt wirkt konstruktiv, Risikoappetit vorhanden.
+        - **2 Vorsichtig bullisch** → Umfeld freundlich, aber nicht ohne Risiko.
+        - **3 Neutral / gemischt** → selektive Setups bevorzugen.
+        - **4 Risk-Off** → neue Käufe strenger prüfen, High-Risk-Titel vorsichtiger behandeln.
+        - **5 Stress / Panik** → Kapitalerhalt, Cash und defensive Sektoren priorisieren.
 
-        Wichtig: Das ist kein perfekter Live-Blick auf Hedgefonds. Viele echte Smart-Money-Daten sind verzögert oder kostenpflichtig. Das Modul hilft dir aber, mögliche Rückenwind-/Gegenwind-Signale besser einzuordnen.
+        Einbezogen werden u. a. **SPY, QQQ, VIX, High-Yield-Bonds, US-Bonds, US-Dollar, Gold, Silber, Öl, Gas, Kupfer, Platin, Palladium, Agrarrohstoffe, Uran und Lithium/Batterie-Themen**. Die Werte kommen über Yahoo/yfinance und dienen als Markt-Kontext, nicht als einzelnes Kaufsignal.
+
+        ---
 
         ## 📡 Terminal-Radar
 
@@ -3733,6 +3833,10 @@ selected_stocks = st.sidebar.multiselect(
     default=[]
 )
 
+turnaround_only = st.sidebar.checkbox(
+    "Nur Turnaround Kandidaten"
+)
+
 ratings = st.sidebar.multiselect(
     "Ratings",
     options=df["Rating"].unique(),
@@ -3829,10 +3933,6 @@ if not valid_valuation_scores.empty:
 else:
     selected_valuation_score_range = None
     st.sidebar.caption("Valuation Score: keine Daten")
-
-turnaround_only = st.sidebar.checkbox(
-    "Nur Turnaround Kandidaten"
-)
 
 sort_option = st.sidebar.selectbox(
     "Sortieren nach",
@@ -4082,181 +4182,6 @@ if sort_option in df_filtered.columns:
             ascending=False
         )
 
-
-
-with tab_smartmoney:
-
-    with st.expander("🧭 Markt-Tacho: Gesamtmarkt-Modus", expanded=True):
-        market_data = load_market_mode_data()
-
-        gauge_col, detail_col = st.columns([1, 1.4])
-
-        with gauge_col:
-            render_market_gauge(
-                market_data["level"],
-                market_data["label"]
-            )
-            st.info(market_data["interpretation"])
-
-        with detail_col:
-            st.markdown("### Marktsignale")
-            st.dataframe(
-                pd.DataFrame(market_data["details"]),
-                width="stretch",
-                hide_index=True
-            )
-
-            if market_data["notes"]:
-                st.markdown("**Auffällige Hinweise:**")
-                for note in market_data["notes"]:
-                    st.write(f"- {note}")
-            else:
-                st.caption("Keine starken Stress-Hinweise aus den verwendeten Marktindikatoren.")
-
-        st.caption(
-            "Der Markt-Tacho ist ein regelbasierter Kontextindikator aus VIX, SPY, QQQ, HYG, Gold, Öl und Bonds. "
-            "Er ist kein Handelssignal, sondern zeigt, ob das Umfeld eher risk-on oder risk-off wirkt."
-        )
-
-    with st.expander("🐋 Haifisch-Radar light: Short, Institutionelle & Volumen", expanded=True):
-        st.caption(
-            "Dieses Modul nutzt verfügbare Yahoo/yfinance-Felder. Viele echte Hedgefonds-/Options-/Dark-Pool-Daten sind verzögert oder nur über professionelle APIs verfügbar. "
-            "Darum ist das hier bewusst ein Smart-Money-Light-Radar."
-        )
-
-        smart_source_mode = st.radio(
-            "Haifisch-Universum",
-            options=[
-                "Aktuell gefilterte Aktien",
-                "Alle Aktien"
-            ],
-            horizontal=True,
-            key="smart_money_source_mode"
-        )
-
-        if smart_source_mode == "Aktuell gefilterte Aktien":
-            smart_source_df = df_filtered.copy()
-        else:
-            smart_source_df = df.copy()
-
-        smart_count = len(smart_source_df)
-
-        if smart_count == 0:
-            st.warning("Keine Aktien für den Haifisch-Scan verfügbar.")
-            max_smart_scan = 0
-        elif smart_count == 1:
-            max_smart_scan = 1
-            st.caption("1 Aktie für den Haifisch-Scan verfügbar.")
-        else:
-            max_smart_scan = st.slider(
-                "Max. Aktien scannen",
-                min_value=1,
-                max_value=min(200, smart_count),
-                value=min(40, smart_count, 200),
-                step=1,
-                key=f"max_smart_scan_{smart_count}"
-            )
-
-        run_smart_scan = st.button(
-            "🐋 Haifisch-Radar aktualisieren",
-            key="run_smart_money_scan"
-        )
-
-        if max_smart_scan > 0 and run_smart_scan:
-            tickers_to_scan = (
-                smart_source_df["Ticker"]
-                .dropna()
-                .astype(str)
-                .str.strip()
-                .drop_duplicates()
-                .head(max_smart_scan)
-                .tolist()
-            )
-
-            smart_df = load_smart_money_light(tickers_to_scan)
-
-            merge_cols = [
-                "Ticker",
-                "Company",
-                "Terminal Grade",
-                "Terminal Score",
-                "Action Signal",
-                "Valuation Status",
-                "Setup Quality",
-                "Risk Level",
-                "Price",
-                "CRV"
-            ]
-            merge_cols = [col for col in merge_cols if col in smart_source_df.columns]
-
-            signal_view = smart_source_df[merge_cols].copy()
-            signal_view["Ticker"] = signal_view["Ticker"].astype(str).str.strip()
-
-            smart_view = smart_df.merge(
-                signal_view,
-                on="Ticker",
-                how="left"
-            )
-
-            smart_view = smart_view.sort_values(
-                by="Smart Money Score",
-                ascending=False
-            )
-
-            col_sm1, col_sm2, col_sm3, col_sm4 = st.columns(4)
-            col_sm1.metric("Gescannte Aktien", len(smart_view))
-            col_sm2.metric("Rückenwind", (smart_view["Smart Money Signal"] == "🟢 Rückenwind").sum())
-            col_sm3.metric("Gemischt", (smart_view["Smart Money Signal"] == "🟡 Gemischt").sum())
-            col_sm4.metric("Gegenwind", (smart_view["Smart Money Signal"] == "🔴 Gegenwind").sum())
-
-            display_cols = [
-                "Ticker",
-                "Company",
-                "Smart Money Signal",
-                "Smart Money Score",
-                "Short % Float",
-                "Short Ratio",
-                "Institutional %",
-                "Insider %",
-                "Volume vs Avg",
-                "Beta",
-                "Terminal Grade",
-                "Action Signal",
-                "Valuation Status",
-                "Risk Level",
-                "Smart Money Hinweise"
-            ]
-            display_cols = [col for col in display_cols if col in smart_view.columns]
-
-            st.dataframe(
-                smart_view[display_cols],
-                width="stretch",
-                hide_index=True
-            )
-
-            st.download_button(
-                "⬇️ Haifisch-Radar als CSV exportieren",
-                data=smart_view[display_cols].to_csv(index=False, sep=";").encode("utf-8-sig"),
-                file_name="hartmut_terminal_haifisch_radar.csv",
-                mime="text/csv"
-            )
-
-        else:
-            st.info("Klicke auf 'Haifisch-Radar aktualisieren', um Short-/Institutional-/Volumen-Indikatoren für die ausgewählten Aktien zu laden.")
-
-    with st.expander("📌 Was fehlt für echtes Profi-Smart-Money?", expanded=False):
-        st.markdown(
-            """
-            Für ein wirklich professionelles Haifisch-Modul wären später zusätzliche APIs sinnvoll:
-
-            - **Short Interest / Borrow Fee**: z. B. Fintel, Ortex, S3, Polygon/Massive
-            - **Institutionelle 13F-Veränderungen**: Fintel oder Financial Modeling Prep
-            - **Options Flow / Put-Call**: Tradier, Polygon, Unusual Whales oder ähnliche Anbieter
-            - **Dark Pool / Off-Exchange Volume**: spezialisierte Marktdatenanbieter
-
-            Das jetzige Modul ist ein stabiler Start ohne Zusatzkosten: Es zeigt den Marktmodus und verfügbare Short-/Institutional-/Volumen-Hinweise, ohne falsche Echtzeit-Genauigkeit vorzutäuschen.
-            """
-        )
 
 
 with tab_overview:
