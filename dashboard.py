@@ -1891,33 +1891,45 @@ def load_market_mode_data():
 
 
 def render_market_gauge(level, label):
-    """Rendert einen einfachen 5-Stufen-Tacho als HTML."""
+    """Rendert einen einfachen 5-Stufen-Tacho als kompaktes HTML.
 
-    segments = []
+    Wichtig: Die Segment-HTMLs werden bewusst ohne eingerückte Mehrzeilen-Strings
+    gebaut. Sonst interpretiert Streamlit/Markdown sie gelegentlich als Codeblock.
+    """
+
     colors = ["#16a34a", "#22c55e", "#eab308", "#f97316", "#dc2626"]
     names = ["Risk-On", "Bullisch", "Neutral", "Risk-Off", "Stress"]
 
+    segments = []
+
     for i in range(1, 6):
         active = i == level
+        bg_color = colors[i - 1] if active else "#1e293b"
+        font_weight = "850" if active else "600"
+        border_color = "rgba(248,250,252,0.75)" if active else "rgba(148,163,184,0.28)"
+
         segments.append(
-            f"""
-            <div style='flex:1; padding:10px 8px; border-radius:12px; text-align:center; background:{colors[i-1] if active else "#1e293b"}; color:#f8fafc; border:1px solid rgba(148,163,184,0.28); font-weight:{'850' if active else '600'};'>
-                <div style='font-size:18px;'>{i}</div>
-                <div style='font-size:11px;'>{names[i-1]}</div>
-            </div>
-            """
+            "<div style=\"flex:1; padding:10px 8px; border-radius:12px; "
+            f"text-align:center; background:{bg_color}; color:#f8fafc; "
+            f"border:1px solid {border_color}; font-weight:{font_weight};\">"
+            f"<div style=\"font-size:18px; line-height:1.1;\">{i}</div>"
+            f"<div style=\"font-size:11px; line-height:1.2; margin-top:4px;\">{names[i - 1]}</div>"
+            "</div>"
         )
 
-    st.markdown(
-        f"""
-        <div style='background:linear-gradient(135deg,#020617,#0f172a); border:1px solid rgba(148,163,184,0.3); border-radius:18px; padding:16px; margin:6px 0 12px 0;'>
-            <div style='color:#e5e7eb; font-size:13px; font-weight:800; margin-bottom:8px;'>Markt-Tacho</div>
-            <div style='color:#f8fafc; font-size:25px; font-weight:900; margin-bottom:12px;'>{label}</div>
-            <div style='display:flex; gap:8px;'>{''.join(segments)}</div>
-        </div>
-        """,
-        unsafe_allow_html=True
+    segments_html = "".join(segments)
+
+    html = (
+        "<div style=\"background:linear-gradient(135deg,#020617,#0f172a); "
+        "border:1px solid rgba(148,163,184,0.3); border-radius:18px; "
+        "padding:16px; margin:6px 0 12px 0;\">"
+        "<div style=\"color:#e5e7eb; font-size:13px; font-weight:800; margin-bottom:8px;\">Markt-Tacho</div>"
+        f"<div style=\"color:#f8fafc; font-size:25px; font-weight:900; margin-bottom:12px;\">{label}</div>"
+        f"<div style=\"display:flex; gap:8px;\">{segments_html}</div>"
+        "</div>"
     )
+
+    st.markdown(html, unsafe_allow_html=True)
 
 
 @st.cache_data(ttl=60 * 60 * 6)
