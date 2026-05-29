@@ -2262,83 +2262,85 @@ with tab_overview:
             if column in radar_df.columns
         ]
 
-        radar_col1, radar_col2, radar_col3 = st.columns(3)
+        # Radar bewusst untereinander statt nebeneinander anzeigen.
+        # Dadurch sind die Tabellen besser lesbar, besonders bei 30 Einträgen.
 
-        with radar_col1:
-            st.markdown("#### 🟢 Top-Chancen")
-            top_opportunities = radar_df.copy()
-            if "Action Signal" in top_opportunities.columns:
-                top_opportunities = top_opportunities[
-                    top_opportunities["Action Signal"].astype(str).str.contains(
-                        "BUY|TURNAROUND",
-                        case=False,
-                        na=False
-                    )
-                ]
-            top_opportunities = top_opportunities.sort_values(
-                by=["Score", "Fundamental Score", "CRV Radar", "Valuation Score"],
-                ascending=[False, False, False, False]
-            ).head(30)
-
-            if top_opportunities.empty:
-                st.info("Keine klaren Top-Chancen im aktuellen Filter.")
-            else:
-                st.dataframe(
-                    top_opportunities[radar_display_columns],
-                    width="stretch",
-                    hide_index=True
-                )
-
-        with radar_col2:
-            st.markdown("#### 🔴 Risiko-/Überhitzungsradar")
-            risk_radar = radar_df.copy()
-            risk_mask = pd.Series(False, index=risk_radar.index)
-
-            if "Risk Level" in risk_radar.columns:
-                risk_mask = risk_mask | (risk_radar["Risk Level"].astype(str) == "HIGH RISK")
-            if "Action Signal" in risk_radar.columns:
-                risk_mask = risk_mask | risk_radar["Action Signal"].astype(str).str.contains(
-                    "AVOID|OVERHEATED|TAKE PROFIT",
+        st.markdown("#### 🟢 Top-Chancen")
+        top_opportunities = radar_df.copy()
+        if "Action Signal" in top_opportunities.columns:
+            top_opportunities = top_opportunities[
+                top_opportunities["Action Signal"].astype(str).str.contains(
+                    "BUY|TURNAROUND",
                     case=False,
                     na=False
                 )
-            if "Valuation Status" in risk_radar.columns:
-                risk_mask = risk_mask | risk_radar["Valuation Status"].astype(str).str.contains(
-                    "überbewertet|teuer",
-                    case=False,
-                    na=False
-                )
+            ]
+        top_opportunities = top_opportunities.sort_values(
+            by=["Score", "Fundamental Score", "CRV Radar", "Valuation Score"],
+            ascending=[False, False, False, False]
+        ).head(30)
 
-            risk_radar = risk_radar[risk_mask].sort_values(
-                by=["Risk Level", "RSI", "1M %"],
-                ascending=[True, False, False]
-            ).head(30)
+        if top_opportunities.empty:
+            st.info("Keine klaren Top-Chancen im aktuellen Filter.")
+        else:
+            st.dataframe(
+                top_opportunities[radar_display_columns],
+                width="stretch",
+                hide_index=True
+            )
 
-            if risk_radar.empty:
-                st.info("Keine auffälligen Risiken im aktuellen Filter.")
-            else:
-                st.dataframe(
-                    risk_radar[radar_display_columns],
-                    width="stretch",
-                    hide_index=True
-                )
+        st.markdown("---")
 
-        with radar_col3:
-            st.markdown("#### 💸 Dividendenradar")
-            dividend_radar = radar_df[radar_df["Dividend Yield Radar"] > 0].copy()
-            dividend_radar = dividend_radar.sort_values(
-                by=["Dividend Yield Radar", "Fundamental Score", "Score"],
-                ascending=[False, False, False]
-            ).head(30)
+        st.markdown("#### 🔴 Risiko-/Überhitzungsradar")
+        risk_radar = radar_df.copy()
+        risk_mask = pd.Series(False, index=risk_radar.index)
 
-            if dividend_radar.empty:
-                st.info("Keine Dividendenwerte im aktuellen Filter.")
-            else:
-                st.dataframe(
-                    dividend_radar[radar_display_columns],
-                    width="stretch",
-                    hide_index=True
-                )
+        if "Risk Level" in risk_radar.columns:
+            risk_mask = risk_mask | (risk_radar["Risk Level"].astype(str) == "HIGH RISK")
+        if "Action Signal" in risk_radar.columns:
+            risk_mask = risk_mask | risk_radar["Action Signal"].astype(str).str.contains(
+                "AVOID|OVERHEATED|TAKE PROFIT",
+                case=False,
+                na=False
+            )
+        if "Valuation Status" in risk_radar.columns:
+            risk_mask = risk_mask | risk_radar["Valuation Status"].astype(str).str.contains(
+                "überbewertet|teuer",
+                case=False,
+                na=False
+            )
+
+        risk_radar = risk_radar[risk_mask].sort_values(
+            by=["Risk Level", "RSI", "1M %"],
+            ascending=[True, False, False]
+        ).head(30)
+
+        if risk_radar.empty:
+            st.info("Keine auffälligen Risiken im aktuellen Filter.")
+        else:
+            st.dataframe(
+                risk_radar[radar_display_columns],
+                width="stretch",
+                hide_index=True
+            )
+
+        st.markdown("---")
+
+        st.markdown("#### 💸 Dividendenradar")
+        dividend_radar = radar_df[radar_df["Dividend Yield Radar"] > 0].copy()
+        dividend_radar = dividend_radar.sort_values(
+            by=["Dividend Yield Radar", "Fundamental Score", "Score"],
+            ascending=[False, False, False]
+        ).head(30)
+
+        if dividend_radar.empty:
+            st.info("Keine Dividendenwerte im aktuellen Filter.")
+        else:
+            st.dataframe(
+                dividend_radar[radar_display_columns],
+                width="stretch",
+                hide_index=True
+            )
 
 
     # ============================================================
