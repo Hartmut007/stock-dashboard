@@ -2299,8 +2299,6 @@ with tab_overview:
     with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
         st.divider()
 
-        st.subheader("🍕 PizzINT / Geopolitischer Stress-Indikator")
-
         st.caption(
             "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
             "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
@@ -2445,8 +2443,6 @@ with tab_network:
 
     with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
         st.divider()
-
-        st.subheader("🕸️ Aktien-Netzwerk / Themen-Mapping")
 
         st.markdown(
             """
@@ -4057,8 +4053,6 @@ with tab_dividends:
     with st.expander("📅 Dividendenkalender", expanded=True):
         st.divider()
 
-        st.subheader("📅 Dividendenkalender")
-
         dividend_calendar = df_filtered[
             (df_filtered["Ex Dividend Parsed"].notna())
             &
@@ -4120,8 +4114,6 @@ with tab_analysis:
     with st.expander("📋 Gesamttabelle", expanded=False):
         st.divider()
 
-        st.subheader("📋 Gesamttabelle")
-
         # Action Signal bewusst direkt nach Ticker und Company anzeigen,
         # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
         priority_columns = [
@@ -4165,8 +4157,6 @@ with tab_lists:
 
     with st.expander("⭐ Persönliche Watchlist & Kaufliste", expanded=True):
         st.divider()
-
-        st.subheader("⭐ Persönliche Aktienlisten")
 
         current_user = st.session_state.get("current_user", "").strip()
 
@@ -4600,8 +4590,6 @@ with tab_analysis:
 
     with st.expander("🔥 Aktienübersicht / Karten", expanded=False):
         st.divider()
-
-        st.subheader("🔥 Aktienübersicht")
 
         for _, row in df_filtered.iterrows():
 
