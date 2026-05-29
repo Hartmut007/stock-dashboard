@@ -3935,23 +3935,6 @@ turnaround_only = st.sidebar.checkbox(
     "Nur Turnaround Kandidaten"
 )
 
-# Währungsfilter direkt im Hauptfilter: praktisch, wenn USD/EUR/CHF usw. getrennt betrachtet werden sollen.
-currency_options = sorted(
-    df["Currency"]
-    .fillna("Unbekannt")
-    .astype(str)
-    .str.strip()
-    .replace({"": "Unbekannt"})
-    .unique()
-    .tolist()
-) if "Currency" in df.columns else []
-
-selected_currencies = st.sidebar.multiselect(
-    "Currency / Währung",
-    options=currency_options,
-    default=currency_options
-)
-
 ratings = st.sidebar.multiselect(
     "Ratings",
     options=df["Rating"].unique(),
@@ -4015,17 +3998,58 @@ valid_price_values = price_filter_values.dropna()
 if not valid_price_values.empty:
     price_min = float(valid_price_values.min())
     price_max = float(valid_price_values.max())
+    price_step = max(round((price_max - price_min) / 200, 2), 0.01)
 
-    selected_price_range = st.sidebar.slider(
-        "Price Range",
-        min_value=price_min,
-        max_value=price_max,
-        value=(price_min, price_max),
-        step=max(round((price_max - price_min) / 200, 2), 0.01)
+    st.sidebar.markdown("**Price Range**")
+    price_col_1, price_col_2 = st.sidebar.columns(2)
+    with price_col_1:
+        selected_price_min = st.number_input(
+            "Min",
+            min_value=0.0,
+            max_value=max(price_max, 0.0),
+            value=max(price_min, 0.0),
+            step=price_step,
+            format="%.2f",
+            key="price_range_min"
+        )
+    with price_col_2:
+        selected_price_max = st.number_input(
+            "Max",
+            min_value=0.0,
+            max_value=max(price_max, 0.0),
+            value=max(price_max, 0.0),
+            step=price_step,
+            format="%.2f",
+            key="price_range_max"
+        )
+
+    if selected_price_min > selected_price_max:
+        st.sidebar.warning("Price Range: Minimum ist größer als Maximum.")
+
+    selected_price_range = (
+        min(float(selected_price_min), float(selected_price_max)),
+        max(float(selected_price_min), float(selected_price_max))
     )
 else:
     selected_price_range = None
     st.sidebar.caption("Price Range: keine verwertbaren Preisdaten")
+
+# Währungsfilter direkt unter dem Preisbereich: erst Preisspanne, dann Markt-/Währungskontext.
+currency_options = sorted(
+    df["Currency"]
+    .fillna("Unbekannt")
+    .astype(str)
+    .str.strip()
+    .replace({"": "Unbekannt"})
+    .unique()
+    .tolist()
+) if "Currency" in df.columns else []
+
+selected_currencies = st.sidebar.multiselect(
+    "Currency / Währung",
+    options=currency_options,
+    default=currency_options
+)
 
 valuation_score_values = (
     pd.to_numeric(df["Valuation Score"], errors="coerce")
