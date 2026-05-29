@@ -392,6 +392,76 @@ df = pd.read_csv(
 
 
 # ============================================================
+# WÄHRUNG / CURRENCY ABSICHERN
+# ============================================================
+
+def infer_currency_from_row(row):
+    """Leitet eine Währung aus vorhandener Currency-Spalte, Preistext oder Yahoo-Suffix ab."""
+
+    # 1) Vorhandene Currency-/Währungsspalten nutzen, falls vorhanden.
+    for column in row.index:
+        if str(column).strip().lower() in ["currency", "währung", "waehrung"]:
+            value = str(row.get(column, "")).strip().upper()
+            if value and value not in ["-", "NAN", "NONE"]:
+                return value
+
+    # 2) Aus Preistext ableiten, wenn Symbol enthalten ist.
+    price_text = str(row.get("Price", "")).upper()
+    if "€" in price_text or " EUR" in price_text:
+        return "EUR"
+    if "$" in price_text or " USD" in price_text:
+        return "USD"
+    if "CHF" in price_text:
+        return "CHF"
+    if "GBP" in price_text or "£" in price_text:
+        return "GBP"
+    if "JPY" in price_text or "¥" in price_text:
+        return "JPY"
+    if "CAD" in price_text:
+        return "CAD"
+    if "AUD" in price_text:
+        return "AUD"
+    if "HKD" in price_text:
+        return "HKD"
+    if "CNY" in price_text:
+        return "CNY"
+
+    # 3) Aus Yahoo-Ticker-Suffix grob ableiten.
+    ticker = str(row.get("Ticker", "")).upper().strip()
+    suffix_currency_map = {
+        ".DE": "EUR", ".F": "EUR", ".BE": "EUR", ".DU": "EUR", ".MU": "EUR", ".HM": "EUR", ".HA": "EUR", ".PA": "EUR", ".AS": "EUR", ".MC": "EUR", ".MI": "EUR", ".VI": "EUR", ".BR": "EUR", ".LS": "EUR",
+        ".SW": "CHF",
+        ".L": "GBP",
+        ".TO": "CAD", ".V": "CAD",
+        ".AX": "AUD",
+        ".HK": "HKD",
+        ".T": "JPY",
+        ".SS": "CNY", ".SZ": "CNY",
+        ".ST": "SEK", ".OL": "NOK", ".CO": "DKK",
+    }
+    for suffix, currency in suffix_currency_map.items():
+        if ticker.endswith(suffix):
+            return currency
+
+    # 4) US-Ticker ohne Suffix als USD einordnen, sonst unbekannt.
+    if ticker and "." not in ticker:
+        return "USD"
+
+    return "Unbekannt"
+
+# Falls die Analyse-Datei keine Currency-Spalte enthält, wird sie robust ergänzt.
+# Existierende Werte bleiben erhalten, leere Werte werden ergänzt.
+if "Currency" not in df.columns:
+    df["Currency"] = df.apply(infer_currency_from_row, axis=1)
+else:
+    df["Currency"] = df["Currency"].astype(str).str.strip().replace({"": "Unbekannt", "nan": "Unbekannt", "None": "Unbekannt", "-": "Unbekannt"})
+    missing_currency_mask = df["Currency"].isin(["Unbekannt", "nan", "None", "-"])
+    if missing_currency_mask.any():
+        df.loc[missing_currency_mask, "Currency"] = df.loc[missing_currency_mask].apply(infer_currency_from_row, axis=1)
+
+
+
+# ============================================================
 # DATUM FÜR DIVIDENDENKALENDER VORBEREITEN
 # ============================================================
 
@@ -1349,6 +1419,193 @@ df = pd.concat(
     axis=1
 )
 
+
+# ============================================================
+# ✅ HANDELS-CHECKLISTE: EINSTIEG / WATCH / KEIN EINSTIEG
+# ============================================================
+
+def build_trade_check(row):
+    """Regelbasierte Handels-Checkliste.
+    Ziel: keine Kaufempfehlung, sondern eine klare Vorauswahl für die manuelle Prüfung.
+    """
+
+    terminal_score = safe_float(row.get("Terminal Score"))
+    terminal_grade = str(row.get("Terminal Grade", ""))
+    action_signal = str(row.get("Action Signal", ""))
+    valuation_status = str(row.get("Valuation Status", ""))
+    valuation_score = safe_float(row.get("Valuation Score"))
+    risk_level = str(row.get("Risk Level", ""))
+    setup_quality = str(row.get("Setup Quality", ""))
+    crv = safe_float(row.get("CRV"))
+    rsi = safe_float(row.get("RSI"))
+    score = safe_float(row.get("Score"))
+    fundamental_score = safe_float(row.get("Fundamental Score"))
+    turnaround = str(row.get("Turnaround Candidate", ""))
+
+    trade_score = 0
+    positives = []
+    negatives = []
+
+    # Terminal-Bild
+    if terminal_score is not None:
+        if terminal_score >= 80:
+            trade_score += 3
+            positives.append("Terminal Score sehr stark")
+        elif terminal_score >= 65:
+            trade_score += 2
+            positives.append("Terminal Score stark")
+        elif terminal_score >= 50:
+            trade_score += 1
+            positives.append("Terminal Score beobachtbar")
+        elif terminal_score < 35:
+            trade_score -= 2
+            negatives.append("Terminal Score schwach")
+
+    if terminal_grade.startswith("A"):
+        trade_score += 2
+        positives.append("Terminal Grade A")
+    elif terminal_grade.startswith("B"):
+        trade_score += 1
+        positives.append("Terminal Grade B")
+    elif terminal_grade.startswith("D") or terminal_grade.startswith("E"):
+        trade_score -= 1
+        negatives.append("Terminal Grade schwach")
+
+    # Signal / Setup
+    if "BUY ZONE" in action_signal:
+        trade_score += 3
+        positives.append("BUY ZONE")
+    elif "TURNAROUND" in action_signal:
+        trade_score += 1
+        positives.append("Turnaround-Watch")
+    elif "WATCH" in action_signal:
+        trade_score += 1
+        positives.append("Watchlist-Signal")
+    elif "TAKE PROFIT" in action_signal:
+        trade_score -= 1
+        negatives.append("Take-Profit/Überhitzung")
+    elif "SELL" in action_signal or "AVOID" in action_signal:
+        trade_score -= 4
+        negatives.append("Sell/Avoid-Signal")
+
+    if setup_quality in ["Sehr gut", "Gut"]:
+        trade_score += 1
+        positives.append("Setup Qualität gut")
+    elif setup_quality in ["Schwach", "Überhitzt", "Langfristig schwach"]:
+        trade_score -= 1
+        negatives.append("Setup Qualität schwach/überhitzt")
+
+    # Bewertung
+    if "unterbewertet" in valuation_status.lower():
+        trade_score += 2
+        positives.append("eher unterbewertet")
+    elif "fair" in valuation_status.lower():
+        trade_score += 1
+        positives.append("Bewertung fair/vertretbar")
+    elif "überbewertet" in valuation_status.lower() or "teuer" in valuation_status.lower():
+        trade_score -= 2
+        negatives.append("Bewertung teuer/überbewertet")
+
+    if valuation_score is not None:
+        if valuation_score >= 3:
+            trade_score += 1
+        elif valuation_score <= -3:
+            trade_score -= 1
+
+    # Risiko / CRV / Momentum
+    if risk_level == "LOW RISK":
+        trade_score += 1
+        positives.append("niedriges Risiko")
+    elif risk_level == "HIGH RISK":
+        trade_score -= 3
+        negatives.append("High Risk")
+
+    if crv is not None:
+        if crv >= 2:
+            trade_score += 2
+            positives.append("CRV attraktiv")
+        elif crv >= 1.5:
+            trade_score += 1
+            positives.append("CRV brauchbar")
+        elif crv < 1:
+            trade_score -= 1
+            negatives.append("CRV schwach")
+
+    if rsi is not None:
+        if 40 <= rsi <= 68:
+            trade_score += 1
+            positives.append("RSI nicht überhitzt")
+        elif rsi >= 75:
+            trade_score -= 2
+            negatives.append("RSI stark überhitzt")
+        elif rsi <= 30:
+            trade_score -= 1
+            negatives.append("RSI sehr schwach/überverkauft")
+
+    if score is not None:
+        if score >= 6:
+            trade_score += 1
+            positives.append("technischer Score gut")
+        elif score <= 3:
+            trade_score -= 1
+            negatives.append("technischer Score schwach")
+
+    if fundamental_score is not None:
+        if fundamental_score >= 6:
+            trade_score += 1
+            positives.append("Fundamental Score gut")
+        elif fundamental_score <= 2:
+            trade_score -= 1
+            negatives.append("Fundamental Score schwach")
+
+    if turnaround == "YES":
+        trade_score += 1
+        positives.append("Turnaround-Kandidat")
+
+    # Harte Bremsen: diese Punkte verhindern ein klares Einstiegssignal.
+    hard_stop = (
+        risk_level == "HIGH RISK"
+        or "SELL" in action_signal
+        or "AVOID" in action_signal
+        or ("überbewertet" in valuation_status.lower() and terminal_score is not None and terminal_score < 65)
+    )
+
+    trade_score = int(max(0, min(10, trade_score)))
+
+    if trade_score >= 7 and not hard_stop:
+        trade_check = "✅ Einstieg prüfenswert"
+        trade_summary = "Mehrere Kernsignale passen zusammen. Manuelle Prüfung von News, Earnings und Positionsgröße sinnvoll."
+    elif trade_score <= 3 or hard_stop:
+        trade_check = "❌ Kein Einstieg"
+        trade_summary = "Aktuell sprechen Risiko, Signal, Bewertung oder schwaches Gesamtbild gegen einen Einstieg."
+    else:
+        trade_check = "⚠️ Beobachten"
+        trade_summary = "Interessant, aber noch nicht sauber genug. Auf Bestätigung, Rücksetzer oder bessere Daten warten."
+
+    reason_parts = []
+    if positives:
+        reason_parts.append("Plus: " + " | ".join(unique_items(positives)[:5]))
+    if negatives:
+        reason_parts.append("Minus: " + " | ".join(unique_items(negatives)[:5]))
+
+    return pd.Series({
+        "Trade Check": trade_check,
+        "Trade Score": trade_score,
+        "Trade Reason": " · ".join(reason_parts) if reason_parts else "Zu wenige klare Signale.",
+        "Trade Summary": trade_summary
+    })
+
+
+trade_columns = df.apply(
+    build_trade_check,
+    axis=1
+)
+
+df = pd.concat(
+    [df, trade_columns],
+    axis=1
+)
+
 # ============================================================
 # STREAMLIT-TABELLENKOMPATIBILITÄT
 # ============================================================
@@ -2247,6 +2504,9 @@ with tab_overview:
         radar_display_columns = [
             "Ticker",
             "Company",
+            "Currency",
+            "Trade Check",
+            "Trade Score",
             "Action Signal",
             "Valuation Status",
             "Score",
@@ -2341,6 +2601,73 @@ with tab_overview:
                 width="stretch",
                 hide_index=True
             )
+
+        st.markdown("---")
+        st.markdown("#### ✅ Handels-Checkliste")
+        st.caption("Regelbasierte Vorauswahl: kein automatisches Kaufsignal, sondern ein sauberer Startpunkt für deine finale Prüfung.")
+
+        trade_display_columns = [
+            "Ticker",
+            "Company",
+            "Currency",
+            "Trade Check",
+            "Trade Score",
+            "Trade Reason",
+            "Terminal Grade",
+            "Terminal Score",
+            "Action Signal",
+            "Valuation Status",
+            "Risk Level",
+            "CRV",
+            "Price"
+        ]
+        trade_display_columns = [
+            column for column in trade_display_columns
+            if column in radar_df.columns
+        ]
+
+        trade_rank_df = radar_df.copy()
+        if "Trade Score" in trade_rank_df.columns:
+            trade_rank_df["Trade Score"] = pd.to_numeric(
+                trade_rank_df["Trade Score"],
+                errors="coerce"
+            ).fillna(0)
+
+        if "Terminal Score" in trade_rank_df.columns:
+            trade_rank_df["Terminal Score"] = pd.to_numeric(
+                trade_rank_df["Terminal Score"],
+                errors="coerce"
+            ).fillna(0)
+
+        entry_df = trade_rank_df[
+            trade_rank_df["Trade Check"].astype(str).str.contains("Einstieg", case=False, na=False)
+        ].sort_values(by=["Trade Score", "Terminal Score"], ascending=[False, False]).head(30)
+
+        watch_df = trade_rank_df[
+            trade_rank_df["Trade Check"].astype(str).str.contains("Beobachten", case=False, na=False)
+        ].sort_values(by=["Trade Score", "Terminal Score"], ascending=[False, False]).head(30)
+
+        no_entry_df = trade_rank_df[
+            trade_rank_df["Trade Check"].astype(str).str.contains("Kein Einstieg", case=False, na=False)
+        ].sort_values(by=["Trade Score", "Terminal Score"], ascending=[True, True]).head(30)
+
+        st.markdown("##### ✅ Einstieg prüfenswert")
+        if entry_df.empty:
+            st.info("Aktuell kein sauberer Einstiegskandidat im Filter.")
+        else:
+            st.dataframe(entry_df[trade_display_columns], width="stretch", hide_index=True)
+
+        st.markdown("##### ⚠️ Beobachten")
+        if watch_df.empty:
+            st.info("Aktuell keine reinen Beobachtungskandidaten im Filter.")
+        else:
+            st.dataframe(watch_df[trade_display_columns], width="stretch", hide_index=True)
+
+        st.markdown("##### ❌ Kein Einstieg")
+        if no_entry_df.empty:
+            st.info("Aktuell keine klaren Meiden-Kandidaten im Filter.")
+        else:
+            st.dataframe(no_entry_df[trade_display_columns], width="stretch", hide_index=True)
 
 
     # ============================================================
@@ -3862,6 +4189,23 @@ turnaround_only = st.sidebar.checkbox(
     "Nur Turnaround Kandidaten"
 )
 
+# Währungsfilter direkt im Hauptfilter: praktisch, wenn USD/EUR/CHF usw. getrennt betrachtet werden sollen.
+currency_options = sorted(
+    df["Currency"]
+    .fillna("Unbekannt")
+    .astype(str)
+    .str.strip()
+    .replace({"": "Unbekannt"})
+    .unique()
+    .tolist()
+) if "Currency" in df.columns else []
+
+selected_currencies = st.sidebar.multiselect(
+    "Currency / Währung",
+    options=currency_options,
+    default=currency_options
+)
+
 ratings = st.sidebar.multiselect(
     "Ratings",
     options=df["Rating"].unique(),
@@ -4033,6 +4377,11 @@ df_filtered = df[
     &
     (df["Action Signal"].isin(action_signals))
 ].copy()
+
+if selected_currencies and "Currency" in df_filtered.columns:
+    df_filtered = df_filtered[
+        df_filtered["Currency"].fillna("Unbekannt").astype(str).isin(selected_currencies)
+    ]
 
 if selected_valuation_status and "Valuation Status" in df_filtered.columns:
     df_filtered = df_filtered[
@@ -4445,6 +4794,7 @@ with tab_earnings:
             display_earnings_columns = [
                 "Ticker",
                 "Company",
+                "Currency",
                 "Earnings Date",
                 "Days Until",
                 "Time",
@@ -4556,6 +4906,10 @@ with tab_analysis:
         priority_columns = [
             "Ticker",
             "Company",
+            "Currency",
+            "Trade Check",
+            "Trade Score",
+            "Trade Reason",
             "Terminal Grade",
             "Terminal Score",
             "Action Signal",
@@ -5035,7 +5389,9 @@ with tab_analysis:
         <h2 style="margin:0 0 16px 0; font-size:21px; font-weight:800;">{row['Ticker']} - {row['Company']}</h2>
         <hr style="border:none; border-top:2px solid #9ca3af; margin:0 0 20px 0;">
 
-        <p style="font-size:14px; margin:0 0 10px 0;">💰 <b>Preis:</b> {row['Price']}</p>
+        <p style="font-size:14px; margin:0 0 10px 0;">💰 <b>Preis:</b> {row['Price']} | 🌍 <b>Währung:</b> {row.get('Currency', '-')}</p>
+
+        <div style="font-size:14px; margin:6px 0 12px 0; background:#f0fdf4; padding:10px 12px; border-radius:12px; border:1px solid #bbf7d0;">✅ <b>Handels-Check:</b> {row['Trade Check']} | Score: {row['Trade Score']}/10<br><b>Grund:</b> {row['Trade Reason']}<br><b>Fazit:</b> {row['Trade Summary']}</div>
 
         <p style="font-size:14px; margin:0 0 10px 0;">⭐ <b>Rating:</b> {rating_light} {row['Rating']} | 📈 <b>Score:</b> {row['Score']} | ⚠️ <b>Risiko:</b> {risk_light} {row['Risk Level']}</p>
 
