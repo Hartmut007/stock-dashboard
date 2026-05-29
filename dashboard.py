@@ -1783,246 +1783,10 @@ tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends,
 ])
 
 with tab_overview:
-    # Schneller Aktien-Fokus, ohne die bestehenden Dashboard-Module zu verändern.
-    terminal_options_df = df.dropna(subset=["Ticker"]).copy()
-    terminal_options_df["Ticker"] = terminal_options_df["Ticker"].astype(str).str.strip()
-    terminal_options_df["Company"] = terminal_options_df.get("Company", terminal_options_df["Ticker"]).astype(str).str.strip()
-    terminal_options_df = terminal_options_df.drop_duplicates(subset=["Ticker"])
-    terminal_options_df["display"] = terminal_options_df["Ticker"] + " - " + terminal_options_df["Company"]
-    terminal_options_df = terminal_options_df.sort_values("display")
-
-    with st.expander("🧠 Aktien-Schnellprofil / Terminal-Fokus", expanded=False):
-        selected_terminal_display = st.selectbox(
-            "Aktie schnell prüfen",
-            options=terminal_options_df["display"].tolist(),
-            index=0,
-            key="terminal_focus_stock"
-        )
-
-        selected_terminal_ticker = selected_terminal_display.split(" - ")[0]
-        terminal_row_df = df[df["Ticker"].astype(str).str.strip() == selected_terminal_ticker]
-
-        if not terminal_row_df.empty:
-            terminal_row = terminal_row_df.iloc[0]
-
-            c1, c2, c3, c4, c5, c6 = st.columns(6)
-            c1.metric("Terminal", str(terminal_row.get("Terminal Grade", "-")))
-            c2.metric("T-Score", str(terminal_row.get("Terminal Score", "-")))
-            c3.metric("Signal", str(terminal_row.get("Action Signal", "-")))
-            c4.metric("Bewertung", str(terminal_row.get("Valuation Status", "-")))
-            c5.metric("Risiko", str(terminal_row.get("Risk Level", "-")))
-            c6.metric("CRV", str(terminal_row.get("CRV", "-")))
-
-            left, right = st.columns([1.2, 1])
-            with left:
-                st.markdown(
-                    f"""
-    <div class="terminal-card">
-        <div class="terminal-card-title">Kurzprofil</div>
-        <div class="terminal-card-value">{terminal_row.get('Ticker', '-')} · {terminal_row.get('Company', '-')}</div>
-        <div class="terminal-small">
-            Preis: <b>{terminal_row.get('Price', '-')}</b><br>
-            Fundamental: <b>{terminal_row.get('Fundamental Rating', '-')}</b> · Score {terminal_row.get('Fundamental Score', '-')}/8<br>
-            Dividende: <b>{terminal_row.get('Dividend Yield %', '-')}</b> · Ex-Tag: {terminal_row.get('Ex Dividend Date', '-')}
-        </div>
-    </div>
-    """,
-                    unsafe_allow_html=True
-                )
-            with right:
-                st.markdown(
-                    f"""
-    <div class="terminal-card">
-        <div class="terminal-card-title">Bewertungslogik</div>
-        <div class="terminal-card-value">{terminal_row.get('Valuation Status', '-')}</div>
-        <div class="terminal-small">
-            {terminal_row.get('Valuation Summary', '-')}<br>
-            <b>Details:</b> {terminal_row.get('Valuation Reasons', '-')}
-        </div>
-    </div>
-    """,
-                    unsafe_allow_html=True
-                )
-
-            st.markdown(
-                f"""
-    <div class="terminal-card">
-        <div class="terminal-card-title">Terminal-Fazit</div>
-        <div class="terminal-card-value">{terminal_row.get('Terminal Grade', '-')} · Score {terminal_row.get('Terminal Score', '-')}</div>
-        <div class="terminal-small">
-            {terminal_row.get('Terminal Summary', '-')}<br>
-            <b>Pro:</b> {terminal_row.get('Pros', '-')}<br>
-            <b>Contra:</b> {terminal_row.get('Cons', '-')}
-        </div>
-    </div>
-    """,
-                unsafe_allow_html=True
-            )
-
-            st.caption(
-                "Tipp: Für die vollständige Analyse nutze unten die Aktienkarten, Tabellen und das Netzwerkmodul."
-            )
-
-    # ============================================================
-    # 🧬 AKTIENPROFIL 360: QUALITÄT / BEWERTUNG / RISIKO / NETZWERK
-    # ============================================================
-
-    with st.expander("🧬 Aktienprofil 360: kompakte Terminal-Einschätzung", expanded=False):
-        profile_ticker = selected_terminal_ticker
-        profile_df = df[df["Ticker"].astype(str).str.strip() == str(profile_ticker).strip()].copy()
-
-        if profile_df.empty:
-            st.info("Für diese Aktie konnten keine Profildaten geladen werden.")
-        else:
-            profile_row = profile_df.iloc[0]
-
-            def profile_num(value, fallback=0):
-                try:
-                    if pd.isna(value):
-                        return fallback
-                    value = str(value).replace("%", "").replace(",", ".").replace("-", "").strip()
-                    if value == "":
-                        return fallback
-                    return float(value)
-                except Exception:
-                    return fallback
-
-            profile_score = profile_num(profile_row.get("Score", 0))
-            profile_fundamental = profile_num(profile_row.get("Fundamental Score", 0))
-            profile_valuation = profile_num(profile_row.get("Valuation Score", 0))
-            profile_rsi = profile_num(profile_row.get("RSI", 0))
-            profile_crv = profile_num(profile_row.get("CRV", 0))
-
-            # Einfache Terminal-Scores von 0 bis 100, damit man die Aktie schnell einordnen kann.
-            quality_score_100 = max(0, min(100, round((profile_fundamental / 8) * 100)))
-            momentum_score_100 = max(0, min(100, round((profile_score / 8) * 100)))
-            valuation_score_100 = max(0, min(100, round(50 + profile_valuation * 8)))
-            risk_penalty = 0
-            if str(profile_row.get("Risk Level", "")) == "HIGH RISK":
-                risk_penalty += 35
-            elif str(profile_row.get("Risk Level", "")) == "MEDIUM RISK":
-                risk_penalty += 18
-            if profile_rsi > 72:
-                risk_penalty += 15
-            risk_score_100 = max(0, min(100, 100 - risk_penalty))
-
-            profile_cols = st.columns(4)
-            profile_cols[0].metric("Qualität", f"{quality_score_100}/100")
-            profile_cols[1].metric("Momentum", f"{momentum_score_100}/100")
-            profile_cols[2].metric("Bewertung", f"{valuation_score_100}/100")
-            profile_cols[3].metric("Risiko-Puffer", f"{risk_score_100}/100")
-
-            profile_left, profile_right = st.columns([1.1, 1])
-
-            with profile_left:
-                st.markdown("#### 🧭 Terminal-Fazit")
-
-                quick_take = []
-                action_signal = str(profile_row.get("Action Signal", "-"))
-                valuation_status = str(profile_row.get("Valuation Status", "-"))
-                risk_level = str(profile_row.get("Risk Level", "-"))
-
-                if "BUY" in action_signal:
-                    quick_take.append("Technisches Setup wirkt konstruktiv.")
-                elif "TURNAROUND" in action_signal:
-                    quick_take.append("Mögliche Turnaround-Situation, aber Bestätigung wichtig.")
-                elif "AVOID" in action_signal or "SELL" in action_signal:
-                    quick_take.append("Aktuell eher vorsichtig behandeln.")
-                else:
-                    quick_take.append("Noch kein klares Kaufsignal, eher beobachten.")
-
-                if "unterbewertet" in valuation_status.lower():
-                    quick_take.append("Bewertung wirkt relativ attraktiv.")
-                elif "überbewertet" in valuation_status.lower():
-                    quick_take.append("Bewertung wirkt anspruchsvoll.")
-                elif "fair" in valuation_status.lower():
-                    quick_take.append("Bewertung wirkt eher vertretbar.")
-
-                if risk_level == "HIGH RISK":
-                    quick_take.append("Risikostufe ist hoch: Positionsgröße und Stop besonders beachten.")
-                elif risk_level == "LOW RISK":
-                    quick_take.append("Risikostufe ist vergleichsweise niedrig.")
-
-                st.info(" ".join(quick_take))
-
-                detail_cols = [
-                    "Ticker", "Company", "Action Signal", "Valuation Status", "Rating", "Score",
-                    "Risk Level", "Price", "CRV", "Fundamental Rating", "Fundamental Score",
-                    "Dividend Yield %", "Ex Dividend Date"
-                ]
-                detail_cols = [col for col in detail_cols if col in profile_df.columns]
-                st.dataframe(profile_df[detail_cols], width="stretch", hide_index=True)
-
-            with profile_right:
-                st.markdown("#### 🕸️ Netzwerk-Snapshot")
-
-                rel_file = "stock_relationships.csv"
-                if not os.path.exists(rel_file):
-                    st.caption("Keine stock_relationships.csv gefunden.")
-                else:
-                    try:
-                        try:
-                            profile_rel = pd.read_csv(rel_file, encoding="utf-8-sig", sep=None, engine="python")
-                        except UnicodeDecodeError:
-                            profile_rel = pd.read_csv(rel_file, encoding="latin1", sep=None, engine="python")
-
-                        profile_rel.columns = [str(c).replace("\ufeff", "").strip() for c in profile_rel.columns]
-
-                        if "source_ticker" in profile_rel.columns and "target_ticker" in profile_rel.columns:
-                            profile_rel["source_ticker"] = profile_rel["source_ticker"].astype(str).str.strip()
-                            profile_rel["target_ticker"] = profile_rel["target_ticker"].astype(str).str.strip()
-                            focus_rel = profile_rel[profile_rel["source_ticker"] == profile_ticker].copy()
-
-                            total_rel = len(focus_rel)
-                            high_rel = 0
-                            if "importance" in focus_rel.columns:
-                                high_rel = focus_rel["importance"].astype(str).str.contains("Hoch", case=False, na=False).sum()
-                            stages = focus_rel["supply_chain_stage"].nunique() if "supply_chain_stage" in focus_rel.columns else 0
-                            types = focus_rel["connection_type"].nunique() if "connection_type" in focus_rel.columns else 0
-
-                            n1, n2, n3, n4 = st.columns(4)
-                            n1.metric("Beziehungen", total_rel)
-                            n2.metric("Hoch", high_rel)
-                            n3.metric("Stufen", stages)
-                            n4.metric("Typen", types)
-
-                            if not focus_rel.empty:
-                                preview_cols = [
-                                    "target_ticker", "target_name", "supply_chain_stage",
-                                    "connection_type", "importance", "relationship"
-                                ]
-                                preview_cols = [col for col in preview_cols if col in focus_rel.columns]
-
-                                if "importance" in focus_rel.columns:
-                                    importance_order = {"Hoch": 1, "Mittel": 2, "Niedrig": 3}
-                                    focus_rel["_importance_sort"] = focus_rel["importance"].map(importance_order).fillna(9)
-                                    focus_rel = focus_rel.sort_values(["_importance_sort", "target_ticker"])
-
-                                st.dataframe(
-                                    focus_rel[preview_cols].head(8).rename(columns={
-                                        "target_ticker": "Ticker",
-                                        "target_name": "Name",
-                                        "supply_chain_stage": "Stufe",
-                                        "connection_type": "Verbindung",
-                                        "importance": "Wichtigkeit",
-                                        "relationship": "Warum verbunden"
-                                    }),
-                                    width="stretch",
-                                    hide_index=True
-                                )
-                            else:
-                                st.caption("Für diese Aktie sind noch keine Beziehungen als Hauptaktie hinterlegt.")
-                        else:
-                            st.caption("Mapping-Datei erkannt, aber source_ticker/target_ticker fehlen.")
-                    except Exception as error:
-                        st.caption(f"Netzwerk-Snapshot konnte nicht geladen werden: {error}")
-
-            st.markdown("#### ✅ Pro / ⚠️ Contra")
-            pro_col, contra_col = st.columns(2)
-            with pro_col:
-                st.success(str(profile_row.get("Pros", "-")))
-            with contra_col:
-                st.warning(str(profile_row.get("Cons", "-")))
+    st.caption(
+        "Übersicht ist bewusst schlank gehalten: Terminal-Radar zuerst. "
+        "Detailanalyse findest du im Tab 🧠 Analyse."
+    )
 
     # ============================================================
     # 📡 TERMINAL-RADAR: CHANCEN / RISIKEN / DIVIDENDEN
@@ -3132,7 +2896,7 @@ with tab_network:
                     # 🕸️ PROFI-NETZWERK / FOKUS-WERTSCHÖPFUNGSKETTE
                     # ============================================================
 
-                    with st.expander("🕸️ Netzwerk / Wertschöpfungskette anzeigen", expanded=True):
+                    with st.expander("🕸️ Netzwerk / Wertschöpfungskette anzeigen", expanded=False):
                         st.caption(
                             "Ruhige Profi-Ansicht: keine Physik, kein Wackeln. "
                             "Ein Klick zeigt Details rechts. Den Mittelpunkt wechselst du zuverlässig über die Buttons unter dem Netzwerk."
@@ -3556,15 +3320,15 @@ with tab_network:
                             else:
                                 st.caption("Keine verbundenen Aktien aus dieser Ansicht sind aktuell selbst als Hauptaktie im Mapping hinterlegt.")
 
-                    st.markdown("### 🧾 Detailtabelle")
+                    with st.expander("🧾 Detailtabelle anzeigen", expanded=False):
 
-                    st.dataframe(
-                        network_display,
-                        width="stretch",
-                        hide_index=True
-                    )
+                        st.dataframe(
+                            network_display,
+                            width="stretch",
+                            hide_index=True
+                        )
 
-                    with st.expander("🏭 Lieferkette als Stufenansicht anzeigen", expanded=True):
+                    with st.expander("🏭 Lieferkette als Stufenansicht anzeigen", expanded=False):
 
                         stage_groups = network_view.groupby("supply_chain_stage", sort=True)
 
