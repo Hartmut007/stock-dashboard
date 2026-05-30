@@ -2318,7 +2318,6 @@ with tab_overview:
         radar_display_columns = [
             "Ticker",
             "Company",
-            "Currency",
             "Action Signal",
             "Valuation Status",
             "Score",
@@ -2326,7 +2325,8 @@ with tab_overview:
             "Risk Level",
             "Price",
             "CRV",
-            "Dividend Yield %"
+            "Dividend Yield %",
+            "Currency"
         ]
 
         radar_display_columns = [
@@ -4676,7 +4676,6 @@ with tab_analysis:
         priority_columns = [
             "Ticker",
             "Company",
-            "Currency",
             "Terminal Grade",
             "Terminal Score",
             "Action Signal",
@@ -4687,13 +4686,16 @@ with tab_analysis:
 
         remaining_columns = [
             column for column in df_filtered.columns
-            if column not in priority_columns
+            if column not in priority_columns and column != "Currency"
         ]
 
         table_columns = [
             column for column in priority_columns
             if column in df_filtered.columns
         ] + remaining_columns
+
+        if "Currency" in df_filtered.columns:
+            table_columns.append("Currency")
 
         st.dataframe(
             df_filtered[table_columns],
