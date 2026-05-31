@@ -2003,6 +2003,217 @@ def render_market_gauge(level, label):
     st.markdown(html, unsafe_allow_html=True)
 
 
+# ============================================================
+# 📈 ETF SWINGTRADE COCKPIT
+# ============================================================
+
+ETF_SWING_DEFAULTS = {
+    "SPY": "S&P 500",
+    "QQQ": "Nasdaq 100",
+    "IWM": "Russell 2000",
+    "DIA": "Dow Jones",
+    "XLK": "Technology",
+    "SMH": "Semiconductors",
+    "XLF": "Financials",
+    "XLE": "Energy",
+    "XLV": "Healthcare",
+    "XLI": "Industrials",
+    "XLY": "Consumer Discretionary",
+    "XLP": "Consumer Staples",
+    "XLU": "Utilities",
+    "XLB": "Materials",
+    "XLRE": "Real Estate",
+    "HYG": "High Yield Bonds",
+    "TLT": "US Long Bonds",
+    "GLD": "Gold",
+    "SLV": "Silver",
+    "USO": "Oil",
+    "URA": "Uranium",
+    "LIT": "Lithium/Battery",
+    "BOTZ": "Robotics/Automation",
+    "ARKK": "Innovation/Growth",
+    "EEM": "Emerging Markets",
+    "EWJ": "Japan",
+    "FXI": "China Large Cap",
+    "VGK": "Europe"
+}
+
+
+def _calc_rsi_from_close(close, period=14):
+    try:
+        close = close.dropna()
+        if len(close) <= period + 1:
+            return None
+        delta = close.diff()
+        gain = delta.clip(lower=0).rolling(period).mean()
+        loss = (-delta.clip(upper=0)).rolling(period).mean()
+        rs = gain / loss.replace(0, pd.NA)
+        rsi = 100 - (100 / (1 + rs))
+        value = rsi.dropna().iloc[-1]
+        return float(value)
+    except Exception:
+        return None
+
+
+@st.cache_data(ttl=60 * 60)
+def load_etf_swingtrade_data(tickers):
+    """Lädt ETF-Daten über yfinance und baut daraus ein einfaches Swingtrade-Radar."""
+
+    rows = []
+
+    for raw_ticker in tickers:
+        ticker = str(raw_ticker).strip().upper()
+        if not ticker:
+            continue
+
+        name = ETF_SWING_DEFAULTS.get(ticker, ticker)
+        row = {
+            "Ticker": ticker,
+            "Name": name,
+            "Last": "-",
+            "5D %": "-",
+            "1M %": "-",
+            "3M %": "-",
+            "RSI": "-",
+            "Trend": "Unklar",
+            "Volumen": "-",
+            "Swing Score": 0,
+            "Signal": "⚪ Daten dünn",
+            "Setup-Hinweis": "Zu wenig Daten oder Yahoo liefert keine Werte."
+        }
+
+        try:
+            hist = yf.Ticker(ticker).history(period="1y", interval="1d", auto_adjust=False)
+            if hist is None or hist.empty or "Close" not in hist.columns:
+                rows.append(row)
+                continue
+
+            close = hist["Close"].dropna()
+            if close.empty or len(close) < 60:
+                rows.append(row)
+                continue
+
+            last = float(close.iloc[-1])
+            sma20 = float(close.tail(20).mean()) if len(close) >= 20 else None
+            sma50 = float(close.tail(50).mean()) if len(close) >= 50 else None
+            sma200 = float(close.tail(200).mean()) if len(close) >= 200 else None
+            rsi = _calc_rsi_from_close(close, 14)
+            perf_5d = _pct_change_safe(close, 5)
+            perf_1m = _pct_change_safe(close, 21)
+            perf_3m = _pct_change_safe(close, 63)
+
+            vol_signal = "-"
+            volume_ratio = None
+            if "Volume" in hist.columns:
+                volume = hist["Volume"].dropna()
+                if len(volume) >= 21 and float(volume.tail(20).mean()) > 0:
+                    volume_ratio = float(volume.iloc[-1]) / float(volume.tail(20).mean())
+                    vol_signal = f"{round(volume_ratio, 2)}x Ø20"
+
+            score = 0
+            notes = []
+
+            if sma20 is not None and last >= sma20:
+                score += 1
+                notes.append("über SMA20")
+            else:
+                notes.append("unter SMA20")
+
+            if sma50 is not None and last >= sma50:
+                score += 2
+                notes.append("über SMA50")
+            else:
+                notes.append("unter SMA50")
+
+            if sma200 is not None and last >= sma200:
+                score += 2
+                notes.append("über SMA200")
+            elif sma200 is not None:
+                notes.append("unter SMA200")
+
+            if perf_1m is not None:
+                if perf_1m > 5:
+                    score += 2
+                    notes.append("1M Momentum stark")
+                elif perf_1m > 0:
+                    score += 1
+                    notes.append("1M Momentum positiv")
+                elif perf_1m < -5:
+                    score -= 1
+                    notes.append("1M Momentum schwach")
+
+            if perf_3m is not None and perf_3m > 8:
+                score += 1
+                notes.append("3M Trend stark")
+
+            if rsi is not None:
+                if 45 <= rsi <= 68:
+                    score += 2
+                    notes.append("RSI im Swing-Bereich")
+                elif 68 < rsi <= 75:
+                    score -= 1
+                    notes.append("RSI leicht heiß")
+                elif rsi > 75:
+                    score -= 2
+                    notes.append("RSI überhitzt")
+                elif rsi < 35:
+                    score -= 1
+                    notes.append("RSI schwach")
+
+            if volume_ratio is not None and volume_ratio >= 1.5 and perf_5d is not None and perf_5d > 0:
+                score += 1
+                notes.append("Volumen bestätigt Anstieg")
+
+            if score >= 7:
+                signal = "🟢 Swing Long prüfen"
+            elif score >= 4:
+                signal = "🟡 Watch / Pullback suchen"
+            elif score >= 1:
+                signal = "🟠 Neutral / noch warten"
+            else:
+                signal = "🔴 Kein Long-Setup"
+
+            if rsi is not None and rsi > 75:
+                signal = "🟠 Überhitzt / Rücksetzer abwarten"
+            if sma50 is not None and last < sma50 and perf_1m is not None and perf_1m < 0:
+                signal = "🔴 Kein Long-Setup"
+
+            if sma20 is not None and sma50 is not None and sma200 is not None:
+                if last >= sma20 >= sma50:
+                    trend = "Kurztrend stark"
+                elif last >= sma50 and last >= sma200:
+                    trend = "Aufwärtstrend"
+                elif last < sma50:
+                    trend = "unter SMA50"
+                else:
+                    trend = "Gemischt"
+            else:
+                trend = "Gemischt"
+
+            row.update({
+                "Last": round(last, 2),
+                "5D %": round(perf_5d, 2) if perf_5d is not None else "-",
+                "1M %": round(perf_1m, 2) if perf_1m is not None else "-",
+                "3M %": round(perf_3m, 2) if perf_3m is not None else "-",
+                "RSI": round(rsi, 1) if rsi is not None else "-",
+                "Trend": trend,
+                "Volumen": vol_signal,
+                "Swing Score": int(max(0, min(10, score))),
+                "Signal": signal,
+                "Setup-Hinweis": " | ".join(notes[:7]) if notes else "Neutral"
+            })
+
+        except Exception:
+            pass
+
+        rows.append(row)
+
+    result = pd.DataFrame(rows)
+    if not result.empty and "Swing Score" in result.columns:
+        result = result.sort_values(by="Swing Score", ascending=False)
+    return result
+
+
 @st.cache_data(ttl=60 * 60 * 6)
 def load_smart_money_light(tickers):
     """Lädt grobe Short-/Institutional-/Volumen-Indikatoren über yfinance, soweit verfügbar."""
@@ -2229,13 +2440,14 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends, tab_admin = st.tabs([
+tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends, tab_etf_swing, tab_admin = st.tabs([
     "📊 Übersicht",
     "🧠 Analyse",
     "🕸️ Netzwerk",
     "⭐ Listen",
     "📆 Earnings",
     "📅 Dividenden",
+    "📈 ETF Swingtrades",
     "👑 Admin"
 ])
 
@@ -4435,6 +4647,123 @@ def get_risk_light(risk):
         return "🔴"
 
     return "⚪"
+
+
+with tab_etf_swing:
+    with st.expander("📈 ETF Swingtrades / Marktrotation", expanded=True):
+        st.markdown(
+            """
+            Dieses Fenster ist als eigene Arbeitsfläche für ETF-Swingtrades gedacht.  
+            Ziel: nicht einzelne Aktien jagen, sondern Marktrotationen erkennen — z. B. Tech, Halbleiter, Energie, Bonds, Gold, Rohstoffe oder Regionen.
+            """
+        )
+
+        preset_options = list(ETF_SWING_DEFAULTS.keys())
+        default_etfs = [
+            "SPY", "QQQ", "IWM", "SMH", "XLK", "XLE", "XLF", "HYG", "TLT", "GLD", "SLV", "URA", "LIT"
+        ]
+
+        col_etf_a, col_etf_b = st.columns([1.3, 1])
+
+        with col_etf_a:
+            selected_etfs = st.multiselect(
+                "ETF-Universum auswählen",
+                options=preset_options,
+                default=[ticker for ticker in default_etfs if ticker in preset_options],
+                format_func=lambda ticker: f"{ticker} · {ETF_SWING_DEFAULTS.get(ticker, ticker)}"
+            )
+
+            custom_etfs_text = st.text_input(
+                "Zusätzliche ETF-Ticker, kommagetrennt",
+                value="",
+                placeholder="z. B. VOO, SOXX, XBI, KWEB"
+            )
+
+        with col_etf_b:
+            st.info(
+                "Swing-Idee: starke ETFs im Aufwärtstrend suchen, Rücksetzer an SMA20/SMA50 beobachten und überhitzte Setups nicht hinterherkaufen."
+            )
+            min_swing_score = st.slider(
+                "Mindest-Swing-Score anzeigen",
+                min_value=0,
+                max_value=10,
+                value=0,
+                step=1
+            )
+
+        custom_etfs = [ticker.strip().upper() for ticker in custom_etfs_text.split(",") if ticker.strip()]
+        etf_tickers = []
+        for ticker in selected_etfs + custom_etfs:
+            if ticker and ticker not in etf_tickers:
+                etf_tickers.append(ticker)
+
+        if not etf_tickers:
+            st.warning("Bitte mindestens einen ETF auswählen oder eintragen.")
+        else:
+            etf_df = load_etf_swingtrade_data(etf_tickers)
+            if etf_df.empty:
+                st.warning("Für die ausgewählten ETFs konnten keine Daten geladen werden.")
+            else:
+                etf_df_filtered = etf_df[
+                    pd.to_numeric(etf_df["Swing Score"], errors="coerce").fillna(0) >= min_swing_score
+                ].copy()
+
+                metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+                metric_col1.metric("ETFs geprüft", len(etf_df))
+                metric_col2.metric(
+                    "Swing Long prüfen",
+                    int((etf_df["Signal"] == "🟢 Swing Long prüfen").sum())
+                )
+                metric_col3.metric(
+                    "Watch / Pullback",
+                    int((etf_df["Signal"] == "🟡 Watch / Pullback suchen").sum())
+                )
+                metric_col4.metric(
+                    "Ø Swing Score",
+                    round(pd.to_numeric(etf_df["Swing Score"], errors="coerce").fillna(0).mean(), 2)
+                )
+
+                st.dataframe(
+                    etf_df_filtered,
+                    width="stretch",
+                    hide_index=True
+                )
+
+                st.download_button(
+                    "📥 ETF-Swingtrade-Radar als CSV herunterladen",
+                    etf_df_filtered.to_csv(index=False).encode("utf-8-sig"),
+                    "etf_swingtrade_radar.csv",
+                    "text/csv"
+                )
+
+                chart_ticker = st.selectbox(
+                    "ETF-Chart anzeigen",
+                    options=etf_tickers,
+                    format_func=lambda ticker: f"{ticker} · {ETF_SWING_DEFAULTS.get(ticker, ticker)}"
+                )
+
+                try:
+                    chart_hist = yf.Ticker(chart_ticker).history(period="6mo", interval="1d", auto_adjust=False)
+                    if chart_hist is not None and not chart_hist.empty and "Close" in chart_hist.columns:
+                        chart_data = pd.DataFrame({
+                            "Close": chart_hist["Close"].dropna()
+                        })
+                        chart_data["SMA20"] = chart_data["Close"].rolling(20).mean()
+                        chart_data["SMA50"] = chart_data["Close"].rolling(50).mean()
+                        st.line_chart(chart_data)
+                    else:
+                        st.caption("Für den ausgewählten ETF ist aktuell kein Chart verfügbar.")
+                except Exception:
+                    st.caption("Chart konnte aktuell nicht geladen werden.")
+
+        st.markdown(
+            """
+            **Lesart:**  
+            🟢 bedeutet nicht automatisch kaufen, sondern: Setup ist prüfenswert.  
+            🟡 bedeutet: interessant, aber besser Rücksetzer/Bestätigung suchen.  
+            🔴 bedeutet: aktuell kein sauberes Long-Setup nach dieser einfachen Swing-Logik.
+            """
+        )
 
 
 with tab_earnings:
