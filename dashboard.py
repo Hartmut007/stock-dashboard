@@ -4,6 +4,7 @@ import os
 import subprocess
 import hmac
 from datetime import datetime, date, timedelta
+from zoneinfo import ZoneInfo
 from supabase import create_client, Client
 import yfinance as yf
 import streamlit.components.v1 as components
@@ -389,6 +390,63 @@ df = pd.read_csv(
     "portfolio_analysis.csv",
     sep=";"
 )
+
+
+# ============================================================
+# LETZTE AKTUALISIERUNG / DATENSTATUS
+# ============================================================
+
+LOCAL_TZ = ZoneInfo("Europe/Berlin")
+DASHBOARD_LOAD_TIME = datetime.now(LOCAL_TZ)
+DATA_SOURCE_FILES = [
+    "portfolio_analysis.csv",
+    "clean_watchlist.csv",
+    "stock_relationships.csv",
+]
+
+
+def format_local_datetime(value):
+    if value is None:
+        return "-"
+    return value.astimezone(LOCAL_TZ).strftime("%d.%m.%Y %H:%M:%S")
+
+
+def get_data_update_status():
+    """Ermittelt automatisch die letzte Änderung wichtiger Dashboard-Datenquellen."""
+
+    rows = []
+    newest_update = None
+
+    for file_name in DATA_SOURCE_FILES:
+        if os.path.exists(file_name):
+            modified_at = datetime.fromtimestamp(
+                os.path.getmtime(file_name),
+                tz=LOCAL_TZ
+            )
+            rows.append({
+                "Quelle": file_name,
+                "Status": "OK",
+                "Letzte Änderung": format_local_datetime(modified_at),
+            })
+
+            if newest_update is None or modified_at > newest_update:
+                newest_update = modified_at
+        else:
+            rows.append({
+                "Quelle": file_name,
+                "Status": "Fehlt",
+                "Letzte Änderung": "-",
+            })
+
+    return rows, newest_update
+
+
+DATA_UPDATE_ROWS, LAST_DATA_UPDATE = get_data_update_status()
+LAST_DATA_UPDATE_TEXT = format_local_datetime(LAST_DATA_UPDATE)
+DASHBOARD_LOAD_TIME_TEXT = format_local_datetime(DASHBOARD_LOAD_TIME)
+
+st.sidebar.caption(f"🕒 Datenstand: {LAST_DATA_UPDATE_TEXT}")
+st.sidebar.caption(f"🔄 Dashboard geladen: {DASHBOARD_LOAD_TIME_TEXT}")
 
 
 # ============================================================
@@ -2409,7 +2467,7 @@ st.markdown(
 )
 
 st.markdown(
-    """
+    f"""
 <div class="terminal-hero">
     <div class="terminal-title">🧭 Hartmut Research Terminal</div>
     <p class="terminal-subtitle">
@@ -2420,6 +2478,7 @@ st.markdown(
     <span class="terminal-chip">Earnings</span>
     <span class="terminal-chip">Dividenden</span>
     <span class="terminal-chip">Netzwerk</span>
+    <span class="terminal-chip">Datenstand: {LAST_DATA_UPDATE_TEXT}</span>
 </div>
 """,
     unsafe_allow_html=True
@@ -2452,6 +2511,27 @@ tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends,
 ])
 
 with tab_overview:
+
+    # ============================================================
+    # 🕒 LETZTE AKTUALISIERUNG
+    # ============================================================
+
+    with st.expander("🕒 Letzte Aktualisierung / Datenstand", expanded=False):
+        update_col_1, update_col_2, update_col_3 = st.columns(3)
+
+        update_col_1.metric("Letzte Datenänderung", LAST_DATA_UPDATE_TEXT)
+        update_col_2.metric("Dashboard geladen", DASHBOARD_LOAD_TIME_TEXT)
+        update_col_3.metric("Datenquellen", f"{sum(1 for row in DATA_UPDATE_ROWS if row['Status'] == 'OK')} / {len(DATA_UPDATE_ROWS)} OK")
+
+        st.caption(
+            "Der Datenstand wird automatisch aus den Änderungszeiten der wichtigsten Dateien ermittelt. "
+            "Wenn advanced_portfolio.py die portfolio_analysis.csv neu schreibt, aktualisiert sich dieser Zeitstempel automatisch beim nächsten Laden."
+        )
+        st.dataframe(
+            pd.DataFrame(DATA_UPDATE_ROWS),
+            width="stretch",
+            hide_index=True
+        )
 
     # ============================================================
     # 🧭 MARKTSIGNALE / MARKT-TACHO
