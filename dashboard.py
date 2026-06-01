@@ -3,6 +3,8 @@ import streamlit as st
 import os
 import subprocess
 import hmac
+import json
+import hashlib
 from datetime import datetime, date, timedelta
 from zoneinfo import ZoneInfo
 from supabase import create_client, Client
@@ -403,46 +405,162 @@ DATA_SOURCE_FILES = [
     "clean_watchlist.csv",
     "stock_relationships.csv",
 ]
+DATA_STATE_FILE = ".dashboard_data_state.json"
+DATA_META_FILE = "data_update_meta.json"
 
 
 def format_local_datetime(value):
     if value is None:
         return "-"
+    if isinstance(value, str):
+        try:
+            value = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except Exception:
+            return value
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=LOCAL_TZ)
     return value.astimezone(LOCAL_TZ).strftime("%d.%m.%Y %H:%M:%S")
 
 
+def safe_parse_datetime(value):
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=LOCAL_TZ)
+        return parsed.astimezone(LOCAL_TZ)
+    except Exception:
+        return None
+
+
+def load_json_file(path, default=None):
+    if default is None:
+        default = {}
+    try:
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+    except Exception:
+        pass
+    return default
+
+
+def save_json_file(path, payload):
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+
+def file_fingerprint(path):
+    """Erzeugt einen stabilen Inhalts-Fingerabdruck, damit echte Dateiänderungen erkannt werden."""
+    try:
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+    except Exception:
+        return None
+
+
+def read_external_data_meta():
+    """
+    Optionaler echter Datenstand aus advanced_portfolio.py.
+    Wenn advanced_portfolio.py eine data_update_meta.json schreibt, ist diese Zeit verlässlicher
+    als die Cloud-Dateiänderungszeit. Unterstützte Formen:
+    {"portfolio_analysis.csv": "2026-06-01T18:30:00+02:00"}
+    oder {"files": {"portfolio_analysis.csv": {"updated_at": "..."}}}
+    """
+    raw = load_json_file(DATA_META_FILE, {})
+    if not isinstance(raw, dict):
+        return {}
+
+    files = raw.get("files") if isinstance(raw.get("files"), dict) else raw
+    result = {}
+    for file_name, value in files.items():
+        if isinstance(value, dict):
+            value = value.get("updated_at") or value.get("generated_at") or value.get("last_update")
+        parsed = safe_parse_datetime(value)
+        if parsed is not None:
+            result[file_name] = parsed
+    return result
+
+
 def get_data_update_status():
-    """Ermittelt automatisch die letzte Änderung wichtiger Dashboard-Datenquellen."""
+    """
+    Ermittelt den Datenstand robuster als reine mtime:
+    1) bevorzugt echte Meta-Zeit aus data_update_meta.json
+    2) trackt Inhaltsänderungen per SHA-256 ab jetzt selbst
+    3) zeigt die Cloud-Dateizeit nur noch als technische Zusatzinfo
+    """
 
     rows = []
     newest_update = None
+    state = load_json_file(DATA_STATE_FILE, {})
+    if not isinstance(state, dict):
+        state = {}
+
+    external_meta = read_external_data_meta()
+    now_iso = DASHBOARD_LOAD_TIME.isoformat()
 
     for file_name in DATA_SOURCE_FILES:
-        if os.path.exists(file_name):
-            modified_at = datetime.fromtimestamp(
-                os.path.getmtime(file_name),
-                tz=LOCAL_TZ
-            )
-            rows.append({
-                "Quelle": file_name,
-                "Status": "OK",
-                "Letzte Änderung": format_local_datetime(modified_at),
-            })
-
-            if newest_update is None or modified_at > newest_update:
-                newest_update = modified_at
-        else:
+        if not os.path.exists(file_name):
             rows.append({
                 "Quelle": file_name,
                 "Status": "Fehlt",
-                "Letzte Änderung": "-",
+                "Echter Datenstand": "-",
+                "Quelle der Zeit": "-",
+                "Cloud-Dateizeit": "-",
             })
+            continue
 
+        cloud_mtime = datetime.fromtimestamp(os.path.getmtime(file_name), tz=LOCAL_TZ)
+        current_hash = file_fingerprint(file_name)
+        previous = state.get(file_name, {}) if isinstance(state.get(file_name), dict) else {}
+
+        if file_name in external_meta:
+            real_update = external_meta[file_name]
+            time_source = "Analyse-Meta-Datei"
+        elif previous.get("sha256") == current_hash and previous.get("content_changed_at"):
+            real_update = safe_parse_datetime(previous.get("content_changed_at"))
+            time_source = "Inhalt unverändert getrackt"
+        elif previous.get("sha256") and previous.get("sha256") != current_hash:
+            real_update = DASHBOARD_LOAD_TIME
+            time_source = "Inhaltsänderung erkannt"
+        else:
+            # Beim allerersten Lauf kann die Vergangenheit nicht rekonstruiert werden.
+            # Ab jetzt wird die Datei aber über ihren Inhalt weitergetrackt.
+            real_update = None
+            time_source = "ab jetzt getrackt"
+
+        if real_update is not None and (newest_update is None or real_update > newest_update):
+            newest_update = real_update
+
+        state[file_name] = {
+            "sha256": current_hash,
+            "first_seen_at": previous.get("first_seen_at") or now_iso,
+            "content_changed_at": real_update.isoformat() if real_update is not None else previous.get("content_changed_at"),
+            "last_seen_at": now_iso,
+            "cloud_mtime": cloud_mtime.isoformat(),
+        }
+
+        rows.append({
+            "Quelle": file_name,
+            "Status": "OK",
+            "Echter Datenstand": format_local_datetime(real_update) if real_update else "Noch nicht historisch bekannt",
+            "Quelle der Zeit": time_source,
+            "Cloud-Dateizeit": format_local_datetime(cloud_mtime),
+        })
+
+    save_json_file(DATA_STATE_FILE, state)
     return rows, newest_update
 
 
 DATA_UPDATE_ROWS, LAST_DATA_UPDATE = get_data_update_status()
-LAST_DATA_UPDATE_TEXT = format_local_datetime(LAST_DATA_UPDATE)
+LAST_DATA_UPDATE_TEXT = format_local_datetime(LAST_DATA_UPDATE) if LAST_DATA_UPDATE else "ab jetzt getrackt"
 DASHBOARD_LOAD_TIME_TEXT = format_local_datetime(DASHBOARD_LOAD_TIME)
 
 st.sidebar.caption(f"🕒 Datenstand: {LAST_DATA_UPDATE_TEXT}")
@@ -2519,13 +2637,14 @@ with tab_overview:
     with st.expander("🕒 Letzte Aktualisierung / Datenstand", expanded=False):
         update_col_1, update_col_2, update_col_3 = st.columns(3)
 
-        update_col_1.metric("Letzte Datenänderung", LAST_DATA_UPDATE_TEXT)
+        update_col_1.metric("Echter Datenstand", LAST_DATA_UPDATE_TEXT)
         update_col_2.metric("Dashboard geladen", DASHBOARD_LOAD_TIME_TEXT)
         update_col_3.metric("Datenquellen", f"{sum(1 for row in DATA_UPDATE_ROWS if row['Status'] == 'OK')} / {len(DATA_UPDATE_ROWS)} OK")
 
         st.caption(
-            "Der Datenstand wird automatisch aus den Änderungszeiten der wichtigsten Dateien ermittelt. "
-            "Wenn advanced_portfolio.py die portfolio_analysis.csv neu schreibt, aktualisiert sich dieser Zeitstempel automatisch beim nächsten Laden."
+            "Die Cloud-Dateizeit kann durch Deployment/Neustart verfälscht sein. "
+            "Darum trackt das Dashboard ab jetzt den Dateiinhalt per Fingerabdruck. "
+            "Noch genauer wird es, wenn advanced_portfolio.py zusätzlich eine data_update_meta.json schreibt."
         )
         st.dataframe(
             pd.DataFrame(DATA_UPDATE_ROWS),
