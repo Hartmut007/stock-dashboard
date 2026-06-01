@@ -1947,16 +1947,55 @@ def _pct_change_safe(series, periods):
         return None
 
 
+def _fetch_market_history(ticker, period="1y"):
+    """Robuster yfinance-Download für Marktindikatoren."""
+    try:
+        hist = yf.Ticker(ticker).history(period=period, interval="1d", auto_adjust=False)
+        if hist is not None and not hist.empty and "Close" in hist.columns and hist["Close"].dropna().shape[0] >= 5:
+            return hist
+    except Exception:
+        pass
+
+    try:
+        hist = yf.download(ticker, period=period, interval="1d", progress=False, auto_adjust=False, threads=False)
+        if hist is not None and not hist.empty:
+            if isinstance(hist.columns, pd.MultiIndex):
+                # yfinance kann bei download MultiIndex-Spalten liefern
+                if ("Close", ticker) in hist.columns:
+                    hist = pd.DataFrame({"Close": hist[("Close", ticker)]})
+                elif "Close" in hist.columns.get_level_values(0):
+                    close_part = hist.xs("Close", axis=1, level=0)
+                    hist = pd.DataFrame({"Close": close_part.iloc[:, 0]})
+            if "Close" in hist.columns and hist["Close"].dropna().shape[0] >= 5:
+                return hist
+    except Exception:
+        pass
+
+    return pd.DataFrame()
+
+
 @st.cache_data(ttl=60 * 60)
 def load_market_mode_data():
-    """Lädt Marktindikatoren und baut daraus einen 5-Stufen-Markt-Tacho."""
+    """Lädt Marktindikatoren und trennt Markt-Tacho von Rohstoff-Stress.
+
+    Idee:
+    - Der Markt-Tacho bewertet nur Kernsignale: Aktienindizes, VIX, High-Yield, Bonds, US-Dollar.
+    - Rohstoffe liefern eigene Stress-/Inflationshinweise, drücken den Tacho aber nicht allein auf Panik.
+    """
 
     rows = []
-    risk_points = 0
+    market_points = 0
+    commodity_points = 0
     notes = []
+    market_notes = []
+    commodity_notes = []
+
+    core_tickers = {"SPY", "QQQ", "^VIX", "HYG", "TLT", "DX-Y.NYB"}
 
     for ticker, name in MARKET_SIGNAL_TICKERS.items():
+        group = "Markt-Kern" if ticker in core_tickers else "Rohstoffe / Themen"
         row = {
+            "Bereich": group,
             "Ticker": ticker,
             "Name": name,
             "Last": "-",
@@ -1966,7 +2005,7 @@ def load_market_mode_data():
         }
 
         try:
-            hist = yf.Ticker(ticker).history(period="9mo", interval="1d", auto_adjust=False)
+            hist = _fetch_market_history(ticker, period="1y")
             if hist is None or hist.empty or "Close" not in hist.columns:
                 rows.append(row)
                 continue
@@ -1988,151 +2027,181 @@ def load_market_mode_data():
             above_200 = sma200 is not None and last >= sma200
 
             if ticker == "^VIX":
+                row["Trend"] = "Volatilität"
                 if last >= 30:
                     row["Signal"] = "Stress"
-                    risk_points += 2
-                    notes.append("VIX über 30: Marktstress erhöht")
-                elif last >= 22:
-                    row["Signal"] = "Erhöhte Volatilität"
-                    risk_points += 1
-                    notes.append("VIX erhöht: Risikoappetit vorsichtiger")
-                elif last <= 15:
+                    market_points += 3
+                    market_notes.append("VIX über 30: echter Marktstress erhöht")
+                elif last >= 25:
+                    row["Signal"] = "Risk-Off"
+                    market_points += 2
+                    market_notes.append("VIX über 25: Risikoappetit deutlich vorsichtiger")
+                elif last >= 20:
+                    row["Signal"] = "Erhöht"
+                    market_points += 1
+                    market_notes.append("VIX über 20: Volatilität erhöht")
+                elif last <= 16:
                     row["Signal"] = "Ruhig"
-                    risk_points -= 1
+                    market_points -= 1
                 else:
                     row["Signal"] = "Normal"
-                row["Trend"] = "Volatilität"
 
             elif ticker in ["SPY", "QQQ"]:
                 if above_50 and above_200:
                     row["Signal"] = "Risk-On"
-                    risk_points -= 1
-                elif not above_50 and above_200:
-                    row["Signal"] = "Abkühlung"
-                    risk_points += 1
-                    notes.append(f"{ticker} unter SMA50: Momentum kühlt ab")
-                elif not above_200:
+                    market_points -= 2 if ticker == "SPY" else 1
+                    row["Trend"] = "über SMA50/200"
+                elif (not above_50) and above_200:
+                    row["Signal"] = "Pullback / Abkühlung"
+                    market_points += 1
+                    market_notes.append(f"{ticker} unter SMA50, aber über SMA200: Pullback statt Panik")
+                    row["Trend"] = "unter SMA50, über SMA200"
+                elif not above_200 and sma200 is not None:
                     row["Signal"] = "Risk-Off"
-                    risk_points += 2
-                    notes.append(f"{ticker} unter SMA200: Trendrisiko erhöht")
-                row["Trend"] = "über SMA50/200" if above_50 and above_200 else "unter SMA50/200"
+                    market_points += 3 if ticker == "SPY" else 2
+                    market_notes.append(f"{ticker} unter SMA200: mittelfristiges Trendrisiko erhöht")
+                    row["Trend"] = "unter SMA200"
+                else:
+                    row["Signal"] = "Unklar"
+                    row["Trend"] = "zu wenig Daten"
 
             elif ticker == "HYG":
                 if above_50:
                     row["Signal"] = "Credit stabil"
-                    risk_points -= 1
+                    market_points -= 1
+                    row["Trend"] = "über SMA50"
                 else:
-                    row["Signal"] = "Credit Stress"
-                    risk_points += 1
-                    notes.append("High-Yield unter SMA50: Kreditrisiko beobachten")
-                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
+                    row["Signal"] = "Credit vorsichtig"
+                    market_points += 1
+                    market_notes.append("High-Yield unter SMA50: Kreditrisiko beobachten")
+                    row["Trend"] = "unter SMA50"
 
             elif ticker == "TLT":
-                if above_50 and perf_1m is not None and perf_1m > 3:
-                    row["Signal"] = "Bonds gefragt"
-                    risk_points += 1
-                    notes.append("US-Langläufer steigen: Markt sucht Sicherheit / Renditen fallen")
-                elif above_50:
-                    row["Signal"] = "Stabil"
-                else:
-                    row["Signal"] = "Schwach"
                 row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
+                if above_50 and perf_1m is not None and perf_1m > 4:
+                    row["Signal"] = "Sicherheitsnachfrage"
+                    market_points += 1
+                    market_notes.append("US-Langläufer stark: Sicherheitsnachfrage / fallende Renditen beachten")
+                elif above_50:
+                    row["Signal"] = "Bonds stabil"
+                else:
+                    row["Signal"] = "Bonds schwach"
 
             elif ticker == "DX-Y.NYB":
+                row["Trend"] = "1M Momentum"
                 if perf_1m is not None and perf_1m > 3:
                     row["Signal"] = "Dollar-Stärke"
-                    risk_points += 1
-                    notes.append("US-Dollar steigt deutlich: Gegenwind für Rohstoffe/Emerging Markets möglich")
+                    market_points += 1
+                    market_notes.append("US-Dollar steigt deutlich: Gegenwind für Emerging Markets/Rohstoffe möglich")
                 elif perf_1m is not None and perf_1m < -3:
                     row["Signal"] = "Dollar schwächer"
+                    market_points -= 1
                 else:
                     row["Signal"] = "Neutral"
-                row["Trend"] = "1M Momentum"
 
             elif ticker in ["GC=F", "SI=F", "PL=F", "PA=F"]:
+                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
                 if above_50 and perf_1m is not None and perf_1m > 5:
                     row["Signal"] = "Edelmetall-Stärke"
-                    risk_points += 1
-                    notes.append(f"{name} stark: Sicherheits-/Inflationssignal beobachten")
+                    commodity_points += 1
+                    commodity_notes.append(f"{name} stark: Sicherheits-/Inflationssignal beobachten")
                 elif above_50:
                     row["Signal"] = "Stabil / gefragt"
                 else:
                     row["Signal"] = "Schwach"
-                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
 
             elif ticker in ["CL=F", "NG=F"]:
+                row["Trend"] = "1M Momentum"
                 if perf_1m is not None and perf_1m > 10:
                     row["Signal"] = "Energiepreis-Stress"
-                    risk_points += 1
-                    notes.append(f"{name} stark gestiegen: Inflations-/Energieeffekt beachten")
+                    commodity_points += 2
+                    commodity_notes.append(f"{name} stark gestiegen: Inflations-/Energieeffekt beachten")
                 elif perf_1m is not None and perf_1m < -10:
                     row["Signal"] = "Energie schwach"
+                    commodity_points -= 1
                 elif above_50:
                     row["Signal"] = "Stabil"
                 else:
                     row["Signal"] = "Neutral"
-                row["Trend"] = "1M Momentum"
 
             elif ticker in ["HG=F", "URA", "LIT"]:
+                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
                 if above_50 and perf_1m is not None and perf_1m > 5:
-                    row["Signal"] = "Industrie-/Zukunftsrohstoff stark"
-                    risk_points -= 1
+                    row["Signal"] = "Wachstum / Nachfrage stark"
+                    commodity_points -= 1
                 elif perf_1m is not None and perf_1m < -8:
-                    row["Signal"] = "Wachstumssignal schwach"
-                    risk_points += 1
-                    notes.append(f"{name} schwach: zyklische Nachfrage beobachten")
+                    row["Signal"] = "Nachfrage schwach"
+                    commodity_points += 1
+                    commodity_notes.append(f"{name} schwach: zyklische Nachfrage beobachten")
                 elif above_50:
                     row["Signal"] = "Stabil"
                 else:
                     row["Signal"] = "Neutral"
-                row["Trend"] = "über SMA50" if above_50 else "unter SMA50"
 
             elif ticker in ["CC=F", "KC=F", "DBA"]:
+                row["Trend"] = "1M Momentum"
                 if perf_1m is not None and perf_1m > 10:
                     row["Signal"] = "Agrarpreis-Stress"
-                    risk_points += 1
-                    notes.append(f"{name} stark: Nahrungsmittel-/Inflationssignal beobachten")
+                    commodity_points += 1
+                    commodity_notes.append(f"{name} stark: Nahrungsmittel-/Inflationssignal beobachten")
                 elif perf_1m is not None and perf_1m < -10:
                     row["Signal"] = "Agrar schwach"
                 elif above_50:
                     row["Signal"] = "Stabil"
                 else:
                     row["Signal"] = "Neutral"
-                row["Trend"] = "1M Momentum"
 
         except Exception:
             pass
 
         rows.append(row)
 
-    # Risk-Level 1 bis 5: 1 = Risk-On, 5 = Stress
-    if risk_points <= -2:
+    # Markt-Level: bewusst nur Kernsignale. Rohstoffe werden separat ausgewiesen.
+    if market_points <= -3:
         level = 1
         label = "🟢 Risk-On"
-        interpretation = "Markt wirkt konstruktiv: Risikoappetit vorhanden, technische Trends überwiegend positiv."
-    elif risk_points <= 0:
+        interpretation = "Aktien-/Kredit-/Vola-Signale wirken konstruktiv. Gute Setups können aktiver geprüft werden."
+    elif market_points <= -1:
         level = 2
         label = "🟢 Vorsichtig bullisch"
-        interpretation = "Marktbild ist eher freundlich, aber nicht völlig risikofrei. Setups können aktiv geprüft werden."
-    elif risk_points <= 2:
+        interpretation = "Marktbild ist eher freundlich, aber nicht völlig risikofrei. Pullbacks können interessant sein."
+    elif market_points <= 2:
         level = 3
         label = "🟡 Neutral / gemischt"
-        interpretation = "Gemischtes Marktumfeld. Gute Einzelaktien sind möglich, aber Positionsgröße und Risiko beachten."
-    elif risk_points <= 4:
+        interpretation = "Gemischtes Umfeld. Einzelaktien zählen, Positionsgröße und Risiko beachten."
+    elif market_points <= 5:
         level = 4
         label = "🟠 Risk-Off"
-        interpretation = "Marktrisiko erhöht. Neue Käufe strenger prüfen, High-Risk- und Turnaround-Titel vorsichtiger behandeln."
+        interpretation = "Marktrisiko erhöht. Neue Käufe strenger prüfen und schwache Setups meiden."
     else:
         level = 5
         label = "🔴 Stress / Panik"
-        interpretation = "Stressmodus. Kapitalerhalt, Cash-Quote und defensive Sektoren priorisieren. Keine impulsiven Käufe."
+        interpretation = "Kernmarkt-Signale zeigen Stress. Kapitalerhalt, Cash und defensive Sektoren priorisieren."
+
+    if commodity_points <= 0:
+        commodity_status = "🟢 niedrig / normal"
+        commodity_interpretation = "Rohstoffe liefern aktuell keinen dominanten Zusatzstress."
+    elif commodity_points <= 2:
+        commodity_status = "🟡 erhöht"
+        commodity_interpretation = "Einzelne Rohstoffe zeigen Preis-/Inflationsdruck. Als Warnhinweis beobachten, aber nicht als Paniksignal werten."
+    else:
+        commodity_status = "🟠 hoch"
+        commodity_interpretation = "Mehrere Rohstoffe senden Stress-/Inflationssignale. Das kann Margen, Konsum und Zinserwartungen belasten."
+
+    notes = (market_notes + commodity_notes)[:8]
 
     return {
         "level": level,
         "label": label,
         "interpretation": interpretation,
-        "risk_points": risk_points,
-        "notes": notes[:6],
+        "risk_points": market_points,
+        "market_points": market_points,
+        "commodity_points": commodity_points,
+        "commodity_status": commodity_status,
+        "commodity_interpretation": commodity_interpretation,
+        "notes": notes,
+        "market_notes": market_notes[:5],
+        "commodity_notes": commodity_notes[:5],
         "details": rows
     }
 
@@ -2668,12 +2737,24 @@ with tab_overview:
             )
             st.info(market_data["interpretation"])
 
+            st.markdown(
+                f"""
+                <div style="background:#f8fafc; border:1px solid rgba(148,163,184,0.35); border-radius:14px; padding:12px; margin-top:10px;">
+                    <div style="font-size:12px; color:#64748b; font-weight:700;">Rohstoff-Stress separat</div>
+                    <div style="font-size:20px; font-weight:900; color:#0f172a;">{market_data.get('commodity_status', '-')}</div>
+                    <div style="font-size:12px; color:#334155; margin-top:4px;">{market_data.get('commodity_interpretation', '')}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
         with detail_col:
             st.caption(
-                "Regelbasierter Markt-Kontext aus Aktienindizes, Volatilität, Kreditmarkt, Bonds, US-Dollar, Gold, Silber, Öl, Gas, Kupfer und weiteren Rohstoff-/Zukunftssegmenten."
+                "Der Markt-Tacho bewertet nur die Kernsignale Aktienindizes, Volatilität, Kreditmarkt, Bonds und US-Dollar. Rohstoffe wie Gold, Silber, Öl, Gas, Kupfer, Kakao, Kaffee, Uran und Lithium laufen separat als Stress-/Inflationshinweise."
             )
+            details_df = pd.DataFrame(market_data["details"])
             st.dataframe(
-                pd.DataFrame(market_data["details"]),
+                details_df,
                 width="stretch",
                 hide_index=True
             )
@@ -3138,7 +3219,10 @@ with tab_overview:
 
         ## 🧭 Marktsignale / Markt-Tacho
 
-        Die Marktsignale zeigen den aktuellen Gesamtmarkt-Kontext in 5 Stufen:
+        Die Marktsignale sind jetzt in zwei Ebenen getrennt:
+
+        **1. Markt-Tacho**  
+        Der Tacho bewertet nur die Kernsignale aus Aktienmarkt, Volatilität, Kreditmarkt, Bonds und US-Dollar. Dadurch wird der Markt nicht mehr nur wegen Kakao, Gas oder Öl automatisch als Panikmarkt eingestuft.
 
         - **1 Risk-On** → Markt wirkt konstruktiv, Risikoappetit vorhanden.
         - **2 Vorsichtig bullisch** → Umfeld freundlich, aber nicht ohne Risiko.
@@ -3146,7 +3230,10 @@ with tab_overview:
         - **4 Risk-Off** → neue Käufe strenger prüfen, High-Risk-Titel vorsichtiger behandeln.
         - **5 Stress / Panik** → Kapitalerhalt, Cash und defensive Sektoren priorisieren.
 
-        Einbezogen werden u. a. **SPY, QQQ, VIX, High-Yield-Bonds, US-Bonds, US-Dollar, Gold, Silber, Öl, Gas, Kupfer, Platin, Palladium, Kakao, Kaffee, Agrarrohstoffe, Uran und Lithium/Batterie-Themen**. Die Werte kommen über Yahoo/yfinance und dienen als Markt-Kontext, nicht als einzelnes Kaufsignal.
+        Für den Markt-Tacho werden vor allem **SPY, QQQ, VIX, High-Yield-Bonds, US-Bonds und US-Dollar** verwendet.
+
+        **2. Rohstoff-Stress separat**  
+        Rohstoffe werden separat als Inflations-, Energie- oder Nachfragehinweis angezeigt. Sie können den Tacho ergänzen, aber nicht allein auf Stress/Panik drücken.
 
         Die Rohstoffwerte helfen dabei, Inflation, Energiepreise und Risikoappetit besser einzuordnen:
 
