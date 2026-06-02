@@ -3520,27 +3520,102 @@ with tab_network:
 
         else:
 
-            try:
-                relationships_df = pd.read_csv(
-                    RELATIONSHIPS_FILE,
-                    encoding="utf-8",
-                    sep=None,
-                    engine="python"
-                )
-            except UnicodeDecodeError:
-                try:
-                    relationships_df = pd.read_csv(
-                        RELATIONSHIPS_FILE,
-                        encoding="latin1",
-                        sep=None,
-                        engine="python"
-                    )
-                except Exception as error:
-                    st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
-                    relationships_df = pd.DataFrame()
-            except Exception as error:
-                st.error(f"stock_relationships.csv konnte nicht geladen werden: {error}")
-                relationships_df = pd.DataFrame()
+            def load_relationships_csv(file_path):
+                """Lädt stock_relationships.csv robust, auch bei Excel-/BOM-/Semikolon-Problemen."""
+
+                read_attempts = [
+                    {"encoding": "utf-8-sig", "sep": None},
+                    {"encoding": "utf-8-sig", "sep": ";"},
+                    {"encoding": "utf-8-sig", "sep": ","},
+                    {"encoding": "latin1", "sep": None},
+                    {"encoding": "latin1", "sep": ";"},
+                    {"encoding": "latin1", "sep": ","},
+                ]
+
+                last_error = None
+
+                for attempt in read_attempts:
+                    try:
+                        loaded_df = pd.read_csv(
+                            file_path,
+                            encoding=attempt["encoding"],
+                            sep=attempt["sep"],
+                            engine="python"
+                        )
+
+                        # Header normalisieren: BOM, Leerzeichen, Excel-Varianten.
+                        loaded_df.columns = [
+                            str(column)
+                            .replace("\ufeff", "")
+                            .strip()
+                            .lower()
+                            .replace(" ", "_")
+                            .replace("-", "_")
+                            for column in loaded_df.columns
+                        ]
+
+                        # Falls Excel/CSV alles in eine einzige Spalte geschrieben hat,
+                        # erneut mit dem sichtbaren Trennzeichen laden.
+                        if len(loaded_df.columns) == 1:
+                            only_column = loaded_df.columns[0]
+                            if ";" in only_column or "," in only_column:
+                                guessed_sep = ";" if ";" in only_column else ","
+                                loaded_df = pd.read_csv(
+                                    file_path,
+                                    encoding=attempt["encoding"],
+                                    sep=guessed_sep,
+                                    engine="python"
+                                )
+                                loaded_df.columns = [
+                                    str(column)
+                                    .replace("\ufeff", "")
+                                    .strip()
+                                    .lower()
+                                    .replace(" ", "_")
+                                    .replace("-", "_")
+                                    for column in loaded_df.columns
+                                ]
+
+                        column_aliases = {
+                            "source": "source_ticker",
+                            "source_symbol": "source_ticker",
+                            "source_ticker_symbol": "source_ticker",
+                            "ticker": "source_ticker",
+                            "main_ticker": "source_ticker",
+                            "hauptaktie": "source_ticker",
+                            "haupt_ticker": "source_ticker",
+                            "target": "target_ticker",
+                            "target_symbol": "target_ticker",
+                            "target_ticker_symbol": "target_ticker",
+                            "ziel_ticker": "target_ticker",
+                            "name": "target_name",
+                            "target_company": "target_name",
+                            "target_name_company": "target_name",
+                            "ziel_name": "target_name",
+                            "kategorie": "category",
+                            "beziehung": "relationship",
+                            "relation": "relationship",
+                            "wichtigkeit": "importance",
+                            "risiko": "risk_note",
+                            "risk": "risk_note",
+                            "risk_notes": "risk_note",
+                        }
+
+                        loaded_df = loaded_df.rename(
+                            columns={column: column_aliases.get(column, column) for column in loaded_df.columns}
+                        )
+
+                        return loaded_df, None
+
+                    except Exception as error:
+                        last_error = error
+
+                return pd.DataFrame(), last_error
+
+            relationships_df, relationships_load_error = load_relationships_csv(RELATIONSHIPS_FILE)
+
+            if relationships_load_error is not None and relationships_df.empty:
+                st.error(f"stock_relationships.csv konnte nicht geladen werden: {relationships_load_error}")
 
             needed_relationship_columns = [
                 "source_ticker",

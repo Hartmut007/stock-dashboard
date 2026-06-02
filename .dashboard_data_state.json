@@ -3,21 +3,21 @@
     "sha256": "005a794595fb94200a21cf8a75ab3f7f89361c866fcbfcacec6c1773ceab18f7",
     "first_seen_at": "2026-06-01T21:12:34.293021+02:00",
     "content_changed_at": "2026-06-02T14:28:37.918794+02:00",
-    "last_seen_at": "2026-06-02T14:28:37.918794+02:00",
+    "last_seen_at": "2026-06-02T15:01:31.163166+02:00",
     "cloud_mtime": "2026-06-02T14:19:44.791688+02:00"
   },
   "clean_watchlist.csv": {
     "sha256": "8f8cedb85906dd1706399192e7f1212d7e8b4e2399d7f92178f445d2f4db758a",
     "first_seen_at": "2026-06-01T21:12:34.293021+02:00",
     "content_changed_at": null,
-    "last_seen_at": "2026-06-02T14:28:37.918794+02:00",
+    "last_seen_at": "2026-06-02T15:01:31.163166+02:00",
     "cloud_mtime": "2026-05-30T21:55:12.750704+02:00"
   },
   "stock_relationships.csv": {
     "sha256": "eb59975ae6a20aea7c53e9f82f00a264347b3b392b78a7b5b02ba0fbd71fd0b1",
     "first_seen_at": "2026-06-01T21:12:34.293021+02:00",
     "content_changed_at": null,
-    "last_seen_at": "2026-06-02T14:28:37.918794+02:00",
+    "last_seen_at": "2026-06-02T15:01:31.163166+02:00",
     "cloud_mtime": "2026-05-30T21:53:40.170657+02:00"
   }
 }
