@@ -1,6 +1,17 @@
 import pandas as pd
 import yfinance as yf
-from datetime import datetime
+from datetime import datetime, timedelta
+import json
+import os
+import time
+import urllib.parse
+import urllib.request
+from email.utils import parsedate_to_datetime
+
+try:
+    import feedparser
+except Exception:
+    feedparser = None
 
 
 # ============================================================
@@ -179,6 +190,291 @@ def format_growth(value):
         return "-"
 
     return f"{round(value * 100, 2)}%"
+
+
+# ============================================================
+# EQS / GOOGLE NEWS RSS RADAR
+# ============================================================
+
+NEWS_CACHE_FILE = "eqs_news_cache.json"
+NEWS_CACHE_TTL_HOURS = 12
+NEWS_DAYS = 14
+NEWS_MAX_ITEMS = 5
+NEWS_REQUEST_TIMEOUT = 8
+NEWS_SLEEP_SECONDS = 0.15
+
+POSITIVE_EQS_KEYWORDS = {
+    "auftrag": 3,
+    "großauftrag": 4,
+    "grossauftrag": 4,
+    "rahmenvertrag": 3,
+    "vertrag": 2,
+    "partnerschaft": 2,
+    "kooperation": 2,
+    "finanzierung": 2,
+    "finanzierungsvereinbarung": 3,
+    "anleihe": 1,
+    "umsatzwachstum": 2,
+    "umsatz steigt": 2,
+    "prognose erhöht": 4,
+    "prognose angehoben": 4,
+    "ebitda verbessert": 2,
+    "gewinn steigt": 3,
+    "zulassung": 4,
+    "genehmigung": 3,
+    "auslieferung": 3,
+    "serienproduktion": 3,
+    "defence": 2,
+    "verteidigung": 2,
+    "übernahmeangebot": 3,
+    "uebernahmeangebot": 3,
+    "strategische investition": 3,
+    "launch": 2,
+    "contract": 2,
+    "partnership": 2,
+    "approval": 3,
+    "order": 2,
+    "milestone": 2,
+}
+
+NEGATIVE_EQS_KEYWORDS = {
+    "kapitalerhöhung": -2,
+    "kapitalerhoehung": -2,
+    "verwässerung": -3,
+    "verwaesserung": -3,
+    "prognose gesenkt": -4,
+    "prognose reduziert": -4,
+    "verlustwarnung": -5,
+    "umsatzrückgang": -3,
+    "umsatzrueckgang": -3,
+    "ebitda sinkt": -3,
+    "insolvenz": -6,
+    "sanierung": -5,
+    "liquidität": -3,
+    "liquiditaet": -3,
+    "delisting": -5,
+    "klage": -2,
+    "untersuchung": -2,
+    "investigation": -3,
+    "downgrade": -2,
+}
+
+
+def load_news_cache():
+    try:
+        if os.path.exists(NEWS_CACHE_FILE):
+            with open(NEWS_CACHE_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    return data
+    except Exception:
+        pass
+    return {}
+
+
+def save_news_cache(cache):
+    try:
+        with open(NEWS_CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+
+NEWS_CACHE = load_news_cache()
+
+
+def _cache_is_fresh(cache_entry):
+    try:
+        checked_at = datetime.fromisoformat(cache_entry.get("checked_at", ""))
+        return datetime.now() - checked_at < timedelta(hours=NEWS_CACHE_TTL_HOURS)
+    except Exception:
+        return False
+
+
+def clean_company_for_news(company_name, ticker):
+    """Baut einen brauchbaren Suchnamen für EQS/Google News."""
+    company = str(company_name or ticker or "").strip()
+    ticker_text = str(ticker or "").strip()
+
+    # Yahoo hängt teils Handelsplatz-/ADR-Zusätze in den Namen; für News ist der Firmenname wichtiger.
+    replace_terms = [
+        " Aktiengesellschaft", " AG", " SE", " N.V.", " NV", " S.A.", " SA",
+        " Inc.", " Inc", " Corporation", " Corp.", " Corp", " plc", " PLC",
+        " Ltd.", " Ltd", " Limited", " Holding", " Holdings",
+        " Registered Shares", " Common Stock", " ADR", " Sponsored ADR"
+    ]
+    search_name = company
+    for term in replace_terms:
+        if len(search_name) > 10:
+            search_name = search_name.replace(term, "")
+
+    search_name = " ".join(search_name.split()).strip()
+
+    if not search_name or search_name == "-":
+        search_name = ticker_text.split(".")[0]
+
+    return search_name[:80]
+
+
+def parse_google_news_date(value):
+    try:
+        dt = parsedate_to_datetime(value)
+        return dt.strftime("%d.%m.%Y %H:%M")
+    except Exception:
+        return str(value or "-")
+
+
+def fetch_google_news_rss(query, max_items=NEWS_MAX_ITEMS):
+    if feedparser is None:
+        return []
+
+    encoded_query = urllib.parse.quote(query)
+    url = (
+        "https://news.google.com/rss/search?"
+        f"q={encoded_query}&hl=de&gl=DE&ceid=DE:de"
+    )
+
+    try:
+        request = urllib.request.Request(
+            url,
+            headers={"User-Agent": "Mozilla/5.0 NewsMomentumRadar/1.0"}
+        )
+        with urllib.request.urlopen(request, timeout=NEWS_REQUEST_TIMEOUT) as response:
+            raw = response.read()
+
+        feed = feedparser.parse(raw)
+        items = []
+        for entry in feed.entries[:max_items]:
+            source = ""
+            try:
+                source = entry.source.get("title", "")
+            except Exception:
+                source = ""
+
+            items.append({
+                "title": entry.get("title", ""),
+                "link": entry.get("link", ""),
+                "published": parse_google_news_date(entry.get("published", "")),
+                "source": source,
+            })
+
+        return items
+
+    except Exception:
+        return []
+
+
+def get_eqs_news(company_name, ticker, days=NEWS_DAYS, max_items=NEWS_MAX_ITEMS):
+    search_name = clean_company_for_news(company_name, ticker)
+    ticker_base = str(ticker or "").split(".")[0]
+    query = f'site:eqs-news.com "{search_name}" OR "{ticker_base}" when:{days}d'
+    cache_key = f"{ticker}|{search_name}|{days}|{max_items}"
+
+    cached = NEWS_CACHE.get(cache_key)
+    if isinstance(cached, dict) and _cache_is_fresh(cached):
+        return cached.get("items", []), query
+
+    items = fetch_google_news_rss(query, max_items=max_items)
+
+    NEWS_CACHE[cache_key] = {
+        "checked_at": datetime.now().isoformat(),
+        "query": query,
+        "items": items,
+    }
+
+    time.sleep(NEWS_SLEEP_SECONDS)
+    return items, query
+
+
+def score_eqs_news(news_items):
+    score = 0
+    hits = []
+
+    for item in news_items:
+        title = str(item.get("title", "")).lower()
+
+        for keyword, points in POSITIVE_EQS_KEYWORDS.items():
+            if keyword in title:
+                score += points
+                hits.append(keyword)
+
+        for keyword, points in NEGATIVE_EQS_KEYWORDS.items():
+            if keyword in title:
+                score += points
+                hits.append(keyword)
+
+    hits = sorted(set(hits))
+    return score, ", ".join(hits) if hits else "-"
+
+
+def build_eqs_signal(score, count):
+    if count == 0:
+        return "⚪ Keine EQS-News"
+    if score >= 7:
+        return "🔥 Starker Katalysator"
+    if score >= 4:
+        return "🟠 Positive EQS-News"
+    if score >= 1:
+        return "🟡 Leicht positiv"
+    if score <= -5:
+        return "🔴 Kritische EQS-News"
+    if score < 0:
+        return "🟠 Negative EQS-News"
+    return "⚪ Neutral"
+
+
+def build_news_momentum_signal(perf_1d, perf_1w, volume_ratio, rsi, price, ema20, eqs_score, eqs_count):
+    score = 0
+
+    perf_1d = safe_number(perf_1d) or 0
+    perf_1w = safe_number(perf_1w) or 0
+    volume_ratio = safe_number(volume_ratio) or 0
+    rsi = safe_number(rsi)
+    price = safe_number(price)
+    ema20 = safe_number(ema20)
+    eqs_score = safe_number(eqs_score) or 0
+    eqs_count = int(eqs_count or 0)
+
+    if perf_1d > 5:
+        score += 2
+    elif perf_1d > 2:
+        score += 1
+
+    if perf_1w > 10:
+        score += 2
+    elif perf_1w > 4:
+        score += 1
+
+    if volume_ratio > 2:
+        score += 2
+    elif volume_ratio > 1.5:
+        score += 1
+
+    if price is not None and ema20 is not None and price > ema20:
+        score += 1
+
+    if rsi is not None and 40 <= rsi <= 65:
+        score += 1
+
+    if eqs_score >= 4:
+        score += 3
+    elif eqs_score >= 1:
+        score += 1
+    elif eqs_score <= -4:
+        score -= 3
+
+    if eqs_count > 0 and eqs_score == 0:
+        score += 1
+
+    if score >= 8:
+        return "🔥 News-Momentum", score
+    if score >= 6:
+        return "🟠 Bewegung möglich", score
+    if score >= 3:
+        return "🟡 Beobachten", score
+    if score <= 0:
+        return "🔴 Schwach / Risiko", score
+    return "⚪ Neutral", score
 
 
 def calculate_fundamental_score(
@@ -362,6 +658,7 @@ def analyze_stock(ticker, current_index, total_count):
 
     avg_volume_20 = volume.tail(20).mean()
     current_volume = volume.iloc[-1]
+    volume_ratio = current_volume / avg_volume_20 if avg_volume_20 and avg_volume_20 > 0 else 0
 
     volume_signal = "NORMAL"
 
@@ -509,6 +806,23 @@ def analyze_stock(ticker, current_index, total_count):
 
     reason_text = ", ".join(reason)
 
+    eqs_news_items, eqs_query = get_eqs_news(company_name, ticker)
+    eqs_news_count = len(eqs_news_items)
+    eqs_news_score, eqs_keywords = score_eqs_news(eqs_news_items)
+    eqs_signal = build_eqs_signal(eqs_news_score, eqs_news_count)
+
+    latest_eqs_news = eqs_news_items[0] if eqs_news_items else {}
+    news_momentum_signal, news_momentum_score = build_news_momentum_signal(
+        change_1d,
+        change_1w,
+        volume_ratio,
+        rsi,
+        current_price,
+        ema20,
+        eqs_news_score,
+        eqs_news_count
+    )
+
     return {
         "Ticker": ticker,
         "Company": company_name,
@@ -540,6 +854,19 @@ def analyze_stock(ticker, current_index, total_count):
         "Beta": beta,
 
         "Volume Signal": volume_signal,
+        "Volume Ratio": round(volume_ratio, 2),
+
+        "EQS News Count 14D": eqs_news_count,
+        "EQS Latest Title": latest_eqs_news.get("title", "-"),
+        "EQS Latest Date": latest_eqs_news.get("published", "-"),
+        "EQS Latest Source": latest_eqs_news.get("source", "-"),
+        "EQS Link": latest_eqs_news.get("link", "-"),
+        "EQS Search Query": eqs_query,
+        "EQS News Score": eqs_news_score,
+        "EQS Keywords": eqs_keywords,
+        "EQS Signal": eqs_signal,
+        "News Momentum Score": news_momentum_score,
+        "News Momentum Signal": news_momentum_signal,
 
         "Dividend Yield %": format_percent(dividend_yield),
         "Dividend Rate": format_price(dividend_rate, currency),
@@ -601,6 +928,9 @@ for index, ticker in enumerate(PORTFOLIO, start=1):
 
         results.append(result)
 
+        if index % 25 == 0:
+            save_news_cache(NEWS_CACHE)
+
     except Exception as error:
         print(f"Fehler bei {ticker}: {error}")
 
@@ -626,6 +956,19 @@ if not df.empty:
         index=False,
         encoding="utf-8-sig"
     )
+
+    save_news_cache(NEWS_CACHE)
+
+    with open("data_update_meta.json", "w", encoding="utf-8") as meta_file:
+        json.dump(
+            {
+                "portfolio_analysis.csv": datetime.now().isoformat(),
+                "eqs_news_cache.json": datetime.now().isoformat(),
+            },
+            meta_file,
+            ensure_ascii=False,
+            indent=2
+        )
 
     print("\n====================================")
     print("FERTIG")

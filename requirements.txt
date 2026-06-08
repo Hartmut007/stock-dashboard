@@ -5,3 +5,4 @@ supabase
 numpy
 pyvis
 networkx
+feedparser

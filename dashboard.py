@@ -685,6 +685,10 @@ for numeric_column in [
     "3M %",
     "6M %",
     "RSI",
+    "Volume Ratio",
+    "EQS News Count 14D",
+    "EQS News Score",
+    "News Momentum Score",
     "Fundamental Score"
 ]:
 
@@ -1620,7 +1624,15 @@ display_text_columns = [
     "Profit Margin",
     "Debt To Equity",
     "Free Cashflow",
-    "Operating Cashflow"
+    "Operating Cashflow",
+    "EQS Latest Title",
+    "EQS Latest Date",
+    "EQS Latest Source",
+    "EQS Link",
+    "EQS Search Query",
+    "EQS Keywords",
+    "EQS Signal",
+    "News Momentum Signal"
 ]
 
 for column in display_text_columns:
@@ -1701,6 +1713,18 @@ COLUMN_HELP_TEXTS = {
     "52W Low": "Niedrigster Kurs der letzten 52 Wochen.",
     "Turnaround Candidate": "Markierung, ob das Dashboard eine mögliche Trendwende erkennt.",
     "Bereich": "Gruppierung des Marktindikators, z. B. Markt-Kern oder Rohstoffe / Themen.",
+    "Volume Ratio": "Aktuelles Volumen im Verhältnis zum 20-Tage-Durchschnitt. Werte über 1,5 zeigen erhöhtes Marktinteresse.",
+    "EQS News Count 14D": "Anzahl gefundener EQS-News-Treffer über Google News RSS in den letzten 14 Tagen.",
+    "EQS Latest Title": "Neueste gefundene EQS-Schlagzeile zur Aktie. Treffer können je nach Google-Index verzögert oder unvollständig sein.",
+    "EQS Latest Date": "Veröffentlichungszeitpunkt des neuesten EQS-Treffers, soweit Google News ihn liefert.",
+    "EQS Latest Source": "Quelle des neuesten EQS-Treffers laut Google News RSS.",
+    "EQS Link": "Link zur gefundenen EQS-News beziehungsweise zum Google-News-Treffer.",
+    "EQS Search Query": "Verwendete Suchabfrage für die EQS-Suche über Google News RSS.",
+    "EQS News Score": "Regelbasierter Keyword-Score der gefundenen EQS-Schlagzeilen. Positive Keywords wie Auftrag, Prognose angehoben oder Finanzierung erhöhen den Score; Warnwörter senken ihn.",
+    "EQS Keywords": "Gefundene Signalwörter aus den EQS-Schlagzeilen, z. B. Auftrag, Finanzierung, Defence oder Verlustwarnung.",
+    "EQS Signal": "Textsignal aus EQS-News-Score und Trefferanzahl. Es ist ein Katalysator-Hinweis, keine Kaufempfehlung.",
+    "News Momentum Score": "Kombinierter Score aus EQS-News, Kursbewegung, Volumen, RSI und EMA20. Höher bedeutet: Bewegung plus News-Kontext ist auffällig.",
+    "News Momentum Signal": "Frühwarnsignal für mögliche News-/Momentum-Bewegungen. Es zeigt Aufmerksamkeit, nicht automatisch Kaufen.",
     "Ticker ETF": "ETF-Ticker, der bei Yahoo Finance abgefragt wird.",
     "ETF": "Name oder Ticker des ETFs.",
     "Swing Score": "ETF-Swing-Score von 0 bis 10. Höhere Werte sprechen für ein stärkeres Swing-Setup.",
@@ -3039,8 +3063,9 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
+tab_overview, tab_news, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
     "📊 Übersicht",
+    "🚨 News Radar",
     "🧠 Analyse",
     "🕸️ Netzwerk",
     "📆 Earnings",
@@ -5248,6 +5273,110 @@ with tab_overview:
             round(df_filtered["Fundamental Score"].mean(), 2)
             if len(df_filtered) > 0 else 0
         )
+
+
+with tab_news:
+    st.markdown("## 🚨 News & Momentum Radar")
+    st.caption(
+        "Kombiniert EQS-Treffer über Google News RSS mit Kursbewegung, Volumen, RSI und EMA20. "
+        "Das ist ein Frühwarnsystem für Bewegung — keine automatische Kaufempfehlung."
+    )
+
+    news_df = df_filtered.copy()
+
+    required_news_columns = {
+        "EQS News Count 14D": 0,
+        "EQS News Score": 0,
+        "News Momentum Score": 0,
+        "EQS Signal": "⚪ Keine EQS-News",
+        "News Momentum Signal": "⚪ Neutral",
+        "EQS Keywords": "-",
+        "EQS Latest Title": "-",
+        "EQS Latest Date": "-",
+        "EQS Latest Source": "-",
+        "EQS Link": "-",
+        "Volume Ratio": 0,
+    }
+
+    for column, default_value in required_news_columns.items():
+        if column not in news_df.columns:
+            news_df[column] = default_value
+
+    for column in [
+        "1D %", "1W %", "RSI", "Volume Ratio",
+        "EQS News Count 14D", "EQS News Score", "News Momentum Score"
+    ]:
+        if column in news_df.columns:
+            news_df[column] = pd.to_numeric(news_df[column], errors="coerce").fillna(0)
+
+    metric_col_1, metric_col_2, metric_col_3, metric_col_4 = st.columns(4)
+    metric_col_1.metric("🔥 News-Momentum", int(news_df["News Momentum Signal"].astype(str).str.contains("News-Momentum", na=False).sum()))
+    metric_col_2.metric("🟠 Bewegung möglich", int(news_df["News Momentum Signal"].astype(str).str.contains("Bewegung möglich", na=False).sum()))
+    metric_col_3.metric("EQS-Treffer 14T", int((news_df["EQS News Count 14D"] > 0).sum()))
+    metric_col_4.metric("Ø News Score", round(news_df["News Momentum Score"].mean(), 2) if len(news_df) else 0)
+
+    signal_options = ["Alle"] + sorted(news_df["News Momentum Signal"].dropna().astype(str).unique().tolist())
+    eqs_options = ["Alle"] + sorted(news_df["EQS Signal"].dropna().astype(str).unique().tolist())
+
+    filter_col_1, filter_col_2, filter_col_3 = st.columns([1.1, 1.1, 1.2])
+    selected_news_signal = filter_col_1.selectbox("News-Momentum-Signal", signal_options, index=0)
+    selected_eqs_signal = filter_col_2.selectbox("EQS-Signal", eqs_options, index=0)
+    only_with_eqs = filter_col_3.checkbox("Nur Aktien mit EQS-Treffer", value=False)
+
+    if selected_news_signal != "Alle":
+        news_df = news_df[news_df["News Momentum Signal"].astype(str) == selected_news_signal]
+
+    if selected_eqs_signal != "Alle":
+        news_df = news_df[news_df["EQS Signal"].astype(str) == selected_eqs_signal]
+
+    if only_with_eqs:
+        news_df = news_df[news_df["EQS News Count 14D"] > 0]
+
+    news_df = news_df.sort_values(
+        by=["News Momentum Score", "EQS News Score", "1D %", "Volume Ratio"],
+        ascending=[False, False, False, False]
+    )
+
+    news_display_columns = [
+        "Ticker", "Company", "Price", "1D %", "1W %", "Volume Ratio", "RSI",
+        "EQS News Count 14D", "EQS News Score", "EQS Keywords", "EQS Signal",
+        "News Momentum Score", "News Momentum Signal",
+        "EQS Latest Date", "EQS Latest Source", "EQS Latest Title", "EQS Link"
+    ]
+    news_display_columns = [column for column in news_display_columns if column in news_df.columns]
+
+    st.markdown("### Auffällige Werte")
+    if news_df.empty:
+        st.info("Keine Aktien im aktuellen Filter mit auffälligem News-/Momentum-Signal.")
+    else:
+        column_config = build_column_help_config(news_df[news_display_columns])
+        if "EQS Link" in news_display_columns:
+            column_config["EQS Link"] = st.column_config.LinkColumn(
+                "EQS Link",
+                help=COLUMN_HELP_TEXTS.get("EQS Link", "Link zur gefundenen News."),
+                display_text="Öffnen"
+            )
+        smart_dataframe(
+            news_df[news_display_columns].head(100),
+            width="stretch",
+            hide_index=True,
+            column_config=column_config
+        )
+
+    with st.expander("Wie wird das Signal berechnet?", expanded=False):
+        st.markdown(
+            """
+            **EQS News Score** bewertet gefundene Schlagzeilen nach Keywords. Positive Wörter wie
+            *Auftrag*, *Finanzierung*, *Prognose angehoben*, *Zulassung*, *Auslieferung* oder
+            *Defence* erhöhen den Score. Warnwörter wie *Verlustwarnung*, *Insolvenz*,
+            *Prognose gesenkt* oder *Verwässerung* senken ihn.
+
+            **News Momentum Score** kombiniert diesen News-Score mit Tages-/Wochenperformance,
+            Volumenfaktor, RSI und Kurs über EMA20. Dadurch erkennt das Dashboard nicht nur
+            eine Meldung, sondern auch, ob der Markt bereits darauf reagiert.
+            """
+        )
+
 
 
 # ============================================================
