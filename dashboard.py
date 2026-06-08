@@ -1627,6 +1627,158 @@ for column in display_text_columns:
     if column in df.columns:
         df[column] = df[column].astype(str)
 
+
+# ============================================================
+# ℹ️ TABELLEN-HILFETEXTE / SPALTEN-TOOLTIPS
+# ============================================================
+
+COLUMN_HELP_TEXTS = {
+    "Ticker": "Yahoo-Finance-Ticker beziehungsweise Börsenkürzel der Aktie, des ETFs oder des Basiswertes.",
+    "Company": "Name des Unternehmens oder Fonds.",
+    "Name": "Bezeichnung des Marktindikators, Rohstoffs, ETFs oder Datenpunkts.",
+    "Currency": "Währung, in der Kurs- und Preisangaben interpretiert werden. Wird teils aus Yahoo-Daten oder Ticker-Suffix abgeleitet.",
+    "Price": "Letzter verfügbarer Kurs aus der Analyse-Datei beziehungsweise aus Yahoo Finance.",
+    "Last": "Letzter abgerufener Schlusskurs oder aktueller letzter Wert des jeweiligen Instruments.",
+    "Rating": "Technische Ampelbewertung aus der Dashboard-Logik. Sie fasst mehrere technische Signale grob zusammen.",
+    "Risk Level": "Einschätzung des Risikos aus Volatilität, Trendlage und weiteren Dashboard-Regeln.",
+    "Score": "Technischer Score des Dashboards. Höhere Werte sprechen für ein stärkeres technisches Bild.",
+    "Action Signal": "Regelbasiertes Handlungssignal des Dashboards, z. B. BUY ZONE, WATCH, TAKE PROFIT oder SELL / AVOID.",
+    "Action Sort": "Interner Sortierwert für die Reihenfolge der Action-Signale.",
+    "Strategy Mode": "Gewählter Anlagehorizont: kurzfristig, mittelfristig oder langfristig.",
+    "Setup Quality": "Kurzbeschreibung der Qualität des aktuellen Setups, abhängig vom gewählten Strategie-Horizont.",
+    "Terminal Score": "Gesamtscore von 0 bis 100 aus Technik, Fundamentaldaten, Bewertung, CRV, Risiko und Signal.",
+    "Terminal Grade": "Kurzlabel zum Terminal Score, z. B. A · Stark oder C · Beobachten.",
+    "Terminal Summary": "Kurzes Fazit zum Terminal Score und zur Gesamtlage der Aktie.",
+    "Valuation Status": "Regelbasierte Bewertungseinordnung: eher unterbewertet, fair, fair bis leicht teuer oder eher überbewertet.",
+    "Valuation Score": "Punktwert der Bewertungslogik. Positive Werte sprechen eher für attraktive Bewertung, negative für teuer/anspruchsvoll.",
+    "Valuation Reasons": "Gründe, warum das Dashboard die Bewertung so einordnet, z. B. KGV, PEG, Wachstum, Marge oder Cashflow.",
+    "Valuation Summary": "Kurze Zusammenfassung der Bewertungseinordnung.",
+    "RSI": "Relative-Stärke-Index. Unter 30 oft überverkauft, über 70 oft überkauft; kein alleiniges Kaufsignal.",
+    "EMA20": "Exponentieller gleitender Durchschnitt über 20 Tage. Hilft bei kurzfristiger Trendbeurteilung.",
+    "EMA50": "Exponentieller gleitender Durchschnitt über 50 Tage. Hilft bei mittelfristiger Trendbeurteilung.",
+    "EMA100": "Exponentieller gleitender Durchschnitt über 100 Tage. Hilft bei längerer Trendbeurteilung.",
+    "SMA20": "Einfacher gleitender Durchschnitt über 20 Tage.",
+    "SMA50": "Einfacher gleitender Durchschnitt über 50 Tage.",
+    "SMA200": "Einfacher gleitender Durchschnitt über 200 Tage. Häufig als langfristiger Trendfilter genutzt.",
+    "Trend": "Trendstatus im Verhältnis zu gleitenden Durchschnitten oder Momentum-Regeln.",
+    "Signal": "Kurzsignal für den jeweiligen Datensatz, z. B. Risk-On, Stress, neutral oder Swing Long prüfen.",
+    "1D %": "Performance gegenüber dem vorherigen Handelstag.",
+    "5D %": "Performance der letzten ungefähr fünf Handelstage.",
+    "1W %": "Performance der letzten ungefähr einen Woche.",
+    "7D %": "Performance der letzten sieben Tage.",
+    "24H %": "Performance der letzten 24 Stunden. Besonders relevant für Bitcoin/Krypto.",
+    "1M %": "Performance der letzten ungefähr 21 Handelstage beziehungsweise eines Monats.",
+    "3M %": "Performance der letzten ungefähr drei Monate.",
+    "6M %": "Performance der letzten ungefähr sechs Monate.",
+    "Dividend Yield %": "Dividendenrendite in Prozent. Hohe Werte sollten immer auf Nachhaltigkeit geprüft werden.",
+    "Dividend Rate": "Erwartete oder zuletzt gemeldete jährliche Dividende je Aktie, soweit Yahoo Daten liefert.",
+    "Ex Dividend Date": "Datum, ab dem die Aktie ohne Anspruch auf die nächste Dividende gehandelt wird.",
+    "Dividend Year": "Jahr des Ex-Dividenden-Datums.",
+    "Dividend Month": "Monat des Ex-Dividenden-Datums.",
+    "Forward PE": "Erwartetes Kurs-Gewinn-Verhältnis auf Basis zukünftiger Gewinnschätzungen.",
+    "Trailing PE": "Kurs-Gewinn-Verhältnis auf Basis vergangener Gewinne.",
+    "PEG Ratio": "KGV im Verhältnis zum Wachstum. Niedrigere Werte können auf attraktivere Bewertung hindeuten.",
+    "Revenue Growth": "Umsatzwachstum. Positive Werte zeigen steigende Erlöse.",
+    "Earnings Growth": "Gewinnwachstum. Positive Werte zeigen steigende Gewinne.",
+    "Profit Margin": "Gewinnmarge. Zeigt, wie viel vom Umsatz als Gewinn übrig bleibt.",
+    "Debt To Equity": "Verschuldung im Verhältnis zum Eigenkapital. Sehr hohe Werte können riskant sein.",
+    "Free Cashflow": "Freier Cashflow. Positiv ist grundsätzlich ein Qualitätsmerkmal.",
+    "Operating Cashflow": "Operativer Cashflow aus dem Kerngeschäft.",
+    "Fundamental Score": "Fundamentaler Score aus Kennzahlen wie Wachstum, Marge, Cashflow und Verschuldung.",
+    "Fundamental Rating": "Textbewertung der Fundamentaldaten, z. B. SOLID oder WEAK / UNKNOWN.",
+    "Fundamental Pros": "Positive fundamentale Auffälligkeiten aus der Analyse.",
+    "Fundamental Cons": "Negative fundamentale Auffälligkeiten aus der Analyse.",
+    "Pros": "Positive Argumente, die das Dashboard aus Technik, Bewertung und Fundamentaldaten ableitet.",
+    "Cons": "Kritische Punkte, die das Dashboard aus Technik, Bewertung und Fundamentaldaten ableitet.",
+    "Decision Summary": "Kurzes regelbasiertes Fazit zum aktuellen Setup.",
+    "Entry Zone": "Grobe Einstiegszone um den aktuellen Kurs, abhängig vom gewählten Strategie-Horizont.",
+    "Stop Loss New": "Regelbasiertes Stop-Loss-Niveau aus Preis und gleitenden Durchschnitten.",
+    "Target 1": "Erstes regelbasiertes Kursziel, häufig auf 52W-Hoch oder Fallback-Ziel basiert.",
+    "Target 2": "Zweites regelbasiertes Kursziel mit größerem Abstand.",
+    "Target Basis": "Erklärung, ob das Kursziel z. B. auf dem 52W-Hoch oder einem Fallback-Modell basiert.",
+    "CRV": "Chance-Risiko-Verhältnis. Werte über 1 bedeuten mehr potenzieller Gewinn als Risiko bis Stop-Loss.",
+    "52W High": "Höchster Kurs der letzten 52 Wochen.",
+    "52W Low": "Niedrigster Kurs der letzten 52 Wochen.",
+    "Turnaround Candidate": "Markierung, ob das Dashboard eine mögliche Trendwende erkennt.",
+    "Bereich": "Gruppierung des Marktindikators, z. B. Markt-Kern oder Rohstoffe / Themen.",
+    "Ticker ETF": "ETF-Ticker, der bei Yahoo Finance abgefragt wird.",
+    "ETF": "Name oder Ticker des ETFs.",
+    "Swing Score": "ETF-Swing-Score von 0 bis 10. Höhere Werte sprechen für ein stärkeres Swing-Setup.",
+    "Swing Signal": "Regelbasiertes ETF-Swing-Signal, z. B. Long prüfen, Watch oder kein Long-Setup.",
+    "Volume vs Avg": "Aktuelles Volumen im Verhältnis zum Durchschnitt. Auffällige Werte zeigen erhöhtes Interesse.",
+    "Beta": "Schwankungsanfälligkeit im Verhältnis zum Markt. Über 1 meist volatiler als der Markt.",
+    "Earnings Date": "Nächstes oder zuletzt bekanntes Earnings-Datum aus Yahoo/yfinance, soweit verfügbar.",
+    "Days Until": "Anzahl Tage bis zum Earnings-Termin. Negative oder fehlende Werte bedeuten keine klare Zukunftsangabe.",
+    "Time": "Zeitpunkt der Earnings, z. B. vor oder nach Börsenschluss, soweit verfügbar.",
+    "EPS Estimate": "Erwarteter Gewinn je Aktie laut verfügbaren Yahoo-Schätzdaten.",
+    "Revenue Estimate": "Erwarteter Umsatz laut verfügbaren Yahoo-Schätzdaten.",
+    "Data Source": "Quelle oder Status der Datenabfrage, z. B. Earnings-Dates oder Calendar.",
+    "Short Info": "Kompakte Zusammenfassung wichtiger Aktien-Signale im Earnings-Kontext.",
+    "Quelle": "Datei oder Datenquelle, die für den Datenstand geprüft wird.",
+    "Status": "Status der Datenquelle, z. B. OK oder Fehlt.",
+    "Echter Datenstand": "Erkannter echter Aktualisierungszeitpunkt, soweit über Meta-Datei oder Inhaltsänderung feststellbar.",
+    "Quelle der Zeit": "Erklärung, woher der angezeigte Datenstand kommt.",
+    "Cloud-Dateizeit": "Technische Dateiänderungszeit auf Streamlit Cloud. Kann durch Deployment verfälscht sein.",
+    "Liste": "Zeigt, ob ein Wert auf Watchlist, Kaufliste oder beiden Listen liegt.",
+    "User": "Nutzer, zu dem der Listeneintrag gehört.",
+    "Gespeichert am": "Zeitpunkt, zu dem der Listeneintrag gespeichert wurde.",
+    "Prüfung": "System- oder Datenqualitätsprüfung im Adminbereich.",
+    "BTC Ticker": "Bitcoin-Ticker, der über Yahoo Finance abgefragt wird, z. B. BTC-USD oder BTC-EUR.",
+    "Bitcoin Score": "Regelbasierter Bitcoin-Score aus Momentum, Trend und RSI.",
+    "Bitcoin Signal": "Regelbasierte Einschätzung für Bitcoin, z. B. bullisch, neutral oder schwach.",
+}
+
+
+def get_column_help(column_name):
+    """Gibt einen kurzen Hilfetext für eine Tabellen-Spalte zurück."""
+    column = str(column_name)
+    if column in COLUMN_HELP_TEXTS:
+        return COLUMN_HELP_TEXTS[column]
+
+    # Fallbacks für häufige Spaltenmuster, damit wirklich jede Überschrift einen Hilfetext bekommt.
+    lowered = column.lower()
+    if "%" in column or "performance" in lowered:
+        return "Performance- oder Prozentwert. Positive Werte sprechen für steigende Kurse, negative für fallende Kurse."
+    if "score" in lowered:
+        return "Regelbasierter Score des Dashboards. Höhere Werte sind grundsätzlich besser, sollten aber im Kontext geprüft werden."
+    if "signal" in lowered:
+        return "Regelbasiertes Signal aus der Dashboard-Logik. Es dient als Orientierung, nicht als alleinige Entscheidung."
+    if "date" in lowered or "datum" in lowered:
+        return "Datumsangabe aus der Analyse-Datei oder aus Yahoo/yfinance, soweit verfügbar."
+    if "price" in lowered or "kurs" in lowered:
+        return "Kurs- oder Preisangabe aus den verfügbaren Marktdaten."
+    if "yield" in lowered or "dividend" in lowered:
+        return "Dividendenbezogene Kennzahl. Hohe Werte sollten immer auf Nachhaltigkeit geprüft werden."
+    if "risk" in lowered:
+        return "Risikobezogene Einordnung aus der Dashboard-Logik."
+    return "Zusatzspalte aus der Analyse- oder Datenquelle. Sie dient als ergänzende Information für die Einordnung."
+
+
+def build_column_help_config(table_data):
+    """Erzeugt Streamlit-Spaltenkonfiguration mit Hilfe-Tooltip für jede vorhandene Spalte."""
+    try:
+        if isinstance(table_data, pd.DataFrame):
+            columns = list(table_data.columns)
+        else:
+            return {}
+
+        return {
+            column: st.column_config.Column(
+                label=str(column),
+                help=get_column_help(column)
+            )
+            for column in columns
+        }
+    except Exception:
+        return {}
+
+
+def smart_dataframe(table_data, **kwargs):
+    """st.dataframe mit automatischen Spalten-Hilfetexten."""
+    if "column_config" not in kwargs:
+        kwargs["column_config"] = build_column_help_config(table_data)
+    return st.dataframe(table_data, **kwargs)
+
 # ============================================================
 # 📆 EARNINGS-KALENDER HILFSFUNKTIONEN
 # ============================================================
@@ -2917,7 +3069,7 @@ with tab_overview:
             "Darum trackt das Dashboard ab jetzt den Dateiinhalt per Fingerabdruck. "
             "Noch genauer wird es, wenn advanced_portfolio.py zusätzlich eine data_update_meta.json schreibt."
         )
-        st.dataframe(
+        smart_dataframe(
             pd.DataFrame(DATA_UPDATE_ROWS),
             width="stretch",
             hide_index=True
@@ -2955,7 +3107,7 @@ with tab_overview:
                 "Der Markt-Tacho bewertet nur die Kernsignale Aktienindizes, Volatilität, Kreditmarkt, Bonds und US-Dollar. Rohstoffe wie Gold, Silber, Öl, Gas, Kupfer, Kakao, Kaffee, Uran und Lithium laufen separat als Stress-/Inflationshinweise."
             )
             details_df = pd.DataFrame(market_data["details"])
-            st.dataframe(
+            smart_dataframe(
                 details_df,
                 width="stretch",
                 hide_index=True
@@ -3049,7 +3201,7 @@ with tab_overview:
         if top_opportunities.empty:
             st.info("Keine klaren Top-Chancen im aktuellen Filter.")
         else:
-            st.dataframe(
+            smart_dataframe(
                 top_opportunities[radar_display_columns],
                 width="stretch",
                 hide_index=True
@@ -3084,7 +3236,7 @@ with tab_overview:
         if risk_radar.empty:
             st.info("Keine auffälligen Risiken im aktuellen Filter.")
         else:
-            st.dataframe(
+            smart_dataframe(
                 risk_radar[radar_display_columns],
                 width="stretch",
                 hide_index=True
@@ -3102,7 +3254,7 @@ with tab_overview:
         if dividend_radar.empty:
             st.info("Keine Dividendenwerte im aktuellen Filter.")
         else:
-            st.dataframe(
+            smart_dataframe(
                 dividend_radar[radar_display_columns],
                 width="stretch",
                 hide_index=True
@@ -3561,7 +3713,7 @@ with tab_overview:
 
         st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
 
-        st.dataframe(
+        smart_dataframe(
             geo_focus_df,
             width="stretch",
             hide_index=True
@@ -3587,7 +3739,7 @@ with tab_overview:
 
         st.markdown("### 🍕 PizzINT Watch")
 
-        st.dataframe(
+        smart_dataframe(
             pizza_watch_df,
             width="stretch",
             hide_index=True
@@ -4539,7 +4691,7 @@ with tab_network:
 
                     with st.expander("🧾 Detailtabelle anzeigen", expanded=False):
 
-                        st.dataframe(
+                        smart_dataframe(
                             network_display,
                             width="stretch",
                             hide_index=True
@@ -4609,7 +4761,7 @@ with tab_network:
                         signal_summary_df = signal_summary.reset_index()
                         signal_summary_df.columns = ["Action Signal", "Anzahl"]
 
-                        st.dataframe(
+                        smart_dataframe(
                             signal_summary_df,
                             width="stretch",
                             hide_index=True
@@ -5234,7 +5386,7 @@ with tab_etf_swing:
                     round(pd.to_numeric(etf_df["Swing Score"], errors="coerce").fillna(0).mean(), 2)
                 )
 
-                st.dataframe(
+                smart_dataframe(
                     etf_df_filtered,
                     width="stretch",
                     hide_index=True
@@ -5425,7 +5577,7 @@ with tab_earnings:
                 if column in earnings_calendar_view.columns
             ]
 
-            st.dataframe(
+            smart_dataframe(
                 earnings_calendar_view[display_earnings_columns],
                 width="stretch",
                 hide_index=True
@@ -5492,7 +5644,7 @@ with tab_dividends:
             ]
         ]
 
-        st.dataframe(
+        smart_dataframe(
             dividend_calendar,
             width="stretch"
         )
@@ -5551,7 +5703,7 @@ with tab_bitcoin:
             }
         ])
 
-        st.dataframe(btc_detail_df, width="stretch")
+        smart_dataframe(btc_detail_df, width="stretch")
 
         chart_df = build_bitcoin_chart_frame(btc_ticker)
         if not chart_df.empty:
@@ -5720,7 +5872,7 @@ with tab_analysis:
         if not table_columns:
             st.warning("Für diese Tabellenansicht sind in den aktuellen Daten keine passenden Spalten vorhanden.")
         else:
-            st.dataframe(
+            smart_dataframe(
                 df_filtered[table_columns],
                 width="stretch"
             )
@@ -5841,7 +5993,7 @@ with tab_lists:
                     if column in user_watchlist_df.columns
                 ]
 
-                st.dataframe(
+                smart_dataframe(
                     user_watchlist_df[watchlist_columns],
                     width="stretch",
                     hide_index=True
@@ -5904,7 +6056,7 @@ with tab_lists:
                     if column in user_buy_df.columns
                 ]
 
-                st.dataframe(
+                smart_dataframe(
                     user_buy_df[buy_columns],
                     width="stretch",
                     hide_index=True
@@ -5973,7 +6125,7 @@ with tab_lists:
             lr3.metric("WATCH", int(signal_counts[signal_counts.index.str.contains("WATCH", case=False, na=False)].sum()) if not signal_counts.empty else 0)
             lr4.metric("AVOID/RISK", int(signal_counts[signal_counts.index.str.contains("AVOID|SELL|OVERHEATED|TAKE", case=False, na=False)].sum()) if not signal_counts.empty else 0)
 
-            st.dataframe(
+            smart_dataframe(
                 list_radar_df[list_radar_columns],
                 width="stretch",
                 hide_index=True
@@ -6008,7 +6160,7 @@ with tab_admin:
                 {"Prüfung": "Supabase Secrets", "Status": "OK" if "supabase" in st.secrets else "Fehlt"},
                 {"Prüfung": "Nutzerlisten-Tabelle", "Status": "wird beim Laden geprüft"},
             ])
-            st.dataframe(status_df, width="stretch", hide_index=True)
+            smart_dataframe(status_df, width="stretch", hide_index=True)
 
         with st.expander("👑 Superuser-Übersicht", expanded=True):
 
@@ -6119,7 +6271,7 @@ with tab_admin:
                     if not admin_signal_counts.empty else 0
                 )
 
-                st.dataframe(
+                smart_dataframe(
                     admin_radar_df[admin_radar_columns].sort_values(
                         by=[column for column in ["Liste", "User", "Terminal Score", "Ticker"] if column in admin_radar_columns],
                         ascending=[True, True, False, True][:len([column for column in ["Liste", "User", "Terminal Score", "Ticker"] if column in admin_radar_columns])]
@@ -6158,7 +6310,7 @@ with tab_admin:
                     ]
                 )
 
-                st.dataframe(
+                smart_dataframe(
                     all_user_lists,
                     width="stretch",
                     hide_index=True
