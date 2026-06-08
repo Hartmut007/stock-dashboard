@@ -35,10 +35,6 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    html, body {
-        overflow-y: auto !important;
-        overscroll-behavior-y: auto !important;
-    }
     .block-container {
         padding-top: 0.8rem;
         padding-bottom: 1.6rem;
@@ -2257,24 +2253,10 @@ def render_market_gauge(level, label):
 # ============================================================
 
 ETF_SWING_DEFAULTS = {
-    # USA / Marktbreite
     "SPY": "S&P 500",
     "QQQ": "Nasdaq 100",
     "IWM": "Russell 2000",
     "DIA": "Dow Jones",
-
-    # UCITS / Europa / breite Welt-ETFs
-    "VWCE.DE": "Vanguard FTSE All-World UCITS ETF Acc",
-    "VWRL.DE": "Vanguard FTSE All-World UCITS ETF Dist",
-    "EUNL.DE": "iShares Core MSCI World UCITS ETF Acc",
-    "IWDA.AS": "iShares Core MSCI World UCITS ETF Acc Amsterdam",
-    "XDWD.DE": "Xtrackers MSCI World UCITS ETF",
-    "IUSQ.DE": "iShares MSCI ACWI UCITS ETF",
-    "SXR8.DE": "iShares Core S&P 500 UCITS ETF",
-    "EXSA.DE": "iShares STOXX Europe 600 UCITS ETF",
-    "EUNK.DE": "iShares Core MSCI EM IMI UCITS ETF",
-
-    # Themen / Sektoren
     "XLK": "Technology",
     "SMH": "Semiconductors",
     "XLF": "Financials",
@@ -2286,31 +2268,35 @@ ETF_SWING_DEFAULTS = {
     "XLU": "Utilities",
     "XLB": "Materials",
     "XLRE": "Real Estate",
-    "IEVD.DE": "iShares Electric Vehicles & Driving Technology UCITS ETF",
-    "L0CK.DE": "iShares Digital Security UCITS ETF",
-    "DFEN.DE": "VanEck Defense ETF",
-    "DFNS.PA": "VanEck Defense UCITS ETF Paris",
-    "BOTZ": "Robotics/Automation",
-    "ARKK": "Innovation/Growth",
-
-    # Defensive / Faktor / Dividende
-    "IS3R.DE": "iShares MSCI World Minimum Volatility UCITS ETF",
-    "IS3Q.DE": "iShares MSCI World Quality Factor UCITS ETF",
-    "VHYL.DE": "Vanguard FTSE All-World High Dividend Yield UCITS ETF",
-
-    # Bonds / Rohstoffe / Regionen
     "HYG": "High Yield Bonds",
     "TLT": "US Long Bonds",
-    "EUNA.DE": "iShares Core Global Aggregate Bond UCITS ETF EUR Hedged",
     "GLD": "Gold",
     "SLV": "Silver",
     "USO": "Oil",
     "URA": "Uranium",
     "LIT": "Lithium/Battery",
+    "BOTZ": "Robotics/Automation",
+    "ARKK": "Innovation/Growth",
     "EEM": "Emerging Markets",
     "EWJ": "Japan",
     "FXI": "China Large Cap",
-    "VGK": "Europe"
+    "VGK": "Europe",
+    "IEVD.DE": "iShares Electric Vehicles & Driving Technology UCITS ETF",
+    "VWCE.DE": "Vanguard FTSE All-World UCITS ETF Acc",
+    "VWRL.DE": "Vanguard FTSE All-World UCITS ETF Dist",
+    "EUNL.DE": "iShares Core MSCI World UCITS ETF Acc",
+    "IWDA.AS": "iShares Core MSCI World UCITS ETF Acc",
+    "XDWD.DE": "Xtrackers MSCI World UCITS ETF",
+    "IUSQ.DE": "iShares MSCI ACWI UCITS ETF",
+    "SXR8.DE": "iShares Core S&P 500 UCITS ETF",
+    "DFEN.DE": "VanEck Defense UCITS ETF",
+    "DFNS.PA": "VanEck Defense UCITS ETF",
+    "L0CK.DE": "iShares Digital Security UCITS ETF",
+    "IS3R.DE": "iShares Edge MSCI World Minimum Volatility UCITS ETF",
+    "IS3Q.DE": "iShares Edge MSCI World Quality Factor UCITS ETF",
+    "EUNA.DE": "iShares Core Global Aggregate Bond UCITS ETF",
+    "JEDI.DE": "VanEck Space Innovators UCITS ETF",
+    "XAIX.DE": "Xtrackers Artificial Intelligence & Big Data UCITS ETF"
 }
 
 
@@ -2489,6 +2475,202 @@ def load_etf_swingtrade_data(tickers):
     return result
 
 
+# ============================================================
+# ₿ BITCOIN COCKPIT
+# ============================================================
+
+@st.cache_data(ttl=30 * 60, show_spinner=False)
+def load_bitcoin_snapshot(ticker="BTC-USD"):
+    """Lädt Bitcoin-Daten über Yahoo/yfinance und erstellt ein regelbasiertes Signal."""
+
+    result = {
+        "ticker": ticker,
+        "last": None,
+        "currency": "USD" if ticker == "BTC-USD" else "EUR" if ticker == "BTC-EUR" else "-",
+        "perf_24h": None,
+        "perf_7d": None,
+        "perf_1m": None,
+        "perf_3m": None,
+        "rsi": None,
+        "sma20": None,
+        "sma50": None,
+        "sma200": None,
+        "score": 0,
+        "signal": "⚪ Daten dünn",
+        "recommendation": "Zu wenig Daten für eine belastbare Einordnung.",
+        "notes": [],
+        "history": pd.DataFrame(),
+    }
+
+    try:
+        hist = yf.Ticker(ticker).history(period="1y", interval="1d", auto_adjust=False)
+        if hist is None or hist.empty or "Close" not in hist.columns:
+            return result
+
+        close = hist["Close"].dropna()
+        if close.empty or len(close) < 60:
+            result["history"] = hist
+            return result
+
+        last = float(close.iloc[-1])
+        sma20 = float(close.tail(20).mean()) if len(close) >= 20 else None
+        sma50 = float(close.tail(50).mean()) if len(close) >= 50 else None
+        sma200 = float(close.tail(200).mean()) if len(close) >= 200 else None
+        rsi = _calc_rsi_from_close(close, 14)
+
+        perf_24h = _pct_change_safe(close, 1)
+        perf_7d = _pct_change_safe(close, 7)
+        perf_1m = _pct_change_safe(close, 21)
+        perf_3m = _pct_change_safe(close, 63)
+
+        score = 0
+        notes = []
+
+        if sma20 is not None and last >= sma20:
+            score += 1
+            notes.append("Kurs über SMA20")
+        else:
+            notes.append("Kurs unter SMA20")
+
+        if sma50 is not None and last >= sma50:
+            score += 2
+            notes.append("Kurs über SMA50")
+        else:
+            notes.append("Kurs unter SMA50")
+
+        if sma200 is not None and last >= sma200:
+            score += 2
+            notes.append("Kurs über SMA200")
+        elif sma200 is not None:
+            score -= 2
+            notes.append("Kurs unter SMA200")
+
+        if perf_7d is not None:
+            if perf_7d > 5:
+                score += 1
+                notes.append("7D Momentum stark")
+            elif perf_7d < -5:
+                score -= 1
+                notes.append("7D Momentum schwach")
+
+        if perf_1m is not None:
+            if perf_1m > 8:
+                score += 2
+                notes.append("1M Momentum stark")
+            elif perf_1m > 0:
+                score += 1
+                notes.append("1M Momentum positiv")
+            elif perf_1m < -8:
+                score -= 2
+                notes.append("1M Momentum deutlich negativ")
+
+        if perf_3m is not None:
+            if perf_3m > 15:
+                score += 1
+                notes.append("3M Trend stark")
+            elif perf_3m < -15:
+                score -= 1
+                notes.append("3M Trend schwach")
+
+        if rsi is not None:
+            if 45 <= rsi <= 68:
+                score += 2
+                notes.append("RSI im gesunden Trendbereich")
+            elif 68 < rsi <= 75:
+                score -= 1
+                notes.append("RSI leicht überhitzt")
+            elif rsi > 75:
+                score -= 3
+                notes.append("RSI stark überhitzt")
+            elif rsi < 35:
+                score -= 1
+                notes.append("RSI schwach / Risiko weiterer Druck")
+
+        score = int(max(0, min(10, score)))
+
+        if score >= 8:
+            signal = "🟢 Bullisch / Long prüfen"
+            recommendation = "Bitcoin wirkt technisch stark. Einstieg nur mit klarer Positionsgröße und Stop-/Rücksetzerplan prüfen. Nicht hinterherkaufen, wenn RSI heiß ist."
+        elif score >= 5:
+            signal = "🟡 Konstruktiv / Rücksetzer suchen"
+            recommendation = "Bild ist konstruktiv, aber nicht perfekt. Besser Pullbacks an SMA20/SMA50 oder Bestätigung abwarten."
+        elif score >= 3:
+            signal = "🟠 Neutral / abwarten"
+            recommendation = "Kein klares Chancenfenster. Beobachten, bis Trend oder Momentum eindeutiger werden."
+        else:
+            signal = "🔴 Schwach / kein Long-Setup"
+            recommendation = "Bitcoin wirkt technisch angeschlagen. Für neue Longs eher auf Stabilisierung über wichtigen Durchschnitten warten."
+
+        if rsi is not None and rsi > 75:
+            signal = "🟠 Überhitzt / Rücksetzer abwarten"
+            recommendation = "Momentum ist stark, aber überhitzt. Für neue Einstiege lieber Rücksetzer oder Konsolidierung abwarten."
+
+        result.update({
+            "last": round(last, 2),
+            "perf_24h": round(perf_24h, 2) if perf_24h is not None else None,
+            "perf_7d": round(perf_7d, 2) if perf_7d is not None else None,
+            "perf_1m": round(perf_1m, 2) if perf_1m is not None else None,
+            "perf_3m": round(perf_3m, 2) if perf_3m is not None else None,
+            "rsi": round(rsi, 1) if rsi is not None else None,
+            "sma20": round(sma20, 2) if sma20 is not None else None,
+            "sma50": round(sma50, 2) if sma50 is not None else None,
+            "sma200": round(sma200, 2) if sma200 is not None else None,
+            "score": score,
+            "signal": signal,
+            "recommendation": recommendation,
+            "notes": notes,
+            "history": hist,
+        })
+
+    except Exception as error:
+        result["recommendation"] = f"Bitcoin-Daten konnten nicht geladen werden: {error}"
+
+    return result
+
+
+def render_bitcoin_signal_card(snapshot):
+    signal = snapshot.get("signal", "⚪ Daten dünn")
+    score = snapshot.get("score", 0)
+    recommendation = snapshot.get("recommendation", "-")
+    notes = snapshot.get("notes", [])
+
+    if "Bullisch" in signal:
+        accent = "#22c55e"
+    elif "Konstruktiv" in signal:
+        accent = "#eab308"
+    elif "Überhitzt" in signal or "Neutral" in signal:
+        accent = "#f97316"
+    else:
+        accent = "#ef4444"
+
+    notes_html = "".join([f"<span class='terminal-chip'>{note}</span>" for note in notes[:8]])
+
+    st.markdown(
+        f"""
+        <div class="terminal-panel" style="border-color:{accent};">
+            <h3>₿ Bitcoin Signal</h3>
+            <p style="font-size:1.05rem; font-weight:850; color:#f8fafc; margin-bottom:8px;">{signal} · Score {score}/10</p>
+            <p>{recommendation}</p>
+            <div style="margin-top:8px;">{notes_html}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+@st.cache_data(ttl=30 * 60, show_spinner=False)
+def build_bitcoin_chart_frame(ticker="BTC-USD"):
+    snapshot = load_bitcoin_snapshot(ticker)
+    hist = snapshot.get("history", pd.DataFrame())
+    if hist is None or hist.empty or "Close" not in hist.columns:
+        return pd.DataFrame()
+    chart_df = hist[["Close"]].copy()
+    chart_df["SMA20"] = chart_df["Close"].rolling(20).mean()
+    chart_df["SMA50"] = chart_df["Close"].rolling(50).mean()
+    chart_df["SMA200"] = chart_df["Close"].rolling(200).mean()
+    return chart_df.tail(260)
+
+
 @st.cache_data(ttl=60 * 60 * 6)
 def load_smart_money_light(tickers):
     """Lädt grobe Short-/Institutional-/Volumen-Indikatoren über yfinance, soweit verfügbar."""
@@ -2608,11 +2790,6 @@ def load_smart_money_light(tickers):
 
 st.title("📊 Hartmuts Dashboard")
 
-st.write(
-    "Persönliches Aktien-Research-Terminal mit Signalen, Bewertung, Dividenden, "
-    "Earnings, Watchlists und Lieferketten-Netzwerk."
-)
-
 # ============================================================
 # TERMINAL DESIGN / COCKPIT
 # ============================================================
@@ -2690,12 +2867,6 @@ st.markdown(
     <p class="terminal-subtitle">
         Deine zentrale Marktübersicht: Chancen, Risiken, Dividenden, Earnings, Nutzerlisten und Lieferketten-Zusammenhänge in einem kompakten Cockpit.
     </p>
-    <span class="terminal-chip">Terminal Radar</span>
-    <span class="terminal-chip">Bewertung</span>
-    <span class="terminal-chip">Earnings</span>
-    <span class="terminal-chip">Dividenden</span>
-    <span class="terminal-chip">Netzwerk</span>
-    <span class="terminal-chip">Datenstand: {LAST_DATA_UPDATE_TEXT}</span>
 </div>
 """,
     unsafe_allow_html=True
@@ -2716,14 +2887,15 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_analysis, tab_network, tab_lists, tab_earnings, tab_dividends, tab_etf_swing, tab_admin = st.tabs([
+tab_overview, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
     "📊 Übersicht",
     "🧠 Analyse",
     "🕸️ Netzwerk",
-    "⭐ Listen",
     "📆 Earnings",
     "📅 Dividenden",
+    "₿ Bitcoin",
     "📈 ETF Swingtrades",
+    "⭐ Listen",
     "👑 Admin"
 ])
 
@@ -3316,11 +3488,11 @@ with tab_overview:
 
         ## 🍕 PizzINT / Geopolitischer Stress
 
-        Der PizzINT-Bereich ist jetzt bewusst schlanker: keine manuelle Level-Auswahl mehr, sondern nur noch eine Fokusliste für mögliche Marktreaktionen.
+        Der PizzINT-Bereich ist ein experimenteller OSINT-/Stressindikator. Das DOUGHCON-Level wird aktuell manuell gesetzt, weil wir keine offizielle stabile API von PizzINT verwenden.
 
         Die Idee dahinter:
 
-        - bei geopolitischem Stress defensive Sektoren stärker beobachten
+        - bei höherem geopolitischem Stress defensive Sektoren stärker beobachten
         - Energie, Gold, Cybersecurity, Defense und Cash-Risiko stärker einordnen
         - spekulative High-Risk-/Turnaround-Aktien vorsichtiger bewerten
 
@@ -3345,9 +3517,72 @@ with tab_overview:
 
     with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
         st.caption(
-            "Experimenteller OSINT-/Geopolitik-Bereich. Der Bereich dient nur noch "
-            "als Fokusliste für mögliche Marktreaktionen."
+            "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
+            "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
         )
+
+        # Manuelle Einschätzung, kann später automatisiert werden.
+        doughcon_level = st.selectbox(
+            "DOUGHCON-Level einschätzen",
+            options=[
+                "1 - Ruhig",
+                "2 - Beobachten",
+                "3 - Erhöhte Aufmerksamkeit",
+                "4 - Hoher Stress",
+                "5 - Krisenmodus"
+            ],
+            index=2
+        )
+
+        if doughcon_level.startswith("1"):
+            stress_label = "🟢 Niedrig"
+            market_view = (
+                "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
+                "Bewertungen und Trendstruktur."
+            )
+            focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
+        elif doughcon_level.startswith("2"):
+            stress_label = "🟡 Leicht erhöht"
+            market_view = (
+                "Etwas mehr Vorsicht. Watchlist enger beobachten, "
+                "aber keine Paniksignale."
+            )
+            focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
+        elif doughcon_level.startswith("3"):
+            stress_label = "🟠 Erhöht"
+            market_view = (
+                "Geopolitische Risiken könnten stärker eingepreist werden. "
+                "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
+            )
+            focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
+        elif doughcon_level.startswith("4"):
+            stress_label = "🔴 Hoch"
+            market_view = (
+                "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
+                "volatile Titel reduzieren."
+            )
+            focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
+        else:
+            stress_label = "🚨 Extrem"
+            market_view = (
+                "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
+                "Marktreaktionen abwarten."
+            )
+            focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
+
+        col_geo1, col_geo2, col_geo3 = st.columns(3)
+
+        with col_geo1:
+            st.metric("Geopolitischer Stress", stress_label)
+
+        with col_geo2:
+            st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
+
+        with col_geo3:
+            st.metric("Marktmodus", "Risk Check")
+
+        st.info(market_view)
+        st.caption(f"Aktuell besonders beobachten: {focus_assets}")
 
         geo_focus_df = pd.DataFrame([
             {
@@ -3389,19 +3624,19 @@ with tab_overview:
 
         pizza_watch_df = pd.DataFrame([
             {
-                "Signal": "Geopolitische Aufmerksamkeit steigt",
-                "Interpretation": "Mehr Marktteilnehmer achten auf Risiken, Lieferketten, Energie und Sicherheit.",
-                "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren und Cash-Quote bewusster betrachten."
+                "Signal": "Pizza-Aktivität",
+                "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
+                "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
             },
             {
-                "Signal": "Sicherheits-/Defense-Fokus",
-                "Interpretation": "Verteidigung, Cybersecurity, Energieversorgung und Gold können stärker in den Fokus rücken.",
-                "Relevanz fürs Portfolio": "Nicht blind kaufen, aber Watchlist und Netzwerkbeziehungen prüfen."
+                "Signal": "DOUGHCON steigt",
+                "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
+                "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
             },
             {
-                "Signal": "Stress lässt nach",
-                "Interpretation": "Wenn geopolitische Sorgen abnehmen, werden technische und fundamentale Signale wieder wichtiger.",
-                "Relevanz fürs Portfolio": "Qualitätsaktien, breite ETFs und klare Setups stärker priorisieren."
+                "Signal": "DOUGHCON fällt",
+                "Interpretation": "Lage wirkt entspannter.",
+                "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
             }
         ])
 
@@ -4310,7 +4545,7 @@ with tab_network:
                             </html>
                             '''
 
-                            components.html(network_html, height=850, scrolling=True)
+                            components.html(network_html, height=850, scrolling=False)
 
                             st.markdown(
                                 """
@@ -4988,11 +5223,8 @@ with tab_etf_swing:
 
         preset_options = list(ETF_SWING_DEFAULTS.keys())
         default_etfs = [
-            "VWCE.DE", "EUNL.DE", "IUSQ.DE", "SXR8.DE",
-            "SPY", "QQQ", "SMH", "XLK",
-            "IEVD.DE", "DFEN.DE", "L0CK.DE",
-            "IS3R.DE", "IS3Q.DE", "VHYL.DE",
-            "HYG", "TLT", "GLD", "SLV", "URA", "LIT"
+            "SPY", "QQQ", "IWM", "SMH", "XLK", "XLE", "XLF", "HYG", "TLT", "GLD", "SLV", "URA", "LIT",
+            "IEVD.DE", "VWCE.DE", "EUNL.DE", "DFEN.DE", "JEDI.DE", "XAIX.DE"
         ]
 
         col_etf_a, col_etf_b = st.columns([1.3, 1])
@@ -5008,7 +5240,7 @@ with tab_etf_swing:
             custom_etfs_text = st.text_input(
                 "Zusätzliche ETF-Ticker, kommagetrennt",
                 value="",
-                placeholder="z. B. VWCE.DE, EUNL.DE, IEVD.DE, DFEN.DE"
+                placeholder="z. B. VOO, SOXX, XBI, KWEB, JEDI.DE, XAIX.DE"
             )
 
         with col_etf_b:
@@ -5326,177 +5558,105 @@ with tab_dividends:
         )
 
 
+with tab_bitcoin:
+    with st.expander("₿ Bitcoin / Krypto-Signal", expanded=True):
+        st.markdown(
+            """
+            Dieses Fenster zieht Bitcoin-Daten über Yahoo Finance und bewertet das Setup regelbasiert.  
+            Es ist **keine Anlageberatung**, sondern ein technischer Kontext für Trend, Momentum und Überhitzung.
+            """
+        )
+
+        btc_ticker = st.selectbox(
+            "Bitcoin-Datenquelle",
+            options=["BTC-USD", "BTC-EUR"],
+            index=0,
+            help="BTC-USD hat meist die stabilsten Yahoo-Daten. BTC-EUR ist praktisch, wenn du Euro-Kurse sehen willst."
+        )
+
+        bitcoin_snapshot = load_bitcoin_snapshot(btc_ticker)
+
+        btc_col_1, btc_col_2, btc_col_3, btc_col_4, btc_col_5 = st.columns(5)
+        btc_col_1.metric("BTC Kurs", f"{bitcoin_snapshot.get('last', '-') } {bitcoin_snapshot.get('currency', '-')}")
+        btc_col_2.metric("24H %", bitcoin_snapshot.get("perf_24h", "-"))
+        btc_col_3.metric("7D %", bitcoin_snapshot.get("perf_7d", "-"))
+        btc_col_4.metric("1M %", bitcoin_snapshot.get("perf_1m", "-"))
+        btc_col_5.metric("RSI", bitcoin_snapshot.get("rsi", "-"))
+
+        render_bitcoin_signal_card(bitcoin_snapshot)
+
+        btc_detail_df = pd.DataFrame([
+            {
+                "Ticker": btc_ticker,
+                "Last": bitcoin_snapshot.get("last", "-"),
+                "Currency": bitcoin_snapshot.get("currency", "-"),
+                "24H %": bitcoin_snapshot.get("perf_24h", "-"),
+                "7D %": bitcoin_snapshot.get("perf_7d", "-"),
+                "1M %": bitcoin_snapshot.get("perf_1m", "-"),
+                "3M %": bitcoin_snapshot.get("perf_3m", "-"),
+                "RSI": bitcoin_snapshot.get("rsi", "-"),
+                "SMA20": bitcoin_snapshot.get("sma20", "-"),
+                "SMA50": bitcoin_snapshot.get("sma50", "-"),
+                "SMA200": bitcoin_snapshot.get("sma200", "-"),
+                "BTC Score": bitcoin_snapshot.get("score", 0),
+                "Signal": bitcoin_snapshot.get("signal", "-"),
+                "Empfehlungslogik": bitcoin_snapshot.get("recommendation", "-"),
+            }
+        ])
+
+        st.dataframe(btc_detail_df, width="stretch")
+
+        chart_df = build_bitcoin_chart_frame(btc_ticker)
+        if not chart_df.empty:
+            st.markdown("#### Bitcoin Chart: Close, SMA20, SMA50, SMA200")
+            st.line_chart(chart_df[["Close", "SMA20", "SMA50", "SMA200"]], height=320)
+        else:
+            st.warning("Für Bitcoin konnten aktuell keine Chartdaten geladen werden.")
+
+
 with tab_analysis:
     # ============================================================
     # TABELLE
     # ============================================================
 
     with st.expander("📋 Gesamttabelle", expanded=False):
-        st.caption(
-            "Standard ist die kompakte Entscheidungsansicht. "
-            "Für Detailprüfungen kannst du oben auf Bewertung, Technik, Dividende, Fundamental oder Vollständig wechseln."
-        )
+        # Action Signal bewusst direkt nach Ticker und Company anzeigen,
+        # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
+        priority_columns = [
+            "Ticker",
+            "Company",
+            "Terminal Grade",
+            "Terminal Score",
+            "Action Signal",
+            "Valuation Status",
+            "Valuation Score",
+            "Strategy Mode"
+        ]
 
-        table_view_mode = st.radio(
-            "Tabellenansicht",
-            [
-                "Kompakt",
-                "Bewertung",
-                "Technik",
-                "Dividende",
-                "Fundamental",
-                "Vollständig"
-            ],
-            index=0,
-            horizontal=True,
-            key="analysis_table_view_mode"
-        )
+        remaining_columns = [
+            column for column in df_filtered.columns
+            if column not in priority_columns and column != "Currency"
+        ]
 
-        table_view_columns = {
-            "Kompakt": [
-                "Ticker",
-                "Company",
-                "Price",
-                "Action Signal",
-                "Terminal Grade",
-                "Terminal Score",
-                "Valuation Status",
-                "Risk Level",
-                "Setup Quality",
-                "Score",
-                "RSI",
-                "1M %",
-                "3M %",
-                "CRV",
-                "Dividend Yield %"
-            ],
-            "Bewertung": [
-                "Ticker",
-                "Company",
-                "Price",
-                "Valuation Status",
-                "Valuation Score",
-                "Valuation Reasons",
-                "Forward PE",
-                "Trailing PE",
-                "PEG Ratio",
-                "Revenue Growth",
-                "Earnings Growth",
-                "Profit Margin",
-                "Free Cashflow",
-                "Fundamental Score",
-                "Terminal Grade",
-                "Terminal Score"
-            ],
-            "Technik": [
-                "Ticker",
-                "Company",
-                "Price",
-                "Action Signal",
-                "Setup Quality",
-                "Score",
-                "RSI",
-                "EMA20",
-                "EMA50",
-                "EMA100",
-                "1D %",
-                "1W %",
-                "1M %",
-                "3M %",
-                "6M %",
-                "CRV",
-                "Entry Zone",
-                "Stop Loss New",
-                "Target 1",
-                "Target 2",
-                "Target Basis"
-            ],
-            "Dividende": [
-                "Ticker",
-                "Company",
-                "Price",
-                "Dividend Yield %",
-                "Dividend Rate",
-                "Ex Dividend Date",
-                "Dividend Month",
-                "Dividend Year",
-                "Rating",
-                "Risk Level",
-                "Terminal Grade",
-                "Terminal Score"
-            ],
-            "Fundamental": [
-                "Ticker",
-                "Company",
-                "Price",
-                "Fundamental Score",
-                "Fundamental Rating",
-                "Fundamental Pros",
-                "Fundamental Cons",
-                "Forward PE",
-                "Trailing PE",
-                "PEG Ratio",
-                "Revenue Growth",
-                "Earnings Growth",
-                "Profit Margin",
-                "Debt To Equity",
-                "Free Cashflow",
-                "Operating Cashflow",
-                "Valuation Status",
-                "Valuation Score"
-            ]
-        }
+        table_columns = [
+            column for column in priority_columns
+            if column in df_filtered.columns
+        ] + remaining_columns
 
-        if table_view_mode == "Vollständig":
-            priority_columns = [
-                "Ticker",
-                "Company",
-                "Price",
-                "Terminal Grade",
-                "Terminal Score",
-                "Action Signal",
-                "Valuation Status",
-                "Valuation Score",
-                "Risk Level",
-                "Setup Quality",
-                "Strategy Mode"
-            ]
-
-            remaining_columns = [
-                column for column in df_filtered.columns
-                if column not in priority_columns and column != "Currency"
-            ]
-
-            table_columns = [
-                column for column in priority_columns
-                if column in df_filtered.columns
-            ] + remaining_columns
-        else:
-            selected_columns = table_view_columns.get(table_view_mode, table_view_columns["Kompakt"])
-            table_columns = [
-                column for column in selected_columns
-                if column in df_filtered.columns and column != "Currency"
-            ]
-
-        # Currency bewusst immer ganz hinten anzeigen, egal welche Ansicht gewählt ist.
         if "Currency" in df_filtered.columns:
             table_columns.append("Currency")
 
-        if not table_columns:
-            st.warning("Für diese Tabellenansicht sind in den aktuellen Daten keine passenden Spalten vorhanden.")
-        else:
-            st.dataframe(
-                df_filtered[table_columns],
-                width="stretch"
-            )
+        st.dataframe(
+            df_filtered[table_columns],
+            width="stretch"
+        )
 
-            export_name = table_view_mode.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-            st.download_button(
-                f"⬇️ {table_view_mode}-Tabelle als CSV exportieren",
-                data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
-                file_name=f"hartmut_terminal_gesamttabelle_{export_name}.csv",
-                mime="text/csv"
-            )
+        st.download_button(
+            "⬇️ Gefilterte Gesamttabelle als CSV exportieren",
+            data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
+            file_name="hartmut_terminal_gefilterte_gesamttabelle.csv",
+            mime="text/csv"
+        )
 
 
 with tab_lists:
