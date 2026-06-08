@@ -35,6 +35,10 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    html, body {
+        overflow-y: auto !important;
+        overscroll-behavior-y: auto !important;
+    }
     .block-container {
         padding-top: 0.8rem;
         padding-bottom: 1.6rem;
@@ -2253,10 +2257,24 @@ def render_market_gauge(level, label):
 # ============================================================
 
 ETF_SWING_DEFAULTS = {
+    # USA / Marktbreite
     "SPY": "S&P 500",
     "QQQ": "Nasdaq 100",
     "IWM": "Russell 2000",
     "DIA": "Dow Jones",
+
+    # UCITS / Europa / breite Welt-ETFs
+    "VWCE.DE": "Vanguard FTSE All-World UCITS ETF Acc",
+    "VWRL.DE": "Vanguard FTSE All-World UCITS ETF Dist",
+    "EUNL.DE": "iShares Core MSCI World UCITS ETF Acc",
+    "IWDA.AS": "iShares Core MSCI World UCITS ETF Acc Amsterdam",
+    "XDWD.DE": "Xtrackers MSCI World UCITS ETF",
+    "IUSQ.DE": "iShares MSCI ACWI UCITS ETF",
+    "SXR8.DE": "iShares Core S&P 500 UCITS ETF",
+    "EXSA.DE": "iShares STOXX Europe 600 UCITS ETF",
+    "EUNK.DE": "iShares Core MSCI EM IMI UCITS ETF",
+
+    # Themen / Sektoren
     "XLK": "Technology",
     "SMH": "Semiconductors",
     "XLF": "Financials",
@@ -2268,15 +2286,27 @@ ETF_SWING_DEFAULTS = {
     "XLU": "Utilities",
     "XLB": "Materials",
     "XLRE": "Real Estate",
+    "IEVD.DE": "iShares Electric Vehicles & Driving Technology UCITS ETF",
+    "L0CK.DE": "iShares Digital Security UCITS ETF",
+    "DFEN.DE": "VanEck Defense ETF",
+    "DFNS.PA": "VanEck Defense UCITS ETF Paris",
+    "BOTZ": "Robotics/Automation",
+    "ARKK": "Innovation/Growth",
+
+    # Defensive / Faktor / Dividende
+    "IS3R.DE": "iShares MSCI World Minimum Volatility UCITS ETF",
+    "IS3Q.DE": "iShares MSCI World Quality Factor UCITS ETF",
+    "VHYL.DE": "Vanguard FTSE All-World High Dividend Yield UCITS ETF",
+
+    # Bonds / Rohstoffe / Regionen
     "HYG": "High Yield Bonds",
     "TLT": "US Long Bonds",
+    "EUNA.DE": "iShares Core Global Aggregate Bond UCITS ETF EUR Hedged",
     "GLD": "Gold",
     "SLV": "Silver",
     "USO": "Oil",
     "URA": "Uranium",
     "LIT": "Lithium/Battery",
-    "BOTZ": "Robotics/Automation",
-    "ARKK": "Innovation/Growth",
     "EEM": "Emerging Markets",
     "EWJ": "Japan",
     "FXI": "China Large Cap",
@@ -3286,11 +3316,11 @@ with tab_overview:
 
         ## 🍕 PizzINT / Geopolitischer Stress
 
-        Der PizzINT-Bereich ist ein experimenteller OSINT-/Stressindikator. Das DOUGHCON-Level wird aktuell manuell gesetzt, weil wir keine offizielle stabile API von PizzINT verwenden.
+        Der PizzINT-Bereich ist jetzt bewusst schlanker: keine manuelle Level-Auswahl mehr, sondern nur noch eine Fokusliste für mögliche Marktreaktionen.
 
         Die Idee dahinter:
 
-        - bei höherem geopolitischem Stress defensive Sektoren stärker beobachten
+        - bei geopolitischem Stress defensive Sektoren stärker beobachten
         - Energie, Gold, Cybersecurity, Defense und Cash-Risiko stärker einordnen
         - spekulative High-Risk-/Turnaround-Aktien vorsichtiger bewerten
 
@@ -3315,72 +3345,9 @@ with tab_overview:
 
     with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
         st.caption(
-            "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
-            "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
+            "Experimenteller OSINT-/Geopolitik-Bereich. Der Bereich dient nur noch "
+            "als Fokusliste für mögliche Marktreaktionen."
         )
-
-        # Manuelle Einschätzung, kann später automatisiert werden.
-        doughcon_level = st.selectbox(
-            "DOUGHCON-Level einschätzen",
-            options=[
-                "1 - Ruhig",
-                "2 - Beobachten",
-                "3 - Erhöhte Aufmerksamkeit",
-                "4 - Hoher Stress",
-                "5 - Krisenmodus"
-            ],
-            index=2
-        )
-
-        if doughcon_level.startswith("1"):
-            stress_label = "🟢 Niedrig"
-            market_view = (
-                "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
-                "Bewertungen und Trendstruktur."
-            )
-            focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
-        elif doughcon_level.startswith("2"):
-            stress_label = "🟡 Leicht erhöht"
-            market_view = (
-                "Etwas mehr Vorsicht. Watchlist enger beobachten, "
-                "aber keine Paniksignale."
-            )
-            focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
-        elif doughcon_level.startswith("3"):
-            stress_label = "🟠 Erhöht"
-            market_view = (
-                "Geopolitische Risiken könnten stärker eingepreist werden. "
-                "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
-            )
-            focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
-        elif doughcon_level.startswith("4"):
-            stress_label = "🔴 Hoch"
-            market_view = (
-                "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
-                "volatile Titel reduzieren."
-            )
-            focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
-        else:
-            stress_label = "🚨 Extrem"
-            market_view = (
-                "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
-                "Marktreaktionen abwarten."
-            )
-            focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
-
-        col_geo1, col_geo2, col_geo3 = st.columns(3)
-
-        with col_geo1:
-            st.metric("Geopolitischer Stress", stress_label)
-
-        with col_geo2:
-            st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
-
-        with col_geo3:
-            st.metric("Marktmodus", "Risk Check")
-
-        st.info(market_view)
-        st.caption(f"Aktuell besonders beobachten: {focus_assets}")
 
         geo_focus_df = pd.DataFrame([
             {
@@ -3422,19 +3389,19 @@ with tab_overview:
 
         pizza_watch_df = pd.DataFrame([
             {
-                "Signal": "Pizza-Aktivität",
-                "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
-                "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
+                "Signal": "Geopolitische Aufmerksamkeit steigt",
+                "Interpretation": "Mehr Marktteilnehmer achten auf Risiken, Lieferketten, Energie und Sicherheit.",
+                "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren und Cash-Quote bewusster betrachten."
             },
             {
-                "Signal": "DOUGHCON steigt",
-                "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
-                "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
+                "Signal": "Sicherheits-/Defense-Fokus",
+                "Interpretation": "Verteidigung, Cybersecurity, Energieversorgung und Gold können stärker in den Fokus rücken.",
+                "Relevanz fürs Portfolio": "Nicht blind kaufen, aber Watchlist und Netzwerkbeziehungen prüfen."
             },
             {
-                "Signal": "DOUGHCON fällt",
-                "Interpretation": "Lage wirkt entspannter.",
-                "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
+                "Signal": "Stress lässt nach",
+                "Interpretation": "Wenn geopolitische Sorgen abnehmen, werden technische und fundamentale Signale wieder wichtiger.",
+                "Relevanz fürs Portfolio": "Qualitätsaktien, breite ETFs und klare Setups stärker priorisieren."
             }
         ])
 
@@ -4343,7 +4310,7 @@ with tab_network:
                             </html>
                             '''
 
-                            components.html(network_html, height=850, scrolling=False)
+                            components.html(network_html, height=850, scrolling=True)
 
                             st.markdown(
                                 """
@@ -5021,7 +4988,11 @@ with tab_etf_swing:
 
         preset_options = list(ETF_SWING_DEFAULTS.keys())
         default_etfs = [
-            "SPY", "QQQ", "IWM", "SMH", "XLK", "XLE", "XLF", "HYG", "TLT", "GLD", "SLV", "URA", "LIT"
+            "VWCE.DE", "EUNL.DE", "IUSQ.DE", "SXR8.DE",
+            "SPY", "QQQ", "SMH", "XLK",
+            "IEVD.DE", "DFEN.DE", "L0CK.DE",
+            "IS3R.DE", "IS3Q.DE", "VHYL.DE",
+            "HYG", "TLT", "GLD", "SLV", "URA", "LIT"
         ]
 
         col_etf_a, col_etf_b = st.columns([1.3, 1])
@@ -5037,7 +5008,7 @@ with tab_etf_swing:
             custom_etfs_text = st.text_input(
                 "Zusätzliche ETF-Ticker, kommagetrennt",
                 value="",
-                placeholder="z. B. VOO, SOXX, XBI, KWEB"
+                placeholder="z. B. VWCE.DE, EUNL.DE, IEVD.DE, DFEN.DE"
             )
 
         with col_etf_b:
@@ -5361,43 +5332,171 @@ with tab_analysis:
     # ============================================================
 
     with st.expander("📋 Gesamttabelle", expanded=False):
-        # Action Signal bewusst direkt nach Ticker und Company anzeigen,
-        # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
-        priority_columns = [
-            "Ticker",
-            "Company",
-            "Terminal Grade",
-            "Terminal Score",
-            "Action Signal",
-            "Valuation Status",
-            "Valuation Score",
-            "Strategy Mode"
-        ]
+        st.caption(
+            "Standard ist die kompakte Entscheidungsansicht. "
+            "Für Detailprüfungen kannst du oben auf Bewertung, Technik, Dividende, Fundamental oder Vollständig wechseln."
+        )
 
-        remaining_columns = [
-            column for column in df_filtered.columns
-            if column not in priority_columns and column != "Currency"
-        ]
+        table_view_mode = st.radio(
+            "Tabellenansicht",
+            [
+                "Kompakt",
+                "Bewertung",
+                "Technik",
+                "Dividende",
+                "Fundamental",
+                "Vollständig"
+            ],
+            index=0,
+            horizontal=True,
+            key="analysis_table_view_mode"
+        )
 
-        table_columns = [
-            column for column in priority_columns
-            if column in df_filtered.columns
-        ] + remaining_columns
+        table_view_columns = {
+            "Kompakt": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Action Signal",
+                "Terminal Grade",
+                "Terminal Score",
+                "Valuation Status",
+                "Risk Level",
+                "Setup Quality",
+                "Score",
+                "RSI",
+                "1M %",
+                "3M %",
+                "CRV",
+                "Dividend Yield %"
+            ],
+            "Bewertung": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Valuation Status",
+                "Valuation Score",
+                "Valuation Reasons",
+                "Forward PE",
+                "Trailing PE",
+                "PEG Ratio",
+                "Revenue Growth",
+                "Earnings Growth",
+                "Profit Margin",
+                "Free Cashflow",
+                "Fundamental Score",
+                "Terminal Grade",
+                "Terminal Score"
+            ],
+            "Technik": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Action Signal",
+                "Setup Quality",
+                "Score",
+                "RSI",
+                "EMA20",
+                "EMA50",
+                "EMA100",
+                "1D %",
+                "1W %",
+                "1M %",
+                "3M %",
+                "6M %",
+                "CRV",
+                "Entry Zone",
+                "Stop Loss New",
+                "Target 1",
+                "Target 2",
+                "Target Basis"
+            ],
+            "Dividende": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Dividend Yield %",
+                "Dividend Rate",
+                "Ex Dividend Date",
+                "Dividend Month",
+                "Dividend Year",
+                "Rating",
+                "Risk Level",
+                "Terminal Grade",
+                "Terminal Score"
+            ],
+            "Fundamental": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Fundamental Score",
+                "Fundamental Rating",
+                "Fundamental Pros",
+                "Fundamental Cons",
+                "Forward PE",
+                "Trailing PE",
+                "PEG Ratio",
+                "Revenue Growth",
+                "Earnings Growth",
+                "Profit Margin",
+                "Debt To Equity",
+                "Free Cashflow",
+                "Operating Cashflow",
+                "Valuation Status",
+                "Valuation Score"
+            ]
+        }
 
+        if table_view_mode == "Vollständig":
+            priority_columns = [
+                "Ticker",
+                "Company",
+                "Price",
+                "Terminal Grade",
+                "Terminal Score",
+                "Action Signal",
+                "Valuation Status",
+                "Valuation Score",
+                "Risk Level",
+                "Setup Quality",
+                "Strategy Mode"
+            ]
+
+            remaining_columns = [
+                column for column in df_filtered.columns
+                if column not in priority_columns and column != "Currency"
+            ]
+
+            table_columns = [
+                column for column in priority_columns
+                if column in df_filtered.columns
+            ] + remaining_columns
+        else:
+            selected_columns = table_view_columns.get(table_view_mode, table_view_columns["Kompakt"])
+            table_columns = [
+                column for column in selected_columns
+                if column in df_filtered.columns and column != "Currency"
+            ]
+
+        # Currency bewusst immer ganz hinten anzeigen, egal welche Ansicht gewählt ist.
         if "Currency" in df_filtered.columns:
             table_columns.append("Currency")
 
-        st.dataframe(
-            df_filtered[table_columns],
-            width="stretch"
-        )
+        if not table_columns:
+            st.warning("Für diese Tabellenansicht sind in den aktuellen Daten keine passenden Spalten vorhanden.")
+        else:
+            st.dataframe(
+                df_filtered[table_columns],
+                width="stretch"
+            )
 
-        st.download_button(
-            "⬇️ Gefilterte Gesamttabelle als CSV exportieren",
-            data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
-            file_name="hartmut_terminal_gefilterte_gesamttabelle.csv",
-            mime="text/csv"
-        )
+            export_name = table_view_mode.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+            st.download_button(
+                f"⬇️ {table_view_mode}-Tabelle als CSV exportieren",
+                data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
+                file_name=f"hartmut_terminal_gesamttabelle_{export_name}.csv",
+                mime="text/csv"
+            )
 
 
 with tab_lists:
