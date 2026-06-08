@@ -3462,6 +3462,14 @@ with tab_overview:
 
         ---
 
+        ## 📋 Analyse / Gesamttabelle
+
+        Die Gesamttabelle startet bewusst in einer kompakten Entscheidungsansicht.
+        Über **Tabellenansicht** kannst du zwischen **Kompakt**, **Bewertung**, **Technik**, **Dividende**, **Fundamental** und **Vollständig** wechseln.
+        **Currency** wird in jeder Ansicht ganz hinten angezeigt, damit die wichtigsten Signale vorne bleiben.
+
+        ---
+
         ## 🕸️ Netzwerk / Lieferketten-Mapping
 
         Das Mapping zeigt, welche Aktien miteinander verbunden sind.
@@ -3488,7 +3496,8 @@ with tab_overview:
 
         ## 🍕 PizzINT / Geopolitischer Stress
 
-        Der PizzINT-Bereich ist ein experimenteller OSINT-/Stressindikator. Das DOUGHCON-Level wird aktuell manuell gesetzt, weil wir keine offizielle stabile API von PizzINT verwenden.
+        Der PizzINT-Bereich ist ein experimenteller externer OSINT-/Stimmungsindikator.
+        Es gibt im Dashboard keine manuelle DOUGHCON-Bewertung mehr; der Bereich zeigt nur noch mögliche Markt-Fokusbereiche und eine kurze Watch-Einordnung.
 
         Die Idee dahinter:
 
@@ -3517,72 +3526,10 @@ with tab_overview:
 
     with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
         st.caption(
-            "Experimenteller OSINT-Indikator. Die Daten dienen nur als zusätzlicher "
-            "Stimmungs- und Risiko-Hinweis und ersetzen keine Marktanalyse."
+            "Experimenteller externer OSINT-/Stimmungsindikator. "
+            "Hier wird kein DOUGHCON-Level mehr manuell eingeschätzt; "
+            "der Bereich dient nur als Zusatzhinweis für mögliche Markt-Fokusbereiche."
         )
-
-        # Manuelle Einschätzung, kann später automatisiert werden.
-        doughcon_level = st.selectbox(
-            "DOUGHCON-Level einschätzen",
-            options=[
-                "1 - Ruhig",
-                "2 - Beobachten",
-                "3 - Erhöhte Aufmerksamkeit",
-                "4 - Hoher Stress",
-                "5 - Krisenmodus"
-            ],
-            index=2
-        )
-
-        if doughcon_level.startswith("1"):
-            stress_label = "🟢 Niedrig"
-            market_view = (
-                "Normales Marktumfeld. Fokus bleibt auf technischen Signalen, "
-                "Bewertungen und Trendstruktur."
-            )
-            focus_assets = "Qualitätsaktien, Tech, Dividendenwerte, breite Indizes"
-        elif doughcon_level.startswith("2"):
-            stress_label = "🟡 Leicht erhöht"
-            market_view = (
-                "Etwas mehr Vorsicht. Watchlist enger beobachten, "
-                "aber keine Paniksignale."
-            )
-            focus_assets = "Qualitätsaktien, Cash-Reserve, defensive Werte"
-        elif doughcon_level.startswith("3"):
-            stress_label = "🟠 Erhöht"
-            market_view = (
-                "Geopolitische Risiken könnten stärker eingepreist werden. "
-                "Turnaround- und High-Risk-Aktien vorsichtiger behandeln."
-            )
-            focus_assets = "Energie, Gold, Rüstung, Cybersecurity, defensive Aktien"
-        elif doughcon_level.startswith("4"):
-            stress_label = "🔴 Hoch"
-            market_view = (
-                "Risiko-Modus. Neue Käufe strenger prüfen, Stops enger beobachten, "
-                "volatile Titel reduzieren."
-            )
-            focus_assets = "Gold, Energie, Rüstung, Cash, defensive Dividendenwerte"
-        else:
-            stress_label = "🚨 Extrem"
-            market_view = (
-                "Krisenmodus. Kapitalerhalt priorisieren, keine impulsiven Käufe, "
-                "Marktreaktionen abwarten."
-            )
-            focus_assets = "Cash, Gold, kurzfristige Absicherung, defensive Sektoren"
-
-        col_geo1, col_geo2, col_geo3 = st.columns(3)
-
-        with col_geo1:
-            st.metric("Geopolitischer Stress", stress_label)
-
-        with col_geo2:
-            st.metric("DOUGHCON", doughcon_level.split(" - ")[0])
-
-        with col_geo3:
-            st.metric("Marktmodus", "Risk Check")
-
-        st.info(market_view)
-        st.caption(f"Aktuell besonders beobachten: {focus_assets}")
 
         geo_focus_df = pd.DataFrame([
             {
@@ -3620,25 +3567,25 @@ with tab_overview:
             hide_index=True
         )
 
-        st.markdown("### 🍕 PizzINT Watch")
-
         pizza_watch_df = pd.DataFrame([
             {
-                "Signal": "Pizza-Aktivität",
-                "Interpretation": "Kann als humorvoller OSINT-Stimmungsindikator beobachtet werden.",
+                "Signal": "Pizza-/OSINT-Aktivität",
+                "Interpretation": "Kann als humorvoller externer Stimmungsindikator beobachtet werden.",
                 "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
             },
             {
-                "Signal": "DOUGHCON steigt",
-                "Interpretation": "Mehr geopolitische Aufmerksamkeit.",
-                "Relevanz fürs Portfolio": "Risk-Management prüfen, defensive Sektoren beobachten."
+                "Signal": "Geopolitische Aufmerksamkeit nimmt zu",
+                "Interpretation": "Defensive Sektoren, Energie, Gold, Cybersecurity und Defense stärker beobachten.",
+                "Relevanz fürs Portfolio": "Risk-Management prüfen, spekulative Setups strenger bewerten."
             },
             {
-                "Signal": "DOUGHCON fällt",
-                "Interpretation": "Lage wirkt entspannter.",
-                "Relevanz fürs Portfolio": "Normale technische und fundamentale Signale stärker gewichten."
+                "Signal": "Geopolitische Aufmerksamkeit nimmt ab",
+                "Interpretation": "Normale technische, fundamentale und Markt-Tacho-Signale wieder stärker gewichten.",
+                "Relevanz fürs Portfolio": "Keine automatische Kaufentscheidung; nur Kontext."
             }
         ])
+
+        st.markdown("### 🍕 PizzINT Watch")
 
         st.dataframe(
             pizza_watch_df,
@@ -5620,43 +5567,171 @@ with tab_analysis:
     # ============================================================
 
     with st.expander("📋 Gesamttabelle", expanded=False):
-        # Action Signal bewusst direkt nach Ticker und Company anzeigen,
-        # damit die Entscheidungseinschätzung in der Gesamtliste sofort sichtbar ist.
-        priority_columns = [
-            "Ticker",
-            "Company",
-            "Terminal Grade",
-            "Terminal Score",
-            "Action Signal",
-            "Valuation Status",
-            "Valuation Score",
-            "Strategy Mode"
-        ]
+        st.caption(
+            "Standard ist die kompakte Entscheidungsansicht. "
+            "Für Detailprüfungen kannst du oben auf Bewertung, Technik, Dividende, Fundamental oder Vollständig wechseln."
+        )
 
-        remaining_columns = [
-            column for column in df_filtered.columns
-            if column not in priority_columns and column != "Currency"
-        ]
+        table_view_mode = st.radio(
+            "Tabellenansicht",
+            [
+                "Kompakt",
+                "Bewertung",
+                "Technik",
+                "Dividende",
+                "Fundamental",
+                "Vollständig"
+            ],
+            index=0,
+            horizontal=True,
+            key="analysis_table_view_mode"
+        )
 
-        table_columns = [
-            column for column in priority_columns
-            if column in df_filtered.columns
-        ] + remaining_columns
+        table_view_columns = {
+            "Kompakt": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Action Signal",
+                "Terminal Grade",
+                "Terminal Score",
+                "Valuation Status",
+                "Risk Level",
+                "Setup Quality",
+                "Score",
+                "RSI",
+                "1M %",
+                "3M %",
+                "CRV",
+                "Dividend Yield %"
+            ],
+            "Bewertung": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Valuation Status",
+                "Valuation Score",
+                "Valuation Reasons",
+                "Forward PE",
+                "Trailing PE",
+                "PEG Ratio",
+                "Revenue Growth",
+                "Earnings Growth",
+                "Profit Margin",
+                "Free Cashflow",
+                "Fundamental Score",
+                "Terminal Grade",
+                "Terminal Score"
+            ],
+            "Technik": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Action Signal",
+                "Setup Quality",
+                "Score",
+                "RSI",
+                "EMA20",
+                "EMA50",
+                "EMA100",
+                "1D %",
+                "1W %",
+                "1M %",
+                "3M %",
+                "6M %",
+                "CRV",
+                "Entry Zone",
+                "Stop Loss New",
+                "Target 1",
+                "Target 2",
+                "Target Basis"
+            ],
+            "Dividende": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Dividend Yield %",
+                "Dividend Rate",
+                "Ex Dividend Date",
+                "Dividend Month",
+                "Dividend Year",
+                "Rating",
+                "Risk Level",
+                "Terminal Grade",
+                "Terminal Score"
+            ],
+            "Fundamental": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Fundamental Score",
+                "Fundamental Rating",
+                "Fundamental Pros",
+                "Fundamental Cons",
+                "Forward PE",
+                "Trailing PE",
+                "PEG Ratio",
+                "Revenue Growth",
+                "Earnings Growth",
+                "Profit Margin",
+                "Debt To Equity",
+                "Free Cashflow",
+                "Operating Cashflow",
+                "Valuation Status",
+                "Valuation Score"
+            ]
+        }
 
+        if table_view_mode == "Vollständig":
+            priority_columns = [
+                "Ticker",
+                "Company",
+                "Price",
+                "Terminal Grade",
+                "Terminal Score",
+                "Action Signal",
+                "Valuation Status",
+                "Valuation Score",
+                "Risk Level",
+                "Setup Quality",
+                "Strategy Mode"
+            ]
+
+            remaining_columns = [
+                column for column in df_filtered.columns
+                if column not in priority_columns and column != "Currency"
+            ]
+
+            table_columns = [
+                column for column in priority_columns
+                if column in df_filtered.columns
+            ] + remaining_columns
+        else:
+            selected_columns = table_view_columns.get(table_view_mode, table_view_columns["Kompakt"])
+            table_columns = [
+                column for column in selected_columns
+                if column in df_filtered.columns and column != "Currency"
+            ]
+
+        # Currency bewusst immer ganz hinten anzeigen, egal welche Ansicht gewählt ist.
         if "Currency" in df_filtered.columns:
             table_columns.append("Currency")
 
-        st.dataframe(
-            df_filtered[table_columns],
-            width="stretch"
-        )
+        if not table_columns:
+            st.warning("Für diese Tabellenansicht sind in den aktuellen Daten keine passenden Spalten vorhanden.")
+        else:
+            st.dataframe(
+                df_filtered[table_columns],
+                width="stretch"
+            )
 
-        st.download_button(
-            "⬇️ Gefilterte Gesamttabelle als CSV exportieren",
-            data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
-            file_name="hartmut_terminal_gefilterte_gesamttabelle.csv",
-            mime="text/csv"
-        )
+            export_name = table_view_mode.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+            st.download_button(
+                f"⬇️ {table_view_mode}-Tabelle als CSV exportieren",
+                data=df_filtered[table_columns].to_csv(index=False, sep=";").encode("utf-8-sig"),
+                file_name=f"hartmut_terminal_gesamttabelle_{export_name}.csv",
+                mime="text/csv"
+            )
 
 
 with tab_lists:
