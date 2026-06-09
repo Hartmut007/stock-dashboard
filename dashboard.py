@@ -3041,7 +3041,7 @@ st.markdown(
 <div class="terminal-hero">
     <div class="terminal-title">🧭 Hartmut Research Terminal</div>
     <p class="terminal-subtitle">
-        Deine zentrale Marktübersicht: Chancen, Risiken, Dividenden, Earnings, Nutzerlisten und Lieferketten-Zusammenhänge in einem kompakten Cockpit.
+        Deine zentrale Marktübersicht: Chancen, Risiken, News, Wirtschaftstermine, Dividenden, Earnings, Nutzerlisten und Lieferketten-Zusammenhänge in einem kompakten Cockpit.
     </p>
 </div>
 """,
@@ -3063,9 +3063,10 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_news, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
+tab_overview, tab_news, tab_economic_calendar, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
     "📊 Übersicht",
     "🚨 News Radar",
+    "🌍 Wirtschaftskalender",
     "🧠 Analyse",
     "🕸️ Netzwerk",
     "📆 Earnings",
@@ -5374,6 +5375,107 @@ with tab_news:
             **News Momentum Score** kombiniert diesen News-Score mit Tages-/Wochenperformance,
             Volumenfaktor, RSI und Kurs über EMA20. Dadurch erkennt das Dashboard nicht nur
             eine Meldung, sondern auch, ob der Markt bereits darauf reagiert.
+            """
+        )
+
+
+
+with tab_economic_calendar:
+    st.markdown("## 🌍 Wirtschaftskalender")
+    st.caption(
+        "Makrotermine wie Inflation, Arbeitsmarkt, Zinsentscheide und Einkaufsmanagerdaten können starke Bewegungen bei Indizes, Anleihen, Währungen, Rohstoffen und Tech-Aktien auslösen. "
+        "Der Kalender ist als Risikofenster gedacht — nicht als Kauf- oder Verkaufssignal."
+    )
+
+    econ_col_1, econ_col_2, econ_col_3 = st.columns([1, 1, 1.2])
+
+    with econ_col_1:
+        econ_theme = st.selectbox(
+            "Design",
+            options=["dark", "light"],
+            index=0,
+            format_func=lambda value: "Dunkel" if value == "dark" else "Hell",
+            key="economic_calendar_theme"
+        )
+
+    with econ_col_2:
+        econ_height = st.selectbox(
+            "Höhe",
+            options=[650, 800, 950, 1100],
+            index=1,
+            format_func=lambda value: f"{value}px",
+            key="economic_calendar_height"
+        )
+
+    with econ_col_3:
+        econ_filter_profile = st.selectbox(
+            "Länder-/Marktfokus",
+            options=[
+                "USA + Europa + Deutschland",
+                "Global",
+                "USA",
+                "Europa + Deutschland",
+                "Asien"
+            ],
+            index=0,
+            key="economic_calendar_profile"
+        )
+
+    country_filters = {
+        "USA + Europa + Deutschland": "us,eu,de",
+        "Global": "us,eu,de,gb,ca,jp,cn,au,ch",
+        "USA": "us",
+        "Europa + Deutschland": "eu,de,gb,ch,fr,it,es",
+        "Asien": "jp,cn,hk,kr,in"
+    }
+
+    selected_country_filter = country_filters.get(econ_filter_profile, "us,eu,de")
+
+    st.info(
+        "Wichtige Termine für dein Dashboard: CPI/Inflation, Arbeitsmarktdaten, Fed/EZB-Zinsen, PMI/ISM, BIP, Öl-Lagerdaten und Notenbank-Reden. "
+        "Vor solchen Terminen können Momentum-Signale unzuverlässiger werden."
+    )
+
+    economic_calendar_html = f"""
+    <div class="tradingview-widget-container" style="height:{econ_height}px;width:100%;">
+      <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%;"></div>
+      <div class="tradingview-widget-copyright">
+        <a href="https://www.tradingview.com/economic-calendar/" rel="noopener nofollow" target="_blank">
+          <span class="blue-text">Economic Calendar by TradingView</span>
+        </a>
+      </div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+      {{
+        "colorTheme": "{econ_theme}",
+        "isTransparent": false,
+        "width": "100%",
+        "height": "{econ_height}",
+        "locale": "de",
+        "importanceFilter": "-1,0,1",
+        "countryFilter": "{selected_country_filter}"
+      }}
+      </script>
+    </div>
+    """
+
+    components.html(
+        economic_calendar_html,
+        height=econ_height + 40,
+        scrolling=True
+    )
+
+    with st.expander("Wie nutze ich den Wirtschaftskalender im Trading?", expanded=False):
+        st.markdown(
+            """
+            **So liest du den Kalender im Dashboard:**
+
+            - **CPI / Inflation:** wichtig für Nasdaq, Tech, Wachstumsaktien, Anleiherenditen und USD.
+            - **Arbeitsmarkt / Jobless Claims / NFP:** beeinflusst Zinserwartungen und Risikoappetit.
+            - **Fed / EZB / BoJ:** Zinsentscheide und Aussagen können starke Marktbewegungen auslösen.
+            - **PMI / ISM:** zeigen, ob Industrie und Dienstleistungen stärker oder schwächer werden.
+            - **Öl-/Energie-Daten:** wichtig für Energieaktien, Inflation und zyklische Werte.
+
+            **Praktische Regel:** Wenn heute ein roter oder sehr wichtiger Termin ansteht, sollte ein technisches Kaufsignal vorsichtiger bewertet werden.
             """
         )
 
