@@ -5382,9 +5382,7 @@ with tab_news:
 
 with tab_economic_calendar:
     st.markdown("## 🌍 Wirtschaftskalender")
-    st.markdown("### ⚙️ Kalender-Einstellungen")
-    st.caption("Standardmäßig ist der Kalender hell/weiß eingestellt. Bei Bedarf kannst du hier auf dunkel umschalten.")
-
+   
     econ_col_1, econ_col_2, econ_col_3, econ_col_4 = st.columns([1, 1, 1.2, 1.1])
 
     with econ_col_1:
