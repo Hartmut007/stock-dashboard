@@ -5382,11 +5382,6 @@ with tab_news:
 
 with tab_economic_calendar:
     st.markdown("## 🌍 Wirtschaftskalender")
-    st.caption(
-        "Makrotermine wie Inflation, Arbeitsmarkt, Zinsentscheide und Einkaufsmanagerdaten können starke Bewegungen bei Indizes, Anleihen, Währungen, Rohstoffen und Tech-Aktien auslösen. "
-        "Der Kalender ist als Risikofenster gedacht — nicht als Kauf- oder Verkaufssignal."
-    )
-
     st.markdown("### ⚙️ Kalender-Einstellungen")
     st.caption("Standardmäßig ist der Kalender hell/weiß eingestellt. Bei Bedarf kannst du hier auf dunkel umschalten.")
 
@@ -5455,116 +5450,6 @@ with tab_economic_calendar:
 
     selected_importance_filter = importance_filters.get(econ_importance_profile, "1")
 
-    st.markdown("### 🧭 Wichtige Termine für dein Dashboard")
-    st.info(
-        "Achte besonders auf CPI/Inflation, Arbeitsmarktdaten, Fed/EZB-Zinsen, PMI/ISM, BIP, Öl-Lagerdaten und Notenbank-Reden. "
-        "Vor solchen Terminen können Momentum-Signale unzuverlässiger werden."
-    )
-
-    def build_calendar_opinion(focus_profile, importance_profile):
-        '''Kurze regelbasierte Einordnung zum gewählten Wirtschaftskalender-Fokus.'''
-
-        if focus_profile == "USA":
-            focus_text = (
-                "Der Fokus liegt auf US-Daten. Das ist besonders relevant für Nasdaq, S&P 500, Tech, KI, Halbleiter, "
-                "Bitcoin, USD und Anleiherenditen."
-            )
-        elif focus_profile == "Europa + Deutschland":
-            focus_text = (
-                "Der Fokus liegt auf Europa und Deutschland. Das ist besonders relevant für DAX, Euro Stoxx, Banken, Industrie, "
-                "Energie, EUR/USD und europäische Nebenwerte."
-            )
-        elif focus_profile == "Asien":
-            focus_text = (
-                "Der Fokus liegt auf Asien. Das ist besonders relevant für Japan, China, Halbleiter-Lieferketten, Rohstoffe, Auto, Gaming "
-                "und Exportwerte."
-            )
-        elif focus_profile == "Global":
-            focus_text = (
-                "Der globale Fokus zeigt viele Termine. Das ist gut für die Gesamtübersicht, kann aber mehr Rauschen erzeugen als der reine High-Impact-Fokus."
-            )
-        else:
-            focus_text = (
-                "Der Fokus liegt auf USA, Europa und Deutschland. Das passt gut zu deinem Dashboard, weil viele deiner Aktien stark auf Zinsen, Inflation, "
-                "Tech-Momentum und europäische Konjunktur reagieren."
-            )
-
-        if importance_profile == "Nur hohe Wichtigkeit":
-            importance_text = (
-                "Da nur hohe Wichtigkeit ausgewählt ist, solltest du diese Termine wie ein Risikofenster behandeln: vor Veröffentlichung vorsichtiger agieren, "
-                "Stops nicht zu eng setzen und neue Trades eher nach der ersten Marktreaktion bewerten."
-            )
-            signal_text = "Kurzmeinung: High-Impact-Termine können starke, schnelle Bewegungen auslösen. Gute technische Signale sind an solchen Tagen weniger zuverlässig."
-        elif importance_profile == "Mittel + hoch":
-            importance_text = (
-                "Mit mittel + hoch siehst du neben den großen Marktterminen auch Vorläuferdaten. Das hilft, Trends früher zu erkennen, erzeugt aber auch mehr Signale."
-            )
-            signal_text = "Kurzmeinung: Gut für Vorbereitung und Watchlist, aber nicht jede mittlere Meldung ist direkt kursrelevant."
-        else:
-            importance_text = (
-                "Bei allen Terminen bekommst du die breiteste Übersicht. Für Trading-Entscheidungen solltest du aber vor allem die wirklich wichtigen Termine priorisieren."
-            )
-            signal_text = "Kurzmeinung: Viel Information, aber auch viel Lärm. Für schnelle Entscheidungen lieber auf rote/high-impact Termine achten."
-
-        return focus_text, importance_text, signal_text
-
-    opinion_focus, opinion_importance, opinion_signal = build_calendar_opinion(
-        econ_filter_profile,
-        econ_importance_profile
-    )
-
-    st.markdown("### 🧠 Kurze Einordnung / Dashboard-Meinung")
-
-    st.warning(
-        f"**Kurzmeinung:** {opinion_signal}\n\n"
-        f"**Warum wichtig:** {opinion_focus}\n\n"
-        f"**Umgang damit:** {opinion_importance}"
-    )
-
-    st.caption(
-        "Diese Einschätzung ist regelbasiert und bezieht sich auf den gewählten Länderfokus und die Wichtigkeit. "
-        "Einzelne Termine aus dem TradingView-Widget können vom Dashboard nicht direkt live ausgelesen werden."
-    )
-
-    opinion_col_1, opinion_col_2 = st.columns([1, 1])
-
-    with opinion_col_1:
-        st.markdown(
-            f'''
-            <div class="terminal-panel">
-                <h3>Was könnte das bedeuten?</h3>
-                <p>{opinion_focus}</p>
-                <p style="margin-top:8px;">{opinion_importance}</p>
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
-
-    with opinion_col_2:
-        st.markdown(
-            f'''
-            <div class="terminal-panel">
-                <h3>Dashboard-Meinung</h3>
-                <p>{opinion_signal}</p>
-                <p style="margin-top:8px;">Praktisch: Bei wichtigen Terminen lieber erst die Reaktion von Indizes, Renditen und Sektoren abwarten, bevor du ein News- oder Momentum-Signal stark gewichtest.</p>
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
-
-    with st.expander("🧩 Schnellinterpretation nach Terminart", expanded=False):
-        st.markdown(
-            """
-            | Terminart | Mögliche Bedeutung | Besonders betroffen |
-            |---|---|---|
-            | Inflation / CPI / PCE | Höher als erwartet = oft Druck auf Tech, Growth und Bitcoin; niedriger als erwartet = oft Rückenwind | Nasdaq, KI, Halbleiter, Bitcoin |
-            | Arbeitsmarkt / NFP / Jobless Claims | Zu stark = Zinssorgen möglich; schwächer = Zinssenkungsfantasie, aber Rezessionsangst möglich | Indizes, Banken, Tech |
-            | Fed / EZB | Aussagen zu Zinsen und Inflation können Trends sofort drehen | alle Märkte |
-            | PMI / ISM | Frühindikator für Wirtschaftsstärke oder Abschwung | Industrie, Rohstoffe, Zykliker |
-            | Öl-Lagerdaten / Energie | Bewegt Ölpreis, Inflationserwartung und Energieaktien | Energie, Airlines, Chemie |
-            """
-        )
-
     st.markdown("### 📅 Aktuelle Wirtschaftstermine")
 
     economic_calendar_html = f"""
@@ -5595,20 +5480,6 @@ with tab_economic_calendar:
         scrolling=True
     )
 
-    with st.expander("📘 Erklärung: Wie nutze ich den Wirtschaftskalender im Trading?", expanded=False):
-        st.markdown(
-            """
-            **So liest du den Kalender im Dashboard:**
-
-            - **CPI / Inflation:** wichtig für Nasdaq, Tech, Wachstumsaktien, Anleiherenditen und USD.
-            - **Arbeitsmarkt / Jobless Claims / NFP:** beeinflusst Zinserwartungen und Risikoappetit.
-            - **Fed / EZB / BoJ:** Zinsentscheide und Aussagen können starke Marktbewegungen auslösen.
-            - **PMI / ISM:** zeigen, ob Industrie und Dienstleistungen stärker oder schwächer werden.
-            - **Öl-/Energie-Daten:** wichtig für Energieaktien, Inflation und zyklische Werte.
-
-            **Praktische Regel:** Wenn heute ein roter oder sehr wichtiger Termin ansteht, sollte ein technisches Kaufsignal vorsichtiger bewertet werden.
-            """
-        )
 
 
 
