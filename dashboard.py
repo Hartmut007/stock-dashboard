@@ -5279,8 +5279,8 @@ with tab_overview:
 with tab_news:
     st.markdown("## 🚨 News & Momentum Radar")
     st.caption(
-        "Kombiniert EQS-Treffer über Google News RSS mit Kursbewegung, Volumen, RSI und EMA20. "
-        "Das ist ein Frühwarnsystem für Bewegung — keine automatische Kaufempfehlung."
+        "Zeigt EQS-Treffer über Google News RSS zusammen mit Kursbewegung, Volumen, RSI und EMA20. "
+        "Standardmäßig werden nur Aktien mit echtem EQS-Treffer angezeigt, damit technische Kursbewegungen nicht fälschlich wie News-Signale wirken."
     )
 
     news_df = df_filtered.copy()
@@ -5299,6 +5299,24 @@ with tab_news:
         "Volume Ratio": 0,
     }
 
+    generated_news_columns = [
+        "EQS News Count 14D",
+        "EQS News Score",
+        "News Momentum Score",
+        "News Momentum Signal",
+        "Volume Ratio",
+    ]
+    missing_generated_news_columns = [
+        column for column in generated_news_columns if column not in news_df.columns
+    ]
+
+    if missing_generated_news_columns:
+        st.warning(
+            "Der News-Radar zeigt noch keine echten EQS-Daten, weil die Analyse-Datei "
+            "noch ohne News-Spalten erstellt wurde. Bitte die neue advanced_portfolio.py "
+            "einspielen und danach einmal `python advanced_portfolio.py` ausführen."
+        )
+
     for column, default_value in required_news_columns.items():
         if column not in news_df.columns:
             news_df[column] = default_value
@@ -5314,7 +5332,7 @@ with tab_news:
     metric_col_1.metric("🔥 News-Momentum", int(news_df["News Momentum Signal"].astype(str).str.contains("News-Momentum", na=False).sum()))
     metric_col_2.metric("🟠 Bewegung möglich", int(news_df["News Momentum Signal"].astype(str).str.contains("Bewegung möglich", na=False).sum()))
     metric_col_3.metric("EQS-Treffer 14T", int((news_df["EQS News Count 14D"] > 0).sum()))
-    metric_col_4.metric("Ø News Score", round(news_df["News Momentum Score"].mean(), 2) if len(news_df) else 0)
+    metric_col_4.metric("Ø Momentum Score", round(news_df["News Momentum Score"].mean(), 2) if len(news_df) else 0)
 
     signal_options = ["Alle"] + sorted(news_df["News Momentum Signal"].dropna().astype(str).unique().tolist())
     eqs_options = ["Alle"] + sorted(news_df["EQS Signal"].dropna().astype(str).unique().tolist())
@@ -5322,7 +5340,7 @@ with tab_news:
     filter_col_1, filter_col_2, filter_col_3 = st.columns([1.1, 1.1, 1.2])
     selected_news_signal = filter_col_1.selectbox("News-Momentum-Signal", signal_options, index=0)
     selected_eqs_signal = filter_col_2.selectbox("EQS-Signal", eqs_options, index=0)
-    only_with_eqs = filter_col_3.checkbox("Nur Aktien mit EQS-Treffer", value=False)
+    only_with_eqs = filter_col_3.checkbox("Nur Aktien mit EQS-Treffer", value=True)
 
     if selected_news_signal != "Alle":
         news_df = news_df[news_df["News Momentum Signal"].astype(str) == selected_news_signal]
@@ -5346,7 +5364,7 @@ with tab_news:
     ]
     news_display_columns = [column for column in news_display_columns if column in news_df.columns]
 
-    st.markdown("### Auffällige Werte")
+    st.markdown("### Auffällige EQS-/News-Werte")
     if news_df.empty:
         st.info("Keine Aktien im aktuellen Filter mit auffälligem News-/Momentum-Signal.")
     else:
@@ -5382,7 +5400,9 @@ with tab_news:
 
 with tab_economic_calendar:
     st.markdown("## 🌍 Wirtschaftskalender")
-   
+    st.markdown("### ⚙️ Kalender-Einstellungen")
+    st.caption("Standardmäßig ist der Kalender hell/weiß eingestellt. Bei Bedarf kannst du hier auf dunkel umschalten.")
+
     econ_col_1, econ_col_2, econ_col_3, econ_col_4 = st.columns([1, 1, 1.2, 1.1])
 
     with econ_col_1:
