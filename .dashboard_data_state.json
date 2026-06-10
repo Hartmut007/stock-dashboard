@@ -1,23 +1,23 @@
 {
   "portfolio_analysis.csv": {
-    "sha256": "3a437c4c8da46376eceb67f8367c4fbd5beecbe2d60624ec59bd1dacd863b8f4",
+    "sha256": "a689baaa1e23bc3c4ca15397e61f0fa2ac6132a2187c475a6ba41ad3e2183268",
     "first_seen_at": "2026-06-01T21:12:34.293021+02:00",
-    "content_changed_at": "2026-06-09T23:45:12.690993+02:00",
-    "last_seen_at": "2026-06-09T23:49:35.712063+02:00",
-    "cloud_mtime": "2026-06-09T23:45:12.682169+02:00"
+    "content_changed_at": "2026-06-10T23:01:02.431801+02:00",
+    "last_seen_at": "2026-06-10T23:03:51.315616+02:00",
+    "cloud_mtime": "2026-06-10T23:01:02.426087+02:00"
   },
   "clean_watchlist.csv": {
     "sha256": "fa9636469499ec1f07bf7f2b4cdf8dbca0c1084afafc104d8de33b2aab9cda6b",
     "first_seen_at": "2026-06-01T21:12:34.293021+02:00",
     "content_changed_at": "2026-06-03T23:06:27.791618+02:00",
-    "last_seen_at": "2026-06-09T23:49:35.712063+02:00",
+    "last_seen_at": "2026-06-10T23:03:51.315616+02:00",
     "cloud_mtime": "2026-06-03T23:04:10.611791+02:00"
   },
   "stock_relationships.csv": {
     "sha256": "eb59975ae6a20aea7c53e9f82f00a264347b3b392b78a7b5b02ba0fbd71fd0b1",
     "first_seen_at": "2026-06-01T21:12:34.293021+02:00",
     "content_changed_at": null,
-    "last_seen_at": "2026-06-09T23:49:35.712063+02:00",
+    "last_seen_at": "2026-06-10T23:03:51.315616+02:00",
     "cloud_mtime": "2026-05-30T21:53:40.170657+02:00"
   }
 }
