@@ -1,4181 +1,4181 @@
 {
   "005930.KS|SamsungElec|14|5": {
-    "checked_at": "2026-06-10T22:52:03.416728",
+    "checked_at": "2026-06-11T22:50:14.856102",
     "query": "site:eqs-news.com \"SamsungElec\" OR \"005930\" when:14d",
     "items": []
   },
   "000660.KS|SK hynix|14|5": {
-    "checked_at": "2026-06-10T22:52:04.068810",
+    "checked_at": "2026-06-11T22:50:15.490085",
     "query": "site:eqs-news.com \"SK hynix\" OR \"000660\" when:14d",
     "items": []
   },
   "373220.KS|LG Energy Solution|14|5": {
-    "checked_at": "2026-06-10T22:52:04.651028",
+    "checked_at": "2026-06-11T22:50:16.099836",
     "query": "site:eqs-news.com \"LG Energy Solution\" OR \"373220\" when:14d",
     "items": []
   },
   "285A.T|KIOXIA HOLDINGS CORPORATION|14|5": {
-    "checked_at": "2026-06-10T22:52:05.435916",
+    "checked_at": "2026-06-11T22:50:16.767059",
     "query": "site:eqs-news.com \"KIOXIA HOLDINGS CORPORATION\" OR \"285A\" when:14d",
     "items": []
   },
   "7203.T|TOYOTA MOTOR CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:06.073804",
+    "checked_at": "2026-06-11T22:50:17.413816",
     "query": "site:eqs-news.com \"TOYOTA MOTOR CORP\" OR \"7203\" when:14d",
     "items": []
   },
   "8035.T|TOKYO ELECTRON|14|5": {
-    "checked_at": "2026-06-10T22:52:06.744284",
+    "checked_at": "2026-06-11T22:50:18.060447",
     "query": "site:eqs-news.com \"TOKYO ELECTRON\" OR \"8035\" when:14d",
     "items": []
   },
   "6758.T|SONY GROUP CORPORATION|14|5": {
-    "checked_at": "2026-06-10T22:52:07.422556",
+    "checked_at": "2026-06-11T22:50:18.743219",
     "query": "site:eqs-news.com \"SONY GROUP CORPORATION\" OR \"6758\" when:14d",
     "items": []
   },
   "6857.T|ADVANTEST CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:08.137344",
+    "checked_at": "2026-06-11T22:50:19.416311",
     "query": "site:eqs-news.com \"ADVANTEST CORP\" OR \"6857\" when:14d",
     "items": []
   },
   "6861.T|KEYENCE CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:08.810776",
+    "checked_at": "2026-06-11T22:50:20.092360",
     "query": "site:eqs-news.com \"KEYENCE CORP\" OR \"6861\" when:14d",
     "items": []
   },
   "6981.T|MURATA MANUFACTURING CO|14|5": {
-    "checked_at": "2026-06-10T22:52:09.461862",
+    "checked_at": "2026-06-11T22:50:20.747082",
     "query": "site:eqs-news.com \"MURATA MANUFACTURING CO\" OR \"6981\" when:14d",
     "items": []
   },
   "8001.T|ITOCHU CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:10.143087",
+    "checked_at": "2026-06-11T22:50:21.416025",
     "query": "site:eqs-news.com \"ITOCHU CORP\" OR \"8001\" when:14d",
     "items": []
   },
   "6752.T|PANASONIC HOLDINGS CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:10.853454",
+    "checked_at": "2026-06-11T22:50:22.075031",
     "query": "site:eqs-news.com \"PANASONIC HOLDINGS CORP\" OR \"6752\" when:14d",
     "items": []
   },
   "7974.T|NINTENDO CO LTD|14|5": {
-    "checked_at": "2026-06-10T22:52:11.585280",
+    "checked_at": "2026-06-11T22:50:22.783042",
     "query": "site:eqs-news.com \"NINTENDO CO LTD\" OR \"7974\" when:14d",
     "items": []
   },
   "6762.T|TDK CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:12.246419",
+    "checked_at": "2026-06-11T22:50:23.447475",
     "query": "site:eqs-news.com \"TDK CORP\" OR \"6762\" when:14d",
     "items": []
   },
   "6146.T|DISCO CORPORATION|14|5": {
-    "checked_at": "2026-06-10T22:52:12.948388",
+    "checked_at": "2026-06-11T22:50:24.079670",
     "query": "site:eqs-news.com \"DISCO CORPORATION\" OR \"6146\" when:14d",
     "items": []
   },
   "6701.T|NEC CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:13.718977",
+    "checked_at": "2026-06-11T22:50:24.710157",
     "query": "site:eqs-news.com \"NEC CORP\" OR \"6701\" when:14d",
     "items": []
   },
   "NVDA|NVIDIA|14|5": {
-    "checked_at": "2026-06-10T22:52:14.629813",
+    "checked_at": "2026-06-11T22:50:25.399809",
     "query": "site:eqs-news.com \"NVIDIA\" OR \"NVDA\" when:14d",
     "items": []
   },
   "AAPL|Apple Inc.|14|5": {
-    "checked_at": "2026-06-10T22:52:15.268344",
+    "checked_at": "2026-06-11T22:50:26.059982",
     "query": "site:eqs-news.com \"Apple Inc.\" OR \"AAPL\" when:14d",
     "items": []
   },
   "GOOGL|Alphabet|14|5": {
-    "checked_at": "2026-06-10T22:52:15.894157",
+    "checked_at": "2026-06-11T22:50:26.903547",
     "query": "site:eqs-news.com \"Alphabet\" OR \"GOOGL\" when:14d",
     "items": []
   },
   "GOOG|Alphabet|14|5": {
-    "checked_at": "2026-06-10T22:52:16.507851",
+    "checked_at": "2026-06-11T22:50:27.502336",
     "query": "site:eqs-news.com \"Alphabet\" OR \"GOOG\" when:14d",
     "items": []
   },
   "6594.T|NIDEC CORPORATION|14|5": {
-    "checked_at": "2026-06-10T22:52:17.195317",
+    "checked_at": "2026-06-11T22:50:28.187292",
     "query": "site:eqs-news.com \"NIDEC CORPORATION\" OR \"6594\" when:14d",
     "items": []
   },
   "MSFT|Microsoft|14|5": {
-    "checked_at": "2026-06-10T22:52:17.851528",
+    "checked_at": "2026-06-11T22:50:28.842688",
     "query": "site:eqs-news.com \"Microsoft\" OR \"MSFT\" when:14d",
     "items": []
   },
   "AMZN|Amazon.com,|14|5": {
-    "checked_at": "2026-06-10T22:52:18.455690",
+    "checked_at": "2026-06-11T22:50:29.424394",
     "query": "site:eqs-news.com \"Amazon.com,\" OR \"AMZN\" when:14d",
     "items": []
   },
   "AVGO|Broadcom|14|5": {
-    "checked_at": "2026-06-10T22:52:19.246260",
+    "checked_at": "2026-06-11T22:50:30.086769",
     "query": "site:eqs-news.com \"Broadcom\" OR \"AVGO\" when:14d",
     "items": []
   },
   "TSM|Taiwan Semiconductor Manufactur|14|5": {
-    "checked_at": "2026-06-10T22:52:19.912221",
+    "checked_at": "2026-06-11T22:50:30.747006",
     "query": "site:eqs-news.com \"Taiwan Semiconductor Manufactur\" OR \"TSM\" when:14d",
     "items": []
   },
   "300750.SZ|CONTEMPORARY AMPEREX TECHNOLOGY|14|5": {
-    "checked_at": "2026-06-10T22:52:20.489475",
+    "checked_at": "2026-06-11T22:50:31.417440",
     "query": "site:eqs-news.com \"CONTEMPORARY AMPEREX TECHNOLOGY\" OR \"300750\" when:14d",
     "items": []
   },
   "6479.T|MINEBEA MITSUMI INC|14|5": {
-    "checked_at": "2026-06-10T22:52:21.184250",
+    "checked_at": "2026-06-11T22:50:32.093974",
     "query": "site:eqs-news.com \"MINEBEA MITSUMI INC\" OR \"6479\" when:14d",
     "items": []
   },
   "TSLA|Tesla,|14|5": {
-    "checked_at": "2026-06-10T22:52:21.763645",
+    "checked_at": "2026-06-11T22:50:32.701066",
     "query": "site:eqs-news.com \"Tesla,\" OR \"TSLA\" when:14d",
     "items": []
   },
   "META|Meta Platforms,|14|5": {
-    "checked_at": "2026-06-10T22:52:22.353904",
+    "checked_at": "2026-06-11T22:50:33.346806",
     "query": "site:eqs-news.com \"Meta Platforms,\" OR \"META\" when:14d",
     "items": []
   },
   "MU|Micron Technology,|14|5": {
-    "checked_at": "2026-06-10T22:52:22.962326",
+    "checked_at": "2026-06-11T22:50:33.993077",
     "query": "site:eqs-news.com \"Micron Technology,\" OR \"MU\" when:14d",
     "items": []
   },
   "NOVO-B.CO|Novo Nordisk B A/S|14|5": {
-    "checked_at": "2026-06-10T22:52:23.608955",
+    "checked_at": "2026-06-11T22:50:34.674538",
     "query": "site:eqs-news.com \"Novo Nordisk B A/S\" OR \"NOVO-B\" when:14d",
     "items": []
   },
   "ADVANC.BK|ADVANC_ADVANCED INFORVICE|14|5": {
-    "checked_at": "2026-06-10T22:52:24.401197",
+    "checked_at": "2026-06-11T22:50:35.296413",
     "query": "site:eqs-news.com \"ADVANC_ADVANCED INFORVICE\" OR \"ADVANC\" when:14d",
     "items": []
   },
   "BRK-B|Berkshire Hathaway New|14|5": {
-    "checked_at": "2026-06-10T22:52:24.980273",
+    "checked_at": "2026-06-11T22:50:35.885816",
     "query": "site:eqs-news.com \"Berkshire Hathaway New\" OR \"BRK-B\" when:14d",
     "items": []
   },
   "LLY|Eli Lilly and Company|14|5": {
-    "checked_at": "2026-06-10T22:52:25.832312",
+    "checked_at": "2026-06-11T22:50:36.557307",
     "query": "site:eqs-news.com \"Eli Lilly and Company\" OR \"LLY\" when:14d",
     "items": []
   },
   "WMT|Walmart|14|5": {
-    "checked_at": "2026-06-10T22:52:26.511896",
+    "checked_at": "2026-06-11T22:50:37.240781",
     "query": "site:eqs-news.com \"Walmart\" OR \"WMT\" when:14d",
     "items": []
   },
   "6481.T|THK CO LTD|14|5": {
-    "checked_at": "2026-06-10T22:52:27.191914",
+    "checked_at": "2026-06-11T22:50:37.913442",
     "query": "site:eqs-news.com \"THK CO LTD\" OR \"6481\" when:14d",
     "items": []
   },
   "AMD|Advanced Micro Devices,|14|5": {
-    "checked_at": "2026-06-10T22:52:27.785551",
+    "checked_at": "2026-06-11T22:50:38.525498",
     "query": "site:eqs-news.com \"Advanced Micro Devices,\" OR \"AMD\" when:14d",
     "items": []
   },
   "002594.SZ|BYD COMPANY LIMITED|14|5": {
-    "checked_at": "2026-06-10T22:52:28.361175",
+    "checked_at": "2026-06-11T22:50:39.172384",
     "query": "site:eqs-news.com \"BYD COMPANY LIMITED\" OR \"002594\" when:14d",
     "items": []
   },
   "JPM|JP Morgan Chase & Co.|14|5": {
-    "checked_at": "2026-06-10T22:52:29.078896",
+    "checked_at": "2026-06-11T22:50:39.940242",
     "query": "site:eqs-news.com \"JP Morgan Chase & Co.\" OR \"JPM\" when:14d",
     "items": []
   },
   "6324.T|HARMONIC DRIVE SYSTEMS|14|5": {
-    "checked_at": "2026-06-10T22:52:29.741853",
+    "checked_at": "2026-06-11T22:50:40.773509",
     "query": "site:eqs-news.com \"HARMONIC DRIVE SYSTEMS\" OR \"6324\" when:14d",
     "items": []
   },
   "ASML|ASML - New York Re|14|5": {
-    "checked_at": "2026-06-10T22:52:30.342982",
+    "checked_at": "2026-06-11T22:50:41.415643",
     "query": "site:eqs-news.com \"ASML - New York Re\" OR \"ASML\" when:14d",
     "items": []
   },
   "ORCL|Oracle|14|5": {
-    "checked_at": "2026-06-10T22:52:30.961793",
+    "checked_at": "2026-06-11T22:50:42.015275",
     "query": "site:eqs-news.com \"Oracle\" OR \"ORCL\" when:14d",
     "items": []
   },
   "6268.T|NABTESCO CORP|14|5": {
-    "checked_at": "2026-06-10T22:52:31.678277",
+    "checked_at": "2026-06-11T22:50:42.710517",
     "query": "site:eqs-news.com \"NABTESCO CORP\" OR \"6268\" when:14d",
     "items": []
   },
   "XOM|Exxon Mobil|14|5": {
-    "checked_at": "2026-06-10T22:52:32.380967",
+    "checked_at": "2026-06-11T22:50:43.393710",
     "query": "site:eqs-news.com \"Exxon Mobil\" OR \"XOM\" when:14d",
     "items": []
   },
   "V|Visa Inc.|14|5": {
-    "checked_at": "2026-06-10T22:52:32.996647",
+    "checked_at": "2026-06-11T22:50:44.016687",
     "query": "site:eqs-news.com \"Visa Inc.\" OR \"V\" when:14d",
     "items": []
   },
   "ASML.AS|ASML HOLDING|14|5": {
-    "checked_at": "2026-06-10T22:52:33.629830",
+    "checked_at": "2026-06-11T22:50:44.667557",
     "query": "site:eqs-news.com \"ASML HOLDING\" OR \"ASML\" when:14d",
     "items": []
   },
   "INTC|Intel|14|5": {
-    "checked_at": "2026-06-10T22:52:34.259442",
+    "checked_at": "2026-06-11T22:50:45.490777",
     "query": "site:eqs-news.com \"Intel\" OR \"INTC\" when:14d",
     "items": []
   },
   "JNJ|Johnson & Johnson|14|5": {
-    "checked_at": "2026-06-10T22:52:35.111409",
+    "checked_at": "2026-06-11T22:50:46.228667",
     "query": "site:eqs-news.com \"Johnson & Johnson\" OR \"JNJ\" when:14d",
     "items": []
   },
   "CSCO|Cisco Systems,|14|5": {
-    "checked_at": "2026-06-10T22:52:35.730645",
+    "checked_at": "2026-06-11T22:50:46.866954",
     "query": "site:eqs-news.com \"Cisco Systems,\" OR \"CSCO\" when:14d",
     "items": []
   },
   "ARM|Arms|14|5": {
-    "checked_at": "2026-06-10T22:52:36.307760",
+    "checked_at": "2026-06-11T22:50:47.494554",
     "query": "site:eqs-news.com \"Arms\" OR \"ARM\" when:14d",
     "items": []
   },
   "LRCX|Lam Research|14|5": {
-    "checked_at": "2026-06-10T22:52:36.935220",
+    "checked_at": "2026-06-11T22:50:48.156468",
     "query": "site:eqs-news.com \"Lam Research\" OR \"LRCX\" when:14d",
     "items": []
   },
   "COST|Costco Wholesale|14|5": {
-    "checked_at": "2026-06-10T22:52:37.542930",
+    "checked_at": "2026-06-11T22:50:48.781946",
     "query": "site:eqs-news.com \"Costco Wholesale\" OR \"COST\" when:14d",
     "items": []
   },
   "CAT|Caterpillar,|14|5": {
-    "checked_at": "2026-06-10T22:52:38.201449",
+    "checked_at": "2026-06-11T22:50:49.473441",
     "query": "site:eqs-news.com \"Caterpillar,\" OR \"CAT\" when:14d",
     "items": []
   },
   "MA|Mastercardorporated|14|5": {
-    "checked_at": "2026-06-10T22:52:38.825437",
+    "checked_at": "2026-06-11T22:50:50.103401",
     "query": "site:eqs-news.com \"Mastercardorporated\" OR \"MA\" when:14d",
     "items": []
   },
   "AMAT|Applied Materials,|14|5": {
-    "checked_at": "2026-06-10T22:52:39.423729",
+    "checked_at": "2026-06-11T22:50:50.757283",
     "query": "site:eqs-news.com \"Applied Materials,\" OR \"AMAT\" when:14d",
     "items": []
   },
   "ABBV|AbbVie|14|5": {
-    "checked_at": "2026-06-10T22:52:40.069625",
+    "checked_at": "2026-06-11T22:50:51.408070",
     "query": "site:eqs-news.com \"AbbVie\" OR \"ABBV\" when:14d",
     "items": []
   },
   "CVX|Chevron|14|5": {
-    "checked_at": "2026-06-10T22:52:40.804558",
+    "checked_at": "2026-06-11T22:50:52.092359",
     "query": "site:eqs-news.com \"Chevron\" OR \"CVX\" when:14d",
     "items": []
   },
   "BAC|Bank of America|14|5": {
-    "checked_at": "2026-06-10T22:52:41.443903",
+    "checked_at": "2026-06-11T22:50:52.774022",
     "query": "site:eqs-news.com \"Bank of America\" OR \"BAC\" when:14d",
     "items": []
   },
   "NFLX|Netflix,|14|5": {
-    "checked_at": "2026-06-10T22:52:42.079533",
+    "checked_at": "2026-06-11T22:50:53.403843",
     "query": "site:eqs-news.com \"Netflix,\" OR \"NFLX\" when:14d",
     "items": []
   },
   "UNH|UnitedHealth Grouporporated|14|5": {
-    "checked_at": "2026-06-10T22:52:42.714743",
+    "checked_at": "2026-06-11T22:50:54.082343",
     "query": "site:eqs-news.com \"UnitedHealth Grouporporated\" OR \"UNH\" when:14d",
     "items": []
   },
   "PLTR|Palantir Technologies|14|5": {
-    "checked_at": "2026-06-10T22:52:43.313420",
+    "checked_at": "2026-06-11T22:50:54.708696",
     "query": "site:eqs-news.com \"Palantir Technologies\" OR \"PLTR\" when:14d",
     "items": []
   },
   "KO|Coca-Cola Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:52:44.007312",
+    "checked_at": "2026-06-11T22:50:55.419403",
     "query": "site:eqs-news.com \"Coca-Cola Company (The)\" OR \"KO\" when:14d",
     "items": []
   },
   "MS|Morgan Stanley|14|5": {
-    "checked_at": "2026-06-10T22:52:44.685474",
+    "checked_at": "2026-06-11T22:50:56.058525",
     "query": "site:eqs-news.com \"Morgan Stanley\" OR \"MS\" when:14d",
     "items": []
   },
   "GE|GE Aerospace|14|5": {
-    "checked_at": "2026-06-10T22:52:45.372244",
+    "checked_at": "2026-06-11T22:50:56.718003",
     "query": "site:eqs-news.com \"GE Aerospace\" OR \"GE\" when:14d",
     "items": []
   },
   "3350.T|METAPLANET INC|14|5": {
-    "checked_at": "2026-06-10T22:52:46.185642",
+    "checked_at": "2026-06-11T22:50:57.358242",
     "query": "site:eqs-news.com \"METAPLANET INC\" OR \"3350\" when:14d",
     "items": []
   },
   "0992.HK|LENOVO GROUP|14|5": {
-    "checked_at": "2026-06-10T22:52:46.838098",
+    "checked_at": "2026-06-11T22:50:57.977404",
     "query": "site:eqs-news.com \"LENOVO GROUP\" OR \"0992\" when:14d",
     "items": []
   },
   "RIO.AX|RIO TINTO FPO [RIO]|14|5": {
-    "checked_at": "2026-06-10T22:52:47.472627",
+    "checked_at": "2026-06-11T22:50:58.641129",
     "query": "site:eqs-news.com \"RIO TINTO FPO [RIO]\" OR \"RIO\" when:14d",
     "items": []
   },
   "HD|Home Depot, (The)|14|5": {
-    "checked_at": "2026-06-10T22:52:48.111641",
+    "checked_at": "2026-06-11T22:50:59.314193",
     "query": "site:eqs-news.com \"Home Depot, (The)\" OR \"HD\" when:14d",
     "items": []
   },
   "GS|Goldman Sachs Group, (The)|14|5": {
-    "checked_at": "2026-06-10T22:52:48.744025",
+    "checked_at": "2026-06-11T22:50:59.963547",
     "query": "site:eqs-news.com \"Goldman Sachs Group, (The)\" OR \"GS\" when:14d",
     "items": []
   },
   "BABA|Alibaba Group|14|5": {
-    "checked_at": "2026-06-10T22:52:49.504048",
+    "checked_at": "2026-06-11T22:51:00.743340",
     "query": "site:eqs-news.com \"Alibaba Group\" OR \"BABA\" when:14d",
     "items": []
   },
   "IBM|International Business Machines|14|5": {
-    "checked_at": "2026-06-10T22:52:50.195166",
+    "checked_at": "2026-06-11T22:51:01.443459",
     "query": "site:eqs-news.com \"International Business Machines\" OR \"IBM\" when:14d",
     "items": []
   },
   "MRK|Merck & Company,|14|5": {
-    "checked_at": "2026-06-10T22:52:50.871169",
+    "checked_at": "2026-06-11T22:51:02.100868",
     "query": "site:eqs-news.com \"Merck & Company,\" OR \"MRK\" when:14d",
     "items": []
   },
   "TXN|Texas Instrumentsorporated|14|5": {
-    "checked_at": "2026-06-10T22:52:51.537130",
+    "checked_at": "2026-06-11T22:51:02.760775",
     "query": "site:eqs-news.com \"Texas Instrumentsorporated\" OR \"TXN\" when:14d",
     "items": []
   },
   "SAAB-B.ST|SAAB AB ser. B|14|5": {
-    "checked_at": "2026-06-10T22:52:52.348371",
+    "checked_at": "2026-06-11T22:51:03.418536",
     "query": "site:eqs-news.com \"SAAB AB ser. B\" OR \"SAAB-B\" when:14d",
     "items": []
   },
   "KLAC|KLA|14|5": {
-    "checked_at": "2026-06-10T22:52:52.983131",
+    "checked_at": "2026-06-11T22:51:04.052570",
     "query": "site:eqs-news.com \"KLA\" OR \"KLAC\" when:14d",
     "items": []
   },
   "DELL|Dell Technologies|14|5": {
-    "checked_at": "2026-06-10T22:52:53.572478",
+    "checked_at": "2026-06-11T22:51:04.675612",
     "query": "site:eqs-news.com \"Dell Technologies\" OR \"DELL\" when:14d",
     "items": []
   },
   "AZN|AstraZeneca|14|5": {
-    "checked_at": "2026-06-10T22:52:54.186042",
+    "checked_at": "2026-06-11T22:51:05.339857",
     "query": "site:eqs-news.com \"AstraZeneca\" OR \"AZN\" when:14d",
     "items": []
   },
   "SNDK|Sandisk|14|5": {
-    "checked_at": "2026-06-10T22:52:54.775143",
+    "checked_at": "2026-06-11T22:51:06.003956",
     "query": "site:eqs-news.com \"Sandisk\" OR \"SNDK\" when:14d",
     "items": []
   },
   "KOG.OL|KONGSBERG GRUPPEN|14|5": {
-    "checked_at": "2026-06-10T22:52:55.519992",
+    "checked_at": "2026-06-11T22:51:06.726572",
     "query": "site:eqs-news.com \"KONGSBERG GRUPPEN\" OR \"KOG\" when:14d",
     "items": []
   },
   "MRVL|Marvell Technology,|14|5": {
-    "checked_at": "2026-06-10T22:52:56.115093",
+    "checked_at": "2026-06-11T22:51:07.351418",
     "query": "site:eqs-news.com \"Marvell Technology,\" OR \"MRVL\" when:14d",
     "items": []
   },
   "QCOM|QUALCOMMorporated|14|5": {
-    "checked_at": "2026-06-10T22:52:56.783753",
+    "checked_at": "2026-06-11T22:51:08.186573",
     "query": "site:eqs-news.com \"QUALCOMMorporated\" OR \"QCOM\" when:14d",
     "items": []
   },
   "GEV|GE Vernova|14|5": {
-    "checked_at": "2026-06-10T22:52:57.393343",
+    "checked_at": "2026-06-11T22:51:08.824541",
     "query": "site:eqs-news.com \"GE Vernova\" OR \"GEV\" when:14d",
     "items": []
   },
   "SHEL|Shell PLC|14|5": {
-    "checked_at": "2026-06-10T22:52:58.012169",
+    "checked_at": "2026-06-11T22:51:09.480553",
     "query": "site:eqs-news.com \"Shell PLC\" OR \"SHEL\" when:14d",
     "items": []
   },
   "WFC|Wells Fargo & Company|14|5": {
-    "checked_at": "2026-06-10T22:52:58.671784",
+    "checked_at": "2026-06-11T22:51:10.164115",
     "query": "site:eqs-news.com \"Wells Fargo & Company\" OR \"WFC\" when:14d",
     "items": []
   },
   "9992.HK|POP MART|14|5": {
-    "checked_at": "2026-06-10T22:52:59.262804",
+    "checked_at": "2026-06-11T22:51:10.779179",
     "query": "site:eqs-news.com \"POP MART\" OR \"9992\" when:14d",
     "items": []
   },
   "TM|Toyota Motor|14|5": {
-    "checked_at": "2026-06-10T22:52:59.895692",
+    "checked_at": "2026-06-11T22:51:11.416038",
     "query": "site:eqs-news.com \"Toyota Motor\" OR \"TM\" when:14d",
     "items": []
   },
   "LIN|Linde plc|14|5": {
-    "checked_at": "2026-06-10T22:53:00.499070",
+    "checked_at": "2026-06-11T22:51:12.061470",
     "query": "site:eqs-news.com \"Linde plc\" OR \"LIN\" when:14d",
     "items": []
   },
   "RTX|RTX|14|5": {
-    "checked_at": "2026-06-10T22:53:01.367943",
+    "checked_at": "2026-06-11T22:51:12.752930",
     "query": "site:eqs-news.com \"RTX\" OR \"RTX\" when:14d",
     "items": []
   },
   "BHP|BHP Group|14|5": {
-    "checked_at": "2026-06-10T22:53:02.037726",
+    "checked_at": "2026-06-11T22:51:13.404053",
     "query": "site:eqs-news.com \"BHP Group\" OR \"BHP\" when:14d",
     "items": []
   },
   "PANW|Palo Alto Networks,|14|5": {
-    "checked_at": "2026-06-10T22:53:02.621693",
+    "checked_at": "2026-06-11T22:51:14.035644",
     "query": "site:eqs-news.com \"Palo Alto Networks,\" OR \"PANW\" when:14d",
     "items": []
   },
   "C|Citigroup,|14|5": {
-    "checked_at": "2026-06-10T22:53:03.268664",
+    "checked_at": "2026-06-11T22:51:14.726634",
     "query": "site:eqs-news.com \"Citigroup,\" OR \"C\" when:14d",
     "items": []
   },
   "ANET|Arista Networks,|14|5": {
-    "checked_at": "2026-06-10T22:53:03.852755",
+    "checked_at": "2026-06-11T22:51:15.387129",
     "query": "site:eqs-news.com \"Arista Networks,\" OR \"ANET\" when:14d",
     "items": []
   },
   "ORSTED.CO|ORSTED A/S|14|5": {
-    "checked_at": "2026-06-10T22:53:04.679690",
+    "checked_at": "2026-06-11T22:51:16.007518",
     "query": "site:eqs-news.com \"ORSTED A/S\" OR \"ORSTED\" when:14d",
     "items": []
   },
   "ADI|Analog Devices,|14|5": {
-    "checked_at": "2026-06-10T22:53:05.373340",
+    "checked_at": "2026-06-11T22:51:16.643602",
     "query": "site:eqs-news.com \"Analog Devices,\" OR \"ADI\" when:14d",
     "items": []
   },
   "STX|Seagate Technologys|14|5": {
-    "checked_at": "2026-06-10T22:53:06.036782",
+    "checked_at": "2026-06-11T22:51:17.275300",
     "query": "site:eqs-news.com \"Seagate Technologys\" OR \"STX\" when:14d",
     "items": []
   },
   "SIE.DE|SIEMENS N|14|5": {
-    "checked_at": "2026-06-10T22:53:06.747607",
+    "checked_at": "2026-06-11T22:51:17.916540",
     "query": "site:eqs-news.com \"SIEMENS N\" OR \"SIE\" when:14d",
     "items": []
   },
   "AXP|American Express Company|14|5": {
-    "checked_at": "2026-06-10T22:53:07.428441",
+    "checked_at": "2026-06-11T22:51:18.626393",
     "query": "site:eqs-news.com \"American Express Company\" OR \"AXP\" when:14d",
     "items": []
   },
   "WDC|Western Digital|14|5": {
-    "checked_at": "2026-06-10T22:53:08.063694",
+    "checked_at": "2026-06-11T22:51:19.250682",
     "query": "site:eqs-news.com \"Western Digital\" OR \"WDC\" when:14d",
     "items": []
   },
   "TTE|TotalEnergies|14|5": {
-    "checked_at": "2026-06-10T22:53:08.719648",
+    "checked_at": "2026-06-11T22:51:20.077750",
     "query": "site:eqs-news.com \"TotalEnergies\" OR \"TTE\" when:14d",
     "items": []
   },
   "TMUS|T-Mobile US,|14|5": {
-    "checked_at": "2026-06-10T22:53:09.611459",
+    "checked_at": "2026-06-11T22:51:20.727203",
     "query": "site:eqs-news.com \"T-Mobile US,\" OR \"TMUS\" when:14d",
     "items": []
   },
   "PEP|Pepsico,|14|5": {
-    "checked_at": "2026-06-10T22:53:10.295084",
+    "checked_at": "2026-06-11T22:51:21.437884",
     "query": "site:eqs-news.com \"Pepsico,\" OR \"PEP\" when:14d",
     "items": []
   },
   "VZ|Verizon Communications|14|5": {
-    "checked_at": "2026-06-10T22:53:10.973584",
+    "checked_at": "2026-06-11T22:51:22.107466",
     "query": "site:eqs-news.com \"Verizon Communications\" OR \"VZ\" when:14d",
     "items": []
   },
   "MCD|McDonald's|14|5": {
-    "checked_at": "2026-06-10T22:53:11.629430",
+    "checked_at": "2026-06-11T22:51:22.793784",
     "query": "site:eqs-news.com \"McDonald's\" OR \"MCD\" when:14d",
     "items": []
   },
   "APP|Applovin|14|5": {
-    "checked_at": "2026-06-10T22:53:12.256014",
+    "checked_at": "2026-06-11T22:51:23.415477",
     "query": "site:eqs-news.com \"Applovin\" OR \"APP\" when:14d",
     "items": []
   },
   "CRWD|CrowdStrikes,|14|5": {
-    "checked_at": "2026-06-10T22:53:12.842025",
+    "checked_at": "2026-06-11T22:51:24.036559",
     "query": "site:eqs-news.com \"CrowdStrikes,\" OR \"CRWD\" when:14d",
     "items": []
   },
   "NVO|Novo Nordisk A/S|14|5": {
-    "checked_at": "2026-06-10T22:53:13.503550",
+    "checked_at": "2026-06-11T22:51:24.705559",
     "query": "site:eqs-news.com \"Novo Nordisk A/S\" OR \"NVO\" when:14d",
     "items": []
   },
   "AMGN|Amgen Inc.|14|5": {
-    "checked_at": "2026-06-10T22:53:14.111714",
+    "checked_at": "2026-06-11T22:51:25.334591",
     "query": "site:eqs-news.com \"Amgen Inc.\" OR \"AMGN\" when:14d",
     "items": []
   },
   "SAP.DE|SAP I|14|5": {
-    "checked_at": "2026-06-10T22:53:14.737356",
+    "checked_at": "2026-06-11T22:51:25.955655",
     "query": "site:eqs-news.com \"SAP I\" OR \"SAP\" when:14d",
     "items": []
   },
   "SHEL.L|SHELL ORD EUR0.07|14|5": {
-    "checked_at": "2026-06-10T22:53:15.591473",
+    "checked_at": "2026-06-11T22:51:26.624412",
     "query": "site:eqs-news.com \"SHELL ORD EUR0.07\" OR \"SHEL\" when:14d",
     "items": []
   },
   "APH|Amphenol|14|5": {
-    "checked_at": "2026-06-10T22:53:16.214357",
+    "checked_at": "2026-06-11T22:51:27.248016",
     "query": "site:eqs-news.com \"Amphenol\" OR \"APH\" when:14d",
     "items": []
   },
   "NEE|NextEra Energy,|14|5": {
-    "checked_at": "2026-06-10T22:53:16.908813",
+    "checked_at": "2026-06-11T22:51:27.927453",
     "query": "site:eqs-news.com \"NextEra Energy,\" OR \"NEE\" when:14d",
     "items": []
   },
   "VWS.CO|Vestas Wind Systems A/S|14|5": {
-    "checked_at": "2026-06-10T22:53:17.540058",
+    "checked_at": "2026-06-11T22:51:28.579692",
     "query": "site:eqs-news.com \"Vestas Wind Systems A/S\" OR \"VWS\" when:14d",
     "items": []
   },
   "TJX|TJX Companies, (The)|14|5": {
-    "checked_at": "2026-06-10T22:53:18.199322",
+    "checked_at": "2026-06-11T22:51:29.215218",
     "query": "site:eqs-news.com \"TJX Companies, (The)\" OR \"TJX\" when:14d",
     "items": []
   },
   "GLW|Corningorporated|14|5": {
-    "checked_at": "2026-06-10T22:53:18.842512",
+    "checked_at": "2026-06-11T22:51:29.888665",
     "query": "site:eqs-news.com \"Corningorporated\" OR \"GLW\" when:14d",
     "items": []
   },
   "DIS|Walt Disney Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:53:19.515387",
+    "checked_at": "2026-06-11T22:51:30.548391",
     "query": "site:eqs-news.com \"Walt Disney Company (The)\" OR \"DIS\" when:14d",
     "items": []
   },
   "BA|Boeing Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:53:20.193824",
+    "checked_at": "2026-06-11T22:51:31.209710",
     "query": "site:eqs-news.com \"Boeing Company (The)\" OR \"BA\" when:14d",
     "items": []
   },
   "RMS.PA|HERMES INTL|14|5": {
-    "checked_at": "2026-06-10T22:53:21.254223",
+    "checked_at": "2026-06-11T22:51:31.861052",
     "query": "site:eqs-news.com \"HERMES INTL\" OR \"RMS\" when:14d",
     "items": []
   },
   "T|AT&T Inc.|14|5": {
-    "checked_at": "2026-06-10T22:53:21.881717",
+    "checked_at": "2026-06-11T22:51:32.498728",
     "query": "site:eqs-news.com \"AT&T Inc.\" OR \"T\" when:14d",
     "items": []
   },
   "ETN|Eaton, PLC|14|5": {
-    "checked_at": "2026-06-10T22:53:22.539448",
+    "checked_at": "2026-06-11T22:51:33.186627",
     "query": "site:eqs-news.com \"Eaton, PLC\" OR \"ETN\" when:14d",
     "items": []
   },
   "GILD|Gilead Sciences,|14|5": {
-    "checked_at": "2026-06-10T22:53:23.152891",
+    "checked_at": "2026-06-11T22:51:33.807591",
     "query": "site:eqs-news.com \"Gilead Sciences,\" OR \"GILD\" when:14d",
     "items": []
   },
   "DE|Deere & Company|14|5": {
-    "checked_at": "2026-06-10T22:53:23.829817",
+    "checked_at": "2026-06-11T22:51:34.468274",
     "query": "site:eqs-news.com \"Deere & Company\" OR \"DE\" when:14d",
     "items": []
   },
   "CRM|Salesforce,|14|5": {
-    "checked_at": "2026-06-10T22:53:24.447873",
+    "checked_at": "2026-06-11T22:51:35.080081",
     "query": "site:eqs-news.com \"Salesforce,\" OR \"CRM\" when:14d",
     "items": []
   },
   "UNP|Union Pacific|14|5": {
-    "checked_at": "2026-06-10T22:53:25.091373",
+    "checked_at": "2026-06-11T22:51:35.722976",
     "query": "site:eqs-news.com \"Union Pacific\" OR \"UNP\" when:14d",
     "items": []
   },
   "ABBN.SW|ABB LTD N|14|5": {
-    "checked_at": "2026-06-10T22:53:25.757564",
+    "checked_at": "2026-06-11T22:51:36.542728",
     "query": "site:eqs-news.com \"ABB LTD N\" OR \"ABBN\" when:14d",
     "items": []
   },
   "BLK|BlackRock,|14|5": {
-    "checked_at": "2026-06-10T22:53:26.441968",
+    "checked_at": "2026-06-11T22:51:37.176710",
     "query": "site:eqs-news.com \"BlackRock,\" OR \"BLK\" when:14d",
     "items": []
   },
   "SAN.MC|BANCONTANDER|14|5": {
-    "checked_at": "2026-06-10T22:53:27.308711",
+    "checked_at": "2026-06-11T22:51:37.809504",
     "query": "site:eqs-news.com \"BANCONTANDER\" OR \"SAN\" when:14d",
     "items": []
   },
   "ABT|Abbott Laboratories|14|5": {
-    "checked_at": "2026-06-10T22:53:27.953773",
+    "checked_at": "2026-06-11T22:51:38.449674",
     "query": "site:eqs-news.com \"Abbott Laboratories\" OR \"ABT\" when:14d",
     "items": []
   },
   "SCHW|Charles Schwab (The|14|5": {
-    "checked_at": "2026-06-10T22:53:28.605078",
+    "checked_at": "2026-06-11T22:51:39.111487",
     "query": "site:eqs-news.com \"Charles Schwab (The\" OR \"SCHW\" when:14d",
     "items": []
   },
   "SHOP|Shopify|14|5": {
-    "checked_at": "2026-06-10T22:53:29.193470",
+    "checked_at": "2026-06-11T22:51:39.697165",
     "query": "site:eqs-news.com \"Shopify\" OR \"SHOP\" when:14d",
     "items": []
   },
   "UBER|Uber Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:53:29.804966",
+    "checked_at": "2026-06-11T22:51:40.283530",
     "query": "site:eqs-news.com \"Uber Technologies,\" OR \"UBER\" when:14d",
     "items": []
   },
   "COP|ConocoPhillips|14|5": {
-    "checked_at": "2026-06-10T22:53:30.432767",
+    "checked_at": "2026-06-11T22:51:40.954401",
     "query": "site:eqs-news.com \"ConocoPhillips\" OR \"COP\" when:14d",
     "items": []
   },
   "PFE|Pfizer,|14|5": {
-    "checked_at": "2026-06-10T22:53:31.120016",
+    "checked_at": "2026-06-11T22:51:41.652739",
     "query": "site:eqs-news.com \"Pfizer,\" OR \"PFE\" when:14d",
     "items": []
   },
   "ISRG|Intuitive Surgical,|14|5": {
-    "checked_at": "2026-06-10T22:53:31.691664",
+    "checked_at": "2026-06-11T22:51:42.234982",
     "query": "site:eqs-news.com \"Intuitive Surgical,\" OR \"ISRG\" when:14d",
     "items": []
   },
   "HON|Honeywell International|14|5": {
-    "checked_at": "2026-06-10T22:53:32.375867",
+    "checked_at": "2026-06-11T22:51:42.931889",
     "query": "site:eqs-news.com \"Honeywell International\" OR \"HON\" when:14d",
     "items": []
   },
   "WELL|Welltower|14|5": {
-    "checked_at": "2026-06-10T22:53:33.046031",
+    "checked_at": "2026-06-11T22:51:43.607551",
     "query": "site:eqs-news.com \"Welltower\" OR \"WELL\" when:14d",
     "items": []
   },
   "ALV.DE|Allianz v|14|5": {
-    "checked_at": "2026-06-10T22:53:33.671683",
+    "checked_at": "2026-06-11T22:51:44.276896",
     "query": "site:eqs-news.com \"Allianz v\" OR \"ALV\" when:14d",
     "items": []
   },
   "ENR.DE|Siemens Energy N|14|5": {
-    "checked_at": "2026-06-10T22:53:34.286951",
+    "checked_at": "2026-06-11T22:51:44.897211",
     "query": "site:eqs-news.com \"Siemens Energy N\" OR \"ENR\" when:14d",
     "items": []
   },
   "DTE.DE|DEUTSCHE TELEKOM N|14|5": {
-    "checked_at": "2026-06-10T22:53:34.904069",
+    "checked_at": "2026-06-11T22:51:45.509234",
     "query": "site:eqs-news.com \"DEUTSCHE TELEKOM N\" OR \"DTE\" when:14d",
     "items": []
   },
   "BX|Blackstone|14|5": {
-    "checked_at": "2026-06-10T22:53:35.510013",
+    "checked_at": "2026-06-11T22:51:46.118597",
     "query": "site:eqs-news.com \"Blackstone\" OR \"BX\" when:14d",
     "items": []
   },
   "AIR.DE|Airbus A|14|5": {
-    "checked_at": "2026-06-10T22:53:36.123200",
+    "checked_at": "2026-06-11T22:51:46.790979",
     "query": "site:eqs-news.com \"Airbus A\" OR \"AIR\" when:14d",
     "items": []
   },
   "AIR.PA|AIRBUS SE|14|5": {
-    "checked_at": "2026-06-10T22:53:36.736334",
+    "checked_at": "2026-06-11T22:51:47.434934",
     "query": "site:eqs-news.com \"AIRBUS SE\" OR \"AIR\" when:14d",
     "items": []
   },
   "IBE.MC|ACCIONES IBERDROLA|14|5": {
-    "checked_at": "2026-06-10T22:53:37.443243",
+    "checked_at": "2026-06-11T22:51:48.088511",
     "query": "site:eqs-news.com \"ACCIONES IBERDROLA\" OR \"IBE\" when:14d",
     "items": []
   },
   "RIO.L|RIO TINTO ORD 10P|14|5": {
-    "checked_at": "2026-06-10T22:53:38.079834",
+    "checked_at": "2026-06-11T22:51:48.724690",
     "query": "site:eqs-news.com \"RIO TINTO ORD 10P\" OR \"RIO\" when:14d",
     "items": []
   },
   "SONY|Sony Group|14|5": {
-    "checked_at": "2026-06-10T22:53:38.741399",
+    "checked_at": "2026-06-11T22:51:49.386551",
     "query": "site:eqs-news.com \"Sony Group\" OR \"SONY\" when:14d",
     "items": []
   },
   "BKNG|Bookings Common St|14|5": {
-    "checked_at": "2026-06-10T22:53:39.517963",
+    "checked_at": "2026-06-11T22:51:49.986479",
     "query": "site:eqs-news.com \"Bookings Common St\" OR \"BKNG\" when:14d",
     "items": []
   },
   "VRT|Vertivs, LLC|14|5": {
-    "checked_at": "2026-06-10T22:53:40.507246",
+    "checked_at": "2026-06-11T22:51:50.584161",
     "query": "site:eqs-news.com \"Vertivs, LLC\" OR \"VRT\" when:14d",
     "items": []
   },
   "BTI|British American Tobacco Indus|14|5": {
-    "checked_at": "2026-06-10T22:53:41.142593",
+    "checked_at": "2026-06-11T22:51:51.233030",
     "query": "site:eqs-news.com \"British American Tobacco Indus\" OR \"BTI\" when:14d",
     "items": []
   },
   "DHR|Danaher|14|5": {
-    "checked_at": "2026-06-10T22:53:41.784209",
+    "checked_at": "2026-06-11T22:51:51.885562",
     "query": "site:eqs-news.com \"Danaher\" OR \"DHR\" when:14d",
     "items": []
   },
   "ENB|Enbridge|14|5": {
-    "checked_at": "2026-06-10T22:53:42.414608",
+    "checked_at": "2026-06-11T22:51:52.536820",
     "query": "site:eqs-news.com \"Enbridge\" OR \"ENB\" when:14d",
     "items": []
   },
   "NOW|ServiceNow,|14|5": {
-    "checked_at": "2026-06-10T22:53:43.013005",
+    "checked_at": "2026-06-11T22:51:53.153591",
     "query": "site:eqs-news.com \"ServiceNow,\" OR \"NOW\" when:14d",
     "items": []
   },
   "CB|Chubb|14|5": {
-    "checked_at": "2026-06-10T22:53:43.643010",
+    "checked_at": "2026-06-11T22:51:53.787274",
     "query": "site:eqs-news.com \"Chubb\" OR \"CB\" when:14d",
     "items": []
   },
   "LMT|Lockheed Martin|14|5": {
-    "checked_at": "2026-06-10T22:53:44.339028",
+    "checked_at": "2026-06-11T22:51:54.448579",
     "query": "site:eqs-news.com \"Lockheed Martin\" OR \"LMT\" when:14d",
     "items": []
   },
   "MO|Altria Group,|14|5": {
-    "checked_at": "2026-06-10T22:53:45.030706",
+    "checked_at": "2026-06-11T22:51:55.136559",
     "query": "site:eqs-news.com \"Altria Group,\" OR \"MO\" when:14d",
     "items": []
   },
   "PBR|Petroleo Brasileiro Petrob|14|5": {
-    "checked_at": "2026-06-10T22:53:45.650377",
+    "checked_at": "2026-06-11T22:51:55.760994",
     "query": "site:eqs-news.com \"Petroleo Brasileiro Petrob\" OR \"PBR\" when:14d",
     "items": []
   },
   "LOW|Lowe's Companies,|14|5": {
-    "checked_at": "2026-06-10T22:53:46.292971",
+    "checked_at": "2026-06-11T22:51:56.415280",
     "query": "site:eqs-news.com \"Lowe's Companies,\" OR \"LOW\" when:14d",
     "items": []
   },
   "IFX.DE|INFINEON TECHNOLOGIES N|14|5": {
-    "checked_at": "2026-06-10T22:53:46.960016",
+    "checked_at": "2026-06-11T22:51:57.055513",
     "query": "site:eqs-news.com \"INFINEON TECHNOLOGIES N\" OR \"IFX\" when:14d",
     "items": []
   },
   "SYK|Stryker|14|5": {
-    "checked_at": "2026-06-10T22:53:47.612815",
+    "checked_at": "2026-06-11T22:51:57.677513",
     "query": "site:eqs-news.com \"Stryker\" OR \"SYK\" when:14d",
     "items": []
   },
   "PGR|Progressive (The)|14|5": {
-    "checked_at": "2026-06-10T22:53:48.250840",
+    "checked_at": "2026-06-11T22:51:58.330664",
     "query": "site:eqs-news.com \"Progressive (The)\" OR \"PGR\" when:14d",
     "items": []
   },
   "CDNS|Cadence Design Systems,|14|5": {
-    "checked_at": "2026-06-10T22:53:48.834400",
+    "checked_at": "2026-06-11T22:51:59.095321",
     "query": "site:eqs-news.com \"Cadence Design Systems,\" OR \"CDNS\" when:14d",
     "items": []
   },
   "BP|BP p.l.c.|14|5": {
-    "checked_at": "2026-06-10T22:53:49.500199",
+    "checked_at": "2026-06-11T22:51:59.784770",
     "query": "site:eqs-news.com \"BP p.l.c.\" OR \"BP\" when:14d",
     "items": []
   },
   "BMY|Bristol-Myers Squibb Company|14|5": {
-    "checked_at": "2026-06-10T22:53:50.131089",
+    "checked_at": "2026-06-11T22:52:00.491571",
     "query": "site:eqs-news.com \"Bristol-Myers Squibb Company\" OR \"BMY\" when:14d",
     "items": []
   },
   "PBR-A|Petroleo Brasileiro Petrob|14|5": {
-    "checked_at": "2026-06-10T22:53:50.735756",
+    "checked_at": "2026-06-11T22:52:01.108667",
     "query": "site:eqs-news.com \"Petroleo Brasileiro Petrob\" OR \"PBR-A\" when:14d",
     "items": []
   },
   "COF|Capital One Financialorati|14|5": {
-    "checked_at": "2026-06-10T22:53:51.354248",
+    "checked_at": "2026-06-11T22:52:01.754010",
     "query": "site:eqs-news.com \"Capital One Financialorati\" OR \"COF\" when:14d",
     "items": []
   },
   "SBUX|Starbucks|14|5": {
-    "checked_at": "2026-06-10T22:53:51.965807",
+    "checked_at": "2026-06-11T22:52:02.528252",
     "query": "site:eqs-news.com \"Starbucks\" OR \"SBUX\" when:14d",
     "items": []
   },
   "ACN|Accenture|14|5": {
-    "checked_at": "2026-06-10T22:53:52.590010",
+    "checked_at": "2026-06-11T22:52:03.344405",
     "query": "site:eqs-news.com \"Accenture\" OR \"ACN\" when:14d",
     "items": []
   },
   "VRTX|Vertex Pharmaceuticalsorpor|14|5": {
-    "checked_at": "2026-06-10T22:53:53.171394",
+    "checked_at": "2026-06-11T22:52:03.934234",
     "query": "site:eqs-news.com \"Vertex Pharmaceuticalsorpor\" OR \"VRTX\" when:14d",
     "items": []
   },
   "BBVA.MC|BANCO BILBAO VIZCAYA ARGENTARIA|14|5": {
-    "checked_at": "2026-06-10T22:53:53.796991",
+    "checked_at": "2026-06-11T22:52:04.618679",
     "query": "site:eqs-news.com \"BANCO BILBAO VIZCAYA ARGENTARIA\" OR \"BBVA\" when:14d",
     "items": []
   },
   "SU.TO|SUNCOR ENERGY INC.|14|5": {
-    "checked_at": "2026-06-10T22:53:54.427460",
+    "checked_at": "2026-06-11T22:52:05.278252",
     "query": "site:eqs-news.com \"SUNCOR ENERGY INC.\" OR \"SU\" when:14d",
     "items": []
   },
   "PWR|Quanta Services,|14|5": {
-    "checked_at": "2026-06-10T22:53:55.019443",
+    "checked_at": "2026-06-11T22:52:05.863528",
     "query": "site:eqs-news.com \"Quanta Services,\" OR \"PWR\" when:14d",
     "items": []
   },
   "FTNT|Fortinet,|14|5": {
-    "checked_at": "2026-06-10T22:53:55.640677",
+    "checked_at": "2026-06-11T22:52:06.430149",
     "query": "site:eqs-news.com \"Fortinet,\" OR \"FTNT\" when:14d",
     "items": []
   },
   "PH|Parker-Hannifin|14|5": {
-    "checked_at": "2026-06-10T22:53:56.466245",
+    "checked_at": "2026-06-11T22:52:07.106196",
     "query": "site:eqs-news.com \"Parker-Hannifin\" OR \"PH\" when:14d",
     "items": []
   },
   "BYDDY|BYD Co.,|14|5": {
-    "checked_at": "2026-06-10T22:53:57.068861",
+    "checked_at": "2026-06-11T22:52:07.719458",
     "query": "site:eqs-news.com \"BYD Co.,\" OR \"BYDDY\" when:14d",
     "items": []
   },
   "EQIX|Equinix,|14|5": {
-    "checked_at": "2026-06-10T22:53:57.878166",
+    "checked_at": "2026-06-11T22:52:08.343904",
     "query": "site:eqs-news.com \"Equinix,\" OR \"EQIX\" when:14d",
     "items": []
   },
   "RR.L|ROLLS-ROYCE HOLDINGS ORD SH|14|5": {
-    "checked_at": "2026-06-10T22:53:58.519490",
+    "checked_at": "2026-06-11T22:52:08.975760",
     "query": "site:eqs-news.com \"ROLLS-ROYCE HOLDINGS ORD SH\" OR \"RR\" when:14d",
     "items": []
   },
   "ADBE|Adobe Inc.|14|5": {
-    "checked_at": "2026-06-10T22:53:59.125989",
+    "checked_at": "2026-06-11T22:52:09.602723",
     "query": "site:eqs-news.com \"Adobe Inc.\" OR \"ADBE\" when:14d",
     "items": []
   },
   "SO|Southern Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:53:59.975764",
+    "checked_at": "2026-06-11T22:52:10.237902",
     "query": "site:eqs-news.com \"Southern Company (The)\" OR \"SO\" when:14d",
     "items": []
   },
   "FCX|Freeport-McMoRan,|14|5": {
-    "checked_at": "2026-06-10T22:54:00.589758",
+    "checked_at": "2026-06-11T22:52:10.903595",
     "query": "site:eqs-news.com \"Freeport-McMoRan,\" OR \"FCX\" when:14d",
     "items": []
   },
   "CNR.TO|CANADIAN NATIONAL RAILWAY CO.|14|5": {
-    "checked_at": "2026-06-10T22:54:01.213088",
+    "checked_at": "2026-06-11T22:52:11.568174",
     "query": "site:eqs-news.com \"CANADIAN NATIONAL RAILWAY CO.\" OR \"CNR\" when:14d",
     "items": []
   },
   "SPOT|Spotify Technology|14|5": {
-    "checked_at": "2026-06-10T22:54:01.797593",
+    "checked_at": "2026-06-11T22:52:12.205972",
     "query": "site:eqs-news.com \"Spotify Technology\" OR \"SPOT\" when:14d",
     "items": []
   },
   "MDT|Medtronic.|14|5": {
-    "checked_at": "2026-06-10T22:54:02.513465",
+    "checked_at": "2026-06-11T22:52:12.885655",
     "query": "site:eqs-news.com \"Medtronic.\" OR \"MDT\" when:14d",
     "items": []
   },
   "GSK|GSK plc|14|5": {
-    "checked_at": "2026-06-10T22:54:03.137902",
+    "checked_at": "2026-06-11T22:52:13.533093",
     "query": "site:eqs-news.com \"GSK plc\" OR \"GSK\" when:14d",
     "items": []
   },
   "HWM|Howmet Aerospace|14|5": {
-    "checked_at": "2026-06-10T22:54:03.752553",
+    "checked_at": "2026-06-11T22:52:14.429048",
     "query": "site:eqs-news.com \"Howmet Aerospace\" OR \"HWM\" when:14d",
     "items": []
   },
   "CNQ|Canadian Natural Resources Limi|14|5": {
-    "checked_at": "2026-06-10T22:54:04.426445",
+    "checked_at": "2026-06-11T22:52:15.084465",
     "query": "site:eqs-news.com \"Canadian Natural Resources Limi\" OR \"CNQ\" when:14d",
     "items": []
   },
   "MAR|Marriott International|14|5": {
-    "checked_at": "2026-06-10T22:54:05.031617",
+    "checked_at": "2026-06-11T22:52:15.727722",
     "query": "site:eqs-news.com \"Marriott International\" OR \"MAR\" when:14d",
     "items": []
   },
   "ISP.MI|INTESANPAOLO|14|5": {
-    "checked_at": "2026-06-10T22:54:05.667560",
+    "checked_at": "2026-06-11T22:52:16.407223",
     "query": "site:eqs-news.com \"INTESANPAOLO\" OR \"ISP\" when:14d",
     "items": []
   },
   "TRP.TO|TC ENERGY CORP.|14|5": {
-    "checked_at": "2026-06-10T22:54:06.296233",
+    "checked_at": "2026-06-11T22:52:17.037133",
     "query": "site:eqs-news.com \"TC ENERGY CORP.\" OR \"TRP\" when:14d",
     "items": []
   },
   "1913.HK|PRADA|14|5": {
-    "checked_at": "2026-06-10T22:54:06.913484",
+    "checked_at": "2026-06-11T22:52:17.674021",
     "query": "site:eqs-news.com \"PRADA\" OR \"1913\" when:14d",
     "items": []
   },
   "CEG|Constellation Energyoratio|14|5": {
-    "checked_at": "2026-06-10T22:54:07.509707",
+    "checked_at": "2026-06-11T22:52:18.279930",
     "query": "site:eqs-news.com \"Constellation Energyoratio\" OR \"CEG\" when:14d",
     "items": []
   },
   "SNPS|Synopsys,|14|5": {
-    "checked_at": "2026-06-10T22:54:08.079912",
+    "checked_at": "2026-06-11T22:52:18.882857",
     "query": "site:eqs-news.com \"Synopsys,\" OR \"SNPS\" when:14d",
     "items": []
   },
   "BATS.L|BRITISH AMERICAN TOBACCO OR|14|5": {
-    "checked_at": "2026-06-10T22:54:08.747626",
+    "checked_at": "2026-06-11T22:52:19.518467",
     "query": "site:eqs-news.com \"BRITISH AMERICAN TOBACCO OR\" OR \"BATS\" when:14d",
     "items": []
   },
   "EQNR|Equinor ASA|14|5": {
-    "checked_at": "2026-06-10T22:54:09.350756",
+    "checked_at": "2026-06-11T22:52:20.155519",
     "query": "site:eqs-news.com \"Equinor ASA\" OR \"EQNR\" when:14d",
     "items": []
   },
   "DUK|Duke Energy (Holdin|14|5": {
-    "checked_at": "2026-06-10T22:54:10.016800",
+    "checked_at": "2026-06-11T22:52:20.965557",
     "query": "site:eqs-news.com \"Duke Energy (Holdin\" OR \"DUK\" when:14d",
     "items": []
   },
   "ENEL.MI|ENEL|14|5": {
-    "checked_at": "2026-06-10T22:54:10.799886",
+    "checked_at": "2026-06-11T22:52:21.625748",
     "query": "site:eqs-news.com \"ENEL\" OR \"ENEL\" when:14d",
     "items": []
   },
   "NET|Cloudflare,|14|5": {
-    "checked_at": "2026-06-10T22:54:11.394497",
+    "checked_at": "2026-06-11T22:52:22.228993",
     "query": "site:eqs-news.com \"Cloudflare,\" OR \"NET\" when:14d",
     "items": []
   },
   "NOK|Nokia Sponsored|14|5": {
-    "checked_at": "2026-06-10T22:54:12.034215",
+    "checked_at": "2026-06-11T22:52:22.906702",
     "query": "site:eqs-news.com \"Nokia Sponsored\" OR \"NOK\" when:14d",
     "items": []
   },
   "UPS|United Parcel Service,|14|5": {
-    "checked_at": "2026-06-10T22:54:12.828566",
+    "checked_at": "2026-06-11T22:52:23.569726",
     "query": "site:eqs-news.com \"United Parcel Service,\" OR \"UPS\" when:14d",
     "items": []
   },
   "CME|CME Group|14|5": {
-    "checked_at": "2026-06-10T22:54:13.424993",
+    "checked_at": "2026-06-11T22:52:24.192190",
     "query": "site:eqs-news.com \"CME Group\" OR \"CME\" when:14d",
     "items": []
   },
   "GD|General Dynamics|14|5": {
-    "checked_at": "2026-06-10T22:54:14.103202",
+    "checked_at": "2026-06-11T22:52:24.897477",
     "query": "site:eqs-news.com \"General Dynamics\" OR \"GD\" when:14d",
     "items": []
   },
   "ADP|Automatic Data Processing,|14|5": {
-    "checked_at": "2026-06-10T22:54:14.725428",
+    "checked_at": "2026-06-11T22:52:25.553541",
     "query": "site:eqs-news.com \"Automatic Data Processing,\" OR \"ADP\" when:14d",
     "items": []
   },
   "JCI|Johnson Controls International|14|5": {
-    "checked_at": "2026-06-10T22:54:15.355578",
+    "checked_at": "2026-06-11T22:52:26.244708",
     "query": "site:eqs-news.com \"Johnson Controls International\" OR \"JCI\" when:14d",
     "items": []
   },
   "DDOG|Datadog,|14|5": {
-    "checked_at": "2026-06-10T22:54:15.950251",
+    "checked_at": "2026-06-11T22:52:26.841673",
     "query": "site:eqs-news.com \"Datadog,\" OR \"DDOG\" when:14d",
     "items": []
   },
   "MCK|McKesson|14|5": {
-    "checked_at": "2026-06-10T22:54:16.595419",
+    "checked_at": "2026-06-11T22:52:27.466806",
     "query": "site:eqs-news.com \"McKesson\" OR \"MCK\" when:14d",
     "items": []
   },
   "CIEN|Ciena|14|5": {
-    "checked_at": "2026-06-10T22:54:17.170128",
+    "checked_at": "2026-06-11T22:52:28.079459",
     "query": "site:eqs-news.com \"Ciena\" OR \"CIEN\" when:14d",
     "items": []
   },
   "PNC|PNC Financial Services Group, I|14|5": {
-    "checked_at": "2026-06-10T22:54:17.821791",
+    "checked_at": "2026-06-11T22:52:28.918092",
     "query": "site:eqs-news.com \"PNC Financial Services Group, I\" OR \"PNC\" when:14d",
     "items": []
   },
   "WMB|Williams Companies, (The)|14|5": {
-    "checked_at": "2026-06-10T22:54:18.453858",
+    "checked_at": "2026-06-11T22:52:29.545132",
     "query": "site:eqs-news.com \"Williams Companies, (The)\" OR \"WMB\" when:14d",
     "items": []
   },
   "ASX|ASE Technology Co.,|14|5": {
-    "checked_at": "2026-06-10T22:54:19.049608",
+    "checked_at": "2026-06-11T22:52:30.150538",
     "query": "site:eqs-news.com \"ASE Technology Co.,\" OR \"ASX\" when:14d",
     "items": []
   },
   "MNST|Monster Beverage|14|5": {
-    "checked_at": "2026-06-10T22:54:19.659710",
+    "checked_at": "2026-06-11T22:52:30.738064",
     "query": "site:eqs-news.com \"Monster Beverage\" OR \"MNST\" when:14d",
     "items": []
   },
   "CSX|CSX|14|5": {
-    "checked_at": "2026-06-10T22:54:20.515916",
+    "checked_at": "2026-06-11T22:52:31.443312",
     "query": "site:eqs-news.com \"CSX\" OR \"CSX\" when:14d",
     "items": []
   },
   "INTU|Intuit|14|5": {
-    "checked_at": "2026-06-10T22:54:21.124697",
+    "checked_at": "2026-06-11T22:52:32.074785",
     "query": "site:eqs-news.com \"Intuit\" OR \"INTU\" when:14d",
     "items": []
   },
   "1177.HK|SBP GROUP|14|5": {
-    "checked_at": "2026-06-10T22:54:21.730736",
+    "checked_at": "2026-06-11T22:52:32.737498",
     "query": "site:eqs-news.com \"SBP GROUP\" OR \"1177\" when:14d",
     "items": []
   },
   "SLB|SLB|14|5": {
-    "checked_at": "2026-06-10T22:54:22.375648",
+    "checked_at": "2026-06-11T22:52:33.444568",
     "query": "site:eqs-news.com \"SLB\" OR \"SLB\" when:14d",
     "items": []
   },
   "AMT|American Tower (REI|14|5": {
-    "checked_at": "2026-06-10T22:54:22.980619",
+    "checked_at": "2026-06-11T22:52:34.079268",
     "query": "site:eqs-news.com \"American Tower (REI\" OR \"AMT\" when:14d",
     "items": []
   },
   "KKR|KKR & Co.|14|5": {
-    "checked_at": "2026-06-10T22:54:23.608651",
+    "checked_at": "2026-06-11T22:52:34.725933",
     "query": "site:eqs-news.com \"KKR & Co.\" OR \"KKR\" when:14d",
     "items": []
   },
   "BP.L|BP $0.25|14|5": {
-    "checked_at": "2026-06-10T22:54:24.268599",
+    "checked_at": "2026-06-11T22:52:35.357044",
     "query": "site:eqs-news.com \"BP $0.25\" OR \"BP\" when:14d",
     "items": []
   },
   "CMCSA|Comcast|14|5": {
-    "checked_at": "2026-06-10T22:54:24.934700",
+    "checked_at": "2026-06-11T22:52:36.007629",
     "query": "site:eqs-news.com \"Comcast\" OR \"CMCSA\" when:14d",
     "items": []
   },
   "SNOW|Snowflake|14|5": {
-    "checked_at": "2026-06-10T22:54:25.523804",
+    "checked_at": "2026-06-11T22:52:36.587145",
     "query": "site:eqs-news.com \"Snowflake\" OR \"SNOW\" when:14d",
     "items": []
   },
   "MELI|MercadoLibre,|14|5": {
-    "checked_at": "2026-06-10T22:54:26.124596",
+    "checked_at": "2026-06-11T22:52:37.219657",
     "query": "site:eqs-news.com \"MercadoLibre,\" OR \"MELI\" when:14d",
     "items": []
   },
   "MPWR|Monolithic Power Systems,|14|5": {
-    "checked_at": "2026-06-10T22:54:26.739763",
+    "checked_at": "2026-06-11T22:52:37.823025",
     "query": "site:eqs-news.com \"Monolithic Power Systems,\" OR \"MPWR\" when:14d",
     "items": []
   },
   "NOKIA.HE|Nokia|14|5": {
-    "checked_at": "2026-06-10T22:54:27.383743",
+    "checked_at": "2026-06-11T22:52:38.489845",
     "query": "site:eqs-news.com \"Nokia\" OR \"NOKIA\" when:14d",
     "items": []
   },
   "USB|U.S. Bancorp|14|5": {
-    "checked_at": "2026-06-10T22:54:28.012685",
+    "checked_at": "2026-06-11T22:52:39.307766",
     "query": "site:eqs-news.com \"U.S. Bancorp\" OR \"USB\" when:14d",
     "items": []
   },
   "BE|Bloom Energy|14|5": {
-    "checked_at": "2026-06-10T22:54:28.621903",
+    "checked_at": "2026-06-11T22:52:39.957232",
     "query": "site:eqs-news.com \"Bloom Energy\" OR \"BE\" when:14d",
     "items": []
   },
   "COHR|Coherent|14|5": {
-    "checked_at": "2026-06-10T22:54:29.234560",
+    "checked_at": "2026-06-11T22:52:40.551575",
     "query": "site:eqs-news.com \"Coherent\" OR \"COHR\" when:14d",
     "items": []
   },
   "NXPI|NXP Semiconductors|14|5": {
-    "checked_at": "2026-06-10T22:54:29.847654",
+    "checked_at": "2026-06-11T22:52:41.162569",
     "query": "site:eqs-news.com \"NXP Semiconductors\" OR \"NXPI\" when:14d",
     "items": []
   },
   "HCA|HCA Healthcare,|14|5": {
-    "checked_at": "2026-06-10T22:54:30.455405",
+    "checked_at": "2026-06-11T22:52:41.763767",
     "query": "site:eqs-news.com \"HCA Healthcare,\" OR \"HCA\" when:14d",
     "items": []
   },
   "E|ENI S.p.A.|14|5": {
-    "checked_at": "2026-06-10T22:54:31.093739",
+    "checked_at": "2026-06-11T22:52:42.432164",
     "query": "site:eqs-news.com \"ENI S.p.A.\" OR \"E\" when:14d",
     "items": []
   },
   "CP|Canadian Pacific Kansas City Li|14|5": {
-    "checked_at": "2026-06-10T22:54:31.786623",
+    "checked_at": "2026-06-11T22:52:43.106559",
     "query": "site:eqs-news.com \"Canadian Pacific Kansas City Li\" OR \"CP\" when:14d",
     "items": []
   },
   "MMM|3M Company|14|5": {
-    "checked_at": "2026-06-10T22:54:32.451988",
+    "checked_at": "2026-06-11T22:52:43.761061",
     "query": "site:eqs-news.com \"3M Company\" OR \"MMM\" when:14d",
     "items": []
   },
   "EMR|Emerson Electric Company|14|5": {
-    "checked_at": "2026-06-10T22:54:33.147998",
+    "checked_at": "2026-06-11T22:52:44.656812",
     "query": "site:eqs-news.com \"Emerson Electric Company\" OR \"EMR\" when:14d",
     "items": []
   },
   "MDLZ|Mondelez International,|14|5": {
-    "checked_at": "2026-06-10T22:54:33.746377",
+    "checked_at": "2026-06-11T22:52:45.317780",
     "query": "site:eqs-news.com \"Mondelez International,\" OR \"MDLZ\" when:14d",
     "items": []
   },
   "MCO|Moody's|14|5": {
-    "checked_at": "2026-06-10T22:54:34.370648",
+    "checked_at": "2026-06-11T22:52:45.963587",
     "query": "site:eqs-news.com \"Moody's\" OR \"MCO\" when:14d",
     "items": []
   },
   "ICE|Intercontinental Exchange|14|5": {
-    "checked_at": "2026-06-10T22:54:34.998757",
+    "checked_at": "2026-06-11T22:52:46.806461",
     "query": "site:eqs-news.com \"Intercontinental Exchange\" OR \"ICE\" when:14d",
     "items": []
   },
   "MPC|Marathon Petroleum|14|5": {
-    "checked_at": "2026-06-10T22:54:35.650758",
+    "checked_at": "2026-06-11T22:52:47.425994",
     "query": "site:eqs-news.com \"Marathon Petroleum\" OR \"MPC\" when:14d",
     "items": []
   },
   "VLO|Valero Energy|14|5": {
-    "checked_at": "2026-06-10T22:54:36.288582",
+    "checked_at": "2026-06-11T22:52:48.101613",
     "query": "site:eqs-news.com \"Valero Energy\" OR \"VLO\" when:14d",
     "items": []
   },
   "FDX|FedEx|14|5": {
-    "checked_at": "2026-06-10T22:54:36.919177",
+    "checked_at": "2026-06-11T22:52:48.753872",
     "query": "site:eqs-news.com \"FedEx\" OR \"FDX\" when:14d",
     "items": []
   },
   "SU|Suncor Energy|14|5": {
-    "checked_at": "2026-06-10T22:54:37.539795",
+    "checked_at": "2026-06-11T22:52:49.435463",
     "query": "site:eqs-news.com \"Suncor Energy\" OR \"SU\" when:14d",
     "items": []
   },
   "SPG|Simon Property Group,|14|5": {
-    "checked_at": "2026-06-10T22:54:38.168694",
+    "checked_at": "2026-06-11T22:52:50.067800",
     "query": "site:eqs-news.com \"Simon Property Group,\" OR \"SPG\" when:14d",
     "items": []
   },
   "HLT|Hilton Worldwides|14|5": {
-    "checked_at": "2026-06-10T22:54:38.789339",
+    "checked_at": "2026-06-11T22:52:50.658523",
     "query": "site:eqs-news.com \"Hilton Worldwides\" OR \"HLT\" when:14d",
     "items": []
   },
   "EOG|EOG Resources,|14|5": {
-    "checked_at": "2026-06-10T22:54:39.448017",
+    "checked_at": "2026-06-11T22:52:51.321052",
     "query": "site:eqs-news.com \"EOG Resources,\" OR \"EOG\" when:14d",
     "items": []
   },
   "INGA.AS|ING GROEP|14|5": {
-    "checked_at": "2026-06-10T22:54:40.088565",
+    "checked_at": "2026-06-11T22:52:51.970602",
     "query": "site:eqs-news.com \"ING GROEP\" OR \"INGA\" when:14d",
     "items": []
   },
   "ROST|Ross Stores,|14|5": {
-    "checked_at": "2026-06-10T22:54:40.749920",
+    "checked_at": "2026-06-11T22:52:52.595529",
     "query": "site:eqs-news.com \"Ross Stores,\" OR \"ROST\" when:14d",
     "items": []
   },
   "NOC|Northrop Grumman|14|5": {
-    "checked_at": "2026-06-10T22:54:41.379168",
+    "checked_at": "2026-06-11T22:52:53.231613",
     "query": "site:eqs-news.com \"Northrop Grumman\" OR \"NOC\" when:14d",
     "items": []
   },
   "HOOD|Robinhood Markets,|14|5": {
-    "checked_at": "2026-06-10T22:54:41.968538",
+    "checked_at": "2026-06-11T22:52:53.880639",
     "query": "site:eqs-news.com \"Robinhood Markets,\" OR \"HOOD\" when:14d",
     "items": []
   },
   "PSX|Phillips 66|14|5": {
-    "checked_at": "2026-06-10T22:54:42.612601",
+    "checked_at": "2026-06-11T22:52:54.498497",
     "query": "site:eqs-news.com \"Phillips 66\" OR \"PSX\" when:14d",
     "items": []
   },
   "GM|General Motors Company|14|5": {
-    "checked_at": "2026-06-10T22:54:43.242627",
+    "checked_at": "2026-06-11T22:52:55.108552",
     "query": "site:eqs-news.com \"General Motors Company\" OR \"GM\" when:14d",
     "items": []
   },
   "SHW|Sherwin-Williams Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:54:43.899250",
+    "checked_at": "2026-06-11T22:52:55.763736",
     "query": "site:eqs-news.com \"Sherwin-Williams Company (The)\" OR \"SHW\" when:14d",
     "items": []
   },
   "HPE|Hewlett Packard Enterprise Comp|14|5": {
-    "checked_at": "2026-06-10T22:54:44.484604",
+    "checked_at": "2026-06-11T22:52:56.380352",
     "query": "site:eqs-news.com \"Hewlett Packard Enterprise Comp\" OR \"HPE\" when:14d",
     "items": []
   },
   "LITE|Lumentums|14|5": {
-    "checked_at": "2026-06-10T22:54:45.060645",
+    "checked_at": "2026-06-11T22:52:56.962598",
     "query": "site:eqs-news.com \"Lumentums\" OR \"LITE\" when:14d",
     "items": []
   },
   "CNI|Canadian National Railway Compa|14|5": {
-    "checked_at": "2026-06-10T22:54:45.712668",
+    "checked_at": "2026-06-11T22:52:57.596151",
     "query": "site:eqs-news.com \"Canadian National Railway Compa\" OR \"CNI\" when:14d",
     "items": []
   },
   "ITW|Illinois Tool Works|14|5": {
-    "checked_at": "2026-06-10T22:54:46.355002",
+    "checked_at": "2026-06-11T22:52:58.232540",
     "query": "site:eqs-news.com \"Illinois Tool Works\" OR \"ITW\" when:14d",
     "items": []
   },
   "ECL|Ecolab|14|5": {
-    "checked_at": "2026-06-10T22:54:47.005041",
+    "checked_at": "2026-06-11T22:52:58.875124",
     "query": "site:eqs-news.com \"Ecolab\" OR \"ECL\" when:14d",
     "items": []
   },
   "CI|The Cigna Group|14|5": {
-    "checked_at": "2026-06-10T22:54:47.658712",
+    "checked_at": "2026-06-11T22:52:59.529806",
     "query": "site:eqs-news.com \"The Cigna Group\" OR \"CI\" when:14d",
     "items": []
   },
   "BSX|Boston Scientific|14|5": {
-    "checked_at": "2026-06-10T22:54:48.256333",
+    "checked_at": "2026-06-11T22:53:00.127327",
     "query": "site:eqs-news.com \"Boston Scientific\" OR \"BSX\" when:14d",
     "items": []
   },
   "STM|STMicroelectronics|14|5": {
-    "checked_at": "2026-06-10T22:54:48.873686",
+    "checked_at": "2026-06-11T22:53:00.778678",
     "query": "site:eqs-news.com \"STMicroelectronics\" OR \"STM\" when:14d",
     "items": []
   },
   "CRH|CRH PLC|14|5": {
-    "checked_at": "2026-06-10T22:54:49.522682",
+    "checked_at": "2026-06-11T22:53:01.445116",
     "query": "site:eqs-news.com \"CRH PLC\" OR \"CRH\" when:14d",
     "items": []
   },
   "CTAS|Cintas|14|5": {
-    "checked_at": "2026-06-10T22:54:50.143689",
+    "checked_at": "2026-06-11T22:53:02.080142",
     "query": "site:eqs-news.com \"Cintas\" OR \"CTAS\" when:14d",
     "items": []
   },
   "CVNA|Carvana Co.|14|5": {
-    "checked_at": "2026-06-10T22:54:50.734666",
+    "checked_at": "2026-06-11T22:53:02.664456",
     "query": "site:eqs-news.com \"Carvana Co.\" OR \"CVNA\" when:14d",
     "items": []
   },
   "KMI|Kinder Morgan,|14|5": {
-    "checked_at": "2026-06-10T22:54:51.337041",
+    "checked_at": "2026-06-11T22:53:03.294146",
     "query": "site:eqs-news.com \"Kinder Morgan,\" OR \"KMI\" when:14d",
     "items": []
   },
   "ENI.MI|ENI|14|5": {
-    "checked_at": "2026-06-10T22:54:51.961080",
+    "checked_at": "2026-06-11T22:53:03.911898",
     "query": "site:eqs-news.com \"ENI\" OR \"ENI\" when:14d",
     "items": []
   },
   "AEP|American Electric Power Company|14|5": {
-    "checked_at": "2026-06-10T22:54:52.673428",
+    "checked_at": "2026-06-11T22:53:04.603171",
     "query": "site:eqs-news.com \"American Electric Power Company\" OR \"AEP\" when:14d",
     "items": []
   },
   "NSC|Norfolk Southern|14|5": {
-    "checked_at": "2026-06-10T22:54:53.357804",
+    "checked_at": "2026-06-11T22:53:05.262908",
     "query": "site:eqs-news.com \"Norfolk Southern\" OR \"NSC\" when:14d",
     "items": []
   },
   "VALE|VALE S.A.|14|5": {
-    "checked_at": "2026-06-10T22:54:53.974144",
+    "checked_at": "2026-06-11T22:53:05.893823",
     "query": "site:eqs-news.com \"VALE S.A.\" OR \"VALE\" when:14d",
     "items": []
   },
   "ENGI.PA|ENGIE|14|5": {
-    "checked_at": "2026-06-10T22:54:54.581712",
+    "checked_at": "2026-06-11T22:53:06.742743",
     "query": "site:eqs-news.com \"ENGIE\" OR \"ENGI\" when:14d",
     "items": []
   },
   "CL|Colgate-Palmolive Company|14|5": {
-    "checked_at": "2026-06-10T22:54:55.235632",
+    "checked_at": "2026-06-11T22:53:07.435832",
     "query": "site:eqs-news.com \"Colgate-Palmolive Company\" OR \"CL\" when:14d",
     "items": []
   },
   "MSI|Motorola Solutions,|14|5": {
-    "checked_at": "2026-06-10T22:54:55.948846",
+    "checked_at": "2026-06-11T22:53:08.093371",
     "query": "site:eqs-news.com \"Motorola Solutions,\" OR \"MSI\" when:14d",
     "items": []
   },
   "TDG|Transdigm Grouporporated|14|5": {
-    "checked_at": "2026-06-10T22:54:56.751172",
+    "checked_at": "2026-06-11T22:53:08.713588",
     "query": "site:eqs-news.com \"Transdigm Grouporporated\" OR \"TDG\" when:14d",
     "items": []
   },
   "AON|Aon plc|14|5": {
-    "checked_at": "2026-06-10T22:54:57.417120",
+    "checked_at": "2026-06-11T22:53:09.390419",
     "query": "site:eqs-news.com \"Aon plc\" OR \"AON\" when:14d",
     "items": []
   },
   "DASH|DoorDash,|14|5": {
-    "checked_at": "2026-06-10T22:54:58.204712",
+    "checked_at": "2026-06-11T22:53:09.971276",
     "query": "site:eqs-news.com \"DoorDash,\" OR \"DASH\" when:14d",
     "items": []
   },
   "RKLB|Rocket Lab|14|5": {
-    "checked_at": "2026-06-10T22:54:58.793808",
+    "checked_at": "2026-06-11T22:53:10.571309",
     "query": "site:eqs-news.com \"Rocket Lab\" OR \"RKLB\" when:14d",
     "items": []
   },
   "DLR|Digital Realty Trust,|14|5": {
-    "checked_at": "2026-06-10T22:54:59.407124",
+    "checked_at": "2026-06-11T22:53:11.186774",
     "query": "site:eqs-news.com \"Digital Realty Trust,\" OR \"DLR\" when:14d",
     "items": []
   },
   "REGN|Regeneron Pharmaceuticals,|14|5": {
-    "checked_at": "2026-06-10T22:55:00.020749",
+    "checked_at": "2026-06-11T22:53:11.788529",
     "query": "site:eqs-news.com \"Regeneron Pharmaceuticals,\" OR \"REGN\" when:14d",
     "items": []
   },
   "NKE|Nike, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:55:00.667720",
+    "checked_at": "2026-06-11T22:53:12.421493",
     "query": "site:eqs-news.com \"Nike, Inc.\" OR \"NKE\" when:14d",
     "items": []
   },
   "TER|Teradyne,|14|5": {
-    "checked_at": "2026-06-10T22:55:01.300624",
+    "checked_at": "2026-06-11T22:53:13.030225",
     "query": "site:eqs-news.com \"Teradyne,\" OR \"TER\" when:14d",
     "items": []
   },
   "NBIS|Nebius Group|14|5": {
-    "checked_at": "2026-06-10T22:55:01.894571",
+    "checked_at": "2026-06-11T22:53:13.619597",
     "query": "site:eqs-news.com \"Nebius Group\" OR \"NBIS\" when:14d",
     "items": []
   },
   "BKR|Baker Hughes Company|14|5": {
-    "checked_at": "2026-06-10T22:55:02.522656",
+    "checked_at": "2026-06-11T22:53:14.294221",
     "query": "site:eqs-news.com \"Baker Hughes Company\" OR \"BKR\" when:14d",
     "items": []
   },
   "TEL|TE Connectivity|14|5": {
-    "checked_at": "2026-06-10T22:55:03.166714",
+    "checked_at": "2026-06-11T22:53:14.914377",
     "query": "site:eqs-news.com \"TE Connectivity\" OR \"TEL\" when:14d",
     "items": []
   },
   "APD|Air Products and Chemicals,|14|5": {
-    "checked_at": "2026-06-10T22:55:03.812608",
+    "checked_at": "2026-06-11T22:53:15.559466",
     "query": "site:eqs-news.com \"Air Products and Chemicals,\" OR \"APD\" when:14d",
     "items": []
   },
   "F|Ford Motor Company|14|5": {
-    "checked_at": "2026-06-10T22:55:04.490612",
+    "checked_at": "2026-06-11T22:53:16.278289",
     "query": "site:eqs-news.com \"Ford Motor Company\" OR \"F\" when:14d",
     "items": []
   },
   "ALAB|Astera Labs,|14|5": {
-    "checked_at": "2026-06-10T22:55:05.067936",
+    "checked_at": "2026-06-11T22:53:16.891307",
     "query": "site:eqs-news.com \"Astera Labs,\" OR \"ALAB\" when:14d",
     "items": []
   },
   "TRV|The Travelers Companies,|14|5": {
-    "checked_at": "2026-06-10T22:55:05.764659",
+    "checked_at": "2026-06-11T22:53:17.557575",
     "query": "site:eqs-news.com \"The Travelers Companies,\" OR \"TRV\" when:14d",
     "items": []
   },
   "RACE|Ferrari|14|5": {
-    "checked_at": "2026-06-10T22:55:06.401721",
+    "checked_at": "2026-06-11T22:53:18.196682",
     "query": "site:eqs-news.com \"Ferrari\" OR \"RACE\" when:14d",
     "items": []
   },
   "CRWV|CoreWeave,|14|5": {
-    "checked_at": "2026-06-10T22:55:07.000543",
+    "checked_at": "2026-06-11T22:53:18.853585",
     "query": "site:eqs-news.com \"CoreWeave,\" OR \"CRWV\" when:14d",
     "items": []
   },
   "PCAR|PACCAR|14|5": {
-    "checked_at": "2026-06-10T22:55:07.628608",
+    "checked_at": "2026-06-11T22:53:19.499666",
     "query": "site:eqs-news.com \"PACCAR\" OR \"PCAR\" when:14d",
     "items": []
   },
   "KEYS|Keysight Technologies|14|5": {
-    "checked_at": "2026-06-10T22:55:08.235587",
+    "checked_at": "2026-06-11T22:53:20.116602",
     "query": "site:eqs-news.com \"Keysight Technologies\" OR \"KEYS\" when:14d",
     "items": []
   },
   "FLEX|Flex Ltd.|14|5": {
-    "checked_at": "2026-06-10T22:55:08.839197",
+    "checked_at": "2026-06-11T22:53:20.707591",
     "query": "site:eqs-news.com \"Flex Ltd.\" OR \"FLEX\" when:14d",
     "items": []
   },
   "OXY|Occidental Petroleumoratio|14|5": {
-    "checked_at": "2026-06-10T22:55:09.654695",
+    "checked_at": "2026-06-11T22:53:21.390693",
     "query": "site:eqs-news.com \"Occidental Petroleumoratio\" OR \"OXY\" when:14d",
     "items": []
   },
   "FANG|Diamondback Energy,|14|5": {
-    "checked_at": "2026-06-10T22:55:10.277599",
+    "checked_at": "2026-06-11T22:53:22.000276",
     "query": "site:eqs-news.com \"Diamondback Energy,\" OR \"FANG\" when:14d",
     "items": []
   },
   "TFC|Truist Financial|14|5": {
-    "checked_at": "2026-06-10T22:55:10.912640",
+    "checked_at": "2026-06-11T22:53:22.653141",
     "query": "site:eqs-news.com \"Truist Financial\" OR \"TFC\" when:14d",
     "items": []
   },
   "DHL.DE|DEUTSCHE POST N|14|5": {
-    "checked_at": "2026-06-10T22:55:11.567547",
+    "checked_at": "2026-06-11T22:53:23.289015",
     "query": "site:eqs-news.com \"DEUTSCHE POST N\" OR \"DHL\" when:14d",
     "items": []
   },
   "SRE|DBA Sempra|14|5": {
-    "checked_at": "2026-06-10T22:55:12.200843",
+    "checked_at": "2026-06-11T22:53:23.987818",
     "query": "site:eqs-news.com \"DBA Sempra\" OR \"SRE\" when:14d",
     "items": []
   },
   "AFL|AFLACorporated|14|5": {
-    "checked_at": "2026-06-10T22:55:12.896157",
+    "checked_at": "2026-06-11T22:53:24.641990",
     "query": "site:eqs-news.com \"AFLACorporated\" OR \"AFL\" when:14d",
     "items": []
   },
   "MRK.DE|MERCK KGAA I|14|5": {
-    "checked_at": "2026-06-10T22:55:13.543534",
+    "checked_at": "2026-06-11T22:53:25.292931",
     "query": "site:eqs-news.com \"MERCK KGAA I\" OR \"MRK\" when:14d",
     "items": []
   },
   "D|Dominion Energy,|14|5": {
-    "checked_at": "2026-06-10T22:55:14.197634",
+    "checked_at": "2026-06-11T22:53:25.979154",
     "query": "site:eqs-news.com \"Dominion Energy,\" OR \"D\" when:14d",
     "items": []
   },
   "TGT|Target|14|5": {
-    "checked_at": "2026-06-10T22:55:14.858663",
+    "checked_at": "2026-06-11T22:53:26.629587",
     "query": "site:eqs-news.com \"Target\" OR \"TGT\" when:14d",
     "items": []
   },
   "NU|Nus|14|5": {
-    "checked_at": "2026-06-10T22:55:15.453551",
+    "checked_at": "2026-06-11T22:53:27.221158",
     "query": "site:eqs-news.com \"Nus\" OR \"NU\" when:14d",
     "items": []
   },
   "LHX|L3Harris Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:55:16.128862",
+    "checked_at": "2026-06-11T22:53:28.048593",
     "query": "site:eqs-news.com \"L3Harris Technologies,\" OR \"LHX\" when:14d",
     "items": []
   },
   "TRGP|Targa Resources,|14|5": {
-    "checked_at": "2026-06-10T22:55:16.752739",
+    "checked_at": "2026-06-11T22:53:28.699653",
     "query": "site:eqs-news.com \"Targa Resources,\" OR \"TRGP\" when:14d",
     "items": []
   },
   "CARR|Carrier Global|14|5": {
-    "checked_at": "2026-06-10T22:55:17.352349",
+    "checked_at": "2026-06-11T22:53:29.296171",
     "query": "site:eqs-news.com \"Carrier Global\" OR \"CARR\" when:14d",
     "items": []
   },
   "RHM.DE|RHEINMETALL I|14|5": {
-    "checked_at": "2026-06-10T22:55:17.985698",
+    "checked_at": "2026-06-11T22:53:29.938294",
     "query": "site:eqs-news.com \"RHEINMETALL I\" OR \"RHM\" when:14d",
     "items": []
   },
   "BA.L|BAE SYSTEMS ORD 2.5P|14|5": {
-    "checked_at": "2026-06-10T22:55:18.621572",
+    "checked_at": "2026-06-11T22:53:30.598658",
     "query": "site:eqs-news.com \"BAE SYSTEMS ORD 2.5P\" OR \"BA\" when:14d",
     "items": []
   },
   "O|Realtyome|14|5": {
-    "checked_at": "2026-06-10T22:55:19.297810",
+    "checked_at": "2026-06-11T22:53:31.253071",
     "query": "site:eqs-news.com \"Realtyome\" OR \"O\" when:14d",
     "items": []
   },
   "SE|Sea|14|5": {
-    "checked_at": "2026-06-10T22:55:19.915685",
+    "checked_at": "2026-06-11T22:53:31.848149",
     "query": "site:eqs-news.com \"Sea\" OR \"SE\" when:14d",
     "items": []
   },
   "OKE|ONEOK,|14|5": {
-    "checked_at": "2026-06-10T22:55:20.588701",
+    "checked_at": "2026-06-11T22:53:32.525675",
     "query": "site:eqs-news.com \"ONEOK,\" OR \"OKE\" when:14d",
     "items": []
   },
   "ALL|Allstate (The)|14|5": {
-    "checked_at": "2026-06-10T22:55:21.217725",
+    "checked_at": "2026-06-11T22:53:33.186096",
     "query": "site:eqs-news.com \"Allstate (The)\" OR \"ALL\" when:14d",
     "items": []
   },
   "UMC|United Microelectronicsora|14|5": {
-    "checked_at": "2026-06-10T22:55:21.861144",
+    "checked_at": "2026-06-11T22:53:33.801587",
     "query": "site:eqs-news.com \"United Microelectronicsora\" OR \"UMC\" when:14d",
     "items": []
   },
   "FAST|Fastenal Company|14|5": {
-    "checked_at": "2026-06-10T22:55:22.478767",
+    "checked_at": "2026-06-11T22:53:34.454184",
     "query": "site:eqs-news.com \"Fastenal Company\" OR \"FAST\" when:14d",
     "items": []
   },
   "DVN|Devon Energy|14|5": {
-    "checked_at": "2026-06-10T22:55:23.101998",
+    "checked_at": "2026-06-11T22:53:35.099416",
     "query": "site:eqs-news.com \"Devon Energy\" OR \"DVN\" when:14d",
     "items": []
   },
   "PSA|Public Storage|14|5": {
-    "checked_at": "2026-06-10T22:55:23.787562",
+    "checked_at": "2026-06-11T22:53:35.731615",
     "query": "site:eqs-news.com \"Public Storage\" OR \"PSA\" when:14d",
     "items": []
   },
   "CLS|Celestica,|14|5": {
-    "checked_at": "2026-06-10T22:55:24.353236",
+    "checked_at": "2026-06-11T22:53:36.331651",
     "query": "site:eqs-news.com \"Celestica,\" OR \"CLS\" when:14d",
     "items": []
   },
   "MCHP|Microchip Technologyorporat|14|5": {
-    "checked_at": "2026-06-10T22:55:24.954627",
+    "checked_at": "2026-06-11T22:53:36.976335",
     "query": "site:eqs-news.com \"Microchip Technologyorporat\" OR \"MCHP\" when:14d",
     "items": []
   },
   "AME|AMETEK,|14|5": {
-    "checked_at": "2026-06-10T22:55:25.574625",
+    "checked_at": "2026-06-11T22:53:37.634398",
     "query": "site:eqs-news.com \"AMETEK,\" OR \"AME\" when:14d",
     "items": []
   },
   "MET|MetLife,|14|5": {
-    "checked_at": "2026-06-10T22:55:26.219570",
+    "checked_at": "2026-06-11T22:53:38.321742",
     "query": "site:eqs-news.com \"MetLife,\" OR \"MET\" when:14d",
     "items": []
   },
   "ON|ON Semiconductor|14|5": {
-    "checked_at": "2026-06-10T22:55:26.795718",
+    "checked_at": "2026-06-11T22:53:38.888635",
     "query": "site:eqs-news.com \"ON Semiconductor\" OR \"ON\" when:14d",
     "items": []
   },
   "AJG|Arthur J. Gallagher & Co.|14|5": {
-    "checked_at": "2026-06-10T22:55:27.424482",
+    "checked_at": "2026-06-11T22:53:39.540277",
     "query": "site:eqs-news.com \"Arthur J. Gallagher & Co.\" OR \"AJG\" when:14d",
     "items": []
   },
   "VST|Vistra|14|5": {
-    "checked_at": "2026-06-10T22:55:28.016711",
+    "checked_at": "2026-06-11T22:53:40.133961",
     "query": "site:eqs-news.com \"Vistra\" OR \"VST\" when:14d",
     "items": []
   },
   "DAL|Delta Air Lines,|14|5": {
-    "checked_at": "2026-06-10T22:55:28.624605",
+    "checked_at": "2026-06-11T22:53:40.784965",
     "query": "site:eqs-news.com \"Delta Air Lines,\" OR \"DAL\" when:14d",
     "items": []
   },
   "ROK|Rockwell Automation,|14|5": {
-    "checked_at": "2026-06-10T22:55:29.279818",
+    "checked_at": "2026-06-11T22:53:41.429288",
     "query": "site:eqs-news.com \"Rockwell Automation,\" OR \"ROK\" when:14d",
     "items": []
   },
   "EA|Electronic Arts|14|5": {
-    "checked_at": "2026-06-10T22:55:29.928547",
+    "checked_at": "2026-06-11T22:53:42.045482",
     "query": "site:eqs-news.com \"Electronic Arts\" OR \"EA\" when:14d",
     "items": []
   },
   "CCJ|Cameco|14|5": {
-    "checked_at": "2026-06-10T22:55:30.569205",
+    "checked_at": "2026-06-11T22:53:42.725977",
     "query": "site:eqs-news.com \"Cameco\" OR \"CCJ\" when:14d",
     "items": []
   },
   "EW|Edwards Lifesciencesoratio|14|5": {
-    "checked_at": "2026-06-10T22:55:31.166695",
+    "checked_at": "2026-06-11T22:53:43.324493",
     "query": "site:eqs-news.com \"Edwards Lifesciencesoratio\" OR \"EW\" when:14d",
     "items": []
   },
   "LNG|Cheniere Energy,|14|5": {
-    "checked_at": "2026-06-10T22:55:31.797728",
+    "checked_at": "2026-06-11T22:53:44.094466",
     "query": "site:eqs-news.com \"Cheniere Energy,\" OR \"LNG\" when:14d",
     "items": []
   },
   "ADSK|Autodesk,|14|5": {
-    "checked_at": "2026-06-10T22:55:32.411602",
+    "checked_at": "2026-06-11T22:53:44.751297",
     "query": "site:eqs-news.com \"Autodesk,\" OR \"ADSK\" when:14d",
     "items": []
   },
   "EBAY|eBay Inc.|14|5": {
-    "checked_at": "2026-06-10T22:55:33.037581",
+    "checked_at": "2026-06-11T22:53:45.370139",
     "query": "site:eqs-news.com \"eBay Inc.\" OR \"EBAY\" when:14d",
     "items": []
   },
   "XEL|Xcel Energy|14|5": {
-    "checked_at": "2026-06-10T22:55:33.709750",
+    "checked_at": "2026-06-11T22:53:46.030028",
     "query": "site:eqs-news.com \"Xcel Energy\" OR \"XEL\" when:14d",
     "items": []
   },
   "EOAN.DE|E.ON N|14|5": {
-    "checked_at": "2026-06-10T22:55:34.340921",
+    "checked_at": "2026-06-11T22:53:46.669507",
     "query": "site:eqs-news.com \"E.ON N\" OR \"EOAN\" when:14d",
     "items": []
   },
   "GFS|GlobalFoundries|14|5": {
-    "checked_at": "2026-06-10T22:55:34.937563",
+    "checked_at": "2026-06-11T22:53:47.354684",
     "query": "site:eqs-news.com \"GlobalFoundries\" OR \"GFS\" when:14d",
     "items": []
   },
   "ORA.PA|ORANGE|14|5": {
-    "checked_at": "2026-06-10T22:55:35.597659",
+    "checked_at": "2026-06-11T22:53:47.999695",
     "query": "site:eqs-news.com \"ORANGE\" OR \"ORA\" when:14d",
     "items": []
   },
   "FANUY|Fanuc|14|5": {
-    "checked_at": "2026-06-10T22:55:36.262662",
+    "checked_at": "2026-06-11T22:53:48.600627",
     "query": "site:eqs-news.com \"Fanuc\" OR \"FANUY\" when:14d",
     "items": []
   },
   "HO.PA|THALES|14|5": {
-    "checked_at": "2026-06-10T22:55:36.942935",
+    "checked_at": "2026-06-11T22:53:49.299585",
     "query": "site:eqs-news.com \"THALES\" OR \"HO\" when:14d",
     "items": []
   },
   "EXC|Exelon|14|5": {
-    "checked_at": "2026-06-10T22:55:37.628800",
+    "checked_at": "2026-06-11T22:53:49.950447",
     "query": "site:eqs-news.com \"Exelon\" OR \"EXC\" when:14d",
     "items": []
   },
   "HEI|Heico|14|5": {
-    "checked_at": "2026-06-10T22:55:38.263672",
+    "checked_at": "2026-06-11T22:53:50.582496",
     "query": "site:eqs-news.com \"Heico\" OR \"HEI\" when:14d",
     "items": []
   },
   "VOW.DE|VOLKSWAGEN I|14|5": {
-    "checked_at": "2026-06-10T22:55:39.065773",
+    "checked_at": "2026-06-11T22:53:51.209169",
     "query": "site:eqs-news.com \"VOLKSWAGEN I\" OR \"VOW\" when:14d",
     "items": []
   },
   "BAS.DE|BASF N|14|5": {
-    "checked_at": "2026-06-10T22:55:39.725211",
+    "checked_at": "2026-06-11T22:53:51.843783",
     "query": "site:eqs-news.com \"BASF N\" OR \"BAS\" when:14d",
     "items": []
   },
   "VOW3.DE|VOLKSWAGEN V|14|5": {
-    "checked_at": "2026-06-10T22:55:40.377419",
+    "checked_at": "2026-06-11T22:53:52.478356",
     "query": "site:eqs-news.com \"VOLKSWAGEN V\" OR \"VOW3\" when:14d",
     "items": []
   },
   "WAB|Westinghouse Air Brake Technolo|14|5": {
-    "checked_at": "2026-06-10T22:55:40.993963",
+    "checked_at": "2026-06-11T22:53:53.094643",
     "query": "site:eqs-news.com \"Westinghouse Air Brake Technolo\" OR \"WAB\" when:14d",
     "items": []
   },
   "MSTR|Strategy|14|5": {
-    "checked_at": "2026-06-10T22:55:41.638163",
+    "checked_at": "2026-06-11T22:53:53.668181",
     "query": "site:eqs-news.com \"Strategy\" OR \"MSTR\" when:14d",
     "items": []
   },
   "IDXX|IDEXX Laboratories,|14|5": {
-    "checked_at": "2026-06-10T22:55:42.247350",
+    "checked_at": "2026-06-11T22:53:54.250949",
     "query": "site:eqs-news.com \"IDEXX Laboratories,\" OR \"IDXX\" when:14d",
     "items": []
   },
   "AUTO.OL|AUTOSTORE HOLDINGS LTD.|14|5": {
-    "checked_at": "2026-06-10T22:55:42.827278",
+    "checked_at": "2026-06-11T22:53:54.879344",
     "query": "site:eqs-news.com \"AUTOSTORE HOLDINGS LTD.\" OR \"AUTO\" when:14d",
     "items": []
   },
   "ASM.AS|ASM International|14|5": {
-    "checked_at": "2026-06-10T22:55:43.438445",
+    "checked_at": "2026-06-11T22:53:55.493073",
     "query": "site:eqs-news.com \"ASM International\" OR \"ASM\" when:14d",
     "items": []
   },
   "STT|State Street|14|5": {
-    "checked_at": "2026-06-10T22:55:44.092030",
+    "checked_at": "2026-06-11T22:53:56.289322",
     "query": "site:eqs-news.com \"State Street\" OR \"STT\" when:14d",
     "items": []
   },
   "P911.DE|Dr. Ing. h.c. F. Porsche I|14|5": {
-    "checked_at": "2026-06-10T22:55:44.677546",
+    "checked_at": "2026-06-11T22:53:56.909122",
     "query": "site:eqs-news.com \"Dr. Ing. h.c. F. Porsche I\" OR \"P911\" when:14d",
     "items": []
   },
   "COIN|Coinbase Global,|14|5": {
-    "checked_at": "2026-06-10T22:55:45.295688",
+    "checked_at": "2026-06-11T22:53:57.513487",
     "query": "site:eqs-news.com \"Coinbase Global,\" OR \"COIN\" when:14d",
     "items": []
   },
   "ASTS|AST SpaceMobile,|14|5": {
-    "checked_at": "2026-06-10T22:55:45.884703",
+    "checked_at": "2026-06-11T22:53:58.099840",
     "query": "site:eqs-news.com \"AST SpaceMobile,\" OR \"ASTS\" when:14d",
     "items": []
   },
   "KDP|Keurig Dr Pepper|14|5": {
-    "checked_at": "2026-06-10T22:55:46.675780",
+    "checked_at": "2026-06-11T22:53:58.716664",
     "query": "site:eqs-news.com \"Keurig Dr Pepper\" OR \"KDP\" when:14d",
     "items": []
   },
   "DHI|D.R. Horton,|14|5": {
-    "checked_at": "2026-06-10T22:55:47.316612",
+    "checked_at": "2026-06-11T22:53:59.350414",
     "query": "site:eqs-news.com \"D.R. Horton,\" OR \"DHI\" when:14d",
     "items": []
   },
   "ARES|Ares Management|14|5": {
-    "checked_at": "2026-06-10T22:55:47.919076",
+    "checked_at": "2026-06-11T22:53:59.957085",
     "query": "site:eqs-news.com \"Ares Management\" OR \"ARES\" when:14d",
     "items": []
   },
   "ADM|Archer-Daniels-Midland Company|14|5": {
-    "checked_at": "2026-06-10T22:55:48.564431",
+    "checked_at": "2026-06-11T22:54:00.609293",
     "query": "site:eqs-news.com \"Archer-Daniels-Midland Company\" OR \"ADM\" when:14d",
     "items": []
   },
   "BDX|Becton, Dickinson and Company|14|5": {
-    "checked_at": "2026-06-10T22:55:49.263080",
+    "checked_at": "2026-06-11T22:54:01.273789",
     "query": "site:eqs-news.com \"Becton, Dickinson and Company\" OR \"BDX\" when:14d",
     "items": []
   },
   "TTWO|Take-Two Interactive Software,|14|5": {
-    "checked_at": "2026-06-10T22:55:49.860705",
+    "checked_at": "2026-06-11T22:54:01.875034",
     "query": "site:eqs-news.com \"Take-Two Interactive Software,\" OR \"TTWO\" when:14d",
     "items": []
   },
   "JBL|Jabil Inc.|14|5": {
-    "checked_at": "2026-06-10T22:55:50.483685",
+    "checked_at": "2026-06-11T22:54:02.694877",
     "query": "site:eqs-news.com \"Jabil Inc.\" OR \"JBL\" when:14d",
     "items": []
   },
   "AMP|Ameriprise Financial,|14|5": {
-    "checked_at": "2026-06-10T22:55:51.132190",
+    "checked_at": "2026-06-11T22:54:03.343238",
     "query": "site:eqs-news.com \"Ameriprise Financial,\" OR \"AMP\" when:14d",
     "items": []
   },
   "CRDO|Credo Technology Group|14|5": {
-    "checked_at": "2026-06-10T22:55:51.726292",
+    "checked_at": "2026-06-11T22:54:03.932669",
     "query": "site:eqs-news.com \"Credo Technology Group\" OR \"CRDO\" when:14d",
     "items": []
   },
   "ESLT|Elbit Systems|14|5": {
-    "checked_at": "2026-06-10T22:55:52.363722",
+    "checked_at": "2026-06-11T22:54:04.581685",
     "query": "site:eqs-news.com \"Elbit Systems\" OR \"ESLT\" when:14d",
     "items": []
   },
   "AXON|Axon Enterprise,|14|5": {
-    "checked_at": "2026-06-10T22:55:52.953056",
+    "checked_at": "2026-06-11T22:54:05.362336",
     "query": "site:eqs-news.com \"Axon Enterprise,\" OR \"AXON\" when:14d",
     "items": []
   },
   "PEG|Public Service Enterprise Group|14|5": {
-    "checked_at": "2026-06-10T22:55:53.619713",
+    "checked_at": "2026-06-11T22:54:06.669860",
     "query": "site:eqs-news.com \"Public Service Enterprise Group\" OR \"PEG\" when:14d",
     "items": []
   },
   "CCI|Crown Castle|14|5": {
-    "checked_at": "2026-06-10T22:55:54.219659",
+    "checked_at": "2026-06-11T22:54:07.292675",
     "query": "site:eqs-news.com \"Crown Castle\" OR \"CCI\" when:14d",
     "items": []
   },
   "AIG|American International Group, I|14|5": {
-    "checked_at": "2026-06-10T22:55:54.863955",
+    "checked_at": "2026-06-11T22:54:07.934501",
     "query": "site:eqs-news.com \"American International Group, I\" OR \"AIG\" when:14d",
     "items": []
   },
   "ED|Consolidated Edison,|14|5": {
-    "checked_at": "2026-06-10T22:55:55.520547",
+    "checked_at": "2026-06-11T22:54:08.613567",
     "query": "site:eqs-news.com \"Consolidated Edison,\" OR \"ED\" when:14d",
     "items": []
   },
   "IRM|Iron Mountainorporated (Del|14|5": {
-    "checked_at": "2026-06-10T22:55:56.151191",
+    "checked_at": "2026-06-11T22:54:09.245493",
     "query": "site:eqs-news.com \"Iron Mountainorporated (Del\" OR \"IRM\" when:14d",
     "items": []
   },
   "KR|Kroger Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:55:56.825172",
+    "checked_at": "2026-06-11T22:54:09.907454",
     "query": "site:eqs-news.com \"Kroger Company (The)\" OR \"KR\" when:14d",
     "items": []
   },
   "PYPL|PayPals,|14|5": {
-    "checked_at": "2026-06-10T22:55:57.420982",
+    "checked_at": "2026-06-11T22:54:10.504591",
     "query": "site:eqs-news.com \"PayPals,\" OR \"PYPL\" when:14d",
     "items": []
   },
   "FM.TO|FIRST QUANTUM MINERALS LTD|14|5": {
-    "checked_at": "2026-06-10T22:55:58.018470",
+    "checked_at": "2026-06-11T22:54:11.135511",
     "query": "site:eqs-news.com \"FIRST QUANTUM MINERALS LTD\" OR \"FM\" when:14d",
     "items": []
   },
   "ELE.MC|ENDESA,S.A.|14|5": {
-    "checked_at": "2026-06-10T22:55:58.637625",
+    "checked_at": "2026-06-11T22:54:11.808613",
     "query": "site:eqs-news.com \"ENDESA,S.A.\" OR \"ELE\" when:14d",
     "items": []
   },
   "HOT.DE|HOCHTIEF I|14|5": {
-    "checked_at": "2026-06-10T22:55:59.269692",
+    "checked_at": "2026-06-11T22:54:12.439963",
     "query": "site:eqs-news.com \"HOCHTIEF I\" OR \"HOT\" when:14d",
     "items": []
   },
   "HSY|The Hershey Company|14|5": {
-    "checked_at": "2026-06-10T22:55:59.943036",
+    "checked_at": "2026-06-11T22:54:13.091839",
     "query": "site:eqs-news.com \"The Hershey Company\" OR \"HSY\" when:14d",
     "items": []
   },
   "PCG|Pacific Gas & Electric Co.|14|5": {
-    "checked_at": "2026-06-10T22:56:00.612980",
+    "checked_at": "2026-06-11T22:54:13.729107",
     "query": "site:eqs-news.com \"Pacific Gas & Electric Co.\" OR \"PCG\" when:14d",
     "items": []
   },
   "VMC|Vulcan Materials Company (Holdi|14|5": {
-    "checked_at": "2026-06-10T22:56:01.289593",
+    "checked_at": "2026-06-11T22:54:14.380252",
     "query": "site:eqs-news.com \"Vulcan Materials Company (Holdi\" OR \"VMC\" when:14d",
     "items": []
   },
   "CMG|Chipotle Mexican Grill,|14|5": {
-    "checked_at": "2026-06-10T22:56:01.867625",
+    "checked_at": "2026-06-11T22:54:14.989007",
     "query": "site:eqs-news.com \"Chipotle Mexican Grill,\" OR \"CMG\" when:14d",
     "items": []
   },
   "WDAY|Workday,|14|5": {
-    "checked_at": "2026-06-10T22:56:02.448557",
+    "checked_at": "2026-06-11T22:54:15.590709",
     "query": "site:eqs-news.com \"Workday,\" OR \"WDAY\" when:14d",
     "items": []
   },
   "NTAP|NetApp,|14|5": {
-    "checked_at": "2026-06-10T22:56:03.266779",
+    "checked_at": "2026-06-11T22:54:16.215827",
     "query": "site:eqs-news.com \"NetApp,\" OR \"NTAP\" when:14d",
     "items": []
   },
   "PAYX|Paychex,|14|5": {
-    "checked_at": "2026-06-10T22:56:03.930557",
+    "checked_at": "2026-06-11T22:54:16.893973",
     "query": "site:eqs-news.com \"Paychex,\" OR \"PAYX\" when:14d",
     "items": []
   },
   "SATS|EchoStar|14|5": {
-    "checked_at": "2026-06-10T22:56:04.521497",
+    "checked_at": "2026-06-11T22:54:17.494204",
     "query": "site:eqs-news.com \"EchoStar\" OR \"SATS\" when:14d",
     "items": []
   },
   "PRU|Prudential Financial,|14|5": {
-    "checked_at": "2026-06-10T22:56:05.129598",
+    "checked_at": "2026-06-11T22:54:18.133777",
     "query": "site:eqs-news.com \"Prudential Financial,\" OR \"PRU\" when:14d",
     "items": []
   },
   "VOD|Vodafone Group Plc|14|5": {
-    "checked_at": "2026-06-10T22:56:05.782629",
+    "checked_at": "2026-06-11T22:54:18.780620",
     "query": "site:eqs-news.com \"Vodafone Group Plc\" OR \"VOD\" when:14d",
     "items": []
   },
   "TWLO|Twilio|14|5": {
-    "checked_at": "2026-06-10T22:56:06.364098",
+    "checked_at": "2026-06-11T22:54:19.375128",
     "query": "site:eqs-news.com \"Twilio\" OR \"TWLO\" when:14d",
     "items": []
   },
   "HAL|Halliburton Company|14|5": {
-    "checked_at": "2026-06-10T22:56:07.084338",
+    "checked_at": "2026-06-11T22:54:20.056089",
     "query": "site:eqs-news.com \"Halliburton Company\" OR \"HAL\" when:14d",
     "items": []
   },
   "FSLR|First Solar,|14|5": {
-    "checked_at": "2026-06-10T22:56:07.676414",
+    "checked_at": "2026-06-11T22:54:20.679657",
     "query": "site:eqs-news.com \"First Solar,\" OR \"FSLR\" when:14d",
     "items": []
   },
   "UAL|United Airliness,|14|5": {
-    "checked_at": "2026-06-10T22:56:08.288052",
+    "checked_at": "2026-06-11T22:54:21.273537",
     "query": "site:eqs-news.com \"United Airliness,\" OR \"UAL\" when:14d",
     "items": []
   },
   "BAYN.DE|Bayer N|14|5": {
-    "checked_at": "2026-06-10T22:56:08.926583",
+    "checked_at": "2026-06-11T22:54:21.906145",
     "query": "site:eqs-news.com \"Bayer N\" OR \"BAYN\" when:14d",
     "items": []
   },
   "EQT|EQT|14|5": {
-    "checked_at": "2026-06-10T22:56:09.614309",
+    "checked_at": "2026-06-11T22:54:22.573643",
     "query": "site:eqs-news.com \"EQT\" OR \"EQT\" when:14d",
     "items": []
   },
   "ROP|Roper Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:56:10.238740",
+    "checked_at": "2026-06-11T22:54:23.246069",
     "query": "site:eqs-news.com \"Roper Technologies,\" OR \"ROP\" when:14d",
     "items": []
   },
   "EC|Ecopetrol|14|5": {
-    "checked_at": "2026-06-10T22:56:10.849389",
+    "checked_at": "2026-06-11T22:54:23.887235",
     "query": "site:eqs-news.com \"Ecopetrol\" OR \"EC\" when:14d",
     "items": []
   },
   "TSEM|Tower Semiconductor|14|5": {
-    "checked_at": "2026-06-10T22:56:11.474221",
+    "checked_at": "2026-06-11T22:54:24.497165",
     "query": "site:eqs-news.com \"Tower Semiconductor\" OR \"TSEM\" when:14d",
     "items": []
   },
   "KMB|Kimberly-Clark|14|5": {
-    "checked_at": "2026-06-10T22:56:12.121755",
+    "checked_at": "2026-06-11T22:54:25.143277",
     "query": "site:eqs-news.com \"Kimberly-Clark\" OR \"KMB\" when:14d",
     "items": []
   },
   "RBLX|Roblox|14|5": {
-    "checked_at": "2026-06-10T22:56:12.719646",
+    "checked_at": "2026-06-11T22:54:25.744719",
     "query": "site:eqs-news.com \"Roblox\" OR \"RBLX\" when:14d",
     "items": []
   },
   "ZM|Zoom Communications,|14|5": {
-    "checked_at": "2026-06-10T22:56:13.308638",
+    "checked_at": "2026-06-11T22:54:26.326787",
     "query": "site:eqs-news.com \"Zoom Communications,\" OR \"ZM\" when:14d",
     "items": []
   },
   "MTSI|MACOM Technology Solutions Hold|14|5": {
-    "checked_at": "2026-06-10T22:56:13.899680",
+    "checked_at": "2026-06-11T22:54:26.908250",
     "query": "site:eqs-news.com \"MACOM Technology Solutions Hold\" OR \"MTSI\" when:14d",
     "items": []
   },
   "EL|Estee Lauder Companies, (T|14|5": {
-    "checked_at": "2026-06-10T22:56:14.560510",
+    "checked_at": "2026-06-11T22:54:27.697824",
     "query": "site:eqs-news.com \"Estee Lauder Companies, (T\" OR \"EL\" when:14d",
     "items": []
   },
   "MDB|MongoDB,|14|5": {
-    "checked_at": "2026-06-10T22:56:15.140674",
+    "checked_at": "2026-06-11T22:54:28.293610",
     "query": "site:eqs-news.com \"MongoDB,\" OR \"MDB\" when:14d",
     "items": []
   },
   "LDO.MI|LEONARDO|14|5": {
-    "checked_at": "2026-06-10T22:56:15.753716",
+    "checked_at": "2026-06-11T22:54:28.935292",
     "query": "site:eqs-news.com \"LEONARDO\" OR \"LDO\" when:14d",
     "items": []
   },
   "CPRT|Copart,|14|5": {
-    "checked_at": "2026-06-10T22:56:16.360972",
+    "checked_at": "2026-06-11T22:54:29.548858",
     "query": "site:eqs-news.com \"Copart,\" OR \"CPRT\" when:14d",
     "items": []
   },
   "VEEV|Veeva Systems|14|5": {
-    "checked_at": "2026-06-10T22:56:16.953194",
+    "checked_at": "2026-06-11T22:54:30.140358",
     "query": "site:eqs-news.com \"Veeva Systems\" OR \"VEEV\" when:14d",
     "items": []
   },
   "BIIB|Biogen|14|5": {
-    "checked_at": "2026-06-10T22:56:17.534500",
+    "checked_at": "2026-06-11T22:54:30.748867",
     "query": "site:eqs-news.com \"Biogen\" OR \"BIIB\" when:14d",
     "items": []
   },
   "CASY|Caseys General Stores,|14|5": {
-    "checked_at": "2026-06-10T22:56:18.168401",
+    "checked_at": "2026-06-11T22:54:31.374795",
     "query": "site:eqs-news.com \"Caseys General Stores,\" OR \"CASY\" when:14d",
     "items": []
   },
   "ADS.DE|adidas N|14|5": {
-    "checked_at": "2026-06-10T22:56:18.809497",
+    "checked_at": "2026-06-11T22:54:32.236378",
     "query": "site:eqs-news.com \"adidas N\" OR \"ADS\" when:14d",
     "items": []
   },
   "RJF|Raymond James Financial,|14|5": {
-    "checked_at": "2026-06-10T22:56:19.470662",
+    "checked_at": "2026-06-11T22:54:32.885780",
     "query": "site:eqs-news.com \"Raymond James Financial,\" OR \"RJF\" when:14d",
     "items": []
   },
   "NVT|nVent Electric|14|5": {
-    "checked_at": "2026-06-10T22:56:20.078561",
+    "checked_at": "2026-06-11T22:54:33.529864",
     "query": "site:eqs-news.com \"nVent Electric\" OR \"NVT\" when:14d",
     "items": []
   },
   "SMCI|Super Micro Computer,|14|5": {
-    "checked_at": "2026-06-10T22:56:20.669464",
+    "checked_at": "2026-06-11T22:54:34.129560",
     "query": "site:eqs-news.com \"Super Micro Computer,\" OR \"SMCI\" when:14d",
     "items": []
   },
   "SYM|Symbotic|14|5": {
-    "checked_at": "2026-06-10T22:56:21.438718",
+    "checked_at": "2026-06-11T22:54:34.712393",
     "query": "site:eqs-news.com \"Symbotic\" OR \"SYM\" when:14d",
     "items": []
   },
   "PBA|Pembina Pipeline|14|5": {
-    "checked_at": "2026-06-10T22:56:22.030626",
+    "checked_at": "2026-06-11T22:54:35.342849",
     "query": "site:eqs-news.com \"Pembina Pipeline\" OR \"PBA\" when:14d",
     "items": []
   },
   "NRG|NRG Energy,|14|5": {
-    "checked_at": "2026-06-10T22:56:22.653369",
+    "checked_at": "2026-06-11T22:54:35.959032",
     "query": "site:eqs-news.com \"NRG Energy,\" OR \"NRG\" when:14d",
     "items": []
   },
   "ATO|Atmos Energy|14|5": {
-    "checked_at": "2026-06-10T22:56:23.277111",
+    "checked_at": "2026-06-11T22:54:36.608615",
     "query": "site:eqs-news.com \"Atmos Energy\" OR \"ATO\" when:14d",
     "items": []
   },
   "SIVE.ST|Sivers Semiconductors AB|14|5": {
-    "checked_at": "2026-06-10T22:56:23.918950",
+    "checked_at": "2026-06-11T22:54:37.203258",
     "query": "site:eqs-news.com \"Sivers Semiconductors AB\" OR \"SIVE\" when:14d",
     "items": []
   },
   "EIX|Edison International|14|5": {
-    "checked_at": "2026-06-10T22:56:24.599653",
+    "checked_at": "2026-06-11T22:54:37.834481",
     "query": "site:eqs-news.com \"Edison International\" OR \"EIX\" when:14d",
     "items": []
   },
   "FICO|Fair Isaac|14|5": {
-    "checked_at": "2026-06-10T22:56:25.214212",
+    "checked_at": "2026-06-11T22:54:38.484853",
     "query": "site:eqs-news.com \"Fair Isaac\" OR \"FICO\" when:14d",
     "items": []
   },
   "CNP|CenterPoint Energy, (Holdin|14|5": {
-    "checked_at": "2026-06-10T22:56:25.877824",
+    "checked_at": "2026-06-11T22:54:39.191622",
     "query": "site:eqs-news.com \"CenterPoint Energy, (Holdin\" OR \"CNP\" when:14d",
     "items": []
   },
   "CW|Curtiss-Wright|14|5": {
-    "checked_at": "2026-06-10T22:56:26.516518",
+    "checked_at": "2026-06-11T22:54:39.878807",
     "query": "site:eqs-news.com \"Curtiss-Wright\" OR \"CW\" when:14d",
     "items": []
   },
   "EXPE|Expedia Group,|14|5": {
-    "checked_at": "2026-06-10T22:56:27.133955",
+    "checked_at": "2026-06-11T22:54:40.516633",
     "query": "site:eqs-news.com \"Expedia Group,\" OR \"EXPE\" when:14d",
     "items": []
   },
   "KHC|The Kraft Heinz Company|14|5": {
-    "checked_at": "2026-06-10T22:56:27.938966",
+    "checked_at": "2026-06-11T22:54:41.148562",
     "query": "site:eqs-news.com \"The Kraft Heinz Company\" OR \"KHC\" when:14d",
     "items": []
   },
   "ADYEN.AS|ADYEN|14|5": {
-    "checked_at": "2026-06-10T22:56:28.556655",
+    "checked_at": "2026-06-11T22:54:41.930690",
     "query": "site:eqs-news.com \"ADYEN\" OR \"ADYEN\" when:14d",
     "items": []
   },
   "FE|FirstEnergy|14|5": {
-    "checked_at": "2026-06-10T22:56:29.211812",
+    "checked_at": "2026-06-11T22:54:42.555726",
     "query": "site:eqs-news.com \"FirstEnergy\" OR \"FE\" when:14d",
     "items": []
   },
   "VOD.L|VODAFONE GROUP ORD USD0.20|14|5": {
-    "checked_at": "2026-06-10T22:56:29.853652",
+    "checked_at": "2026-06-11T22:54:43.254809",
     "query": "site:eqs-news.com \"VODAFONE GROUP ORD USD0.20\" OR \"VOD\" when:14d",
     "items": []
   },
   "XYL|Xylem Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:30.585566",
+    "checked_at": "2026-06-11T22:54:43.881783",
     "query": "site:eqs-news.com \"Xylem Inc.\" OR \"XYL\" when:14d",
     "items": []
   },
   "FN|Fabrinet|14|5": {
-    "checked_at": "2026-06-10T22:56:31.189315",
+    "checked_at": "2026-06-11T22:54:44.472880",
     "query": "site:eqs-news.com \"Fabrinet\" OR \"FN\" when:14d",
     "items": []
   },
   "ILMN|Illumina,|14|5": {
-    "checked_at": "2026-06-10T22:56:31.779579",
+    "checked_at": "2026-06-11T22:54:45.048623",
     "query": "site:eqs-news.com \"Illumina,\" OR \"ILMN\" when:14d",
     "items": []
   },
   "TEAM|Atlassian|14|5": {
-    "checked_at": "2026-06-10T22:56:32.370688",
+    "checked_at": "2026-06-11T22:54:45.657012",
     "query": "site:eqs-news.com \"Atlassian\" OR \"TEAM\" when:14d",
     "items": []
   },
   "ES|Eversource Energy (D/B/A)|14|5": {
-    "checked_at": "2026-06-10T22:56:33.028997",
+    "checked_at": "2026-06-11T22:54:46.310112",
     "query": "site:eqs-news.com \"Eversource Energy (D/B/A)\" OR \"ES\" when:14d",
     "items": []
   },
   "EQR|Equity Residential|14|5": {
-    "checked_at": "2026-06-10T22:56:33.662555",
+    "checked_at": "2026-06-11T22:54:46.969295",
     "query": "site:eqs-news.com \"Equity Residential\" OR \"EQR\" when:14d",
     "items": []
   },
   "DOW|Dow Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:34.274870",
+    "checked_at": "2026-06-11T22:54:47.592092",
     "query": "site:eqs-news.com \"Dow Inc.\" OR \"DOW\" when:14d",
     "items": []
   },
   "IONQ|IonQ, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:34.903589",
+    "checked_at": "2026-06-11T22:54:48.179782",
     "query": "site:eqs-news.com \"IonQ, Inc.\" OR \"IONQ\" when:14d",
     "items": []
   },
   "CTSH|Cognizant Technology Solutions|14|5": {
-    "checked_at": "2026-06-10T22:56:35.525846",
+    "checked_at": "2026-06-11T22:54:48.776569",
     "query": "site:eqs-news.com \"Cognizant Technology Solutions\" OR \"CTSH\" when:14d",
     "items": []
   },
   "PPG|PPG Industries,|14|5": {
-    "checked_at": "2026-06-10T22:56:36.152615",
+    "checked_at": "2026-06-11T22:54:49.622560",
     "query": "site:eqs-news.com \"PPG Industries,\" OR \"PPG\" when:14d",
     "items": []
   },
   "CTRA|Coterra Energy|14|5": {
-    "checked_at": "2026-06-10T22:56:36.790557",
+    "checked_at": "2026-06-11T22:54:50.293762",
     "query": "site:eqs-news.com \"Coterra Energy\" OR \"CTRA\" when:14d",
     "items": []
   },
   "RIVN|Rivian Automotive,|14|5": {
-    "checked_at": "2026-06-10T22:56:37.394558",
+    "checked_at": "2026-06-11T22:54:50.896293",
     "query": "site:eqs-news.com \"Rivian Automotive,\" OR \"RIVN\" when:14d",
     "items": []
   },
   "KIT.OL|KITRON|14|5": {
-    "checked_at": "2026-06-10T22:56:38.040651",
+    "checked_at": "2026-06-11T22:54:51.556231",
     "query": "site:eqs-news.com \"KITRON\" OR \"KIT\" when:14d",
     "items": []
   },
   "AWK|American Water Works Company, I|14|5": {
-    "checked_at": "2026-06-10T22:56:38.659642",
+    "checked_at": "2026-06-11T22:54:52.177410",
     "query": "site:eqs-news.com \"American Water Works Company, I\" OR \"AWK\" when:14d",
     "items": []
   },
   "CRCL|Circle Internet Group,|14|5": {
-    "checked_at": "2026-06-10T22:56:39.260001",
+    "checked_at": "2026-06-11T22:54:52.784207",
     "query": "site:eqs-news.com \"Circle Internet Group,\" OR \"CRCL\" when:14d",
     "items": []
   },
   "HPQ|HP Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:39.907251",
+    "checked_at": "2026-06-11T22:54:53.437140",
     "query": "site:eqs-news.com \"HP Inc.\" OR \"HPQ\" when:14d",
     "items": []
   },
   "BEP|Brookfield Renewable Partners L|14|5": {
-    "checked_at": "2026-06-10T22:56:40.702621",
+    "checked_at": "2026-06-11T22:54:54.048895",
     "query": "site:eqs-news.com \"Brookfield Renewable Partners L\" OR \"BEP\" when:14d",
     "items": []
   },
   "IREN|IREN LIMITED|14|5": {
-    "checked_at": "2026-06-10T22:56:41.317636",
+    "checked_at": "2026-06-11T22:54:54.642302",
     "query": "site:eqs-news.com \"IREN LIMITED\" OR \"IREN\" when:14d",
     "items": []
   },
   "STZ|Constellation Brands,|14|5": {
-    "checked_at": "2026-06-10T22:56:41.944187",
+    "checked_at": "2026-06-11T22:54:55.249334",
     "query": "site:eqs-news.com \"Constellation Brands,\" OR \"STZ\" when:14d",
     "items": []
   },
   "AKAM|Akamai Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:56:42.540499",
+    "checked_at": "2026-06-11T22:54:55.836946",
     "query": "site:eqs-news.com \"Akamai Technologies,\" OR \"AKAM\" when:14d",
     "items": []
   },
   "DG|Dollar General|14|5": {
-    "checked_at": "2026-06-10T22:56:43.148981",
+    "checked_at": "2026-06-11T22:54:56.430517",
     "query": "site:eqs-news.com \"Dollar General\" OR \"DG\" when:14d",
     "items": []
   },
   "YPF|YPF Sociedad Anonima|14|5": {
-    "checked_at": "2026-06-10T22:56:43.765097",
+    "checked_at": "2026-06-11T22:54:57.030237",
     "query": "site:eqs-news.com \"YPF Sociedad Anonima\" OR \"YPF\" when:14d",
     "items": []
   },
   "FFIV|F5, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:44.358020",
+    "checked_at": "2026-06-11T22:54:57.622500",
     "query": "site:eqs-news.com \"F5, Inc.\" OR \"FFIV\" when:14d",
     "items": []
   },
   "BCE|BCE, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:44.995519",
+    "checked_at": "2026-06-11T22:54:58.256011",
     "query": "site:eqs-news.com \"BCE, Inc.\" OR \"BCE\" when:14d",
     "items": []
   },
   "BESI.AS|BE Semiconductor Industries N.V|14|5": {
-    "checked_at": "2026-06-10T22:56:45.663597",
+    "checked_at": "2026-06-11T22:54:58.874454",
     "query": "site:eqs-news.com \"BE Semiconductor Industries N.V\" OR \"BESI\" when:14d",
     "items": []
   },
   "MKSI|MKS Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:46.278269",
+    "checked_at": "2026-06-11T22:54:59.501643",
     "query": "site:eqs-news.com \"MKS Inc.\" OR \"MKSI\" when:14d",
     "items": []
   },
   "SQM|Sociedad Quimica y Minera|14|5": {
-    "checked_at": "2026-06-10T22:56:46.926918",
+    "checked_at": "2026-06-11T22:55:00.161523",
     "query": "site:eqs-news.com \"Sociedad Quimica y Minera\" OR \"SQM\" when:14d",
     "items": []
   },
   "PSTG|Everpure,|14|5": {
-    "checked_at": "2026-06-10T22:56:47.523495",
+    "checked_at": "2026-06-11T22:55:00.748756",
     "query": "site:eqs-news.com \"Everpure,\" OR \"PSTG\" when:14d",
     "items": []
   },
   "BNTX|BioNTech|14|5": {
-    "checked_at": "2026-06-10T22:56:48.109591",
+    "checked_at": "2026-06-11T22:55:01.323672",
     "query": "site:eqs-news.com \"BioNTech\" OR \"BNTX\" when:14d",
     "items": []
   },
   "NXT|Nextpower|14|5": {
-    "checked_at": "2026-06-10T22:56:48.701862",
+    "checked_at": "2026-06-11T22:55:01.909462",
     "query": "site:eqs-news.com \"Nextpower\" OR \"NXT\" when:14d",
     "items": []
   },
   "AFRM|Affirms,|14|5": {
-    "checked_at": "2026-06-10T22:56:49.284123",
+    "checked_at": "2026-06-11T22:55:02.488049",
     "query": "site:eqs-news.com \"Affirms,\" OR \"AFRM\" when:14d",
     "items": []
   },
   "LEN|Lennar|14|5": {
-    "checked_at": "2026-06-10T22:56:49.967522",
+    "checked_at": "2026-06-11T22:55:03.124851",
     "query": "site:eqs-news.com \"Lennar\" OR \"LEN\" when:14d",
     "items": []
   },
   "OKTA|Okta, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:56:50.570557",
+    "checked_at": "2026-06-11T22:55:03.728084",
     "query": "site:eqs-news.com \"Okta, Inc.\" OR \"OKTA\" when:14d",
     "items": []
   },
   "ZS|Zscaler,|14|5": {
-    "checked_at": "2026-06-10T22:56:51.169495",
+    "checked_at": "2026-06-11T22:55:04.327706",
     "query": "site:eqs-news.com \"Zscaler,\" OR \"ZS\" when:14d",
     "items": []
   },
   "L|Loews|14|5": {
-    "checked_at": "2026-06-10T22:56:51.821947",
+    "checked_at": "2026-06-11T22:55:04.967080",
     "query": "site:eqs-news.com \"Loews\" OR \"L\" when:14d",
     "items": []
   },
   "SOFI|SoFi Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:56:52.409351",
+    "checked_at": "2026-06-11T22:55:05.577434",
     "query": "site:eqs-news.com \"SoFi Technologies,\" OR \"SOFI\" when:14d",
     "items": []
   },
   "ENTG|Entegris,|14|5": {
-    "checked_at": "2026-06-10T22:56:53.002470",
+    "checked_at": "2026-06-11T22:55:06.177561",
     "query": "site:eqs-news.com \"Entegris,\" OR \"ENTG\" when:14d",
     "items": []
   },
   "LSCC|Lattice Semiconductororati|14|5": {
-    "checked_at": "2026-06-10T22:56:53.578629",
+    "checked_at": "2026-06-11T22:55:06.755754",
     "query": "site:eqs-news.com \"Lattice Semiconductororati\" OR \"LSCC\" when:14d",
     "items": []
   },
   "IOT|Samsara|14|5": {
-    "checked_at": "2026-06-10T22:56:54.162592",
+    "checked_at": "2026-06-11T22:55:07.398661",
     "query": "site:eqs-news.com \"Samsara\" OR \"IOT\" when:14d",
     "items": []
   },
   "FIS|Fidelity National Information S|14|5": {
-    "checked_at": "2026-06-10T22:56:54.761113",
+    "checked_at": "2026-06-11T22:55:08.014394",
     "query": "site:eqs-news.com \"Fidelity National Information S\" OR \"FIS\" when:14d",
     "items": []
   },
   "SRG.MI|SNAM|14|5": {
-    "checked_at": "2026-06-10T22:56:55.385645",
+    "checked_at": "2026-06-11T22:55:08.657860",
     "query": "site:eqs-news.com \"SNAM\" OR \"SRG\" when:14d",
     "items": []
   },
   "ALB|Albemarle|14|5": {
-    "checked_at": "2026-06-10T22:56:56.013967",
+    "checked_at": "2026-06-11T22:55:09.271852",
     "query": "site:eqs-news.com \"Albemarle\" OR \"ALB\" when:14d",
     "items": []
   },
   "TRN.MI|TERNA|14|5": {
-    "checked_at": "2026-06-10T22:56:56.678103",
+    "checked_at": "2026-06-11T22:55:09.907481",
     "query": "site:eqs-news.com \"TERNA\" OR \"TRN\" when:14d",
     "items": []
   },
   "LYC.AX|LYNAS FPO [LYC]|14|5": {
-    "checked_at": "2026-06-10T22:56:57.265510",
+    "checked_at": "2026-06-11T22:55:10.599869",
     "query": "site:eqs-news.com \"LYNAS FPO [LYC]\" OR \"LYC\" when:14d",
     "items": []
   },
   "MRNA|Moderna,|14|5": {
-    "checked_at": "2026-06-10T22:56:57.864617",
+    "checked_at": "2026-06-11T22:55:11.180515",
     "query": "site:eqs-news.com \"Moderna,\" OR \"MRNA\" when:14d",
     "items": []
   },
   "DD|DuPont de Nemours,|14|5": {
-    "checked_at": "2026-06-10T22:56:58.525908",
+    "checked_at": "2026-06-11T22:55:11.821400",
     "query": "site:eqs-news.com \"DuPont de Nemours,\" OR \"DD\" when:14d",
     "items": []
   },
   "TU|Telus|14|5": {
-    "checked_at": "2026-06-10T22:56:59.172636",
+    "checked_at": "2026-06-11T22:55:12.623544",
     "query": "site:eqs-news.com \"Telus\" OR \"TU\" when:14d",
     "items": []
   },
   "AMKR|Amkor Technology,|14|5": {
-    "checked_at": "2026-06-10T22:56:59.971670",
+    "checked_at": "2026-06-11T22:55:13.236966",
     "query": "site:eqs-news.com \"Amkor Technology,\" OR \"AMKR\" when:14d",
     "items": []
   },
   "GPN|Global Payments|14|5": {
-    "checked_at": "2026-06-10T22:57:00.585949",
+    "checked_at": "2026-06-11T22:55:13.867690",
     "query": "site:eqs-news.com \"Global Payments\" OR \"GPN\" when:14d",
     "items": []
   },
   "RMBS|Rambus,|14|5": {
-    "checked_at": "2026-06-10T22:57:01.193152",
+    "checked_at": "2026-06-11T22:55:14.632509",
     "query": "site:eqs-news.com \"Rambus,\" OR \"RMBS\" when:14d",
     "items": []
   },
   "CHTR|Charter Communications,|14|5": {
-    "checked_at": "2026-06-10T22:57:01.772761",
+    "checked_at": "2026-06-11T22:55:15.232360",
     "query": "site:eqs-news.com \"Charter Communications,\" OR \"CHTR\" when:14d",
     "items": []
   },
   "DOCN|DigitalOceans,|14|5": {
-    "checked_at": "2026-06-10T22:57:02.352937",
+    "checked_at": "2026-06-11T22:55:16.023734",
     "query": "site:eqs-news.com \"DigitalOceans,\" OR \"DOCN\" when:14d",
     "items": []
   },
   "CF|CF Industriess,|14|5": {
-    "checked_at": "2026-06-10T22:57:03.184152",
+    "checked_at": "2026-06-11T22:55:16.653064",
     "query": "site:eqs-news.com \"CF Industriess,\" OR \"CF\" when:14d",
     "items": []
   },
   "BIP|Brookfield Infrastructure Partn|14|5": {
-    "checked_at": "2026-06-10T22:57:03.792549",
+    "checked_at": "2026-06-11T22:55:17.278531",
     "query": "site:eqs-news.com \"Brookfield Infrastructure Partn\" OR \"BIP\" when:14d",
     "items": []
   },
   "WY|Weyerhaeuser Company|14|5": {
-    "checked_at": "2026-06-10T22:57:04.433082",
+    "checked_at": "2026-06-11T22:55:17.934188",
     "query": "site:eqs-news.com \"Weyerhaeuser Company\" OR \"WY\" when:14d",
     "items": []
   },
   "PR|Permian Resources|14|5": {
-    "checked_at": "2026-06-10T22:57:05.030580",
+    "checked_at": "2026-06-11T22:55:18.711889",
     "query": "site:eqs-news.com \"Permian Resources\" OR \"PR\" when:14d",
     "items": []
   },
   "TLN|Talen Energy|14|5": {
-    "checked_at": "2026-06-10T22:57:05.634053",
+    "checked_at": "2026-06-11T22:55:19.323110",
     "query": "site:eqs-news.com \"Talen Energy\" OR \"TLN\" when:14d",
     "items": []
   },
   "GIS|General Mills,|14|5": {
-    "checked_at": "2026-06-10T22:57:06.264502",
+    "checked_at": "2026-06-11T22:55:19.986686",
     "query": "site:eqs-news.com \"General Mills,\" OR \"GIS\" when:14d",
     "items": []
   },
   "BWXT|BWX Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:57:06.900530",
+    "checked_at": "2026-06-11T22:55:20.605343",
     "query": "site:eqs-news.com \"BWX Technologies,\" OR \"BWXT\" when:14d",
     "items": []
   },
   "GNRC|Generac Holdlings|14|5": {
-    "checked_at": "2026-06-10T22:57:07.499858",
+    "checked_at": "2026-06-11T22:55:21.188322",
     "query": "site:eqs-news.com \"Generac Holdlings\" OR \"GNRC\" when:14d",
     "items": []
   },
   "OVV|Ovintiv (DE)|14|5": {
-    "checked_at": "2026-06-10T22:57:08.122421",
+    "checked_at": "2026-06-11T22:55:21.799845",
     "query": "site:eqs-news.com \"Ovintiv (DE)\" OR \"OVV\" when:14d",
     "items": []
   },
   "GEN|Gen Digital|14|5": {
-    "checked_at": "2026-06-10T22:57:08.735621",
+    "checked_at": "2026-06-11T22:55:22.429817",
     "query": "site:eqs-news.com \"Gen Digital\" OR \"GEN\" when:14d",
     "items": []
   },
   "MOD|Modine Manufacturing Company|14|5": {
-    "checked_at": "2026-06-10T22:57:09.347467",
+    "checked_at": "2026-06-11T22:55:23.069509",
     "query": "site:eqs-news.com \"Modine Manufacturing Company\" OR \"MOD\" when:14d",
     "items": []
   },
   "TXT|Textron|14|5": {
-    "checked_at": "2026-06-10T22:57:10.017246",
+    "checked_at": "2026-06-11T22:55:23.729128",
     "query": "site:eqs-news.com \"Textron\" OR \"TXT\" when:14d",
     "items": []
   },
   "BEN|Franklin Resources,|14|5": {
-    "checked_at": "2026-06-10T22:57:10.688621",
+    "checked_at": "2026-06-11T22:55:24.370666",
     "query": "site:eqs-news.com \"Franklin Resources,\" OR \"BEN\" when:14d",
     "items": []
   },
   "LDOS|Leidoss,|14|5": {
-    "checked_at": "2026-06-10T22:57:11.321880",
+    "checked_at": "2026-06-11T22:55:24.992035",
     "query": "site:eqs-news.com \"Leidoss,\" OR \"LDOS\" when:14d",
     "items": []
   },
   "PL|Planet Labs PBC|14|5": {
-    "checked_at": "2026-06-10T22:57:11.908863",
+    "checked_at": "2026-06-11T22:55:25.614749",
     "query": "site:eqs-news.com \"Planet Labs PBC\" OR \"PL\" when:14d",
     "items": []
   },
   "SMTC|Semtech|14|5": {
-    "checked_at": "2026-06-10T22:57:12.495622",
+    "checked_at": "2026-06-11T22:55:26.211453",
     "query": "site:eqs-news.com \"Semtech\" OR \"SMTC\" when:14d",
     "items": []
   },
   "LI|Li Auto|14|5": {
-    "checked_at": "2026-06-10T22:57:13.263565",
+    "checked_at": "2026-06-11T22:55:26.793015",
     "query": "site:eqs-news.com \"Li Auto\" OR \"LI\" when:14d",
     "items": []
   },
   "SANM|Sanmina|14|5": {
-    "checked_at": "2026-06-10T22:57:13.871399",
+    "checked_at": "2026-06-11T22:55:27.419961",
     "query": "site:eqs-news.com \"Sanmina\" OR \"SANM\" when:14d",
     "items": []
   },
   "LULU|lululemon athletica inc.|14|5": {
-    "checked_at": "2026-06-10T22:57:14.474584",
+    "checked_at": "2026-06-11T22:55:27.996909",
     "query": "site:eqs-news.com \"lululemon athletica inc.\" OR \"LULU\" when:14d",
     "items": []
   },
   "DECK|Deckers Outdoor|14|5": {
-    "checked_at": "2026-06-10T22:57:15.061231",
+    "checked_at": "2026-06-11T22:55:28.583862",
     "query": "site:eqs-news.com \"Deckers Outdoor\" OR \"DECK\" when:14d",
     "items": []
   },
   "HUT|Hut 8|14|5": {
-    "checked_at": "2026-06-10T22:57:15.666841",
+    "checked_at": "2026-06-11T22:55:29.189361",
     "query": "site:eqs-news.com \"Hut 8\" OR \"HUT\" when:14d",
     "items": []
   },
   "AAOI|Applied Optoelectronics,|14|5": {
-    "checked_at": "2026-06-10T22:57:16.254682",
+    "checked_at": "2026-06-11T22:55:29.778346",
     "query": "site:eqs-news.com \"Applied Optoelectronics,\" OR \"AAOI\" when:14d",
     "items": []
   },
   "TOST|Toast,|14|5": {
-    "checked_at": "2026-06-10T22:57:16.845452",
+    "checked_at": "2026-06-11T22:55:30.369075",
     "query": "site:eqs-news.com \"Toast,\" OR \"TOST\" when:14d",
     "items": []
   },
   "NIO|NIO Inc.|14|5": {
-    "checked_at": "2026-06-10T22:57:17.476552",
+    "checked_at": "2026-06-11T22:55:30.979822",
     "query": "site:eqs-news.com \"NIO Inc.\" OR \"NIO\" when:14d",
     "items": []
   },
   "NTNX|Nutanix,|14|5": {
-    "checked_at": "2026-06-10T22:57:18.078423",
+    "checked_at": "2026-06-11T22:55:31.556980",
     "query": "site:eqs-news.com \"Nutanix,\" OR \"NTNX\" when:14d",
     "items": []
   },
   "CHKP|Check Point Software Technologi|14|5": {
-    "checked_at": "2026-06-10T22:57:18.673441",
+    "checked_at": "2026-06-11T22:55:32.178866",
     "query": "site:eqs-news.com \"Check Point Software Technologi\" OR \"CHKP\" when:14d",
     "items": []
   },
   "ONTO|Onto Innovation|14|5": {
-    "checked_at": "2026-06-10T22:57:19.293548",
+    "checked_at": "2026-06-11T22:55:32.801247",
     "query": "site:eqs-news.com \"Onto Innovation\" OR \"ONTO\" when:14d",
     "items": []
   },
   "AUR|Aurora Innovation,|14|5": {
-    "checked_at": "2026-06-10T22:57:19.894741",
+    "checked_at": "2026-06-11T22:55:33.402545",
     "query": "site:eqs-news.com \"Aurora Innovation,\" OR \"AUR\" when:14d",
     "items": []
   },
   "APA|APA|14|5": {
-    "checked_at": "2026-06-10T22:57:20.523565",
+    "checked_at": "2026-06-11T22:55:34.072376",
     "query": "site:eqs-news.com \"APA\" OR \"APA\" when:14d",
     "items": []
   },
   "ARCC|Ares Capital|14|5": {
-    "checked_at": "2026-06-10T22:57:21.180478",
+    "checked_at": "2026-06-11T22:55:34.702088",
     "query": "site:eqs-news.com \"Ares Capital\" OR \"ARCC\" when:14d",
     "items": []
   },
   "DINO|HF Sinclair|14|5": {
-    "checked_at": "2026-06-10T22:57:21.801681",
+    "checked_at": "2026-06-11T22:55:35.346364",
     "query": "site:eqs-news.com \"HF Sinclair\" OR \"DINO\" when:14d",
     "items": []
   },
   "WULF|TeraWulf|14|5": {
-    "checked_at": "2026-06-10T22:57:22.390073",
+    "checked_at": "2026-06-11T22:55:35.967037",
     "query": "site:eqs-news.com \"TeraWulf\" OR \"WULF\" when:14d",
     "items": []
   },
   "VIAV|Viavi Solutions|14|5": {
-    "checked_at": "2026-06-10T22:57:22.967384",
+    "checked_at": "2026-06-11T22:55:36.546856",
     "query": "site:eqs-news.com \"Viavi Solutions\" OR \"VIAV\" when:14d",
     "items": []
   },
   "APLD|Applied Digital|14|5": {
-    "checked_at": "2026-06-10T22:57:23.551655",
+    "checked_at": "2026-06-11T22:55:37.173648",
     "query": "site:eqs-news.com \"Applied Digital\" OR \"APLD\" when:14d",
     "items": []
   },
   "U|Unity Software|14|5": {
-    "checked_at": "2026-06-10T22:57:24.127516",
+    "checked_at": "2026-06-11T22:55:37.761950",
     "query": "site:eqs-news.com \"Unity Software\" OR \"U\" when:14d",
     "items": []
   },
   "DT|Dynatrace,|14|5": {
-    "checked_at": "2026-06-10T22:57:24.693065",
+    "checked_at": "2026-06-11T22:55:38.351633",
     "query": "site:eqs-news.com \"Dynatrace,\" OR \"DT\" when:14d",
     "items": []
   },
   "TYL|Tyler Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:57:25.287524",
+    "checked_at": "2026-06-11T22:55:38.953567",
     "query": "site:eqs-news.com \"Tyler Technologies,\" OR \"TYL\" when:14d",
     "items": []
   },
   "DKNG|DraftKings|14|5": {
-    "checked_at": "2026-06-10T22:57:25.862956",
+    "checked_at": "2026-06-11T22:55:39.536867",
     "query": "site:eqs-news.com \"DraftKings\" OR \"DKNG\" when:14d",
     "items": []
   },
   "MGM|MGM Resorts International|14|5": {
-    "checked_at": "2026-06-10T22:57:26.498434",
+    "checked_at": "2026-06-11T22:55:40.145738",
     "query": "site:eqs-news.com \"MGM Resorts International\" OR \"MGM\" when:14d",
     "items": []
   },
   "SWK|Stanley Black & Decker,|14|5": {
-    "checked_at": "2026-06-10T22:57:27.122711",
+    "checked_at": "2026-06-11T22:55:40.833314",
     "query": "site:eqs-news.com \"Stanley Black & Decker,\" OR \"SWK\" when:14d",
     "items": []
   },
   "MP|MP Materials|14|5": {
-    "checked_at": "2026-06-10T22:57:27.716555",
+    "checked_at": "2026-06-11T22:55:41.430330",
     "query": "site:eqs-news.com \"MP Materials\" OR \"MP\" when:14d",
     "items": []
   },
   "IONS|Ionis Pharmaceuticals,|14|5": {
-    "checked_at": "2026-06-10T22:57:28.312787",
+    "checked_at": "2026-06-11T22:55:42.018578",
     "query": "site:eqs-news.com \"Ionis Pharmaceuticals,\" OR \"IONS\" when:14d",
     "items": []
   },
   "SWKS|Skyworks Solutions,|14|5": {
-    "checked_at": "2026-06-10T22:57:28.908612",
+    "checked_at": "2026-06-11T22:55:42.661866",
     "query": "site:eqs-news.com \"Skyworks Solutions,\" OR \"SWKS\" when:14d",
     "items": []
   },
   "MAP.MC|MAPFRE,|14|5": {
-    "checked_at": "2026-06-10T22:57:29.549485",
+    "checked_at": "2026-06-11T22:55:43.286891",
     "query": "site:eqs-news.com \"MAPFRE,\" OR \"MAP\" when:14d",
     "items": []
   },
   "HAS|Hasbro,|14|5": {
-    "checked_at": "2026-06-10T22:57:30.248959",
+    "checked_at": "2026-06-11T22:55:43.945892",
     "query": "site:eqs-news.com \"Hasbro,\" OR \"HAS\" when:14d",
     "items": []
   },
   "ZBRA|Zebra Technologies|14|5": {
-    "checked_at": "2026-06-10T22:57:30.973949",
+    "checked_at": "2026-06-11T22:55:44.541318",
     "query": "site:eqs-news.com \"Zebra Technologies\" OR \"ZBRA\" when:14d",
     "items": []
   },
   "DHER.DE|Delivery Hero N|14|5": {
-    "checked_at": "2026-06-10T22:57:31.558668",
+    "checked_at": "2026-06-11T22:55:45.137380",
     "query": "site:eqs-news.com \"Delivery Hero N\" OR \"DHER\" when:14d",
     "items": []
   },
   "AGNC|AGNC Investment|14|5": {
-    "checked_at": "2026-06-10T22:57:32.221670",
+    "checked_at": "2026-06-11T22:55:45.746225",
     "query": "site:eqs-news.com \"AGNC Investment\" OR \"AGNC\" when:14d",
     "items": []
   },
   "CACI|CACI International,|14|5": {
-    "checked_at": "2026-06-10T22:57:32.842904",
+    "checked_at": "2026-06-11T22:55:46.346206",
     "query": "site:eqs-news.com \"CACI International,\" OR \"CACI\" when:14d",
     "items": []
   },
   "PNR|Pentair.|14|5": {
-    "checked_at": "2026-06-10T22:57:33.475184",
+    "checked_at": "2026-06-11T22:55:46.975243",
     "query": "site:eqs-news.com \"Pentair.\" OR \"PNR\" when:14d",
     "items": []
   },
   "HUBS|HubSpot,|14|5": {
-    "checked_at": "2026-06-10T22:57:34.237666",
+    "checked_at": "2026-06-11T22:55:47.570084",
     "query": "site:eqs-news.com \"HubSpot,\" OR \"HUBS\" when:14d",
     "items": []
   },
   "OKLO|Oklo Inc.|14|5": {
-    "checked_at": "2026-06-10T22:57:34.826538",
+    "checked_at": "2026-06-11T22:55:48.152540",
     "query": "site:eqs-news.com \"Oklo Inc.\" OR \"OKLO\" when:14d",
     "items": []
   },
   "HII|Huntington Ingalls Industries,|14|5": {
-    "checked_at": "2026-06-10T22:57:35.415195",
+    "checked_at": "2026-06-11T22:55:48.756763",
     "query": "site:eqs-news.com \"Huntington Ingalls Industries,\" OR \"HII\" when:14d",
     "items": []
   },
   "AR|Antero Resources|14|5": {
-    "checked_at": "2026-06-10T22:57:35.988554",
+    "checked_at": "2026-06-11T22:55:49.322825",
     "query": "site:eqs-news.com \"Antero Resources\" OR \"AR\" when:14d",
     "items": []
   },
   "JOBY|Joby Aviation,|14|5": {
-    "checked_at": "2026-06-10T22:57:36.564633",
+    "checked_at": "2026-06-11T22:55:50.080247",
     "query": "site:eqs-news.com \"Joby Aviation,\" OR \"JOBY\" when:14d",
     "items": []
   },
   "GDDY|GoDaddy|14|5": {
-    "checked_at": "2026-06-10T22:57:37.138437",
+    "checked_at": "2026-06-11T22:55:50.662872",
     "query": "site:eqs-news.com \"GoDaddy\" OR \"GDDY\" when:14d",
     "items": []
   },
   "CGNX|Cognex|14|5": {
-    "checked_at": "2026-06-10T22:57:37.760235",
+    "checked_at": "2026-06-11T22:55:51.293859",
     "query": "site:eqs-news.com \"Cognex\" OR \"CGNX\" when:14d",
     "items": []
   },
   "KTOS|Kratos Defense & Security Solut|14|5": {
-    "checked_at": "2026-06-10T22:57:38.349727",
+    "checked_at": "2026-06-11T22:55:51.881678",
     "query": "site:eqs-news.com \"Kratos Defense & Security Solut\" OR \"KTOS\" when:14d",
     "items": []
   },
   "WYNN|Wynn Resorts,|14|5": {
-    "checked_at": "2026-06-10T22:57:38.963676",
+    "checked_at": "2026-06-11T22:55:52.513981",
     "query": "site:eqs-news.com \"Wynn Resorts,\" OR \"WYNN\" when:14d",
     "items": []
   },
   "STR.VI|STRABAG SE|14|5": {
-    "checked_at": "2026-06-10T22:57:39.603334",
+    "checked_at": "2026-06-11T22:55:53.139883",
     "query": "site:eqs-news.com \"STRABAG SE\" OR \"STR\" when:14d",
     "items": []
   },
   "SJM|The J.M. Smucker Company|14|5": {
-    "checked_at": "2026-06-10T22:57:40.234376",
+    "checked_at": "2026-06-11T22:55:53.769254",
     "query": "site:eqs-news.com \"The J.M. Smucker Company\" OR \"SJM\" when:14d",
     "items": []
   },
   "CIFR|Cipher Digital|14|5": {
-    "checked_at": "2026-06-10T22:57:40.845731",
+    "checked_at": "2026-06-11T22:55:54.345963",
     "query": "site:eqs-news.com \"Cipher Digital\" OR \"CIFR\" when:14d",
     "items": []
   },
   "CLX|Clorox Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:57:41.498472",
+    "checked_at": "2026-06-11T22:55:55.006973",
     "query": "site:eqs-news.com \"Clorox Company (The)\" OR \"CLX\" when:14d",
     "items": []
   },
   "GSAT|Globalstar,|14|5": {
-    "checked_at": "2026-06-10T22:57:42.086644",
+    "checked_at": "2026-06-11T22:55:55.590914",
     "query": "site:eqs-news.com \"Globalstar,\" OR \"GSAT\" when:14d",
     "items": []
   },
   "AES|The AES|14|5": {
-    "checked_at": "2026-06-10T22:57:42.893938",
+    "checked_at": "2026-06-11T22:55:56.207826",
     "query": "site:eqs-news.com \"The AES\" OR \"AES\" when:14d",
     "items": []
   },
   "SIMO|Silicon Motion Technologyo|14|5": {
-    "checked_at": "2026-06-10T22:57:43.513462",
+    "checked_at": "2026-06-11T22:55:56.804738",
     "query": "site:eqs-news.com \"Silicon Motion Technologyo\" OR \"SIMO\" when:14d",
     "items": []
   },
   "ARWR|Arrowhead Pharmaceuticals,|14|5": {
-    "checked_at": "2026-06-10T22:57:44.127298",
+    "checked_at": "2026-06-11T22:55:57.384735",
     "query": "site:eqs-news.com \"Arrowhead Pharmaceuticals,\" OR \"ARWR\" when:14d",
     "items": []
   },
   "QBTS|D-Wave Quantum|14|5": {
-    "checked_at": "2026-06-10T22:57:44.896582",
+    "checked_at": "2026-06-11T22:55:57.963535",
     "query": "site:eqs-news.com \"D-Wave Quantum\" OR \"QBTS\" when:14d",
     "items": []
   },
   "DOCU|DocuSign,|14|5": {
-    "checked_at": "2026-06-10T22:57:45.477281",
+    "checked_at": "2026-06-11T22:55:58.552628",
     "query": "site:eqs-news.com \"DocuSign,\" OR \"DOCU\" when:14d",
     "items": []
   },
   "LHA.DE|DEUTSCHE LUFTHANSA V|14|5": {
-    "checked_at": "2026-06-10T22:57:46.094932",
+    "checked_at": "2026-06-11T22:55:59.178249",
     "query": "site:eqs-news.com \"DEUTSCHE LUFTHANSA V\" OR \"LHA\" when:14d",
     "items": []
   },
   "GME|GameStop|14|5": {
-    "checked_at": "2026-06-10T22:57:46.670474",
+    "checked_at": "2026-06-11T22:55:59.944655",
     "query": "site:eqs-news.com \"GameStop\" OR \"GME\" when:14d",
     "items": []
   },
   "ALGM|Allegro MicroSystems,|14|5": {
-    "checked_at": "2026-06-10T22:57:47.268577",
+    "checked_at": "2026-06-11T22:56:00.532723",
     "query": "site:eqs-news.com \"Allegro MicroSystems,\" OR \"ALGM\" when:14d",
     "items": []
   },
   "SHA0.DE|Schaeffler N|14|5": {
-    "checked_at": "2026-06-10T22:57:47.848491",
+    "checked_at": "2026-06-11T22:56:01.177859",
     "query": "site:eqs-news.com \"Schaeffler N\" OR \"SHA0\" when:14d",
     "items": []
   },
   "FORM|FormFactor,|14|5": {
-    "checked_at": "2026-06-10T22:57:48.480549",
+    "checked_at": "2026-06-11T22:56:01.778724",
     "query": "site:eqs-news.com \"FormFactor,\" OR \"FORM\" when:14d",
     "items": []
   },
   "NDX1.DE|Nordex I|14|5": {
-    "checked_at": "2026-06-10T22:57:49.048546",
+    "checked_at": "2026-06-11T22:56:02.367836",
     "query": "site:eqs-news.com \"Nordex I\" OR \"NDX1\" when:14d",
     "items": []
   },
   "AVAV|AeroVironment,|14|5": {
-    "checked_at": "2026-06-10T22:57:49.647836",
+    "checked_at": "2026-06-11T22:56:03.131283",
     "query": "site:eqs-news.com \"AeroVironment,\" OR \"AVAV\" when:14d",
     "items": []
   },
   "CWEN|Clearway Energy,|14|5": {
-    "checked_at": "2026-06-10T22:57:50.245551",
+    "checked_at": "2026-06-11T22:56:03.746595",
     "query": "site:eqs-news.com \"Clearway Energy,\" OR \"CWEN\" when:14d",
     "items": []
   },
   "TTD|The Trade Desk,|14|5": {
-    "checked_at": "2026-06-10T22:57:50.829479",
+    "checked_at": "2026-06-11T22:56:04.313480",
     "query": "site:eqs-news.com \"The Trade Desk,\" OR \"TTD\" when:14d",
     "items": []
   },
   "VSAT|ViaSat,|14|5": {
-    "checked_at": "2026-06-10T22:57:51.412587",
+    "checked_at": "2026-06-11T22:56:04.894916",
     "query": "site:eqs-news.com \"ViaSat,\" OR \"VSAT\" when:14d",
     "items": []
   },
   "RRC|Range Resources|14|5": {
-    "checked_at": "2026-06-10T22:57:52.032221",
+    "checked_at": "2026-06-11T22:56:05.558910",
     "query": "site:eqs-news.com \"Range Resources\" OR \"RRC\" when:14d",
     "items": []
   },
   "QRVO|Qorvo,|14|5": {
-    "checked_at": "2026-06-10T22:57:52.603514",
+    "checked_at": "2026-06-11T22:56:06.134002",
     "query": "site:eqs-news.com \"Qorvo,\" OR \"QRVO\" when:14d",
     "items": []
   },
   "CORZ|Core Scientific,|14|5": {
-    "checked_at": "2026-06-10T22:57:53.179557",
+    "checked_at": "2026-06-11T22:56:06.726311",
     "query": "site:eqs-news.com \"Core Scientific,\" OR \"CORZ\" when:14d",
     "items": []
   },
   "HAG.DE|HENSOLDT I|14|5": {
-    "checked_at": "2026-06-10T22:57:53.770518",
+    "checked_at": "2026-06-11T22:56:07.309529",
     "query": "site:eqs-news.com \"HENSOLDT I\" OR \"HAG\" when:14d",
     "items": []
   },
   "ENPH|Enphase Energy,|14|5": {
-    "checked_at": "2026-06-10T22:57:54.348046",
+    "checked_at": "2026-06-11T22:56:07.889763",
     "query": "site:eqs-news.com \"Enphase Energy,\" OR \"ENPH\" when:14d",
     "items": []
   },
   "CRUS|Cirrus Logic,|14|5": {
-    "checked_at": "2026-06-10T22:57:54.925484",
+    "checked_at": "2026-06-11T22:56:08.458187",
     "query": "site:eqs-news.com \"Cirrus Logic,\" OR \"CRUS\" when:14d",
     "items": []
   },
   "MBLY|Mobileye Global|14|5": {
-    "checked_at": "2026-06-10T22:57:55.506065",
+    "checked_at": "2026-06-11T22:56:09.060372",
     "query": "site:eqs-news.com \"Mobileye Global\" OR \"MBLY\" when:14d",
     "items": []
   },
   "ARE|Alexandria Real Estate Equities|14|5": {
-    "checked_at": "2026-06-10T22:57:56.190810",
+    "checked_at": "2026-06-11T22:56:09.679708",
     "query": "site:eqs-news.com \"Alexandria Real Estate Equities\" OR \"ARE\" when:14d",
     "items": []
   },
   "TTC|Toro Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:57:56.834527",
+    "checked_at": "2026-06-11T22:56:10.323137",
     "query": "site:eqs-news.com \"Toro Company (The)\" OR \"TTC\" when:14d",
     "items": []
   },
   "TEM|Tempus AI,|14|5": {
-    "checked_at": "2026-06-10T22:57:57.446506",
+    "checked_at": "2026-06-11T22:56:10.893841",
     "query": "site:eqs-news.com \"Tempus AI,\" OR \"TEM\" when:14d",
     "items": []
   },
   "CAMT|Camtek|14|5": {
-    "checked_at": "2026-06-10T22:57:58.069514",
+    "checked_at": "2026-06-11T22:56:11.536715",
     "query": "site:eqs-news.com \"Camtek\" OR \"CAMT\" when:14d",
     "items": []
   },
   "HALO|Halozyme Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T22:57:58.679723",
+    "checked_at": "2026-06-11T22:56:12.177309",
     "query": "site:eqs-news.com \"Halozyme Therapeutics,\" OR \"HALO\" when:14d",
     "items": []
   },
   "SBSW|D/B/A Sibanye-Stillwater Limite|14|5": {
-    "checked_at": "2026-06-10T22:57:59.293547",
+    "checked_at": "2026-06-11T22:56:12.783817",
     "query": "site:eqs-news.com \"D/B/A Sibanye-Stillwater Limite\" OR \"SBSW\" when:14d",
     "items": []
   },
   "RGTI|Rigetti Computing,|14|5": {
-    "checked_at": "2026-06-10T22:57:59.876970",
+    "checked_at": "2026-06-11T22:56:13.395197",
     "query": "site:eqs-news.com \"Rigetti Computing,\" OR \"RGTI\" when:14d",
     "items": []
   },
   "HESM|Hess Midstream LP|14|5": {
-    "checked_at": "2026-06-10T22:58:00.502988",
+    "checked_at": "2026-06-11T22:56:14.200203",
     "query": "site:eqs-news.com \"Hess Midstream LP\" OR \"HESM\" when:14d",
     "items": []
   },
   "CHRD|Chord Energy|14|5": {
-    "checked_at": "2026-06-10T22:58:01.116929",
+    "checked_at": "2026-06-11T22:56:14.980926",
     "query": "site:eqs-news.com \"Chord Energy\" OR \"CHRD\" when:14d",
     "items": []
   },
   "MDA.TO|MDA SPACE LTD|14|5": {
-    "checked_at": "2026-06-10T22:58:01.693599",
+    "checked_at": "2026-06-11T22:56:15.596847",
     "query": "site:eqs-news.com \"MDA SPACE LTD\" OR \"MDA\" when:14d",
     "items": []
   },
   "PCOR|Procore Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:58:02.266434",
+    "checked_at": "2026-06-11T22:56:16.177284",
     "query": "site:eqs-news.com \"Procore Technologies,\" OR \"PCOR\" when:14d",
     "items": []
   },
   "NXE|Nexgen Energy|14|5": {
-    "checked_at": "2026-06-10T22:58:02.855834",
+    "checked_at": "2026-06-11T22:56:16.775222",
     "query": "site:eqs-news.com \"Nexgen Energy\" OR \"NXE\" when:14d",
     "items": []
   },
   "NOV|NOV Inc.|14|5": {
-    "checked_at": "2026-06-10T22:58:03.460509",
+    "checked_at": "2026-06-11T22:56:17.426673",
     "query": "site:eqs-news.com \"NOV Inc.\" OR \"NOV\" when:14d",
     "items": []
   },
   "UGI|UGI|14|5": {
-    "checked_at": "2026-06-10T22:58:04.131926",
+    "checked_at": "2026-06-11T22:56:18.086190",
     "query": "site:eqs-news.com \"UGI\" OR \"UGI\" when:14d",
     "items": []
   },
   "TKA.DE|thyssenkrupp I|14|5": {
-    "checked_at": "2026-06-10T22:58:04.768569",
+    "checked_at": "2026-06-11T22:56:18.743581",
     "query": "site:eqs-news.com \"thyssenkrupp I\" OR \"TKA\" when:14d",
     "items": []
   },
   "NVTS|Navitas Semiconductororati|14|5": {
-    "checked_at": "2026-06-10T22:58:05.359612",
+    "checked_at": "2026-06-11T22:56:19.397665",
     "query": "site:eqs-news.com \"Navitas Semiconductororati\" OR \"NVTS\" when:14d",
     "items": []
   },
   "SLAB|Silicon Laboratories,|14|5": {
-    "checked_at": "2026-06-10T22:58:05.941602",
+    "checked_at": "2026-06-11T22:56:20.011341",
     "query": "site:eqs-news.com \"Silicon Laboratories,\" OR \"SLAB\" when:14d",
     "items": []
   },
   "ABVX|Abivax SA|14|5": {
-    "checked_at": "2026-06-10T22:58:06.574523",
+    "checked_at": "2026-06-11T22:56:20.601760",
     "query": "site:eqs-news.com \"Abivax SA\" OR \"ABVX\" when:14d",
     "items": []
   },
   "NEM.DE|Nemetschek I|14|5": {
-    "checked_at": "2026-06-10T22:58:07.245634",
+    "checked_at": "2026-06-11T22:56:21.364685",
     "query": "site:eqs-news.com \"Nemetschek I\" OR \"NEM\" when:14d",
     "items": []
   },
   "GDS|GDSs|14|5": {
-    "checked_at": "2026-06-10T22:58:07.841403",
+    "checked_at": "2026-06-11T22:56:21.971939",
     "query": "site:eqs-news.com \"GDSs\" OR \"GDS\" when:14d",
     "items": []
   },
   "MTDR|Matador Resources Company|14|5": {
-    "checked_at": "2026-06-10T22:58:08.613432",
+    "checked_at": "2026-06-11T22:56:22.574434",
     "query": "site:eqs-news.com \"Matador Resources Company\" OR \"MTDR\" when:14d",
     "items": []
   },
   "UEC|Uranium Energy|14|5": {
-    "checked_at": "2026-06-10T22:58:09.182514",
+    "checked_at": "2026-06-11T22:56:23.146556",
     "query": "site:eqs-news.com \"Uranium Energy\" OR \"UEC\" when:14d",
     "items": []
   },
   "A2A.MI|A2A|14|5": {
-    "checked_at": "2026-06-10T22:58:09.839517",
+    "checked_at": "2026-06-11T22:56:23.755525",
     "query": "site:eqs-news.com \"A2A\" OR \"A2A\" when:14d",
     "items": []
   },
   "ACLX|Arcellx,|14|5": {
-    "checked_at": "2026-06-10T22:58:10.439520",
+    "checked_at": "2026-06-11T22:56:24.373950",
     "query": "site:eqs-news.com \"Arcellx,\" OR \"ACLX\" when:14d",
     "items": []
   },
   "ESTC|Elastic|14|5": {
-    "checked_at": "2026-06-10T22:58:11.019540",
+    "checked_at": "2026-06-11T22:56:24.996777",
     "query": "site:eqs-news.com \"Elastic\" OR \"ESTC\" when:14d",
     "items": []
   },
   "DBX|Dropbox,|14|5": {
-    "checked_at": "2026-06-10T22:58:11.618409",
+    "checked_at": "2026-06-11T22:56:25.613456",
     "query": "site:eqs-news.com \"Dropbox,\" OR \"DBX\" when:14d",
     "items": []
   },
   "PAYC|Paycom Software,|14|5": {
-    "checked_at": "2026-06-10T22:58:12.216238",
+    "checked_at": "2026-06-11T22:56:26.414704",
     "query": "site:eqs-news.com \"Paycom Software,\" OR \"PAYC\" when:14d",
     "items": []
   },
   "KLAR|Klarna Group|14|5": {
-    "checked_at": "2026-06-10T22:58:12.806144",
+    "checked_at": "2026-06-11T22:56:27.022472",
     "query": "site:eqs-news.com \"Klarna Group\" OR \"KLAR\" when:14d",
     "items": []
   },
   "VAL|Valaris|14|5": {
-    "checked_at": "2026-06-10T22:58:13.389430",
+    "checked_at": "2026-06-11T22:56:27.613307",
     "query": "site:eqs-news.com \"Valaris\" OR \"VAL\" when:14d",
     "items": []
   },
   "HIMS|Hims & Hers Health,|14|5": {
-    "checked_at": "2026-06-10T22:58:13.973367",
+    "checked_at": "2026-06-11T22:56:28.217322",
     "query": "site:eqs-news.com \"Hims & Hers Health,\" OR \"HIMS\" when:14d",
     "items": []
   },
   "BZ|KANZHUN LIMITED - American Depo|14|5": {
-    "checked_at": "2026-06-10T22:58:14.577487",
+    "checked_at": "2026-06-11T22:56:28.822143",
     "query": "site:eqs-news.com \"KANZHUN LIMITED - American Depo\" OR \"BZ\" when:14d",
     "items": []
   },
   "ETSY|Etsy, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:58:15.176932",
+    "checked_at": "2026-06-11T22:56:29.395788",
     "query": "site:eqs-news.com \"Etsy, Inc.\" OR \"ETSY\" when:14d",
     "items": []
   },
   "NEL.OL|NEL|14|5": {
-    "checked_at": "2026-06-10T22:58:15.778430",
+    "checked_at": "2026-06-11T22:56:29.980819",
     "query": "site:eqs-news.com \"NEL\" OR \"NEL\" when:14d",
     "items": []
   },
   "CPB|The Campbell's Company|14|5": {
-    "checked_at": "2026-06-10T22:58:16.439417",
+    "checked_at": "2026-06-11T22:56:30.659834",
     "query": "site:eqs-news.com \"The Campbell's Company\" OR \"CPB\" when:14d",
     "items": []
   },
   "PATH|UiPath,|14|5": {
-    "checked_at": "2026-06-10T22:58:17.036491",
+    "checked_at": "2026-06-11T22:56:31.266209",
     "query": "site:eqs-news.com \"UiPath,\" OR \"PATH\" when:14d",
     "items": []
   },
   "PCTY|Paylocity|14|5": {
-    "checked_at": "2026-06-10T22:58:17.637546",
+    "checked_at": "2026-06-11T22:56:31.874217",
     "query": "site:eqs-news.com \"Paylocity\" OR \"PCTY\" when:14d",
     "items": []
   },
   "ZAL.DE|Zalando I|14|5": {
-    "checked_at": "2026-06-10T22:58:18.237552",
+    "checked_at": "2026-06-11T22:56:32.476246",
     "query": "site:eqs-news.com \"Zalando I\" OR \"ZAL\" when:14d",
     "items": []
   },
   "BB|BlackBerry|14|5": {
-    "checked_at": "2026-06-10T22:58:18.855473",
+    "checked_at": "2026-06-11T22:56:33.058928",
     "query": "site:eqs-news.com \"BlackBerry\" OR \"BB\" when:14d",
     "items": []
   },
   "NOVT|Novanta|14|5": {
-    "checked_at": "2026-06-10T22:58:19.431103",
+    "checked_at": "2026-06-11T22:56:33.673385",
     "query": "site:eqs-news.com \"Novanta\" OR \"NOVT\" when:14d",
     "items": []
   },
   "APPF|AppFolio,|14|5": {
-    "checked_at": "2026-06-10T22:58:20.034229",
+    "checked_at": "2026-06-11T22:56:34.288973",
     "query": "site:eqs-news.com \"AppFolio,\" OR \"APPF\" when:14d",
     "items": []
   },
   "ZETA|Zeta Globals|14|5": {
-    "checked_at": "2026-06-10T22:58:20.647457",
+    "checked_at": "2026-06-11T22:56:34.879827",
     "query": "site:eqs-news.com \"Zeta Globals\" OR \"ZETA\" when:14d",
     "items": []
   },
   "ONDS|Ondas Inc|14|5": {
-    "checked_at": "2026-06-10T22:58:21.256133",
+    "checked_at": "2026-06-11T22:56:35.460632",
     "query": "site:eqs-news.com \"Ondas Inc\" OR \"ONDS\" when:14d",
     "items": []
   },
   "ABVX.PA|ABIVAX|14|5": {
-    "checked_at": "2026-06-10T22:58:21.850556",
+    "checked_at": "2026-06-11T22:56:36.058802",
     "query": "site:eqs-news.com \"ABIVAX\" OR \"ABVX\" when:14d",
     "items": []
   },
   "KLIC|Kulicke and Soffa Industries, I|14|5": {
-    "checked_at": "2026-06-10T22:58:22.474513",
+    "checked_at": "2026-06-11T22:56:36.658713",
     "query": "site:eqs-news.com \"Kulicke and Soffa Industries, I\" OR \"KLIC\" when:14d",
     "items": []
   },
   "ALM|Almonty Industries|14|5": {
-    "checked_at": "2026-06-10T22:58:23.070490",
+    "checked_at": "2026-06-11T22:56:37.436106",
     "query": "site:eqs-news.com \"Almonty Industries\" OR \"ALM\" when:14d",
     "items": []
   },
   "SYNA|Synapticsorporated|14|5": {
-    "checked_at": "2026-06-10T22:58:23.671444",
+    "checked_at": "2026-06-11T22:56:38.018151",
     "query": "site:eqs-news.com \"Synapticsorporated\" OR \"SYNA\" when:14d",
     "items": []
   },
   "S|SentinelOne,|14|5": {
-    "checked_at": "2026-06-10T22:58:24.257645",
+    "checked_at": "2026-06-11T22:56:38.604792",
     "query": "site:eqs-news.com \"SentinelOne,\" OR \"S\" when:14d",
     "items": []
   },
   "LUNR|Intuitive Machines,|14|5": {
-    "checked_at": "2026-06-10T22:58:24.855487",
+    "checked_at": "2026-06-11T22:56:39.222419",
     "query": "site:eqs-news.com \"Intuitive Machines,\" OR \"LUNR\" when:14d",
     "items": []
   },
   "QS|QuantumScape|14|5": {
-    "checked_at": "2026-06-10T22:58:25.482825",
+    "checked_at": "2026-06-11T22:56:39.823864",
     "query": "site:eqs-news.com \"QuantumScape\" OR \"QS\" when:14d",
     "items": []
   },
   "DIOD|Diodesorporated|14|5": {
-    "checked_at": "2026-06-10T22:58:26.055368",
+    "checked_at": "2026-06-11T22:56:40.409579",
     "query": "site:eqs-news.com \"Diodesorporated\" OR \"DIOD\" when:14d",
     "items": []
   },
   "EVD.DE|CTS Eventim & Co. KGaA I|14|5": {
-    "checked_at": "2026-06-10T22:58:26.702835",
+    "checked_at": "2026-06-11T22:56:41.037751",
     "query": "site:eqs-news.com \"CTS Eventim & Co. KGaA I\" OR \"EVD\" when:14d",
     "items": []
   },
   "WCH.DE|Wacker Chemie I|14|5": {
-    "checked_at": "2026-06-10T22:58:27.335968",
+    "checked_at": "2026-06-11T22:56:41.919478",
     "query": "site:eqs-news.com \"Wacker Chemie I\" OR \"WCH\" when:14d",
     "items": []
   },
   "GTLB|GitLab|14|5": {
-    "checked_at": "2026-06-10T22:58:27.941457",
+    "checked_at": "2026-06-11T22:56:42.500680",
     "query": "site:eqs-news.com \"GitLab\" OR \"GTLB\" when:14d",
     "items": []
   },
   "IRDM|Iridium Communications|14|5": {
-    "checked_at": "2026-06-10T22:58:28.547527",
+    "checked_at": "2026-06-11T22:56:43.082434",
     "query": "site:eqs-news.com \"Iridium Communications\" OR \"IRDM\" when:14d",
     "items": []
   },
   "IPGP|IPG Photonics|14|5": {
-    "checked_at": "2026-06-10T22:58:29.148513",
+    "checked_at": "2026-06-11T22:56:43.677383",
     "query": "site:eqs-news.com \"IPG Photonics\" OR \"IPGP\" when:14d",
     "items": []
   },
   "PLUG|Plug Power,|14|5": {
-    "checked_at": "2026-06-10T22:58:29.752442",
+    "checked_at": "2026-06-11T22:56:44.285080",
     "query": "site:eqs-news.com \"Plug Power,\" OR \"PLUG\" when:14d",
     "items": []
   },
   "R3NK.DE|RENK Group I|14|5": {
-    "checked_at": "2026-06-10T22:58:30.345790",
+    "checked_at": "2026-06-11T22:56:44.898840",
     "query": "site:eqs-news.com \"RENK Group I\" OR \"R3NK\" when:14d",
     "items": []
   },
   "WEX|WEX Inc.|14|5": {
-    "checked_at": "2026-06-10T22:58:30.952606",
+    "checked_at": "2026-06-11T22:56:45.513209",
     "query": "site:eqs-news.com \"WEX Inc.\" OR \"WEX\" when:14d",
     "items": []
   },
   "PBF|PBF Energy|14|5": {
-    "checked_at": "2026-06-10T22:58:31.547519",
+    "checked_at": "2026-06-11T22:56:46.105347",
     "query": "site:eqs-news.com \"PBF Energy\" OR \"PBF\" when:14d",
     "items": []
   },
   "CRSP|CRISPR Therapeutics|14|5": {
-    "checked_at": "2026-06-10T22:58:32.160549",
+    "checked_at": "2026-06-11T22:56:46.707271",
     "query": "site:eqs-news.com \"CRISPR Therapeutics\" OR \"CRSP\" when:14d",
     "items": []
   },
   "DUOL|Duolingo,|14|5": {
-    "checked_at": "2026-06-10T22:58:32.929733",
+    "checked_at": "2026-06-11T22:56:47.304728",
     "query": "site:eqs-news.com \"Duolingo,\" OR \"DUOL\" when:14d",
     "items": []
   },
   "ACHR|Archer Aviation|14|5": {
-    "checked_at": "2026-06-10T22:58:33.546530",
+    "checked_at": "2026-06-11T22:56:47.895800",
     "query": "site:eqs-news.com \"Archer Aviation\" OR \"ACHR\" when:14d",
     "items": []
   },
   "ACLS|Axcelis Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:58:34.138408",
+    "checked_at": "2026-06-11T22:56:48.482378",
     "query": "site:eqs-news.com \"Axcelis Technologies,\" OR \"ACLS\" when:14d",
     "items": []
   },
   "SAIC|Science Applications Internatio|14|5": {
-    "checked_at": "2026-06-10T22:58:34.771916",
+    "checked_at": "2026-06-11T22:56:49.091763",
     "query": "site:eqs-news.com \"Science Applications Internatio\" OR \"SAIC\" when:14d",
     "items": []
   },
   "TKMS.DE|TKMS & Co. KGaA I|14|5": {
-    "checked_at": "2026-06-10T22:58:35.366841",
+    "checked_at": "2026-06-11T22:56:49.687744",
     "query": "site:eqs-news.com \"TKMS & Co. KGaA I\" OR \"TKMS\" when:14d",
     "items": []
   },
   "BTDR|Bitdeer Technologies Group|14|5": {
-    "checked_at": "2026-06-10T22:58:36.007487",
+    "checked_at": "2026-06-11T22:56:50.300782",
     "query": "site:eqs-news.com \"Bitdeer Technologies Group\" OR \"BTDR\" when:14d",
     "items": []
   },
   "CNX|CNX Resources|14|5": {
-    "checked_at": "2026-06-10T22:58:36.638041",
+    "checked_at": "2026-06-11T22:56:50.921846",
     "query": "site:eqs-news.com \"CNX Resources\" OR \"CNX\" when:14d",
     "items": []
   },
   "POWI|Power Integrations,|14|5": {
-    "checked_at": "2026-06-10T22:58:37.241538",
+    "checked_at": "2026-06-11T22:56:51.562418",
     "query": "site:eqs-news.com \"Power Integrations,\" OR \"POWI\" when:14d",
     "items": []
   },
   "OPEN|Opendoor Technologies|14|5": {
-    "checked_at": "2026-06-10T22:58:37.845596",
+    "checked_at": "2026-06-11T22:56:52.159931",
     "query": "site:eqs-news.com \"Opendoor Technologies\" OR \"OPEN\" when:14d",
     "items": []
   },
   "FLNC|Fluence Energy,|14|5": {
-    "checked_at": "2026-06-10T22:58:38.433866",
+    "checked_at": "2026-06-11T22:56:52.739866",
     "query": "site:eqs-news.com \"Fluence Energy,\" OR \"FLNC\" when:14d",
     "items": []
   },
   "PTEN|Patterson-UTI Energy,|14|5": {
-    "checked_at": "2026-06-10T22:58:39.061010",
+    "checked_at": "2026-06-11T22:56:53.405666",
     "query": "site:eqs-news.com \"Patterson-UTI Energy,\" OR \"PTEN\" when:14d",
     "items": []
   },
   "TWST|Twist Bioscience|14|5": {
-    "checked_at": "2026-06-10T22:58:39.641476",
+    "checked_at": "2026-06-11T22:56:53.976758",
     "query": "site:eqs-news.com \"Twist Bioscience\" OR \"TWST\" when:14d",
     "items": []
   },
   "SEDG|SolarEdge Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:58:40.214459",
+    "checked_at": "2026-06-11T22:56:54.584055",
     "query": "site:eqs-news.com \"SolarEdge Technologies,\" OR \"SEDG\" when:14d",
     "items": []
   },
   "UUUU|Energy Fuels|14|5": {
-    "checked_at": "2026-06-10T22:58:40.795893",
+    "checked_at": "2026-06-11T22:56:55.197048",
     "query": "site:eqs-news.com \"Energy Fuels\" OR \"UUUU\" when:14d",
     "items": []
   },
   "PONY|Pony AI|14|5": {
-    "checked_at": "2026-06-10T22:58:41.406092",
+    "checked_at": "2026-06-11T22:56:55.772911",
     "query": "site:eqs-news.com \"Pony AI\" OR \"PONY\" when:14d",
     "items": []
   },
   "MIR|Mirion Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:58:42.019062",
+    "checked_at": "2026-06-11T22:56:56.358462",
     "query": "site:eqs-news.com \"Mirion Technologies,\" OR \"MIR\" when:14d",
     "items": []
   },
   "MNDY|monday.com|14|5": {
-    "checked_at": "2026-06-10T22:58:42.606092",
+    "checked_at": "2026-06-11T22:56:56.957233",
     "query": "site:eqs-news.com \"monday.com\" OR \"MNDY\" when:14d",
     "items": []
   },
   "AIR|AAR Corp.|14|5": {
-    "checked_at": "2026-06-10T22:58:43.242104",
+    "checked_at": "2026-06-11T22:56:57.569959",
     "query": "site:eqs-news.com \"AAR Corp.\" OR \"AIR\" when:14d",
     "items": []
   },
   "OLED|Universal Display|14|5": {
-    "checked_at": "2026-06-10T22:58:43.833035",
+    "checked_at": "2026-06-11T22:56:58.208782",
     "query": "site:eqs-news.com \"Universal Display\" OR \"OLED\" when:14d",
     "items": []
   },
   "SMR|NuScale Power|14|5": {
-    "checked_at": "2026-06-10T22:58:44.411224",
+    "checked_at": "2026-06-11T22:56:58.801561",
     "query": "site:eqs-news.com \"NuScale Power\" OR \"SMR\" when:14d",
     "items": []
   },
   "HIMX|Himax Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:58:45.040443",
+    "checked_at": "2026-06-11T22:56:59.416801",
     "query": "site:eqs-news.com \"Himax Technologies,\" OR \"HIMX\" when:14d",
     "items": []
   },
   "TVTX|Travere Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T22:58:45.647560",
+    "checked_at": "2026-06-11T22:57:00.035160",
     "query": "site:eqs-news.com \"Travere Therapeutics,\" OR \"TVTX\" when:14d",
     "items": []
   },
   "PI|Impinj,|14|5": {
-    "checked_at": "2026-06-10T22:58:46.233262",
+    "checked_at": "2026-06-11T22:57:00.623636",
     "query": "site:eqs-news.com \"Impinj,\" OR \"PI\" when:14d",
     "items": []
   },
   "UCTT|Ultra Cleans,|14|5": {
-    "checked_at": "2026-06-10T22:58:46.826806",
+    "checked_at": "2026-06-11T22:57:01.223054",
     "query": "site:eqs-news.com \"Ultra Cleans,\" OR \"UCTT\" when:14d",
     "items": []
   },
   "FR.PA|VALEO|14|5": {
-    "checked_at": "2026-06-10T22:58:47.468756",
+    "checked_at": "2026-06-11T22:57:01.855211",
     "query": "site:eqs-news.com \"VALEO\" OR \"FR\" when:14d",
     "items": []
   },
   "IOS.DE|IONOS Group N|14|5": {
-    "checked_at": "2026-06-10T22:58:48.107104",
+    "checked_at": "2026-06-11T22:57:02.463251",
     "query": "site:eqs-news.com \"IONOS Group N\" OR \"IOS\" when:14d",
     "items": []
   },
   "FOUR|Shift4 Payments,|14|5": {
-    "checked_at": "2026-06-10T22:58:48.685698",
+    "checked_at": "2026-06-11T22:57:03.072962",
     "query": "site:eqs-news.com \"Shift4 Payments,\" OR \"FOUR\" when:14d",
     "items": []
   },
   "VRNS|Varonis Systems,|14|5": {
-    "checked_at": "2026-06-10T22:58:49.268897",
+    "checked_at": "2026-06-11T22:57:03.659823",
     "query": "site:eqs-news.com \"Varonis Systems,\" OR \"VRNS\" when:14d",
     "items": []
   },
   "QLYS|Qualys,|14|5": {
-    "checked_at": "2026-06-10T22:58:49.848042",
+    "checked_at": "2026-06-11T22:57:04.414087",
     "query": "site:eqs-news.com \"Qualys,\" OR \"QLYS\" when:14d",
     "items": []
   },
   "ATS.TO|ATS CORPORATION|14|5": {
-    "checked_at": "2026-06-10T22:58:50.431514",
+    "checked_at": "2026-06-11T22:57:05.000560",
     "query": "site:eqs-news.com \"ATS CORPORATION\" OR \"ATS\" when:14d",
     "items": []
   },
   "PUM.DE|PUMA I|14|5": {
-    "checked_at": "2026-06-10T22:58:51.067860",
+    "checked_at": "2026-06-11T22:57:05.641781",
     "query": "site:eqs-news.com \"PUMA I\" OR \"PUM\" when:14d",
     "items": []
   },
   "HP|Helmerich & Payne,|14|5": {
-    "checked_at": "2026-06-10T22:58:51.694912",
+    "checked_at": "2026-06-11T22:57:06.332951",
     "query": "site:eqs-news.com \"Helmerich & Payne,\" OR \"HP\" when:14d",
     "items": []
   },
   "ETL.PA|EUTELSAT COMMUNIC.|14|5": {
-    "checked_at": "2026-06-10T22:58:52.296562",
+    "checked_at": "2026-06-11T22:57:06.949621",
     "query": "site:eqs-news.com \"EUTELSAT COMMUNIC.\" OR \"ETL\" when:14d",
     "items": []
   },
   "KC|Kingsoft Clouds|14|5": {
-    "checked_at": "2026-06-10T22:58:52.872587",
+    "checked_at": "2026-06-11T22:57:07.540885",
     "query": "site:eqs-news.com \"Kingsoft Clouds\" OR \"KC\" when:14d",
     "items": []
   },
   "RDW|Redwire|14|5": {
-    "checked_at": "2026-06-10T22:58:53.447152",
+    "checked_at": "2026-06-11T22:57:08.172000",
     "query": "site:eqs-news.com \"Redwire\" OR \"RDW\" when:14d",
     "items": []
   },
   "BOX|Box, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:58:54.075544",
+    "checked_at": "2026-06-11T22:57:08.786741",
     "query": "site:eqs-news.com \"Box, Inc.\" OR \"BOX\" when:14d",
     "items": []
   },
   "VECO|Veeco Instruments|14|5": {
-    "checked_at": "2026-06-10T22:58:54.660105",
+    "checked_at": "2026-06-11T22:57:09.383008",
     "query": "site:eqs-news.com \"Veeco Instruments\" OR \"VECO\" when:14d",
     "items": []
   },
   "RNG|Ringcentral,|14|5": {
-    "checked_at": "2026-06-10T22:58:55.258625",
+    "checked_at": "2026-06-11T22:57:10.007300",
     "query": "site:eqs-news.com \"Ringcentral,\" OR \"RNG\" when:14d",
     "items": []
   },
   "TDW|Tidewater|14|5": {
-    "checked_at": "2026-06-10T22:58:55.879169",
+    "checked_at": "2026-06-11T22:57:10.623848",
     "query": "site:eqs-news.com \"Tidewater\" OR \"TDW\" when:14d",
     "items": []
   },
   "BTU|Peabody Energy|14|5": {
-    "checked_at": "2026-06-10T22:58:56.464957",
+    "checked_at": "2026-06-11T22:57:11.210933",
     "query": "site:eqs-news.com \"Peabody Energy\" OR \"BTU\" when:14d",
     "items": []
   },
   "AEHR|Aehr Test Systems|14|5": {
-    "checked_at": "2026-06-10T22:58:57.064289",
+    "checked_at": "2026-06-11T22:57:11.830455",
     "query": "site:eqs-news.com \"Aehr Test Systems\" OR \"AEHR\" when:14d",
     "items": []
   },
   "LEU|Centrus Energy|14|5": {
-    "checked_at": "2026-06-10T22:58:57.664407",
+    "checked_at": "2026-06-11T22:57:12.445554",
     "query": "site:eqs-news.com \"Centrus Energy\" OR \"LEU\" when:14d",
     "items": []
   },
   "SZG.DE|SALZGITTER I|14|5": {
-    "checked_at": "2026-06-10T22:58:58.279452",
+    "checked_at": "2026-06-11T22:57:13.146592",
     "query": "site:eqs-news.com \"SALZGITTER I\" OR \"SZG\" when:14d",
     "items": []
   },
   "RUN|Sunrun|14|5": {
-    "checked_at": "2026-06-10T22:58:59.063500",
+    "checked_at": "2026-06-11T22:57:13.747124",
     "query": "site:eqs-news.com \"Sunrun\" OR \"RUN\" when:14d",
     "items": []
   },
   "CLBT|Cellebrite DI|14|5": {
-    "checked_at": "2026-06-10T22:58:59.647557",
+    "checked_at": "2026-06-11T22:57:14.347034",
     "query": "site:eqs-news.com \"Cellebrite DI\" OR \"CLBT\" when:14d",
     "items": []
   },
   "BILL|BILLs,|14|5": {
-    "checked_at": "2026-06-10T22:59:00.229561",
+    "checked_at": "2026-06-11T22:57:14.926765",
     "query": "site:eqs-news.com \"BILLs,\" OR \"BILL\" when:14d",
     "items": []
   },
   "SOUN|SoundHound AI,|14|5": {
-    "checked_at": "2026-06-10T22:59:00.838610",
+    "checked_at": "2026-06-11T22:57:15.498527",
     "query": "site:eqs-news.com \"SoundHound AI,\" OR \"SOUN\" when:14d",
     "items": []
   },
   "ILU.AX|ILUKA RES FPO [ILU]|14|5": {
-    "checked_at": "2026-06-10T22:59:01.494403",
+    "checked_at": "2026-06-11T22:57:16.156932",
     "query": "site:eqs-news.com \"ILUKA RES FPO [ILU]\" OR \"ILU\" when:14d",
     "items": []
   },
   "SLG|SL Green Realty|14|5": {
-    "checked_at": "2026-06-10T22:59:02.124408",
+    "checked_at": "2026-06-11T22:57:16.810105",
     "query": "site:eqs-news.com \"SL Green Realty\" OR \"SLG\" when:14d",
     "items": []
   },
   "VKTX|Viking Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T22:59:02.709711",
+    "checked_at": "2026-06-11T22:57:17.607029",
     "query": "site:eqs-news.com \"Viking Therapeutics,\" OR \"VKTX\" when:14d",
     "items": []
   },
   "KNTK|Kinetiks|14|5": {
-    "checked_at": "2026-06-10T22:59:03.338697",
+    "checked_at": "2026-06-11T22:57:18.210392",
     "query": "site:eqs-news.com \"Kinetiks\" OR \"KNTK\" when:14d",
     "items": []
   },
   "DLO|DLocal|14|5": {
-    "checked_at": "2026-06-10T22:59:03.973806",
+    "checked_at": "2026-06-11T22:57:18.802269",
     "query": "site:eqs-news.com \"DLocal\" OR \"DLO\" when:14d",
     "items": []
   },
   "TDC|Teradata|14|5": {
-    "checked_at": "2026-06-10T22:59:04.578464",
+    "checked_at": "2026-06-11T22:57:19.441795",
     "query": "site:eqs-news.com \"Teradata\" OR \"TDC\" when:14d",
     "items": []
   },
   "TENB|Tenables,|14|5": {
-    "checked_at": "2026-06-10T22:59:05.149508",
+    "checked_at": "2026-06-11T22:57:20.024437",
     "query": "site:eqs-news.com \"Tenables,\" OR \"TENB\" when:14d",
     "items": []
   },
   "FSLY|Fastly,|14|5": {
-    "checked_at": "2026-06-10T22:59:05.731481",
+    "checked_at": "2026-06-11T22:57:20.633403",
     "query": "site:eqs-news.com \"Fastly,\" OR \"FSLY\" when:14d",
     "items": []
   },
   "AMBA|Ambarella,|14|5": {
-    "checked_at": "2026-06-10T22:59:06.306616",
+    "checked_at": "2026-06-11T22:57:21.221486",
     "query": "site:eqs-news.com \"Ambarella,\" OR \"AMBA\" when:14d",
     "items": []
   },
   "DAVE|Dave Inc.|14|5": {
-    "checked_at": "2026-06-10T22:59:06.912419",
+    "checked_at": "2026-06-11T22:57:21.841945",
     "query": "site:eqs-news.com \"Dave Inc.\" OR \"DAVE\" when:14d",
     "items": []
   },
   "IAC|IAC Inc.|14|5": {
-    "checked_at": "2026-06-10T22:59:07.521377",
+    "checked_at": "2026-06-11T22:57:22.413517",
     "query": "site:eqs-news.com \"IAC Inc.\" OR \"IAC\" when:14d",
     "items": []
   },
   "DNN|Denison Mines|14|5": {
-    "checked_at": "2026-06-10T22:59:08.095206",
+    "checked_at": "2026-06-11T22:57:23.013351",
     "query": "site:eqs-news.com \"Denison Mines\" OR \"DNN\" when:14d",
     "items": []
   },
   "AMPX|Amprius Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:59:08.669443",
+    "checked_at": "2026-06-11T22:57:23.613666",
     "query": "site:eqs-news.com \"Amprius Technologies,\" OR \"AMPX\" when:14d",
     "items": []
   },
   "MP1.AX|MEGAPORT FPO [MP1]|14|5": {
-    "checked_at": "2026-06-10T22:59:09.251497",
+    "checked_at": "2026-06-11T22:57:24.235199",
     "query": "site:eqs-news.com \"MEGAPORT FPO [MP1]\" OR \"MP1\" when:14d",
     "items": []
   },
   "BEAM|Beam Therapeutics|14|5": {
-    "checked_at": "2026-06-10T22:59:09.845525",
+    "checked_at": "2026-06-11T22:57:24.803810",
     "query": "site:eqs-news.com \"Beam Therapeutics\" OR \"BEAM\" when:14d",
     "items": []
   },
   "WOLF|Wolfspeed,|14|5": {
-    "checked_at": "2026-06-10T22:59:10.490950",
+    "checked_at": "2026-06-11T22:57:25.388054",
     "query": "site:eqs-news.com \"Wolfspeed,\" OR \"WOLF\" when:14d",
     "items": []
   },
   "FNTN.DE|freenet N|14|5": {
-    "checked_at": "2026-06-10T22:59:11.129539",
+    "checked_at": "2026-06-11T22:57:25.995551",
     "query": "site:eqs-news.com \"freenet N\" OR \"FNTN\" when:14d",
     "items": []
   },
   "UPST|Upstarts,|14|5": {
-    "checked_at": "2026-06-10T22:59:11.736509",
+    "checked_at": "2026-06-11T22:57:26.589704",
     "query": "site:eqs-news.com \"Upstarts,\" OR \"UPST\" when:14d",
     "items": []
   },
   "QTWO|Q2s,|14|5": {
-    "checked_at": "2026-06-10T22:59:12.344673",
+    "checked_at": "2026-06-11T22:57:27.210279",
     "query": "site:eqs-news.com \"Q2s,\" OR \"QTWO\" when:14d",
     "items": []
   },
   "DRO.AX|DRONE FPO [DRO]|14|5": {
-    "checked_at": "2026-06-10T22:59:12.921161",
+    "checked_at": "2026-06-11T22:57:27.787513",
     "query": "site:eqs-news.com \"DRONE FPO [DRO]\" OR \"DRO\" when:14d",
     "items": []
   },
   "OUST|Ouster,|14|5": {
-    "checked_at": "2026-06-10T22:59:13.514771",
+    "checked_at": "2026-06-11T22:57:28.385718",
     "query": "site:eqs-news.com \"Ouster,\" OR \"OUST\" when:14d",
     "items": []
   },
   "WK|Workiva|14|5": {
-    "checked_at": "2026-06-10T22:59:14.115070",
+    "checked_at": "2026-06-11T22:57:28.973329",
     "query": "site:eqs-news.com \"Workiva\" OR \"WK\" when:14d",
     "items": []
   },
   "EOSE|Eos Energy Enterprises,|14|5": {
-    "checked_at": "2026-06-10T22:59:14.701161",
+    "checked_at": "2026-06-11T22:57:29.601790",
     "query": "site:eqs-news.com \"Eos Energy Enterprises,\" OR \"EOSE\" when:14d",
     "items": []
   },
   "AMR|Alpha Metallurgical Resources,|14|5": {
-    "checked_at": "2026-06-10T22:59:15.296494",
+    "checked_at": "2026-06-11T22:57:30.193845",
     "query": "site:eqs-news.com \"Alpha Metallurgical Resources,\" OR \"AMR\" when:14d",
     "items": []
   },
   "PAY|Paymentuss,|14|5": {
-    "checked_at": "2026-06-10T22:59:15.908425",
+    "checked_at": "2026-06-11T22:57:30.785256",
     "query": "site:eqs-news.com \"Paymentuss,\" OR \"PAY\" when:14d",
     "items": []
   },
   "POET|POET Technologies|14|5": {
-    "checked_at": "2026-06-10T22:59:16.499446",
+    "checked_at": "2026-06-11T22:57:31.376313",
     "query": "site:eqs-news.com \"POET Technologies\" OR \"POET\" when:14d",
     "items": []
   },
   "BRZE|Braze,|14|5": {
-    "checked_at": "2026-06-10T22:59:17.287038",
+    "checked_at": "2026-06-11T22:57:31.988128",
     "query": "site:eqs-news.com \"Braze,\" OR \"BRZE\" when:14d",
     "items": []
   },
   "COHU|Cohu, Inc.|14|5": {
-    "checked_at": "2026-06-10T22:59:17.895523",
+    "checked_at": "2026-06-11T22:57:32.798322",
     "query": "site:eqs-news.com \"Cohu, Inc.\" OR \"COHU\" when:14d",
     "items": []
   },
   "FRSH|Freshworks|14|5": {
-    "checked_at": "2026-06-10T22:59:18.471381",
+    "checked_at": "2026-06-11T22:57:33.409817",
     "query": "site:eqs-news.com \"Freshworks\" OR \"FRSH\" when:14d",
     "items": []
   },
   "APAM|Artisan Partners Asset Manageme|14|5": {
-    "checked_at": "2026-06-10T22:59:19.068691",
+    "checked_at": "2026-06-11T22:57:34.025299",
     "query": "site:eqs-news.com \"Artisan Partners Asset Manageme\" OR \"APAM\" when:14d",
     "items": []
   },
   "STNE|StoneCo|14|5": {
-    "checked_at": "2026-06-10T22:59:19.646400",
+    "checked_at": "2026-06-11T22:57:34.641826",
     "query": "site:eqs-news.com \"StoneCo\" OR \"STNE\" when:14d",
     "items": []
   },
   "DFTX|Definium Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T22:59:20.224499",
+    "checked_at": "2026-06-11T22:57:35.229877",
     "query": "site:eqs-news.com \"Definium Therapeutics,\" OR \"DFTX\" when:14d",
     "items": []
   },
   "VBK.DE|Verbio I|14|5": {
-    "checked_at": "2026-06-10T22:59:20.836192",
+    "checked_at": "2026-06-11T22:57:35.842370",
     "query": "site:eqs-news.com \"Verbio I\" OR \"VBK\" when:14d",
     "items": []
   },
   "TARS|Tarsus Pharmaceuticals,|14|5": {
-    "checked_at": "2026-06-10T22:59:21.410715",
+    "checked_at": "2026-06-11T22:57:36.428611",
     "query": "site:eqs-news.com \"Tarsus Pharmaceuticals,\" OR \"TARS\" when:14d",
     "items": []
   },
   "QUBT|Quantum Computing|14|5": {
-    "checked_at": "2026-06-10T22:59:21.977311",
+    "checked_at": "2026-06-11T22:57:37.031784",
     "query": "site:eqs-news.com \"Quantum Computing\" OR \"QUBT\" when:14d",
     "items": []
   },
   "CALX|Calix, Inc|14|5": {
-    "checked_at": "2026-06-10T22:59:22.576069",
+    "checked_at": "2026-06-11T22:57:37.611023",
     "query": "site:eqs-news.com \"Calix, Inc\" OR \"CALX\" when:14d",
     "items": []
   },
   "PAGS|PagSeguro Digital|14|5": {
-    "checked_at": "2026-06-10T22:59:23.180342",
+    "checked_at": "2026-06-11T22:57:38.210340",
     "query": "site:eqs-news.com \"PagSeguro Digital\" OR \"PAGS\" when:14d",
     "items": []
   },
   "JUN3.DE|JUNGHEINRICH I|14|5": {
-    "checked_at": "2026-06-10T22:59:23.786204",
+    "checked_at": "2026-06-11T22:57:38.876805",
     "query": "site:eqs-news.com \"JUNGHEINRICH I\" OR \"JUN3\" when:14d",
     "items": []
   },
   "HG.CN|HydrographCP|14|5": {
-    "checked_at": "2026-06-10T22:59:24.359541",
+    "checked_at": "2026-06-11T22:57:39.498737",
     "query": "site:eqs-news.com \"HydrographCP\" OR \"HG\" when:14d",
     "items": []
   },
   "NOG|Northern Oil and Gas,|14|5": {
-    "checked_at": "2026-06-10T22:59:24.948449",
+    "checked_at": "2026-06-11T22:57:40.109973",
     "query": "site:eqs-news.com \"Northern Oil and Gas,\" OR \"NOG\" when:14d",
     "items": []
   },
   "PNG.V|KRAKEN ROBOTICS INC|14|5": {
-    "checked_at": "2026-06-10T22:59:25.517441",
+    "checked_at": "2026-06-11T22:57:40.688072",
     "query": "site:eqs-news.com \"KRAKEN ROBOTICS INC\" OR \"PNG\" when:14d",
     "items": []
   },
   "BBAI|BigBear.ai,|14|5": {
-    "checked_at": "2026-06-10T22:59:26.077250",
+    "checked_at": "2026-06-11T22:57:41.294946",
     "query": "site:eqs-news.com \"BigBear.ai,\" OR \"BBAI\" when:14d",
     "items": []
   },
   "WIX|Wix.com|14|5": {
-    "checked_at": "2026-06-10T22:59:26.662781",
+    "checked_at": "2026-06-11T22:57:41.898002",
     "query": "site:eqs-news.com \"Wix.com\" OR \"WIX\" when:14d",
     "items": []
   },
   "CSGS|CSG Systems International,|14|5": {
-    "checked_at": "2026-06-10T22:59:27.265957",
+    "checked_at": "2026-06-11T22:57:42.504801",
     "query": "site:eqs-news.com \"CSG Systems International,\" OR \"CSGS\" when:14d",
     "items": []
   },
   "ATEN|A10 Networks,|14|5": {
-    "checked_at": "2026-06-10T22:59:27.842816",
+    "checked_at": "2026-06-11T22:57:43.096756",
     "query": "site:eqs-news.com \"A10 Networks,\" OR \"ATEN\" when:14d",
     "items": []
   },
   "RAMP|LiveRamps,|14|5": {
-    "checked_at": "2026-06-10T22:59:28.426574",
+    "checked_at": "2026-06-11T22:57:43.673248",
     "query": "site:eqs-news.com \"LiveRamps,\" OR \"RAMP\" when:14d",
     "items": []
   },
   "ESTA|Establishment Labss|14|5": {
-    "checked_at": "2026-06-10T22:59:29.009585",
+    "checked_at": "2026-06-11T22:57:44.244499",
     "query": "site:eqs-news.com \"Establishment Labss\" OR \"ESTA\" when:14d",
     "items": []
   },
   "ARR|ARMOUR Residential REIT,|14|5": {
-    "checked_at": "2026-06-10T22:59:29.613764",
+    "checked_at": "2026-06-11T22:57:44.835462",
     "query": "site:eqs-news.com \"ARMOUR Residential REIT,\" OR \"ARR\" when:14d",
     "items": []
   },
   "RCAT|Red Cats,|14|5": {
-    "checked_at": "2026-06-10T22:59:30.196274",
+    "checked_at": "2026-06-11T22:57:45.407498",
     "query": "site:eqs-news.com \"Red Cats,\" OR \"RCAT\" when:14d",
     "items": []
   },
   "SHLS|Shoals Technologies Group,|14|5": {
-    "checked_at": "2026-06-10T22:59:30.761154",
+    "checked_at": "2026-06-11T22:57:46.023235",
     "query": "site:eqs-news.com \"Shoals Technologies Group,\" OR \"SHLS\" when:14d",
     "items": []
   },
   "MGNI|Magnite,|14|5": {
-    "checked_at": "2026-06-10T22:59:31.324281",
+    "checked_at": "2026-06-11T22:57:46.612812",
     "query": "site:eqs-news.com \"Magnite,\" OR \"MGNI\" when:14d",
     "items": []
   },
   "SPSC|SPS Commerce,|14|5": {
-    "checked_at": "2026-06-10T22:59:31.925397",
+    "checked_at": "2026-06-11T22:57:47.214371",
     "query": "site:eqs-news.com \"SPS Commerce,\" OR \"SPSC\" when:14d",
     "items": []
   },
   "GNL|Global Net Lease,|14|5": {
-    "checked_at": "2026-06-10T22:59:32.528507",
+    "checked_at": "2026-06-11T22:57:47.819477",
     "query": "site:eqs-news.com \"Global Net Lease,\" OR \"GNL\" when:14d",
     "items": []
   },
   "ASAN|Asana,|14|5": {
-    "checked_at": "2026-06-10T22:59:33.130192",
+    "checked_at": "2026-06-11T22:57:48.403837",
     "query": "site:eqs-news.com \"Asana,\" OR \"ASAN\" when:14d",
     "items": []
   },
   "RXRX|Recursion Pharmaceuticals,|14|5": {
-    "checked_at": "2026-06-10T22:59:33.709407",
+    "checked_at": "2026-06-11T22:57:48.987785",
     "query": "site:eqs-news.com \"Recursion Pharmaceuticals,\" OR \"RXRX\" when:14d",
     "items": []
   },
   "VET|Vermilion Energy|14|5": {
-    "checked_at": "2026-06-10T22:59:34.348024",
+    "checked_at": "2026-06-11T22:57:49.625400",
     "query": "site:eqs-news.com \"Vermilion Energy\" OR \"VET\" when:14d",
     "items": []
   },
   "LAC|Lithium Americas|14|5": {
-    "checked_at": "2026-06-10T22:59:34.921538",
+    "checked_at": "2026-06-11T22:57:50.237052",
     "query": "site:eqs-news.com \"Lithium Americas\" OR \"LAC\" when:14d",
     "items": []
   },
   "NTLA|Intellia Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T22:59:35.500788",
+    "checked_at": "2026-06-11T22:57:50.816275",
     "query": "site:eqs-news.com \"Intellia Therapeutics,\" OR \"NTLA\" when:14d",
     "items": []
   },
   "SEMR|SEMrushs,|14|5": {
-    "checked_at": "2026-06-10T22:59:36.073491",
+    "checked_at": "2026-06-11T22:57:51.419103",
     "query": "site:eqs-news.com \"SEMrushs,\" OR \"SEMR\" when:14d",
     "items": []
   },
   "ENVX|Enovix|14|5": {
-    "checked_at": "2026-06-10T22:59:36.662775",
+    "checked_at": "2026-06-11T22:57:52.029612",
     "query": "site:eqs-news.com \"Enovix\" OR \"ENVX\" when:14d",
     "items": []
   },
   "ZYME|Zymeworks|14|5": {
-    "checked_at": "2026-06-10T22:59:37.228475",
+    "checked_at": "2026-06-11T22:57:52.646361",
     "query": "site:eqs-news.com \"Zymeworks\" OR \"ZYME\" when:14d",
     "items": []
   },
   "APPN|Appian|14|5": {
-    "checked_at": "2026-06-10T22:59:37.809832",
+    "checked_at": "2026-06-11T22:57:53.254700",
     "query": "site:eqs-news.com \"Appian\" OR \"APPN\" when:14d",
     "items": []
   },
   "ABCL|AbCellera Biologics|14|5": {
-    "checked_at": "2026-06-10T22:59:38.416638",
+    "checked_at": "2026-06-11T22:57:53.875917",
     "query": "site:eqs-news.com \"AbCellera Biologics\" OR \"ABCL\" when:14d",
     "items": []
   },
   "KSS|Kohl's|14|5": {
-    "checked_at": "2026-06-10T22:59:39.033649",
+    "checked_at": "2026-06-11T22:57:54.515009",
     "query": "site:eqs-news.com \"Kohl's\" OR \"KSS\" when:14d",
     "items": []
   },
   "NCNO|nCino,|14|5": {
-    "checked_at": "2026-06-10T22:59:39.607236",
+    "checked_at": "2026-06-11T22:57:55.123537",
     "query": "site:eqs-news.com \"nCino,\" OR \"NCNO\" when:14d",
     "items": []
   },
   "IAS|Integral Ad Science Cor|14|5": {
-    "checked_at": "2026-06-10T22:59:40.201830",
+    "checked_at": "2026-06-11T22:57:55.881672",
     "query": "site:eqs-news.com \"Integral Ad Science Cor\" OR \"IAS\" when:14d",
     "items": []
   },
   "GLOB|Globant|14|5": {
-    "checked_at": "2026-06-10T22:59:40.797380",
+    "checked_at": "2026-06-11T22:57:56.493439",
     "query": "site:eqs-news.com \"Globant\" OR \"GLOB\" when:14d",
     "items": []
   },
   "PAYO|Payoneer Global|14|5": {
-    "checked_at": "2026-06-10T22:59:41.404326",
+    "checked_at": "2026-06-11T22:57:57.062139",
     "query": "site:eqs-news.com \"Payoneer Global\" OR \"PAYO\" when:14d",
     "items": []
   },
   "IOVA|Iovance Biotherapeutics,|14|5": {
-    "checked_at": "2026-06-10T22:59:42.009981",
+    "checked_at": "2026-06-11T22:57:57.658090",
     "query": "site:eqs-news.com \"Iovance Biotherapeutics,\" OR \"IOVA\" when:14d",
     "items": []
   },
   "MQ|Marqeta,|14|5": {
-    "checked_at": "2026-06-10T22:59:42.617691",
+    "checked_at": "2026-06-11T22:57:58.266936",
     "query": "site:eqs-news.com \"Marqeta,\" OR \"MQ\" when:14d",
     "items": []
   },
   "AEVA|Aeva Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:59:43.202059",
+    "checked_at": "2026-06-11T22:57:58.849133",
     "query": "site:eqs-news.com \"Aeva Technologies,\" OR \"AEVA\" when:14d",
     "items": []
   },
   "HLIT|Harmonic|14|5": {
-    "checked_at": "2026-06-10T22:59:43.774959",
+    "checked_at": "2026-06-11T22:57:59.458303",
     "query": "site:eqs-news.com \"Harmonic\" OR \"HLIT\" when:14d",
     "items": []
   },
   "AI|C3.ai,|14|5": {
-    "checked_at": "2026-06-10T22:59:44.358844",
+    "checked_at": "2026-06-11T22:58:00.243023",
     "query": "site:eqs-news.com \"C3.ai,\" OR \"AI\" when:14d",
     "items": []
   },
   "DEQ.DE|DEUTSCHE EUROSHOP N|14|5": {
-    "checked_at": "2026-06-10T22:59:44.969534",
+    "checked_at": "2026-06-11T22:58:00.870141",
     "query": "site:eqs-news.com \"DEUTSCHE EUROSHOP N\" OR \"DEQ\" when:14d",
     "items": []
   },
   "AMG.AS|AMG Critical Materials|14|5": {
-    "checked_at": "2026-06-10T22:59:45.582657",
+    "checked_at": "2026-06-11T22:58:01.481765",
     "query": "site:eqs-news.com \"AMG Critical Materials\" OR \"AMG\" when:14d",
     "items": []
   },
   "KSB3.DE|KSB & Co. KGaA I|14|5": {
-    "checked_at": "2026-06-10T22:59:46.200959",
+    "checked_at": "2026-06-11T22:58:02.093470",
     "query": "site:eqs-news.com \"KSB & Co. KGaA I\" OR \"KSB3\" when:14d",
     "items": []
   },
   "BKSY|BlackSky Technology|14|5": {
-    "checked_at": "2026-06-10T22:59:46.794378",
+    "checked_at": "2026-06-11T22:58:02.667197",
     "query": "site:eqs-news.com \"BlackSky Technology\" OR \"BKSY\" when:14d",
     "items": []
   },
   "AMC|AMC Entertainments,|14|5": {
-    "checked_at": "2026-06-10T22:59:47.409542",
+    "checked_at": "2026-06-11T22:58:03.260384",
     "query": "site:eqs-news.com \"AMC Entertainments,\" OR \"AMC\" when:14d",
     "items": []
   },
   "UMAC|Unusual Machines,|14|5": {
-    "checked_at": "2026-06-10T22:59:48.002367",
+    "checked_at": "2026-06-11T22:58:03.862085",
     "query": "site:eqs-news.com \"Unusual Machines,\" OR \"UMAC\" when:14d",
     "items": []
   },
   "NNE|Nano Nuclear Energy|14|5": {
-    "checked_at": "2026-06-10T22:59:48.578675",
+    "checked_at": "2026-06-11T22:58:04.445746",
     "query": "site:eqs-news.com \"Nano Nuclear Energy\" OR \"NNE\" when:14d",
     "items": []
   },
   "CXM|Sprinklr,|14|5": {
-    "checked_at": "2026-06-10T22:59:49.158395",
+    "checked_at": "2026-06-11T22:58:05.020229",
     "query": "site:eqs-news.com \"Sprinklr,\" OR \"CXM\" when:14d",
     "items": []
   },
   "ARRY|Array Technologies,|14|5": {
-    "checked_at": "2026-06-10T22:59:49.760360",
+    "checked_at": "2026-06-11T22:58:05.628588",
     "query": "site:eqs-news.com \"Array Technologies,\" OR \"ARRY\" when:14d",
     "items": []
   },
   "ORC|Orchid Island Capital,|14|5": {
-    "checked_at": "2026-06-10T22:59:50.392551",
+    "checked_at": "2026-06-11T22:58:06.241814",
     "query": "site:eqs-news.com \"Orchid Island Capital,\" OR \"ORC\" when:14d",
     "items": []
   },
   "WEN|Wendy's Company (The)|14|5": {
-    "checked_at": "2026-06-10T22:59:50.996466",
+    "checked_at": "2026-06-11T22:58:06.893397",
     "query": "site:eqs-news.com \"Wendy's Company (The)\" OR \"WEN\" when:14d",
     "items": []
   },
   "BLKB|Blackbaud,|14|5": {
-    "checked_at": "2026-06-10T22:59:51.599548",
+    "checked_at": "2026-06-11T22:58:07.497645",
     "query": "site:eqs-news.com \"Blackbaud,\" OR \"BLKB\" when:14d",
     "items": []
   },
   "PFI.F|PALFINGER I|14|5": {
-    "checked_at": "2026-06-10T22:59:52.253051",
+    "checked_at": "2026-06-11T22:58:08.105148",
     "query": "site:eqs-news.com \"PALFINGER I\" OR \"PFI\" when:14d",
     "items": []
   },
   "PAL.VI|Palfinger|14|5": {
-    "checked_at": "2026-06-10T22:59:53.007557",
+    "checked_at": "2026-06-11T22:58:08.886011",
     "query": "site:eqs-news.com \"Palfinger\" OR \"PAL\" when:14d",
     "items": []
   },
   "NAK|Northern Dynasty Minerals,|14|5": {
-    "checked_at": "2026-06-10T22:59:53.602611",
+    "checked_at": "2026-06-11T22:58:09.466612",
     "query": "site:eqs-news.com \"Northern Dynasty Minerals,\" OR \"NAK\" when:14d",
     "items": []
   },
   "VOS.DE|VOSSLOH I|14|5": {
-    "checked_at": "2026-06-10T22:59:54.224759",
+    "checked_at": "2026-06-11T22:58:10.284743",
     "query": "site:eqs-news.com \"VOSSLOH I\" OR \"VOS\" when:14d",
     "items": []
   },
   "RDWR|Radware|14|5": {
-    "checked_at": "2026-06-10T22:59:54.805036",
+    "checked_at": "2026-06-11T22:58:10.888750",
     "query": "site:eqs-news.com \"Radware\" OR \"RDWR\" when:14d",
     "items": []
   },
   "GILT|Gilat Satellite Networks|14|5": {
-    "checked_at": "2026-06-10T22:59:55.388566",
+    "checked_at": "2026-06-11T22:58:11.469333",
     "query": "site:eqs-news.com \"Gilat Satellite Networks\" OR \"GILT\" when:14d",
     "items": []
   },
   "SATL|Satellogic|14|5": {
-    "checked_at": "2026-06-10T22:59:55.973452",
+    "checked_at": "2026-06-11T22:58:12.095902",
     "query": "site:eqs-news.com \"Satellogic\" OR \"SATL\" when:14d",
     "items": []
   },
   "PGY|Pagaya Technologies|14|5": {
-    "checked_at": "2026-06-10T22:59:56.557449",
+    "checked_at": "2026-06-11T22:58:12.696447",
     "query": "site:eqs-news.com \"Pagaya Technologies\" OR \"PGY\" when:14d",
     "items": []
   },
   "VH2.DE|Friedrich Vorwerk Group I|14|5": {
-    "checked_at": "2026-06-10T22:59:57.177522",
+    "checked_at": "2026-06-11T22:58:13.310635",
     "query": "site:eqs-news.com \"Friedrich Vorwerk Group I\" OR \"VH2\" when:14d",
     "items": []
   },
   "SDGR|Schrodinger,|14|5": {
-    "checked_at": "2026-06-10T22:59:57.808647",
+    "checked_at": "2026-06-11T22:58:13.906887",
     "query": "site:eqs-news.com \"Schrodinger,\" OR \"SDGR\" when:14d",
     "items": []
   },
   "HIVE|HIVE Digital Technologies|14|5": {
-    "checked_at": "2026-06-10T22:59:58.419922",
+    "checked_at": "2026-06-11T22:58:14.506588",
     "query": "site:eqs-news.com \"HIVE Digital Technologies\" OR \"HIVE\" when:14d",
     "items": []
   },
   "AZTA|Azenta,|14|5": {
-    "checked_at": "2026-06-10T22:59:59.018058",
+    "checked_at": "2026-06-11T22:58:15.097986",
     "query": "site:eqs-news.com \"Azenta,\" OR \"AZTA\" when:14d",
     "items": []
   },
   "EVEX|Eve,|14|5": {
-    "checked_at": "2026-06-10T22:59:59.840059",
+    "checked_at": "2026-06-11T22:58:15.680243",
     "query": "site:eqs-news.com \"Eve,\" OR \"EVEX\" when:14d",
     "items": []
   },
   "UPWK|Upwork|14|5": {
-    "checked_at": "2026-06-10T23:00:00.474399",
+    "checked_at": "2026-06-11T22:58:16.293733",
     "query": "site:eqs-news.com \"Upwork\" OR \"UPWK\" when:14d",
     "items": []
   },
   "NRGV|Energy Vaults,|14|5": {
-    "checked_at": "2026-06-10T23:00:01.067827",
+    "checked_at": "2026-06-11T22:58:16.889791",
     "query": "site:eqs-news.com \"Energy Vaults,\" OR \"NRGV\" when:14d",
     "items": []
   },
   "QNC.V|QUANTUM EMOTION CORP|14|5": {
-    "checked_at": "2026-06-10T23:00:01.656321",
+    "checked_at": "2026-06-11T22:58:17.496331",
     "query": "site:eqs-news.com \"QUANTUM EMOTION CORP\" OR \"QNC\" when:14d",
     "items": []
   },
   "HIVE.V|HIVE DIGITAL TECHNOLOGIES LTD|14|5": {
-    "checked_at": "2026-06-10T23:00:02.247652",
+    "checked_at": "2026-06-11T22:58:18.091405",
     "query": "site:eqs-news.com \"HIVE DIGITAL TECHNOLOGIES LTD\" OR \"HIVE\" when:14d",
     "items": []
   },
   "INDI|indie Semiconductor,|14|5": {
-    "checked_at": "2026-06-10T23:00:02.852541",
+    "checked_at": "2026-06-11T22:58:18.667890",
     "query": "site:eqs-news.com \"indie Semiconductor,\" OR \"INDI\" when:14d",
     "items": []
   },
   "SLI|Standard Lithium|14|5": {
-    "checked_at": "2026-06-10T23:00:03.443483",
+    "checked_at": "2026-06-11T22:58:19.262897",
     "query": "site:eqs-news.com \"Standard Lithium\" OR \"SLI\" when:14d",
     "items": []
   },
   "GDRX|GoodRxs,|14|5": {
-    "checked_at": "2026-06-10T23:00:04.038371",
+    "checked_at": "2026-06-11T22:58:19.864358",
     "query": "site:eqs-news.com \"GoodRxs,\" OR \"GDRX\" when:14d",
     "items": []
   },
   "KRI.AT|KRI-KRI|14|5": {
-    "checked_at": "2026-06-10T23:00:04.657204",
+    "checked_at": "2026-06-11T22:58:20.508771",
     "query": "site:eqs-news.com \"KRI-KRI\" OR \"KRI\" when:14d",
     "items": []
   },
   "GXI.DE|Gerresheimer I|14|5": {
-    "checked_at": "2026-06-10T23:00:05.322242",
+    "checked_at": "2026-06-11T22:58:21.116330",
     "query": "site:eqs-news.com \"Gerresheimer I\" OR \"GXI\" when:14d",
     "items": []
   },
   "LAES|SEALSQ|14|5": {
-    "checked_at": "2026-06-10T23:00:05.929869",
+    "checked_at": "2026-06-11T22:58:21.710306",
     "query": "site:eqs-news.com \"SEALSQ\" OR \"LAES\" when:14d",
     "items": []
   },
   "KURA|Kura Oncology,|14|5": {
-    "checked_at": "2026-06-10T23:00:06.556540",
+    "checked_at": "2026-06-11T22:58:22.297642",
     "query": "site:eqs-news.com \"Kura Oncology,\" OR \"KURA\" when:14d",
     "items": []
   },
   "URG|Ur Energy|14|5": {
-    "checked_at": "2026-06-10T23:00:07.172996",
+    "checked_at": "2026-06-11T22:58:22.883715",
     "query": "site:eqs-news.com \"Ur Energy\" OR \"URG\" when:14d",
     "items": []
   },
   "SLDP|Solid Power,|14|5": {
-    "checked_at": "2026-06-10T23:00:07.765971",
+    "checked_at": "2026-06-11T22:58:23.490283",
     "query": "site:eqs-news.com \"Solid Power,\" OR \"SLDP\" when:14d",
     "items": []
   },
   "EH|EHangs|14|5": {
-    "checked_at": "2026-06-10T23:00:08.507002",
+    "checked_at": "2026-06-11T22:58:24.107223",
     "query": "site:eqs-news.com \"EHangs\" OR \"EH\" when:14d",
     "items": []
   },
   "SPIR|Spire Global,|14|5": {
-    "checked_at": "2026-06-10T23:00:09.108842",
+    "checked_at": "2026-06-11T22:58:24.703275",
     "query": "site:eqs-news.com \"Spire Global,\" OR \"SPIR\" when:14d",
     "items": []
   },
   "IVR|INVESCO MORTGAGE CAPITAL INC|14|5": {
-    "checked_at": "2026-06-10T23:00:09.709602",
+    "checked_at": "2026-06-11T22:58:25.310735",
     "query": "site:eqs-news.com \"INVESCO MORTGAGE CAPITAL INC\" OR \"IVR\" when:14d",
     "items": []
   },
   "SERV|Serve Robotics|14|5": {
-    "checked_at": "2026-06-10T23:00:10.304808",
+    "checked_at": "2026-06-11T22:58:25.875749",
     "query": "site:eqs-news.com \"Serve Robotics\" OR \"SERV\" when:14d",
     "items": []
   },
   "ZVRA|Zevra Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T23:00:10.923449",
+    "checked_at": "2026-06-11T22:58:26.458534",
     "query": "site:eqs-news.com \"Zevra Therapeutics,\" OR \"ZVRA\" when:14d",
     "items": []
   },
   "CRMD|CorMedix|14|5": {
-    "checked_at": "2026-06-10T23:00:11.534624",
+    "checked_at": "2026-06-11T22:58:27.032405",
     "query": "site:eqs-news.com \"CorMedix\" OR \"CRMD\" when:14d",
     "items": []
   },
   "TLRY|Tilray Brands,|14|5": {
-    "checked_at": "2026-06-10T23:00:12.158903",
+    "checked_at": "2026-06-11T22:58:27.658984",
     "query": "site:eqs-news.com \"Tilray Brands,\" OR \"TLRY\" when:14d",
     "items": []
   },
   "RR|Richtech Robotics|14|5": {
-    "checked_at": "2026-06-10T23:00:12.796178",
+    "checked_at": "2026-06-11T22:58:28.256940",
     "query": "site:eqs-news.com \"Richtech Robotics\" OR \"RR\" when:14d",
     "items": []
   },
   "DNA|Ginkgo Bioworkss,|14|5": {
-    "checked_at": "2026-06-10T23:00:13.399538",
+    "checked_at": "2026-06-11T22:58:28.856269",
     "query": "site:eqs-news.com \"Ginkgo Bioworkss,\" OR \"DNA\" when:14d",
     "items": []
   },
   "DNUT|Krispy Kreme,|14|5": {
-    "checked_at": "2026-06-10T23:00:14.029676",
+    "checked_at": "2026-06-11T22:58:29.458038",
     "query": "site:eqs-news.com \"Krispy Kreme,\" OR \"DNUT\" when:14d",
     "items": []
   },
   "UROY|Uranium Royalty|14|5": {
-    "checked_at": "2026-06-10T23:00:14.612059",
+    "checked_at": "2026-06-11T22:58:30.033238",
     "query": "site:eqs-news.com \"Uranium Royalty\" OR \"UROY\" when:14d",
     "items": []
   },
   "PUBM|PubMatic,|14|5": {
-    "checked_at": "2026-06-10T23:00:15.187382",
+    "checked_at": "2026-06-11T22:58:30.607427",
     "query": "site:eqs-news.com \"PubMatic,\" OR \"PUBM\" when:14d",
     "items": []
   },
   "DR0.DE|Deutsche Rohstoff N|14|5": {
-    "checked_at": "2026-06-10T23:00:15.888596",
+    "checked_at": "2026-06-11T22:58:31.218716",
     "query": "site:eqs-news.com \"Deutsche Rohstoff N\" OR \"DR0\" when:14d",
     "items": []
   },
   "RPD|Rapid7,|14|5": {
-    "checked_at": "2026-06-10T23:00:16.474026",
+    "checked_at": "2026-06-11T22:58:31.820427",
     "query": "site:eqs-news.com \"Rapid7,\" OR \"RPD\" when:14d",
     "items": []
   },
   "ABAT|American Battery Technology Com|14|5": {
-    "checked_at": "2026-06-10T23:00:17.061363",
+    "checked_at": "2026-06-11T22:58:32.434813",
     "query": "site:eqs-news.com \"American Battery Technology Com\" OR \"ABAT\" when:14d",
     "items": []
   },
   "SES|SES AI|14|5": {
-    "checked_at": "2026-06-10T23:00:17.632955",
+    "checked_at": "2026-06-11T22:58:33.026709",
     "query": "site:eqs-news.com \"SES AI\" OR \"SES\" when:14d",
     "items": []
   },
   "PACB|Pacific Biosciences of Californ|14|5": {
-    "checked_at": "2026-06-10T23:00:18.225508",
+    "checked_at": "2026-06-11T22:58:33.606514",
     "query": "site:eqs-news.com \"Pacific Biosciences of Californ\" OR \"PACB\" when:14d",
     "items": []
   },
   "MVST|Microvasts,|14|5": {
-    "checked_at": "2026-06-10T23:00:18.839316",
+    "checked_at": "2026-06-11T22:58:34.177239",
     "query": "site:eqs-news.com \"Microvasts,\" OR \"MVST\" when:14d",
     "items": []
   },
   "VLA.PA|VALNEVA SE|14|5": {
-    "checked_at": "2026-06-10T23:00:19.416475",
+    "checked_at": "2026-06-11T22:58:34.785863",
     "query": "site:eqs-news.com \"VALNEVA SE\" OR \"VLA\" when:14d",
     "items": []
   },
   "SPCE|Virgin Galactics,|14|5": {
-    "checked_at": "2026-06-10T23:00:20.061946",
+    "checked_at": "2026-06-11T22:58:35.364063",
     "query": "site:eqs-news.com \"Virgin Galactics,\" OR \"SPCE\" when:14d",
     "items": []
   },
   "OCGN|Ocugen,|14|5": {
-    "checked_at": "2026-06-10T23:00:20.656385",
+    "checked_at": "2026-06-11T22:58:36.029060",
     "query": "site:eqs-news.com \"Ocugen,\" OR \"OCGN\" when:14d",
     "items": []
   },
   "SPT|Sprout Social,|14|5": {
-    "checked_at": "2026-06-10T23:00:21.263405",
+    "checked_at": "2026-06-11T22:58:36.624169",
     "query": "site:eqs-news.com \"Sprout Social,\" OR \"SPT\" when:14d",
     "items": []
   },
   "GLAD|Gladstone Capital|14|5": {
-    "checked_at": "2026-06-10T23:00:21.889969",
+    "checked_at": "2026-06-11T22:58:37.264408",
     "query": "site:eqs-news.com \"Gladstone Capital\" OR \"GLAD\" when:14d",
     "items": []
   },
   "EDIT|Editas Medicine,|14|5": {
-    "checked_at": "2026-06-10T23:00:22.506456",
+    "checked_at": "2026-06-11T22:58:37.874882",
     "query": "site:eqs-news.com \"Editas Medicine,\" OR \"EDIT\" when:14d",
     "items": []
   },
   "DBAN.DE|Deutsche Beteiligungs N|14|5": {
-    "checked_at": "2026-06-10T23:00:23.185762",
+    "checked_at": "2026-06-11T22:58:38.536204",
     "query": "site:eqs-news.com \"Deutsche Beteiligungs N\" OR \"DBAN\" when:14d",
     "items": []
   },
   "MNPR|Monopar Therapeutics|14|5": {
-    "checked_at": "2026-06-10T23:00:23.779949",
+    "checked_at": "2026-06-11T22:58:39.142210",
     "query": "site:eqs-news.com \"Monopar Therapeutics\" OR \"MNPR\" when:14d",
     "items": []
   },
   "F3C.DE|SFC Energy I|14|5": {
-    "checked_at": "2026-06-10T23:00:24.363327",
+    "checked_at": "2026-06-11T22:58:39.739754",
     "query": "site:eqs-news.com \"SFC Energy I\" OR \"F3C\" when:14d",
     "items": []
   },
   "PDYN|Palladyne AI|14|5": {
-    "checked_at": "2026-06-10T23:00:24.944487",
+    "checked_at": "2026-06-11T22:58:40.348568",
     "query": "site:eqs-news.com \"Palladyne AI\" OR \"PDYN\" when:14d",
     "items": []
   },
   "FVRR|Fiverr International|14|5": {
-    "checked_at": "2026-06-10T23:00:25.522214",
+    "checked_at": "2026-06-11T22:58:40.937140",
     "query": "site:eqs-news.com \"Fiverr International\" OR \"FVRR\" when:14d",
     "items": []
   },
   "LTBR|Lightbridge|14|5": {
-    "checked_at": "2026-06-10T23:00:26.098453",
+    "checked_at": "2026-06-11T22:58:41.539601",
     "query": "site:eqs-news.com \"Lightbridge\" OR \"LTBR\" when:14d",
     "items": []
   },
   "SENS|Senseonicss,|14|5": {
-    "checked_at": "2026-06-10T23:00:26.871573",
+    "checked_at": "2026-06-11T22:58:42.163864",
     "query": "site:eqs-news.com \"Senseonicss,\" OR \"SENS\" when:14d",
     "items": []
   },
   "VUZI|Vuzix|14|5": {
-    "checked_at": "2026-06-10T23:00:27.458358",
+    "checked_at": "2026-06-11T22:58:42.793027",
     "query": "site:eqs-news.com \"Vuzix\" OR \"VUZI\" when:14d",
     "items": []
   },
   "LTRX|Lantronix,|14|5": {
-    "checked_at": "2026-06-10T23:00:28.087558",
+    "checked_at": "2026-06-11T22:58:43.385796",
     "query": "site:eqs-news.com \"Lantronix,\" OR \"LTRX\" when:14d",
     "items": []
   },
   "EVTL|Vertical Aerospace|14|5": {
-    "checked_at": "2026-06-10T23:00:28.704000",
+    "checked_at": "2026-06-11T22:58:43.961837",
     "query": "site:eqs-news.com \"Vertical Aerospace\" OR \"EVTL\" when:14d",
     "items": []
   },
   "EU|enCore Energy|14|5": {
-    "checked_at": "2026-06-10T23:00:29.273424",
+    "checked_at": "2026-06-11T22:58:44.543436",
     "query": "site:eqs-news.com \"enCore Energy\" OR \"EU\" when:14d",
     "items": []
   },
   "ASYS|Amtech Systems,|14|5": {
-    "checked_at": "2026-06-10T23:00:29.873378",
+    "checked_at": "2026-06-11T22:58:45.118338",
     "query": "site:eqs-news.com \"Amtech Systems,\" OR \"ASYS\" when:14d",
     "items": []
   },
   "ETG.DE|EnviTec Biogas I|14|5": {
-    "checked_at": "2026-06-10T23:00:30.490513",
+    "checked_at": "2026-06-11T22:58:45.729757",
     "query": "site:eqs-news.com \"EnviTec Biogas I\" OR \"ETG\" when:14d",
     "items": []
   },
   "EGHT|8x8 Inc|14|5": {
-    "checked_at": "2026-06-10T23:00:31.115427",
+    "checked_at": "2026-06-11T22:58:46.330064",
     "query": "site:eqs-news.com \"8x8 Inc\" OR \"EGHT\" when:14d",
     "items": []
   },
   "QSI|Quantum-Siorporated|14|5": {
-    "checked_at": "2026-06-10T23:00:31.723381",
+    "checked_at": "2026-06-11T22:58:46.917684",
     "query": "site:eqs-news.com \"Quantum-Siorporated\" OR \"QSI\" when:14d",
     "items": []
   },
   "DPRO|Draganfly|14|5": {
-    "checked_at": "2026-06-10T23:00:32.371805",
+    "checked_at": "2026-06-11T22:58:47.496130",
     "query": "site:eqs-news.com \"Draganfly\" OR \"DPRO\" when:14d",
     "items": []
   },
   "ARQQ|Arqit Quantum|14|5": {
-    "checked_at": "2026-06-10T23:00:32.963407",
+    "checked_at": "2026-06-11T22:58:48.072909",
     "query": "site:eqs-news.com \"Arqit Quantum\" OR \"ARQQ\" when:14d",
     "items": []
   },
   "BZAI|Blaizes,|14|5": {
-    "checked_at": "2026-06-10T23:00:33.561373",
+    "checked_at": "2026-06-11T22:58:48.670596",
     "query": "site:eqs-news.com \"Blaizes,\" OR \"BZAI\" when:14d",
     "items": []
   },
   "SCM|Stellus Capital Investment|14|5": {
-    "checked_at": "2026-06-10T23:00:34.172975",
+    "checked_at": "2026-06-11T22:58:49.296070",
     "query": "site:eqs-news.com \"Stellus Capital Investment\" OR \"SCM\" when:14d",
     "items": []
   },
   "CDXS|Codexis,|14|5": {
-    "checked_at": "2026-06-10T23:00:34.765118",
+    "checked_at": "2026-06-11T22:58:49.913788",
     "query": "site:eqs-news.com \"Codexis,\" OR \"CDXS\" when:14d",
     "items": []
   },
   "0660.HK|WAI CHUN BIOTEC|14|5": {
-    "checked_at": "2026-06-10T23:00:35.376595",
+    "checked_at": "2026-06-11T22:58:50.508781",
     "query": "site:eqs-news.com \"WAI CHUN BIOTEC\" OR \"0660\" when:14d",
     "items": []
   },
   "QMCO|Quantum|14|5": {
-    "checked_at": "2026-06-10T23:00:35.969606",
+    "checked_at": "2026-06-11T22:58:51.083635",
     "query": "site:eqs-news.com \"Quantum\" OR \"QMCO\" when:14d",
     "items": []
   },
   "ARCT|Arcturus Therapeuticss|14|5": {
-    "checked_at": "2026-06-10T23:00:36.549764",
+    "checked_at": "2026-06-11T22:58:51.692773",
     "query": "site:eqs-news.com \"Arcturus Therapeuticss\" OR \"ARCT\" when:14d",
     "items": []
   },
   "4X0.VI|Steyr Motors|14|5": {
-    "checked_at": "2026-06-10T23:00:37.141252",
+    "checked_at": "2026-06-11T22:58:52.276212",
     "query": "site:eqs-news.com \"Steyr Motors\" OR \"4X0\" when:14d",
     "items": []
   },
   "4X0.DE|Steyr Motors I|14|5": {
-    "checked_at": "2026-06-10T23:00:37.752221",
+    "checked_at": "2026-06-11T22:58:52.889763",
     "query": "site:eqs-news.com \"Steyr Motors I\" OR \"4X0\" when:14d",
     "items": []
   },
   "VERI|Veritone,|14|5": {
-    "checked_at": "2026-06-10T23:00:38.330854",
+    "checked_at": "2026-06-11T22:58:53.473285",
     "query": "site:eqs-news.com \"Veritone,\" OR \"VERI\" when:14d",
     "items": []
   },
   "INVZ|Innoviz Technologies|14|5": {
-    "checked_at": "2026-06-10T23:00:38.932830",
+    "checked_at": "2026-06-11T22:58:54.064689",
     "query": "site:eqs-news.com \"Innoviz Technologies\" OR \"INVZ\" when:14d",
     "items": []
   },
   "CA1.DE|Circus I|14|5": {
-    "checked_at": "2026-06-10T23:00:39.504873",
+    "checked_at": "2026-06-11T22:58:54.637067",
     "query": "site:eqs-news.com \"Circus I\" OR \"CA1\" when:14d",
     "items": []
   },
   "LI.V|AMERICAN LITHIUM CORP|14|5": {
-    "checked_at": "2026-06-10T23:00:40.082205",
+    "checked_at": "2026-06-11T22:58:55.238900",
     "query": "site:eqs-news.com \"AMERICAN LITHIUM CORP\" OR \"LI\" when:14d",
     "items": []
   },
   "ADE.DE|Bitcoin Group I|14|5": {
-    "checked_at": "2026-06-10T23:00:40.676296",
+    "checked_at": "2026-06-11T22:58:55.824628",
     "query": "site:eqs-news.com \"Bitcoin Group I\" OR \"ADE\" when:14d",
     "items": []
   },
   "93M1.DE|MPH Health Care I|14|5": {
-    "checked_at": "2026-06-10T23:00:41.270597",
+    "checked_at": "2026-06-11T22:58:56.443300",
     "query": "site:eqs-news.com \"MPH Health Care I\" OR \"93M1\" when:14d",
     "items": []
   },
   "REKR|Rekor Systems,|14|5": {
-    "checked_at": "2026-06-10T23:00:41.856571",
+    "checked_at": "2026-06-11T22:58:57.046801",
     "query": "site:eqs-news.com \"Rekor Systems,\" OR \"REKR\" when:14d",
     "items": []
   },
   "AISP|Airship AIs,|14|5": {
-    "checked_at": "2026-06-10T23:00:42.449389",
+    "checked_at": "2026-06-11T22:58:57.623976",
     "query": "site:eqs-news.com \"Airship AIs,\" OR \"AISP\" when:14d",
     "items": []
   },
   "OTLK|Outlook Therapeutics,|14|5": {
-    "checked_at": "2026-06-10T23:00:43.055559",
+    "checked_at": "2026-06-11T22:58:58.235307",
     "query": "site:eqs-news.com \"Outlook Therapeutics,\" OR \"OTLK\" when:14d",
     "items": []
   },
   "LIDR|AEye, Inc.|14|5": {
-    "checked_at": "2026-06-10T23:00:43.658457",
+    "checked_at": "2026-06-11T22:58:58.830810",
     "query": "site:eqs-news.com \"AEye, Inc.\" OR \"LIDR\" when:14d",
     "items": []
   },
   "OPTT|Ocean Power Technologies,|14|5": {
-    "checked_at": "2026-06-10T23:00:44.257048",
+    "checked_at": "2026-06-11T22:58:59.405432",
     "query": "site:eqs-news.com \"Ocean Power Technologies,\" OR \"OPTT\" when:14d",
     "items": []
   },
   "STEM|Stem, Inc.|14|5": {
-    "checked_at": "2026-06-10T23:00:44.873452",
+    "checked_at": "2026-06-11T22:58:59.999380",
     "query": "site:eqs-news.com \"Stem, Inc.\" OR \"STEM\" when:14d",
     "items": []
   },
   "MWB0.F|mwb fairtrade Wphdlsbank N|14|5": {
-    "checked_at": "2026-06-10T23:00:45.494523",
+    "checked_at": "2026-06-11T22:59:00.600200",
     "query": "site:eqs-news.com \"mwb fairtrade Wphdlsbank N\" OR \"MWB0\" when:14d",
     "items": []
   },
   "UAVS|AgEagle Aerial Systems,|14|5": {
-    "checked_at": "2026-06-10T23:00:46.086499",
+    "checked_at": "2026-06-11T22:59:01.200808",
     "query": "site:eqs-news.com \"AgEagle Aerial Systems,\" OR \"UAVS\" when:14d",
     "items": []
   },
   "VRL.DE|net digital I|14|5": {
-    "checked_at": "2026-06-10T23:00:46.732341",
+    "checked_at": "2026-06-11T22:59:01.802889",
     "query": "site:eqs-news.com \"net digital I\" OR \"VRL\" when:14d",
     "items": []
   },
   "QNTM|Quantum Biopharma|14|5": {
-    "checked_at": "2026-06-10T23:00:47.420537",
+    "checked_at": "2026-06-11T22:59:02.381952",
     "query": "site:eqs-news.com \"Quantum Biopharma\" OR \"QNTM\" when:14d",
     "items": []
   },
   "QBTQ.CN|SuperQQuaComp|14|5": {
-    "checked_at": "2026-06-10T23:00:48.045372",
+    "checked_at": "2026-06-11T22:59:02.970656",
     "query": "site:eqs-news.com \"SuperQQuaComp\" OR \"QBTQ\" when:14d",
     "items": []
   },
   "QBTQF|SUPERQ QUANTUM COMPUTING INC|14|5": {
-    "checked_at": "2026-06-10T23:00:48.653382",
+    "checked_at": "2026-06-11T22:59:03.572852",
     "query": "site:eqs-news.com \"SUPERQ QUANTUM COMPUTING INC\" OR \"QBTQF\" when:14d",
     "items": []
   },
   "DFNS|T3 Defense|14|5": {
-    "checked_at": "2026-06-10T23:00:49.264501",
+    "checked_at": "2026-06-11T22:59:04.355729",
     "query": "site:eqs-news.com \"T3 Defense\" OR \"DFNS\" when:14d",
     "items": []
   },
   "25X.F|SuperQ Quantum Computing R|14|5": {
-    "checked_at": "2026-06-10T23:00:49.847230",
+    "checked_at": "2026-06-11T22:59:04.931485",
     "query": "site:eqs-news.com \"SuperQ Quantum Computing R\" OR \"25X\" when:14d",
     "items": []
   },
@@ -4185,102 +4185,102 @@
     "items": []
   },
   "CXAI|CXApp Inc.|14|5": {
-    "checked_at": "2026-06-10T23:00:50.690337",
+    "checked_at": "2026-06-11T22:59:05.820715",
     "query": "site:eqs-news.com \"CXApp Inc.\" OR \"CXAI\" when:14d",
     "items": []
   },
   "BUG|Global X Cybersecurity ETF|14|5": {
-    "checked_at": "2026-06-10T23:00:51.279322",
+    "checked_at": "2026-06-11T22:59:06.448883",
     "query": "site:eqs-news.com \"Global X Cybersecurity ETF\" OR \"BUG\" when:14d",
     "items": []
   },
   "CIBR|First Trust NASDAQ Cybersecurit|14|5": {
-    "checked_at": "2026-06-10T23:00:51.881279",
+    "checked_at": "2026-06-11T22:59:07.048512",
     "query": "site:eqs-news.com \"First Trust NASDAQ Cybersecurit\" OR \"CIBR\" when:14d",
     "items": []
   },
   "CL2.PA|Amundi MSCI USA Daily (2x) Leve|14|5": {
-    "checked_at": "2026-06-10T23:00:52.467708",
+    "checked_at": "2026-06-11T22:59:07.623933",
     "query": "site:eqs-news.com \"Amundi MSCI USA Daily (2x) Leve\" OR \"CL2\" when:14d",
     "items": []
   },
   "CMOE.MI|INVESCO BLOOM COMMODIT UCITS ET|14|5": {
-    "checked_at": "2026-06-10T23:00:53.038221",
+    "checked_at": "2026-06-11T22:59:08.239746",
     "query": "site:eqs-news.com \"INVESCO BLOOM COMMODIT UCITS ET\" OR \"CMOE\" when:14d",
     "items": []
   },
   "DFEN.DE|VanEck ETFs-VanEck Defense ETFR|14|5": {
-    "checked_at": "2026-06-10T23:00:53.603038",
+    "checked_at": "2026-06-11T22:59:08.829290",
     "query": "site:eqs-news.com \"VanEck ETFs-VanEck Defense ETFR\" OR \"DFEN\" when:14d",
     "items": []
   },
   "DN3.F|Metaplanet R|14|5": {
-    "checked_at": "2026-06-10T23:00:54.281461",
+    "checked_at": "2026-06-11T22:59:09.469735",
     "query": "site:eqs-news.com \"Metaplanet R\" OR \"DN3\" when:14d",
     "items": []
   },
   "HACK|Amplify Cybersecurity ETF|14|5": {
-    "checked_at": "2026-06-10T23:00:54.951372",
+    "checked_at": "2026-06-11T22:59:10.151120",
     "query": "site:eqs-news.com \"Amplify Cybersecurity ETF\" OR \"HACK\" when:14d",
     "items": []
   },
   "IUIT.L|ISHARES V PUBLIC LIMITED COMPAN|14|5": {
-    "checked_at": "2026-06-10T23:00:55.529995",
+    "checked_at": "2026-06-11T22:59:10.732324",
     "query": "site:eqs-news.com \"ISHARES V PUBLIC LIMITED COMPAN\" OR \"IUIT\" when:14d",
     "items": []
   },
   "LQQ.PA|Amundi Nasdaq-100 Daily (2x) Le|14|5": {
-    "checked_at": "2026-06-10T23:00:56.095089",
+    "checked_at": "2026-06-11T22:59:11.294960",
     "query": "site:eqs-news.com \"Amundi Nasdaq-100 Daily (2x) Le\" OR \"LQQ\" when:14d",
     "items": []
   },
   "QDVE.DE|iShsV-S&P 500 Inf.Te.Sec.U.ETFR|14|5": {
-    "checked_at": "2026-06-10T23:00:56.730086",
+    "checked_at": "2026-06-11T22:59:11.917898",
     "query": "site:eqs-news.com \"iShsV-S&P 500 Inf.Te.Sec.U.ETFR\" OR \"QDVE\" when:14d",
     "items": []
   },
   "QUTM.DE|VanEck ETF-Quantum Computing R|14|5": {
-    "checked_at": "2026-06-10T23:00:57.296973",
+    "checked_at": "2026-06-11T22:59:12.509672",
     "query": "site:eqs-news.com \"VanEck ETF-Quantum Computing R\" OR \"QUTM\" when:14d",
     "items": []
   },
   "QYLD.L|GLOBAL X ETFS ICAV GLOBAL X NAS|14|5": {
-    "checked_at": "2026-06-10T23:00:57.881453",
+    "checked_at": "2026-06-11T22:59:13.099648",
     "query": "site:eqs-news.com \"GLOBAL X ETFS ICAV GLOBAL X NAS\" OR \"QYLD\" when:14d",
     "items": []
   },
   "ROBO|ROBO Global Robotics and Automa|14|5": {
-    "checked_at": "2026-06-10T23:00:58.481405",
+    "checked_at": "2026-06-11T22:59:13.684268",
     "query": "site:eqs-news.com \"ROBO Global Robotics and Automa\" OR \"ROBO\" when:14d",
     "items": []
   },
   "SCWX.DE|Scalable MSCI AC Wld XtrackersA|14|5": {
-    "checked_at": "2026-06-10T23:00:59.056583",
+    "checked_at": "2026-06-11T22:59:14.251141",
     "query": "site:eqs-news.com \"Scalable MSCI AC Wld XtrackersA\" OR \"SCWX\" when:14d",
     "items": []
   },
   "SGLN.L|ISHARES PHYSICAL METALS ISH|14|5": {
-    "checked_at": "2026-06-10T23:00:59.641464",
+    "checked_at": "2026-06-11T22:59:14.825596",
     "query": "site:eqs-news.com \"ISHARES PHYSICAL METALS ISH\" OR \"SGLN\" when:14d",
     "items": []
   },
   "SMSN.IL|SAMSUNG ELECTRONICS CO LTD (ATT|14|5": {
-    "checked_at": "2026-06-10T23:01:00.290586",
+    "checked_at": "2026-06-11T22:59:15.449035",
     "query": "site:eqs-news.com \"SAMSUNG ELECTRONICS CO LTD (ATT\" OR \"SMSN\" when:14d",
     "items": []
   },
   "SSLN.L|ISHARES PHYSICAL METALS ISH|14|5": {
-    "checked_at": "2026-06-10T23:01:00.880731",
+    "checked_at": "2026-06-11T22:59:16.017749",
     "query": "site:eqs-news.com \"ISHARES PHYSICAL METALS ISH\" OR \"SSLN\" when:14d",
     "items": []
   },
   "XAD6.DE|DB ETC E|14|5": {
-    "checked_at": "2026-06-10T23:01:01.485364",
+    "checked_at": "2026-06-11T22:59:16.590726",
     "query": "site:eqs-news.com \"DB ETC E\" OR \"XAD6\" when:14d",
     "items": []
   },
   "XMAW.DE|Xtr.(IE)-MSCI AC World Sc. R|14|5": {
-    "checked_at": "2026-06-10T23:01:02.156422",
+    "checked_at": "2026-06-11T22:59:17.164918",
     "query": "site:eqs-news.com \"Xtr.(IE)-MSCI AC World Sc. R\" OR \"XMAW\" when:14d",
     "items": []
   }
