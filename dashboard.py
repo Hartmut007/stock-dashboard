@@ -280,8 +280,8 @@ def get_supabase_client() -> Client:
     )
 
 
+@st.cache_data(ttl=60, show_spinner=False)
 def load_user_lists():
-    """Lädt gespeicherte Watchlist- und Kauflisten aus Supabase."""
 
     try:
         supabase = get_supabase_client()
@@ -377,6 +377,11 @@ def update_user_list(username, list_type, selected_tickers, stock_df):
 # CSV LADEN
 # ============================================================
 
+@st.cache_data(ttl=5 * 60, show_spinner=False)
+def _load_portfolio_csv(path):
+    return pd.read_csv(path, sep=";")
+
+
 if not os.path.exists("portfolio_analysis.csv"):
 
     st.warning(
@@ -385,13 +390,11 @@ if not os.path.exists("portfolio_analysis.csv"):
     )
 
     subprocess.run(
-        ["python", "advanced_portfolio.py"]
+        ["python", "advanced_portfolio.py"],
+        check=False
     )
 
-df = pd.read_csv(
-    "portfolio_analysis.csv",
-    sep=";"
-)
+df = _load_portfolio_csv("portfolio_analysis.csv")
 
 
 # ============================================================
@@ -685,10 +688,6 @@ for numeric_column in [
     "3M %",
     "6M %",
     "RSI",
-    "Volume Ratio",
-    "EQS News Count 14D",
-    "EQS News Score",
-    "News Momentum Score",
     "Fundamental Score"
 ]:
 
@@ -1624,15 +1623,7 @@ display_text_columns = [
     "Profit Margin",
     "Debt To Equity",
     "Free Cashflow",
-    "Operating Cashflow",
-    "EQS Latest Title",
-    "EQS Latest Date",
-    "EQS Latest Source",
-    "EQS Link",
-    "EQS Search Query",
-    "EQS Keywords",
-    "EQS Signal",
-    "News Momentum Signal"
+    "Operating Cashflow"
 ]
 
 for column in display_text_columns:
@@ -1713,18 +1704,6 @@ COLUMN_HELP_TEXTS = {
     "52W Low": "Niedrigster Kurs der letzten 52 Wochen.",
     "Turnaround Candidate": "Markierung, ob das Dashboard eine mögliche Trendwende erkennt.",
     "Bereich": "Gruppierung des Marktindikators, z. B. Markt-Kern oder Rohstoffe / Themen.",
-    "Volume Ratio": "Aktuelles Volumen im Verhältnis zum 20-Tage-Durchschnitt. Werte über 1,5 zeigen erhöhtes Marktinteresse.",
-    "EQS News Count 14D": "Anzahl gefundener EQS-News-Treffer über Google News RSS in den letzten 14 Tagen.",
-    "EQS Latest Title": "Neueste gefundene EQS-Schlagzeile zur Aktie. Treffer können je nach Google-Index verzögert oder unvollständig sein.",
-    "EQS Latest Date": "Veröffentlichungszeitpunkt des neuesten EQS-Treffers, soweit Google News ihn liefert.",
-    "EQS Latest Source": "Quelle des neuesten EQS-Treffers laut Google News RSS.",
-    "EQS Link": "Link zur gefundenen EQS-News beziehungsweise zum Google-News-Treffer.",
-    "EQS Search Query": "Verwendete Suchabfrage für die EQS-Suche über Google News RSS.",
-    "EQS News Score": "Regelbasierter Keyword-Score der gefundenen EQS-Schlagzeilen. Positive Keywords wie Auftrag, Prognose angehoben oder Finanzierung erhöhen den Score; Warnwörter senken ihn.",
-    "EQS Keywords": "Gefundene Signalwörter aus den EQS-Schlagzeilen, z. B. Auftrag, Finanzierung, Defence oder Verlustwarnung.",
-    "EQS Signal": "Textsignal aus EQS-News-Score und Trefferanzahl. Es ist ein Katalysator-Hinweis, keine Kaufempfehlung.",
-    "News Momentum Score": "Kombinierter Score aus EQS-News, Kursbewegung, Volumen, RSI und EMA20. Höher bedeutet: Bewegung plus News-Kontext ist auffällig.",
-    "News Momentum Signal": "Frühwarnsignal für mögliche News-/Momentum-Bewegungen. Es zeigt Aufmerksamkeit, nicht automatisch Kaufen.",
     "Ticker ETF": "ETF-Ticker, der bei Yahoo Finance abgefragt wird.",
     "ETF": "Name oder Ticker des ETFs.",
     "Swing Score": "ETF-Swing-Score von 0 bis 10. Höhere Werte sprechen für ein stärkeres Swing-Setup.",
@@ -1750,6 +1729,12 @@ COLUMN_HELP_TEXTS = {
     "BTC Ticker": "Bitcoin-Ticker, der über Yahoo Finance abgefragt wird, z. B. BTC-USD oder BTC-EUR.",
     "Bitcoin Score": "Regelbasierter Bitcoin-Score aus Momentum, Trend und RSI.",
     "Bitcoin Signal": "Regelbasierte Einschätzung für Bitcoin, z. B. bullisch, neutral oder schwach.",
+    "Early Signal Score": "Früh-Signal-Score von 0 bis 10. Erkennt Akkumulations- und Bodenbildungsmuster bevor der Trend sichtbar wird. Hohe Werte: 5+ = interessant, 7+ = stark.",
+    "Early Signal Label": "Textbewertung des Früh-Signals: STARKES EARLY SIGNAL, EARLY SIGNAL, MÖGLICHES SIGNAL oder kein Signal.",
+    "Early Signal Details": "Beschreibung der erkannten Früh-Signalmuster, z. B. Volumen-Akkumulation, EMA20-Squeeze, RSI-Erholung.",
+    "RVOL": "Relatives Volumen: Heutiges Volumen geteilt durch 20-Tage-Durchschnitt. Über 1,5 = erhöhtes Interesse. Unter 0,7 = ruhige Phase.",
+    "Volume Trend 10D": "Mittlere tägliche Volumenveränderung der letzten 10 Handelstage in Prozent. Positiv = zunehmendes Handelsinteresse.",
+    "Distance 52W Low %": "Abstand des aktuellen Kurses vom 52-Wochen-Tief in Prozent. Kleine Werte nahe 0 bedeuten Nähe zum Jahrestief.",
 }
 
 
@@ -3041,7 +3026,7 @@ st.markdown(
 <div class="terminal-hero">
     <div class="terminal-title">🧭 Hartmut Research Terminal</div>
     <p class="terminal-subtitle">
-        Deine zentrale Marktübersicht: Chancen, Risiken, News, Wirtschaftstermine, Dividenden, Earnings, Nutzerlisten und Lieferketten-Zusammenhänge in einem kompakten Cockpit.
+        Deine zentrale Marktübersicht: Chancen, Risiken, Dividenden, Earnings, Nutzerlisten und Lieferketten-Zusammenhänge in einem kompakten Cockpit.
     </p>
 </div>
 """,
@@ -3063,14 +3048,13 @@ st.markdown(
 # die echten Sidebar-Filter sauber überschrieben.
 df_filtered = df.copy()
 
-tab_overview, tab_news, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_economic_calendar, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
+tab_overview, tab_early, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
     "📊 Übersicht",
-    "🚨 News Radar",
+    "🚀 Früh-Signale",
     "🧠 Analyse",
     "🕸️ Netzwerk",
     "📆 Earnings",
     "📅 Dividenden",
-    "🌍 Wirtschaftskalender",
     "₿ Bitcoin",
     "📈 ETF Swingtrades",
     "⭐ Listen",
@@ -3270,6 +3254,29 @@ with tab_overview:
 
         st.markdown("---")
 
+        st.markdown("#### 🚀 Early-Signal-Kandidaten")
+        early_radar = radar_df.copy()
+        if "Early Signal Score" in early_radar.columns:
+            early_radar["Early Signal Score"] = pd.to_numeric(early_radar["Early Signal Score"], errors="coerce").fillna(0)
+            early_radar = early_radar[early_radar["Early Signal Score"] >= 3].sort_values(
+                by=["Early Signal Score"], ascending=False
+            ).head(20)
+        else:
+            early_radar = pd.DataFrame()
+
+        early_radar_cols = [c for c in [
+            "Ticker", "Company", "Early Signal Label", "Early Signal Score",
+            "Action Signal", "Score", "Risk Level", "Price"
+        ] if c in early_radar.columns]
+
+        if early_radar.empty:
+            st.info("Keine Early-Signal-Kandidaten im aktuellen Filter. → Tab '🚀 Früh-Signale' für Details.")
+        else:
+            st.caption("Top Early-Signal-Kandidaten – vollständige Ansicht im Tab '🚀 Früh-Signale'.")
+            smart_dataframe(early_radar[early_radar_cols], width="stretch", hide_index=True)
+
+        st.markdown("---")
+
         st.markdown("#### 💸 Dividendenradar")
         dividend_radar = radar_df[radar_df["Dividend Yield Radar"] > 0].copy()
         dividend_radar = dividend_radar.sort_values(
@@ -3312,6 +3319,7 @@ with tab_overview:
         - **Bewertung**: Wirkt sie im Verhältnis zu Qualität und Wachstum eher günstig oder teuer?
         - **Chance-Risiko-Verhältnis**: Passt das mögliche Ziel zum angenommenen Risiko?
         - **Kontext**: Hängt die Aktie an starken Trends wie KI, Cloud, Energie, Defense oder Cybersecurity?
+        - **🚀 Early Signal**: Befindet sich die Aktie in einer Aufbauphase *bevor* der Trend sichtbar wird?
 
         ---
 
@@ -3778,12 +3786,272 @@ with tab_overview:
 
 
 
+# ============================================================
+# 🚀 FRÜH-SIGNALE TAB
+# ============================================================
+
+with tab_early:
+
+    st.markdown(
+        """
+        <div class="terminal-panel">
+            <h3>🚀 Early-Signal-Detektor</h3>
+            <p>
+                Hier siehst du Aktien, die sich in der <b>Akkumulations- oder Aufbauphase</b> befinden –
+                also bevor ein klassischer Aufwärtstrend sichtbar wird. Der Early-Signal-Score erkennt Muster
+                wie steigendes Volumen bei seitwärts laufendem Kurs, EMA-Squeeze, RSI-Erholung aus dem Keller
+                und Bodenbildung nahe dem 52W-Tief.
+            </p>
+            <p style="margin-top:8px; color:#94a3b8; font-size:0.82rem;">
+                ⚠️ Früh-Signale sind spekulativer als BUY ZONE oder TURNAROUND – immer mit eigener Analyse prüfen.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Sicherstellen, dass Early-Signal-Spalten vorhanden sind
+    early_cols_needed = {
+        "Early Signal Score": 0,
+        "Early Signal Label": "-",
+        "Early Signal Details": "-",
+    }
+    for col, default in early_cols_needed.items():
+        if col not in df.columns:
+            df[col] = default
+
+    df["Early Signal Score"] = pd.to_numeric(df["Early Signal Score"], errors="coerce").fillna(0)
+
+    # ---- KPIs -----------------------------------------------
+    total_stocks  = len(df)
+    strong_early  = df[df["Early Signal Label"] == "STARKES EARLY SIGNAL"]
+    early_normal  = df[df["Early Signal Label"] == "EARLY SIGNAL"]
+    possible      = df[df["Early Signal Label"] == "MÖGLICHES SIGNAL"]
+    pre_breakouts = df[df["Rating"] == "PRE-BREAKOUT"] if "Rating" in df.columns else pd.DataFrame()
+
+    kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
+    kpi1.metric("Aktien gesamt",          total_stocks)
+    kpi2.metric("🔥 Starkes Early Signal", len(strong_early))
+    kpi3.metric("⚡ Early Signal",         len(early_normal))
+    kpi4.metric("🔍 Mögliches Signal",    len(possible))
+    kpi5.metric("🚀 PRE-BREAKOUT Rating", len(pre_breakouts))
+
+    st.markdown("---")
+
+    # ---- Filter Sidebar im Tab ------------------------------
+    min_early_score = st.slider(
+        "Mindest Early-Signal-Score (0–10)",
+        min_value=0, max_value=10, value=3, step=1
+    )
+
+    show_only_labels = st.multiselect(
+        "Nur bestimmte Signalstufen anzeigen",
+        options=["STARKES EARLY SIGNAL", "EARLY SIGNAL", "MÖGLICHES SIGNAL"],
+        default=["STARKES EARLY SIGNAL", "EARLY SIGNAL", "MÖGLICHES SIGNAL"]
+    )
+
+    early_df = df[
+        (df["Early Signal Score"] >= min_early_score)
+        & (df["Early Signal Label"].isin(show_only_labels))
+    ].copy().sort_values(
+        by=["Early Signal Score", "Score"],
+        ascending=[False, False]
+    )
+
+    st.markdown(f"#### 🚀 {len(early_df)} Kandidaten gefunden")
+
+    if early_df.empty:
+        st.info("Keine Kandidaten für die gewählten Filter. Score-Schwelle senken oder Signalstufen anpassen.")
+    else:
+        # ---- Karten-Ansicht ---------------------------------
+        with st.expander("🃏 Early-Signal-Karten", expanded=True):
+            for _, row in early_df.head(30).iterrows():
+                label = str(row.get("Early Signal Label", "-"))
+                score_val = int(row.get("Early Signal Score", 0))
+                details   = str(row.get("Early Signal Details", "-"))
+                rating    = str(row.get("Rating", "-"))
+                rsi_v     = row.get("RSI", "-")
+                change_1m = row.get("1M %", "-")
+                change_6m = row.get("6M %", "-")
+                dist_low  = row.get("Distance 52W Low %", "-")
+                rvol_v    = row.get("RVOL", "-")
+                vol_trend = row.get("Volume Trend 10D", "-")
+
+                # Signal-Farbe
+                if label == "STARKES EARLY SIGNAL":
+                    border_color = "#22c55e"
+                    badge_bg     = "rgba(34,197,94,0.15)"
+                elif label == "EARLY SIGNAL":
+                    border_color = "#3b82f6"
+                    badge_bg     = "rgba(59,130,246,0.15)"
+                else:
+                    border_color = "#f59e0b"
+                    badge_bg     = "rgba(245,158,11,0.12)"
+
+                detail_bullets = "".join(
+                    f"<li style='margin:3px 0;'>{s.strip()}</li>"
+                    for s in details.split("|")
+                    if s.strip() and s.strip() != "-"
+                )
+
+                st.markdown(
+                    f"""
+                    <div style="
+                        background:#ffffff;
+                        border-left: 7px solid {border_color};
+                        border-radius: 14px;
+                        padding: 14px 18px;
+                        margin-bottom: 14px;
+                        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+                        font-family: Arial, sans-serif;
+                        color: #111827;
+                    ">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div>
+                                <span style="font-size:18px; font-weight:800;">
+                                    {row.get('Ticker','?')} &nbsp;
+                                    <span style="font-size:14px; font-weight:500; color:#64748b;">
+                                        {row.get('Company','')}
+                                    </span>
+                                </span>
+                            </div>
+                            <div style="
+                                background:{badge_bg};
+                                border:1px solid {border_color};
+                                border-radius:999px;
+                                padding:4px 12px;
+                                font-size:12px;
+                                font-weight:800;
+                                color:{border_color};
+                                white-space:nowrap;
+                            ">{label} · Score {score_val}/10</div>
+                        </div>
+
+                        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px;">
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                💹 Kurs: {row.get('Price','-')}
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                📊 Tech-Score: {row.get('Score','-')}/8
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                📈 RSI: {rsi_v}
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                🔄 1M: {change_1m}%
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                📉 6M: {change_6m}%
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                🏔 Abst. 52W-Tief: +{dist_low}%
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                📦 RVOL: {rvol_v}
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                📡 Vol.-Trend 10D: {vol_trend}%
+                            </span>
+                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
+                                🏷 Rating: {rating}
+                            </span>
+                        </div>
+
+                        <div style="margin-top:10px;">
+                            <div style="font-size:12px; font-weight:700; color:#64748b; margin-bottom:4px;">
+                                🔎 Erkannte Signalmuster:
+                            </div>
+                            <ul style="margin:0; padding-left:16px; font-size:12px; color:#374151; line-height:1.6;">
+                                {detail_bullets if detail_bullets else "<li>Keine Details verfügbar</li>"}
+                            </ul>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+        # ---- Tabellen-Ansicht --------------------------------
+        with st.expander("📋 Early-Signal-Tabelle", expanded=False):
+            early_table_cols = [
+                c for c in [
+                    "Ticker", "Company", "Early Signal Label", "Early Signal Score",
+                    "Rating", "Score", "RSI", "RVOL", "Volume Trend 10D",
+                    "1M %", "6M %", "Distance 52W Low %", "Risk Level",
+                    "Price", "Early Signal Details"
+                ] if c in early_df.columns
+            ]
+
+            smart_dataframe(
+                early_df[early_table_cols],
+                width="stretch",
+                hide_index=True
+            )
+
+    # ---- Legende / Erklärung --------------------------------
+    with st.expander("📖 Was bedeuten die Früh-Signale?", expanded=False):
+        st.markdown("""
+        ### 🚀 Früh-Signal-Logik
+
+        Der Early-Signal-Score (0–10) erkennt Aktien **bevor** der klassische Aufwärtstrend sichtbar ist.
+        Er schaut auf folgende Muster:
+
+        ---
+
+        **📦 Volumen-Akkumulation** *(+1 bis +3 Punkte)*
+        Steigendes Volumen bei gleichzeitig engem Kurskorridor (Seitwärtsbewegung).
+        Das ist das klassische Zeichen für institutionelles Kaufverhalten, bevor der Kurs anzieht.
+
+        ---
+
+        **📐 EMA20-Squeeze / Annäherung** *(+2 Punkte)*
+        Der Kurs war unter dem EMA20, nähert sich jetzt von unten und will durchbrechen.
+        Das ist oft der Moment kurz vor dem Aufwärtsimpuls.
+
+        ---
+
+        **📈 EMA50 dreht nach oben** *(+1 Punkt)*
+        Der mittelfristige Trend kippt von Seitwärts auf Aufwärts.
+        Oft ein Bestätigungssignal für einen nachhaltigen Trendwechsel.
+
+        ---
+
+        **🔋 RSI-Erholung aus überverkauft** *(+1 bis +2 Punkte)*
+        Der RSI war unter 30–35, steigt jetzt wieder. Klassisches Abklingen des Verkaufsdrucks.
+
+        ---
+
+        **🏔 Bodenbildung nahe 52W-Tief** *(+1 bis +2 Punkte)*
+        Kurs ist nah am 52-Wochen-Tief, dreht aber nach oben. Oft die beste Einstiegszone
+        — aber auch die riskanteste, weil man gegen den bisherigen Trend kauft.
+
+        ---
+
+        **⚡ Momentum-Divergenz** *(+1 Punkt)*
+        Die 1M-Performance ist deutlich besser als die 3M-Performance. Das zeigt,
+        dass gerade eine Kurswende beginnt, obwohl die mittelfristige Sicht noch negativ ist.
+
+        ---
+
+        **RVOL (Relatives Volumen)**
+        Volumen heute vs. 20-Tage-Schnitt. Werte über 1,5 = erhöhtes Interesse.
+        Werte unter 0,7 = ruhige Phase (kann auch Akkumulation sein).
+
+        **Volume Trend 10D**
+        Mittlere tägliche Volumenveränderung der letzten 10 Tage in Prozent.
+        Positiver Wert = Volumen nimmt zu = mehr Interesse.
+
+        ---
+
+        ⚠️ **Wichtig:** Ein hohes Early-Signal ist kein Kaufsignal. Es ist ein Hinweis,
+        dass eine Aktie genauer angeschaut werden sollte. Immer mit eigenem Chart-Check,
+        Fundamentalanalyse und Risikomanagement kombinieren.
+        """)
+
+
 with tab_network:
     # ============================================================
     # 🕸️ AKTIEN-NETZWERK / THEMEN-MAPPING
     # ============================================================
-
-    with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
         st.markdown(
             """
             <div class="terminal-panel">
@@ -5274,231 +5542,6 @@ with tab_overview:
             round(df_filtered["Fundamental Score"].mean(), 2)
             if len(df_filtered) > 0 else 0
         )
-
-
-with tab_news:
-    st.markdown("## 🚨 News & Momentum Radar")
-    st.caption(
-        "Zeigt EQS-Treffer über Google News RSS zusammen mit Kursbewegung, Volumen, RSI und EMA20. "
-        "Standardmäßig werden nur Aktien mit echtem EQS-Treffer angezeigt, damit technische Kursbewegungen nicht fälschlich wie News-Signale wirken."
-    )
-
-    news_df = df_filtered.copy()
-
-    required_news_columns = {
-        "EQS News Count 14D": 0,
-        "EQS News Score": 0,
-        "News Momentum Score": 0,
-        "EQS Signal": "⚪ Keine EQS-News",
-        "News Momentum Signal": "⚪ Neutral",
-        "EQS Keywords": "-",
-        "EQS Latest Title": "-",
-        "EQS Latest Date": "-",
-        "EQS Latest Source": "-",
-        "EQS Link": "-",
-        "Volume Ratio": 0,
-    }
-
-    generated_news_columns = [
-        "EQS News Count 14D",
-        "EQS News Score",
-        "News Momentum Score",
-        "News Momentum Signal",
-        "Volume Ratio",
-    ]
-    missing_generated_news_columns = [
-        column for column in generated_news_columns if column not in news_df.columns
-    ]
-
-    if missing_generated_news_columns:
-        st.warning(
-            "Der News-Radar zeigt noch keine echten EQS-Daten, weil die Analyse-Datei "
-            "noch ohne News-Spalten erstellt wurde. Bitte die neue advanced_portfolio.py "
-            "einspielen und danach einmal `python advanced_portfolio.py` ausführen."
-        )
-
-    for column, default_value in required_news_columns.items():
-        if column not in news_df.columns:
-            news_df[column] = default_value
-
-    for column in [
-        "1D %", "1W %", "RSI", "Volume Ratio",
-        "EQS News Count 14D", "EQS News Score", "News Momentum Score"
-    ]:
-        if column in news_df.columns:
-            news_df[column] = pd.to_numeric(news_df[column], errors="coerce").fillna(0)
-
-    metric_col_1, metric_col_2, metric_col_3, metric_col_4 = st.columns(4)
-    metric_col_1.metric("🔥 News-Momentum", int(news_df["News Momentum Signal"].astype(str).str.contains("News-Momentum", na=False).sum()))
-    metric_col_2.metric("🟠 Bewegung möglich", int(news_df["News Momentum Signal"].astype(str).str.contains("Bewegung möglich", na=False).sum()))
-    metric_col_3.metric("EQS-Treffer 14T", int((news_df["EQS News Count 14D"] > 0).sum()))
-    metric_col_4.metric("Ø Momentum Score", round(news_df["News Momentum Score"].mean(), 2) if len(news_df) else 0)
-
-    signal_options = ["Alle"] + sorted(news_df["News Momentum Signal"].dropna().astype(str).unique().tolist())
-    eqs_options = ["Alle"] + sorted(news_df["EQS Signal"].dropna().astype(str).unique().tolist())
-
-    filter_col_1, filter_col_2, filter_col_3 = st.columns([1.1, 1.1, 1.2])
-    selected_news_signal = filter_col_1.selectbox("News-Momentum-Signal", signal_options, index=0)
-    selected_eqs_signal = filter_col_2.selectbox("EQS-Signal", eqs_options, index=0)
-    only_with_eqs = filter_col_3.checkbox("Nur Aktien mit EQS-Treffer", value=True)
-
-    if selected_news_signal != "Alle":
-        news_df = news_df[news_df["News Momentum Signal"].astype(str) == selected_news_signal]
-
-    if selected_eqs_signal != "Alle":
-        news_df = news_df[news_df["EQS Signal"].astype(str) == selected_eqs_signal]
-
-    if only_with_eqs:
-        news_df = news_df[news_df["EQS News Count 14D"] > 0]
-
-    news_df = news_df.sort_values(
-        by=["News Momentum Score", "EQS News Score", "1D %", "Volume Ratio"],
-        ascending=[False, False, False, False]
-    )
-
-    news_display_columns = [
-        "Ticker", "Company", "Price", "1D %", "1W %", "Volume Ratio", "RSI",
-        "EQS News Count 14D", "EQS News Score", "EQS Keywords", "EQS Signal",
-        "News Momentum Score", "News Momentum Signal",
-        "EQS Latest Date", "EQS Latest Source", "EQS Latest Title", "EQS Link"
-    ]
-    news_display_columns = [column for column in news_display_columns if column in news_df.columns]
-
-    st.markdown("### Auffällige EQS-/News-Werte")
-    if news_df.empty:
-        st.info("Keine Aktien im aktuellen Filter mit auffälligem News-/Momentum-Signal.")
-    else:
-        column_config = build_column_help_config(news_df[news_display_columns])
-        if "EQS Link" in news_display_columns:
-            column_config["EQS Link"] = st.column_config.LinkColumn(
-                "EQS Link",
-                help=COLUMN_HELP_TEXTS.get("EQS Link", "Link zur gefundenen News."),
-                display_text="Öffnen"
-            )
-        smart_dataframe(
-            news_df[news_display_columns].head(100),
-            width="stretch",
-            hide_index=True,
-            column_config=column_config
-        )
-
-    with st.expander("Wie wird das Signal berechnet?", expanded=False):
-        st.markdown(
-            """
-            **EQS News Score** bewertet gefundene Schlagzeilen nach Keywords. Positive Wörter wie
-            *Auftrag*, *Finanzierung*, *Prognose angehoben*, *Zulassung*, *Auslieferung* oder
-            *Defence* erhöhen den Score. Warnwörter wie *Verlustwarnung*, *Insolvenz*,
-            *Prognose gesenkt* oder *Verwässerung* senken ihn.
-
-            **News Momentum Score** kombiniert diesen News-Score mit Tages-/Wochenperformance,
-            Volumenfaktor, RSI und Kurs über EMA20. Dadurch erkennt das Dashboard nicht nur
-            eine Meldung, sondern auch, ob der Markt bereits darauf reagiert.
-            """
-        )
-
-
-
-with tab_economic_calendar:
-    st.markdown("## 🌍 Wirtschaftskalender")
-    st.markdown("### ⚙️ Kalender-Einstellungen")
-    st.caption("Standardmäßig ist der Kalender hell/weiß eingestellt. Bei Bedarf kannst du hier auf dunkel umschalten.")
-
-    econ_col_1, econ_col_2, econ_col_3, econ_col_4 = st.columns([1, 1, 1.2, 1.1])
-
-    with econ_col_1:
-        econ_theme = st.selectbox(
-            "Hintergrund / Design",
-            options=["light", "dark"],
-            index=0,
-            format_func=lambda value: "Hell / weiß" if value == "light" else "Dunkel",
-            key="economic_calendar_theme"
-        )
-
-    with econ_col_2:
-        econ_height = st.selectbox(
-            "Kalenderhöhe",
-            options=[650, 800, 950, 1100],
-            index=1,
-            format_func=lambda value: f"{value}px",
-            key="economic_calendar_height"
-        )
-
-    with econ_col_3:
-        econ_filter_profile = st.selectbox(
-            "Länder- und Marktfokus",
-            options=[
-                "USA + Europa + Deutschland",
-                "Global",
-                "USA",
-                "Europa + Deutschland",
-                "Asien"
-            ],
-            index=0,
-            key="economic_calendar_profile"
-        )
-
-    with econ_col_4:
-        econ_importance_profile = st.selectbox(
-            "Wichtigkeit",
-            options=[
-                "Nur hohe Wichtigkeit",
-                "Mittel + hoch",
-                "Alle Termine"
-            ],
-            index=0,
-            help="Grundeinstellung: nur die wichtigsten Termine. So bleibt der Kalender übersichtlich.",
-            key="economic_calendar_importance"
-        )
-
-    country_filters = {
-        "USA + Europa + Deutschland": "us,eu,de",
-        "Global": "us,eu,de,gb,ca,jp,cn,au,ch",
-        "USA": "us",
-        "Europa + Deutschland": "eu,de,gb,ch,fr,it,es",
-        "Asien": "jp,cn,hk,kr,in"
-    }
-
-    selected_country_filter = country_filters.get(econ_filter_profile, "us,eu,de")
-
-    importance_filters = {
-        "Nur hohe Wichtigkeit": "1",
-        "Mittel + hoch": "0,1",
-        "Alle Termine": "-1,0,1"
-    }
-
-    selected_importance_filter = importance_filters.get(econ_importance_profile, "1")
-
-    st.markdown("### 📅 Aktuelle Wirtschaftstermine")
-
-    economic_calendar_html = f"""
-    <div class="tradingview-widget-container" style="height:{econ_height}px;width:100%;">
-      <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%;"></div>
-      <div class="tradingview-widget-copyright">
-        <a href="https://www.tradingview.com/economic-calendar/" rel="noopener nofollow" target="_blank">
-          <span class="blue-text">Economic Calendar by TradingView</span>
-        </a>
-      </div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-      {{
-        "colorTheme": "{econ_theme}",
-        "isTransparent": false,
-        "width": "100%",
-        "height": "{econ_height}",
-        "locale": "de",
-        "importanceFilter": "{selected_importance_filter}",
-        "countryFilter": "{selected_country_filter}"
-      }}
-      </script>
-    </div>
-    """
-
-    components.html(
-        economic_calendar_html,
-        height=econ_height + 40,
-        scrolling=True
-    )
-
-
 
 
 # ============================================================
