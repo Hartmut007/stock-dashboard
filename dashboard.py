@@ -34,172 +34,125 @@ st.set_page_config(
 
 st.markdown(
     """
-    <style>
-    .block-container {
-        padding-top: 0.8rem;
-        padding-bottom: 1.6rem;
-    }
-    div[data-testid="stMetric"] {
-        background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.94));
-        border: 1px solid rgba(148,163,184,0.28);
-        border-radius: 14px;
-        padding: 9px 11px;
-        box-shadow: 0 12px 28px rgba(15,23,42,0.14);
-    }
-    div[data-testid="stMetric"] label {
-        color: #cbd5e1 !important;
-    }
-    div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-        color: #f8fafc !important;
-        font-weight: 800;
-    }
-    .terminal-panel {
-        background: radial-gradient(circle at top left, rgba(59,130,246,0.28), transparent 28%),
-                    linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%);
-        border: 1px solid rgba(56,189,248,0.32);
-        border-radius: 24px;
-        padding: 22px 24px;
-        margin: 12px 0 18px 0;
-        box-shadow: 0 20px 50px rgba(2,6,23,0.36);
-        color: #e5e7eb;
-    }
-    .terminal-panel h3 {
-        margin: 0 0 8px 0;
-        color: #f8fafc;
-        font-size: 1.08rem;
-    }
-    .terminal-panel p {
-        margin: 0;
-        color: #cbd5e1;
-    }
-    .terminal-chip {
-        display: inline-block;
-        padding: 6px 10px;
-        margin: 8px 6px 0 0;
-        border-radius: 999px;
-        background: rgba(15,23,42,0.72);
-        border: 1px solid rgba(148,163,184,0.28);
-        color: #e5e7eb;
-        font-size: 0.72rem;
-        font-weight: 700;
-    }
-    .legend-dot {
-        display:inline-block;
-        width:10px;
-        height:10px;
-        border-radius:50%;
-        margin-right:6px;
-    }
-
-
-    /* Kompaktere Standardschrift im Dashboard */
-    html, body, [class*="css"] {
-        font-size: 14px;
-    }
-
-    .stMarkdown, .stText, p, li, span, div {
-        font-size: 0.88rem;
-    }
-
-    h1 {
-        font-size: 1.65rem !important;
-        margin-bottom: 0.55rem !important;
-    }
-
-    h2 {
-        font-size: 1.32rem !important;
-        margin-top: 0.75rem !important;
-        margin-bottom: 0.45rem !important;
-    }
-
-    h3 {
-        font-size: 1.08rem !important;
-        margin-top: 0.6rem !important;
-        margin-bottom: 0.35rem !important;
-    }
-
-    div[data-testid="stMetric"] label {
-        font-size: 0.70rem !important;
-    }
-
-    div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-        font-size: 1.05rem !important;
-        line-height: 1.15 !important;
-    }
-
-    div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
-        font-size: 0.70rem !important;
-    }
-
-    /* Sidebar kompakter */
-    section[data-testid="stSidebar"] {
-        font-size: 0.80rem !important;
-    }
-
-    section[data-testid="stSidebar"] * {
-        font-size: 0.80rem !important;
-    }
-
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3 {
-        font-size: 0.95rem !important;
-        margin-top: 0.5rem !important;
-        margin-bottom: 0.35rem !important;
-    }
-
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span {
-        font-size: 0.76rem !important;
-    }
-
-    section[data-testid="stSidebar"] div[data-baseweb="select"] * {
-        font-size: 0.76rem !important;
-    }
-
-    section[data-testid="stSidebar"] input {
-        font-size: 0.76rem !important;
-        min-height: 32px !important;
-    }
-
-    section[data-testid="stSidebar"] button {
-        font-size: 0.76rem !important;
-        padding: 0.25rem 0.45rem !important;
-        min-height: 32px !important;
-    }
-
-    /* Tabellen und Tabs kompakter */
-    div[data-testid="stDataFrame"] {
-        font-size: 0.78rem !important;
-    }
-
-    button[data-baseweb="tab"] p {
-        font-size: 0.82rem !important;
-        font-weight: 700 !important;
-    }
-
-    .terminal-panel {
-        padding: 14px 16px;
-        border-radius: 18px;
-        margin: 8px 0 12px 0;
-    }
-
-    .terminal-panel p {
-        font-size: 0.82rem;
-        line-height: 1.35;
-    }
-
-    .terminal-chip {
-        padding: 4px 8px;
-        margin: 5px 4px 0 0;
-        font-size: 0.68rem;
-    }
-
-    </style>
-    """,
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap');
+:root {
+    --radar-void: #060a14;
+    --radar-panel: #0d1424;
+    --radar-panel-2: #111a30;
+    --radar-grid: #1b2740;
+    --radar-sweep: #3ddc84;
+    --radar-sweep-dim: rgba(61,220,132,0.16);
+    --radar-amber: #ffb454;
+    --radar-amber-dim: rgba(255,180,84,0.14);
+    --radar-alert: #ff5470;
+    --radar-alert-dim: rgba(255,84,112,0.14);
+    --radar-intel: #7dd3fc;
+    --radar-intel-dim: rgba(125,211,252,0.14);
+    --radar-text: #e8edf7;
+    --radar-text-dim: #7b8aa8;
+}
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; font-size: 14px; }
+.block-container { padding-top: 0.8rem; padding-bottom: 1.6rem; }
+[data-testid="stAppViewContainer"] > .main { background: var(--radar-void); }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif !important; letter-spacing: -0.01em; }
+h1 { font-size: 1.7rem !important; color: var(--radar-text) !important; margin-bottom: 0.5rem !important; }
+h2 { font-size: 1.25rem !important; color: var(--radar-text) !important; }
+h3 { font-size: 1.05rem !important; color: var(--radar-text) !important; }
+.stMarkdown, .stText, p, li, span, div { font-size: 0.88rem; }
+div[data-testid="stMetric"] {
+    background: linear-gradient(135deg, var(--radar-panel), var(--radar-panel-2));
+    border: 1px solid var(--radar-grid);
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+div[data-testid="stMetric"] label { color: var(--radar-text-dim) !important; font-size: 0.7rem !important; text-transform: uppercase; letter-spacing: 0.04em; }
+div[data-testid="stMetric"] [data-testid="stMetricValue"] { color: var(--radar-text) !important; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.05rem !important; }
+div[data-testid="stMetric"] [data-testid="stMetricDelta"] { font-size: 0.70rem !important; }
+section[data-testid="stSidebar"] { background: var(--radar-panel) !important; font-size: 0.80rem !important; }
+section[data-testid="stSidebar"] * { font-size: 0.80rem !important; }
+section[data-testid="stSidebar"] h1, section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3 { font-size: 0.95rem !important; }
+section[data-testid="stSidebar"] label, section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span { font-size: 0.76rem !important; }
+section[data-testid="stSidebar"] div[data-baseweb="select"] * { font-size: 0.76rem !important; }
+section[data-testid="stSidebar"] input { font-size: 0.76rem !important; min-height: 32px !important; }
+section[data-testid="stSidebar"] button { font-size: 0.76rem !important; padding: 0.25rem 0.45rem !important; min-height: 32px !important; }
+div[data-testid="stDataFrame"] { font-size: 0.78rem !important; font-family: 'JetBrains Mono', monospace; }
+button[data-baseweb="tab"] p { font-size: 0.82rem !important; font-weight: 700 !important; font-family: 'Space Grotesk', sans-serif; }
+button[data-baseweb="tab"] { background: transparent !important; }
+button[data-baseweb="tab"][aria-selected="true"] { border-bottom: 2px solid var(--radar-sweep) !important; }
+.terminal-panel {
+    background: radial-gradient(circle at top left, var(--radar-sweep-dim), transparent 32%), linear-gradient(135deg, var(--radar-void) 0%, var(--radar-panel) 60%, var(--radar-panel-2) 100%);
+    border: 1px solid var(--radar-grid);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin: 8px 0 14px 0;
+    color: var(--radar-text);
+}
+.terminal-panel h3 { margin: 0 0 8px 0; color: var(--radar-text); font-size: 1.08rem; }
+.terminal-panel p { margin: 0; color: var(--radar-text-dim); font-size: 0.84rem; line-height: 1.4; }
+.terminal-chip { display: inline-block; padding: 5px 10px; margin: 6px 5px 0 0; border-radius: 999px; background: var(--radar-panel-2); border: 1px solid var(--radar-grid); color: var(--radar-text); font-size: 0.7rem; font-weight: 600; }
+.legend-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; }
+.scan-bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--radar-panel); border:1px solid var(--radar-grid); border-radius:14px; padding:10px 16px; margin-bottom:14px; font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--radar-text-dim); }
+.scan-bar b { color: var(--radar-text); }
+.contact-card { background: linear-gradient(145deg, var(--radar-panel) 0%, var(--radar-panel-2) 100%); border: 1px solid var(--radar-grid); border-left: 4px solid var(--card-accent, var(--radar-sweep)); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+.contact-ticker { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--radar-text); }
+.contact-company { font-size: 0.76rem; color: var(--radar-text-dim); font-weight: 500; }
+.pill { display:inline-block; background: var(--radar-void); border: 1px solid var(--radar-grid); border-radius: 7px; padding: 3px 8px; font-size: 0.70rem; color: var(--radar-text); margin: 3px 4px 0 0; font-family: 'JetBrains Mono', monospace; }
+.pill-pos { color: var(--radar-sweep); border-color: rgba(61,220,132,0.35); }
+.pill-neg { color: var(--radar-alert); border-color: rgba(255,84,112,0.35); }
+.signal-line { font-size: 0.76rem; color: var(--radar-text-dim); line-height: 1.5; margin-top: 8px; }
+.signal-line b { color: var(--radar-text); }
+</style>
+""",
     unsafe_allow_html=True
 )
+
+
+# ============================================================
+# 🎯 SCOPE-GAUGE  (Signatur-Element: SVG-Radialanzeige für Scores)
+# ============================================================
+
+def gauge_color(score):
+    """Einheitliche Tier-Farbe für alle Scores im Dashboard (0-100 Skala)."""
+    if score >= 80:
+        return "#3ddc84"
+    if score >= 65:
+        return "#7dd3fc"
+    if score >= 50:
+        return "#7dd3fc"
+    if score >= 35:
+        return "#ffb454"
+    return "#ff5470"
+
+
+def render_scope_gauge(score, label="SCORE", size=92, max_score=100):
+    """Rendert eine kreisförmige Radaranzeige als SVG-Snippet (einzeilig, damit
+    keine Markdown-Codeblock-Bugs durch Leerzeilen entstehen). Wird in Karten
+    eingebettet, niemals als eigener st.markdown-Aufruf verwendet."""
+    try:
+        score_val = float(score) if score is not None else 0
+    except Exception:
+        score_val = 0
+    score_val = max(0, min(score_val, max_score))
+    pct = score_val / max_score if max_score else 0
+    radius = size * 0.36
+    stroke = size * 0.10
+    center = size / 2
+    circumference = 2 * 3.14159265 * radius
+    dash = circumference * pct
+    gap = circumference - dash
+    color = gauge_color(score_val)
+    return (
+        f'<div style="position:relative; width:{size}px; height:{size}px; display:inline-block; flex-shrink:0;">'
+        f'<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}">'
+        f'<circle cx="{center}" cy="{center}" r="{radius}" fill="none" stroke="#1b2740" stroke-width="{stroke}"></circle>'
+        f'<circle cx="{center}" cy="{center}" r="{radius}" fill="none" stroke="{color}" stroke-width="{stroke}" stroke-dasharray="{dash:.2f} {gap:.2f}" stroke-linecap="round" transform="rotate(-90 {center} {center})"></circle>'
+        f'</svg>'
+        f'<div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">'
+        f'<div style="font-family:\'JetBrains Mono\',monospace; font-weight:800; font-size:{size*0.27}px; color:{color}; line-height:1;">{score_val:.0f}</div>'
+        f'<div style="font-size:{size*0.105}px; color:#7b8aa8; letter-spacing:0.04em; margin-top:1px;">{label}</div>'
+        f'</div></div>'
+    )
 
 
 # ============================================================
@@ -372,6 +325,67 @@ def update_user_list(username, list_type, selected_tickers, stock_df):
 
     except Exception as error:
         st.error(f"Supabase-Daten konnten nicht gespeichert werden: {error}")
+
+
+# ============================================================
+# 📓 TRADE-JOURNAL  (eigene Supabase-Tabelle: user_trade_journal)
+# ============================================================
+# Erfordert eine eigene Tabelle in Supabase (einmalig per SQL-Editor anlegen):
+#
+#   create table user_trade_journal (
+#       id bigint generated always as identity primary key,
+#       username text not null,
+#       ticker text not null,
+#       name text,
+#       direction text default 'Long',
+#       status text default 'Open',
+#       entry_date date,
+#       entry_price numeric,
+#       stop_loss numeric,
+#       target_price numeric,
+#       position_size numeric,
+#       exit_date date,
+#       exit_price numeric,
+#       notes text,
+#       created_at timestamp default now()
+#   );
+#
+# Fehlt die Tabelle, fängt load_trade_journal() den Fehler ab und das
+# Journal zeigt eine Anleitung statt abzustürzen.
+
+TRADE_JOURNAL_TABLE = "user_trade_journal"
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def load_trade_journal(username):
+    try:
+        supabase = get_supabase_client()
+        response = (
+            supabase.table(TRADE_JOURNAL_TABLE)
+            .select("*")
+            .eq("username", username)
+            .order("created_at", desc=True)
+            .execute()
+        )
+        data = pd.DataFrame(response.data)
+        return data, None
+    except Exception as error:
+        return pd.DataFrame(), str(error)
+
+
+def add_trade_journal_entry(entry: dict):
+    supabase = get_supabase_client()
+    supabase.table(TRADE_JOURNAL_TABLE).insert(entry).execute()
+
+
+def update_trade_journal_entry(entry_id, updates: dict):
+    supabase = get_supabase_client()
+    supabase.table(TRADE_JOURNAL_TABLE).update(updates).eq("id", entry_id).execute()
+
+
+def delete_trade_journal_entry(entry_id):
+    supabase = get_supabase_client()
+    supabase.table(TRADE_JOURNAL_TABLE).delete().eq("id", entry_id).execute()
 
 # ============================================================
 # CSV LADEN
@@ -1706,7 +1720,7 @@ COLUMN_HELP_TEXTS = {
     "Bereich": "Gruppierung des Marktindikators, z. B. Markt-Kern oder Rohstoffe / Themen.",
     "Ticker ETF": "ETF-Ticker, der bei Yahoo Finance abgefragt wird.",
     "ETF": "Name oder Ticker des ETFs.",
-    "Swing Score": "ETF-Swing-Score von 0 bis 10. Höhere Werte sprechen für ein stärkeres Swing-Setup.",
+    "ETF Swing Score": "ETF-Swing-Score von 0 bis 10 (eigene Skala, getrennt vom aktienweiten Swing Score). Höhere Werte sprechen für ein stärkeres ETF-Swing-Setup.",
     "Swing Signal": "Regelbasiertes ETF-Swing-Signal, z. B. Long prüfen, Watch oder kein Long-Setup.",
     "Volume vs Avg": "Aktuelles Volumen im Verhältnis zum Durchschnitt. Auffällige Werte zeigen erhöhtes Interesse.",
     "Beta": "Schwankungsanfälligkeit im Verhältnis zum Markt. Über 1 meist volatiler als der Markt.",
@@ -1735,6 +1749,24 @@ COLUMN_HELP_TEXTS = {
     "RVOL": "Relatives Volumen: Heutiges Volumen geteilt durch 20-Tage-Durchschnitt. Über 1,5 = erhöhtes Interesse. Unter 0,7 = ruhige Phase.",
     "Volume Trend 10D": "Mittlere tägliche Volumenveränderung der letzten 10 Handelstage in Prozent. Positiv = zunehmendes Handelsinteresse.",
     "Distance 52W Low %": "Abstand des aktuellen Kurses vom 52-Wochen-Tief in Prozent. Kleine Werte nahe 0 bedeuten Nähe zum Jahrestief.",
+    "Smart Money Score": "Kombinierter Score aus Insider-Käufen, institutioneller Beteiligung und Short-Interest. Höher = mehr 'schlaues Geld' positioniert sich.",
+    "Smart Money Signal": "Textbewertung des Smart-Money-Scores: starkes Insider-Signal, leicht positiv, neutral oder Insider verkaufen.",
+    "Smart Money Details": "Begründung des Smart-Money-Signals: welche Insider-Transaktionen, institutionelle Quoten oder Short-Daten den Score ausmachen.",
+    "Insider Buys 6M": "Anzahl Insider-Kauftransaktionen (Form 4) in den letzten 6 Monaten.",
+    "Insider Sells 6M": "Anzahl Insider-Verkaufstransaktionen (Form 4) in den letzten 6 Monaten.",
+    "Insider Net Value": "Insider-Kaufvolumen minus Verkaufsvolumen in USD über die letzten 6 Monate (sofern auf Yahoo verfügbar).",
+    "Institutional %": "Anteil der Aktien, die von institutionellen Investoren (Fonds, Vermögensverwalter) gehalten werden.",
+    "Short % Float": "Anteil der frei handelbaren Aktien (Float), der leerverkauft ist. Hohe Werte (≥10-20%) deuten auf Short-Squeeze-Potenzial hin.",
+    "Short Ratio": "Days-to-Cover: Wie viele Handelstage bräuchten Shortseller, um ihre Position bei normalem Volumen einzudecken.",
+    "Swing Score": "Vereinheitlichter Score (0-100) aus technischem Trend, Early Signal, sektor-relativer Stärke und Smart Money, abzüglich Risiko-Malus. Die zentrale Kennzahl im Radar-Tab.",
+    "Swing Tier": "Einstufung des Swing Score in Textform: TOP SWING SETUP (80+), Starkes Setup (65+), Solide (50+), Beobachten (35+), Schwach.",
+    "Relative Strength 1M": "1-Monats-Performance der Aktie minus Durchschnitt ihres Sektors. Positiv = stärker als die Peer-Group.",
+    "Relative Strength 3M": "3-Monats-Performance der Aktie minus Durchschnitt ihres Sektors.",
+    "RS Percentile": "Perzentil-Rang der 1-Monats-Performance innerhalb des eigenen Sektors (0-100). 100 = stärkste Aktie im Sektor.",
+    "RS Rating": "Textbewertung der relativen Stärke: Top-Performer, überdurchschnittlich, durchschnittlich oder schwächster im Sektor.",
+    "Sector Avg 1M %": "Durchschnittliche 1-Monats-Performance aller Aktien im selben Sektor innerhalb deiner Watchlist.",
+    "Market RS 1M": "1-Monats-Performance der Aktie minus 1-Monats-Performance des Gesamtmarkts (SPY-Benchmark).",
+    "Market RS 3M": "3-Monats-Performance der Aktie minus 3-Monats-Performance des Gesamtmarkts (SPY-Benchmark).",
 }
 
 
@@ -2374,16 +2406,16 @@ def render_market_gauge(level, label):
     gebaut. Sonst interpretiert Streamlit/Markdown sie gelegentlich als Codeblock.
     """
 
-    colors = ["#16a34a", "#22c55e", "#eab308", "#f97316", "#dc2626"]
+    colors = ["#3ddc84", "#8de8a8", "#7b8aa8", "#ffb454", "#ff5470"]
     names = ["Risk-On", "Bullisch", "Neutral", "Risk-Off", "Stress"]
 
     segments = []
 
     for i in range(1, 6):
         active = i == level
-        bg_color = colors[i - 1] if active else "#1e293b"
-        font_weight = "850" if active else "600"
-        border_color = "rgba(248,250,252,0.75)" if active else "rgba(148,163,184,0.28)"
+        bg_color = colors[i - 1] if active else "#111a30"
+        font_weight = "800" if active else "600"
+        border_color = "rgba(232,237,247,0.55)" if active else "#1b2740"
 
         segments.append(
             "<div style=\"flex:1; padding:10px 8px; border-radius:12px; "
@@ -2397,11 +2429,11 @@ def render_market_gauge(level, label):
     segments_html = "".join(segments)
 
     html = (
-        "<div style=\"background:linear-gradient(135deg,#020617,#0f172a); "
-        "border:1px solid rgba(148,163,184,0.3); border-radius:18px; "
+        "<div style=\"background:linear-gradient(135deg,#060a14,#0d1424); "
+        "border:1px solid #1b2740; border-radius:18px; "
         "padding:16px; margin:6px 0 12px 0;\">"
-        "<div style=\"color:#e5e7eb; font-size:13px; font-weight:800; margin-bottom:8px;\">Markt-Tacho</div>"
-        f"<div style=\"color:#f8fafc; font-size:25px; font-weight:900; margin-bottom:12px;\">{label}</div>"
+        "<div style=\"color:#7b8aa8; font-size:13px; font-weight:700; margin-bottom:8px; font-family:'Space Grotesk',sans-serif;\">Markt-Tacho</div>"
+        f"<div style=\"color:#e8edf7; font-size:25px; font-weight:800; margin-bottom:12px; font-family:'Space Grotesk',sans-serif;\">{label}</div>"
         f"<div style=\"display:flex; gap:8px;\">{segments_html}</div>"
         "</div>"
     )
@@ -2499,7 +2531,7 @@ def load_etf_swingtrade_data(tickers):
             "RSI": "-",
             "Trend": "Unklar",
             "Volumen": "-",
-            "Swing Score": 0,
+            "ETF Swing Score": 0,
             "Signal": "⚪ Daten dünn",
             "Setup-Hinweis": "Zu wenig Daten oder Yahoo liefert keine Werte."
         }
@@ -2620,7 +2652,7 @@ def load_etf_swingtrade_data(tickers):
                 "RSI": round(rsi, 1) if rsi is not None else "-",
                 "Trend": trend,
                 "Volumen": vol_signal,
-                "Swing Score": int(max(0, min(10, score))),
+                "ETF Swing Score": int(max(0, min(10, score))),
                 "Signal": signal,
                 "Setup-Hinweis": " | ".join(notes[:7]) if notes else "Neutral"
             })
@@ -2631,8 +2663,8 @@ def load_etf_swingtrade_data(tickers):
         rows.append(row)
 
     result = pd.DataFrame(rows)
-    if not result.empty and "Swing Score" in result.columns:
-        result = result.sort_values(by="Swing Score", ascending=False)
+    if not result.empty and "ETF Swing Score" in result.columns:
+        result = result.sort_values(by="ETF Swing Score", ascending=False)
     return result
 
 
@@ -2796,25 +2828,25 @@ def render_bitcoin_signal_card(snapshot):
     notes = snapshot.get("notes", [])
 
     if "Bullisch" in signal:
-        accent = "#22c55e"
+        accent = "#3ddc84"
     elif "Konstruktiv" in signal:
-        accent = "#eab308"
+        accent = "#7dd3fc"
     elif "Überhitzt" in signal or "Neutral" in signal:
-        accent = "#f97316"
+        accent = "#ffb454"
     else:
-        accent = "#ef4444"
+        accent = "#ff5470"
 
     notes_html = "".join([f"<span class='terminal-chip'>{note}</span>" for note in notes[:8]])
 
     st.markdown(
         f"""
-        <div class="terminal-panel" style="border-color:{accent};">
-            <h3>₿ Bitcoin Signal</h3>
-            <p style="font-size:1.05rem; font-weight:850; color:#f8fafc; margin-bottom:8px;">{signal} · Score {score}/10</p>
-            <p>{recommendation}</p>
-            <div style="margin-top:8px;">{notes_html}</div>
-        </div>
-        """,
+<div class="terminal-panel" style="border-color:{accent};">
+    <h3>₿ Bitcoin Signal</h3>
+    <p style="font-size:1.05rem; font-weight:850; color:#f8fafc; margin-bottom:8px;">{signal} · Score {score}/10</p>
+    <p>{recommendation}</p>
+    <div style="margin-top:8px;">{notes_html}</div>
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -2834,116 +2866,11 @@ def build_bitcoin_chart_frame(ticker="BTC-USD"):
 
 @st.cache_data(ttl=60 * 60 * 6)
 def load_smart_money_light(tickers):
-    """Lädt grobe Short-/Institutional-/Volumen-Indikatoren über yfinance, soweit verfügbar."""
-
-    rows = []
-
-    for ticker in tickers:
-        ticker = str(ticker).strip()
-        if not ticker:
-            continue
-
-        row = {
-            "Ticker": ticker,
-            "Short % Float": None,
-            "Short Ratio": None,
-            "Institutional %": None,
-            "Insider %": None,
-            "Volume vs Avg": None,
-            "Beta": None,
-            "Smart Money Score": 0,
-            "Smart Money Signal": "⚪ Daten dünn",
-            "Smart Money Hinweise": "-"
-        }
-
-        notes = []
-        score = 0
-
-        try:
-            yt = yf.Ticker(ticker)
-            info = yt.get_info()
-
-            short_pct = info.get("shortPercentOfFloat") or info.get("sharesPercentSharesOut")
-            short_ratio = info.get("shortRatio")
-            inst_pct = info.get("heldPercentInstitutions")
-            insider_pct = info.get("heldPercentInsiders")
-            beta = info.get("beta")
-            volume = info.get("volume")
-            avg_volume = info.get("averageVolume") or info.get("averageDailyVolume10Day")
-
-            if short_pct is not None:
-                row["Short % Float"] = round(float(short_pct) * 100, 2)
-                if float(short_pct) >= 0.20:
-                    score -= 2
-                    notes.append("sehr hohe Shortquote")
-                elif float(short_pct) >= 0.10:
-                    score -= 1
-                    notes.append("erhöhte Shortquote")
-                elif float(short_pct) <= 0.03:
-                    score += 1
-                    notes.append("niedrige Shortquote")
-
-            if short_ratio is not None:
-                row["Short Ratio"] = round(float(short_ratio), 2)
-                if float(short_ratio) >= 6:
-                    score -= 1
-                    notes.append("hohe Days-to-cover")
-                elif float(short_ratio) <= 2:
-                    score += 1
-                    notes.append("niedrige Days-to-cover")
-
-            if inst_pct is not None:
-                row["Institutional %"] = round(float(inst_pct) * 100, 2)
-                if float(inst_pct) >= 0.65:
-                    score += 1
-                    notes.append("hohe institutionelle Beteiligung")
-                elif float(inst_pct) <= 0.15:
-                    notes.append("geringe institutionelle Beteiligung")
-
-            if insider_pct is not None:
-                row["Insider %"] = round(float(insider_pct) * 100, 2)
-                if float(insider_pct) >= 0.10:
-                    score += 1
-                    notes.append("relevante Insider-Beteiligung")
-
-            if volume is not None and avg_volume not in [None, 0]:
-                vol_ratio = float(volume) / float(avg_volume)
-                row["Volume vs Avg"] = round(vol_ratio, 2)
-                if vol_ratio >= 2.0:
-                    notes.append("auffälliges Volumen")
-                elif vol_ratio <= 0.6:
-                    notes.append("ruhiges Volumen")
-
-            if beta is not None:
-                row["Beta"] = round(float(beta), 2)
-                if float(beta) >= 1.8:
-                    score -= 1
-                    notes.append("hohes Beta")
-                elif float(beta) <= 0.8:
-                    score += 1
-                    notes.append("defensiveres Beta")
-
-        except Exception as error:
-            notes.append("Daten nicht abrufbar")
-
-        row["Smart Money Score"] = score
-
-        if notes == []:
-            row["Smart Money Signal"] = "⚪ Daten dünn"
-            row["Smart Money Hinweise"] = "Zu wenige verwertbare Haifisch-Indikatoren."
-        elif score >= 2:
-            row["Smart Money Signal"] = "🟢 Rückenwind"
-            row["Smart Money Hinweise"] = " | ".join(notes)
-        elif score <= -2:
-            row["Smart Money Signal"] = "🔴 Gegenwind"
-            row["Smart Money Hinweise"] = " | ".join(notes)
-        else:
-            row["Smart Money Signal"] = "🟡 Gemischt"
-            row["Smart Money Hinweise"] = " | ".join(notes)
-
-        rows.append(row)
-
-    return pd.DataFrame(rows)
+    """Hinweis: Diese Funktion wird aktuell nirgends im Dashboard aufgerufen.
+    Die Logik (Short-Interest, institutionelle Beteiligung, Beta) wurde in
+    advanced_portfolio.py::fetch_smart_money_signal integriert und ist dort
+    Teil des persistenten Smart-Money-Scores im Tab '🏛️ Smart Money'."""
+    return pd.DataFrame()
 
 # ============================================================
 # TITEL
@@ -3049,19 +2976,131 @@ st.markdown(
 df_filtered = df.copy()
 
 tab_overview, tab_early, tab_analysis, tab_network, tab_earnings, tab_dividends, tab_bitcoin, tab_etf_swing, tab_lists, tab_admin = st.tabs([
-    "📊 Übersicht",
-    "🚀 Früh-Signale",
-    "🧠 Analyse",
+    "🎯 Radar",
+    "🏛️ Smart Money",
+    "🔬 Tiefenanalyse",
     "🕸️ Netzwerk",
     "📆 Earnings",
     "📅 Dividenden",
-    "₿ Bitcoin",
-    "📈 ETF Swingtrades",
-    "⭐ Listen",
+    "📈 Markt-Kontext",
+    "📡 Sektor-Stärke",
+    "⭐ Watchlist & Journal",
     "👑 Admin"
 ])
 
 with tab_overview:
+
+    # ============================================================
+    # 🎯 HERO: SCAN-STATUS + TOP SWING-KONTAKTE
+    # ============================================================
+
+    swing_defaults = {
+        "Swing Score": 0, "Swing Tier": "⚪ Schwach", "RS Rating": "❓ Zu wenig Peers",
+        "Smart Money Signal": "⚪ Nicht geprüft", "Early Signal Label": "-",
+        "Early Signal Score": 0, "Sector": "OTHER",
+    }
+    for col, default in swing_defaults.items():
+        if col not in df.columns:
+            df[col] = default
+    df["Swing Score"] = pd.to_numeric(df["Swing Score"], errors="coerce").fillna(0)
+
+    n_total       = len(df)
+    n_top_setup   = len(df[df["Swing Score"] >= 80])
+    n_strong      = len(df[(df["Swing Score"] >= 65) & (df["Swing Score"] < 80)])
+    n_pre_breakout = len(df[df["Rating"] == "PRE-BREAKOUT"]) if "Rating" in df.columns else 0
+    scan_time     = LAST_DATA_UPDATE_TEXT
+
+    st.markdown(
+        f'<div class="scan-bar">'
+        f'<span>📡 SCAN-STATUS</span>'
+        f'<span>·</span><span>Letzter Scan: <b>{scan_time}</b></span>'
+        f'<span>·</span><span>Kontakte erfasst: <b>{n_total}</b></span>'
+        f'<span>·</span><span>🎯 Top-Setups: <b>{n_top_setup}</b></span>'
+        f'<span>·</span><span>🟢 Starke Setups: <b>{n_strong}</b></span>'
+        f'<span>·</span><span>🚀 Pre-Breakout: <b>{n_pre_breakout}</b></span>'
+        f'</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+<div class="terminal-panel">
+    <h3>🎯 Radar — Top Swing-Kontakte</h3>
+    <p>
+        Der <b>Swing Score</b> kombiniert vier Ebenen in einer Zahl (0-100): technischer Trend,
+        Early-Signal (Aufbauphase vor dem Ausbruch), relative Stärke gegenüber der Sektor-Peer-Group
+        und Smart-Money-Aktivität (Insider/Institutionen) — abzüglich eines Risiko-Malus.
+        Das ist die zentrale Kennzahl dieses Dashboards.
+    </p>
+</div>
+""",
+        unsafe_allow_html=True
+    )
+
+    radar_filter_col1, radar_filter_col2, radar_filter_col3 = st.columns([1.2, 1, 1])
+    with radar_filter_col1:
+        min_swing = st.slider("Mindest-Swing-Score", min_value=0, max_value=100, value=50, step=5)
+    with radar_filter_col2:
+        max_risk_filter = st.selectbox("Maximales Risiko", options=["Alle", "Nur LOW/MEDIUM", "Nur LOW"], index=0)
+    with radar_filter_col3:
+        n_show = st.selectbox("Anzahl Kontakte", options=[10, 20, 30, 50], index=1)
+
+    top_df = df[df["Swing Score"] >= min_swing].copy()
+    if max_risk_filter == "Nur LOW/MEDIUM":
+        top_df = top_df[top_df["Risk Level"].isin(["LOW RISK", "MEDIUM RISK"])]
+    elif max_risk_filter == "Nur LOW":
+        top_df = top_df[top_df["Risk Level"] == "LOW RISK"]
+    top_df = top_df.sort_values(by="Swing Score", ascending=False).head(n_show)
+
+    if top_df.empty:
+        st.info("Keine Kontakte für diese Filter. Swing-Score-Schwelle senken oder Risikofilter lockern.")
+    else:
+        for _, row in top_df.iterrows():
+            sw_score  = float(row.get("Swing Score", 0))
+            accent    = gauge_color(sw_score)
+            gauge_svg = render_scope_gauge(sw_score, label="SWING", size=88)
+            chg_1m    = row.get("1M %", 0)
+            chg_class = "pill-pos" if isinstance(chg_1m, (int, float)) and chg_1m >= 0 else "pill-neg"
+            rs_rating = str(row.get("RS Rating", "-"))
+            sm_signal = str(row.get("Smart Money Signal", "⚪ Nicht geprüft"))
+            early_lbl = str(row.get("Early Signal Label", "-"))
+
+            why_parts = []
+            if early_lbl not in ("-", "nan", "None"):
+                why_parts.append(f"Early: {early_lbl}")
+            if "Top-Performer" in rs_rating or "Überdurchschnittlich" in rs_rating:
+                why_parts.append(rs_rating.split(" ", 1)[-1] if " " in rs_rating else rs_rating)
+            if "🟢" in sm_signal or "🔵" in sm_signal:
+                why_parts.append(sm_signal.split(" ", 1)[-1] if " " in sm_signal else sm_signal)
+            why_text = " · ".join(why_parts) if why_parts else "Solider technischer Trend"
+
+            st.markdown(
+                f'<div class="contact-card" style="--card-accent:{accent};">'
+                f'<div style="display:flex; justify-content:space-between; align-items:center; gap:14px;">'
+                f'<div style="flex:1;">'
+                f'<div class="contact-ticker">{row.get("Ticker","?")} <span class="contact-company">{row.get("Company","")}</span></div>'
+                f'<div class="signal-line"><b>{row.get("Swing Tier","-")}</b> · {row.get("Sector","-")} · {why_text}</div>'
+                f'<div style="margin-top:8px;">'
+                f'<span class="pill">💹 {row.get("Price","-")}</span>'
+                f'<span class="pill {chg_class}">🔄 1M: {chg_1m}%</span>'
+                f'<span class="pill">📈 RSI: {row.get("RSI","-")}</span>'
+                f'<span class="pill">📊 RS-Perzentil: {row.get("RS Percentile","-")}</span>'
+                f'<span class="pill">📌 {row.get("Rating","-")}</span>'
+                f'<span class="pill">⚠️ {row.get("Risk Level","-")}</span>'
+                f'</div></div>'
+                f'<div>{gauge_svg}</div>'
+                f'</div></div>',
+                unsafe_allow_html=True
+            )
+
+        st.download_button(
+            "📥 Radar-Liste als CSV herunterladen",
+            top_df.to_csv(index=False).encode("utf-8-sig"),
+            "radar_top_setups.csv",
+            "text/csv"
+        )
+
+    st.markdown("---")
 
     # ============================================================
     # 🕒 LETZTE AKTUALISIERUNG
@@ -3103,12 +3142,12 @@ with tab_overview:
 
             st.markdown(
                 f"""
-                <div style="background:#f8fafc; border:1px solid rgba(148,163,184,0.35); border-radius:14px; padding:12px; margin-top:10px;">
-                    <div style="font-size:12px; color:#64748b; font-weight:700;">Rohstoff-Stress separat</div>
-                    <div style="font-size:20px; font-weight:900; color:#0f172a;">{market_data.get('commodity_status', '-')}</div>
-                    <div style="font-size:12px; color:#334155; margin-top:4px;">{market_data.get('commodity_interpretation', '')}</div>
-                </div>
-                """,
+<div style="background:#0d1424; border:1px solid #1b2740; border-radius:14px; padding:12px; margin-top:10px;">
+    <div style="font-size:12px; color:#7b8aa8; font-weight:700;">Rohstoff-Stress separat</div>
+    <div style="font-size:20px; font-weight:800; color:#e8edf7; font-family:'Space Grotesk',sans-serif;">{market_data.get('commodity_status', '-')}</div>
+    <div style="font-size:12px; color:#94a3c8; margin-top:4px;">{market_data.get('commodity_interpretation', '')}</div>
+</div>
+""",
                 unsafe_allow_html=True
             )
 
@@ -3174,7 +3213,10 @@ with tab_overview:
         radar_display_columns = [
             "Ticker",
             "Company",
+            "Swing Score",
+            "Swing Tier",
             "Action Signal",
+            "RS Rating",
             "Valuation Status",
             "Score",
             "Fundamental Score",
@@ -3190,10 +3232,16 @@ with tab_overview:
             if column in radar_df.columns
         ]
 
+        if "Swing Score" in radar_df.columns:
+            radar_df["Swing Score"] = pd.to_numeric(radar_df["Swing Score"], errors="coerce").fillna(0)
+        else:
+            radar_df["Swing Score"] = 0
+
         # Radar bewusst untereinander statt nebeneinander anzeigen.
         # Dadurch sind die Tabellen besser lesbar, besonders bei 30 Einträgen.
 
         st.markdown("#### 🟢 Top-Chancen")
+        st.caption("Sortiert nach Swing Score — die Top-Kandidaten findest du oben im Hero-Bereich als Karten. Dies ist die kompakte Tabellenansicht für mehr Aktien auf einen Blick.")
         top_opportunities = radar_df.copy()
         if "Action Signal" in top_opportunities.columns:
             top_opportunities = top_opportunities[
@@ -3204,7 +3252,7 @@ with tab_overview:
                 )
             ]
         top_opportunities = top_opportunities.sort_values(
-            by=["Score", "Fundamental Score", "CRV Radar", "Valuation Score"],
+            by=["Swing Score", "Score", "Fundamental Score", "CRV Radar"],
             ascending=[False, False, False, False]
         ).head(30)
 
@@ -3251,29 +3299,6 @@ with tab_overview:
                 width="stretch",
                 hide_index=True
             )
-
-        st.markdown("---")
-
-        st.markdown("#### 🚀 Early-Signal-Kandidaten")
-        early_radar = radar_df.copy()
-        if "Early Signal Score" in early_radar.columns:
-            early_radar["Early Signal Score"] = pd.to_numeric(early_radar["Early Signal Score"], errors="coerce").fillna(0)
-            early_radar = early_radar[early_radar["Early Signal Score"] >= 3].sort_values(
-                by=["Early Signal Score"], ascending=False
-            ).head(20)
-        else:
-            early_radar = pd.DataFrame()
-
-        early_radar_cols = [c for c in [
-            "Ticker", "Company", "Early Signal Label", "Early Signal Score",
-            "Action Signal", "Score", "Risk Level", "Price"
-        ] if c in early_radar.columns]
-
-        if early_radar.empty:
-            st.info("Keine Early-Signal-Kandidaten im aktuellen Filter. → Tab '🚀 Früh-Signale' für Details.")
-        else:
-            st.caption("Top Early-Signal-Kandidaten – vollständige Ansicht im Tab '🚀 Früh-Signale'.")
-            smart_dataframe(early_radar[early_radar_cols], width="stretch", hide_index=True)
 
         st.markdown("---")
 
@@ -3706,345 +3731,162 @@ with tab_overview:
         """)
 
 
-    # ============================================================
-    # 🍕 PIZZINT / GEOPOLITISCHER STRESS-INDIKATOR
-    # ============================================================
-
-    with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
-        st.caption(
-            "Experimenteller externer OSINT-/Stimmungsindikator. "
-            "Hier wird kein DOUGHCON-Level mehr manuell eingeschätzt; "
-            "der Bereich dient nur als Zusatzhinweis für mögliche Markt-Fokusbereiche."
-        )
-
-        geo_focus_df = pd.DataFrame([
-            {
-                "Bereich": "Energie",
-                "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
-                "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
-            },
-            {
-                "Bereich": "Rüstung / Verteidigung",
-                "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
-                "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
-            },
-            {
-                "Bereich": "Cybersecurity",
-                "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
-                "Beispiele": "CRWD, PANW, FTNT, ZS"
-            },
-            {
-                "Bereich": "Gold / Sicherheit",
-                "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
-                "Beispiele": "GOLD, NEM, AEM, GLD"
-            },
-            {
-                "Bereich": "High-Risk / Turnaround",
-                "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
-                "Beispiele": "enger prüfen, Positionsgröße reduzieren"
-            }
-        ])
-
-        st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
-
-        smart_dataframe(
-            geo_focus_df,
-            width="stretch",
-            hide_index=True
-        )
-
-        pizza_watch_df = pd.DataFrame([
-            {
-                "Signal": "Pizza-/OSINT-Aktivität",
-                "Interpretation": "Kann als humorvoller externer Stimmungsindikator beobachtet werden.",
-                "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
-            },
-            {
-                "Signal": "Geopolitische Aufmerksamkeit nimmt zu",
-                "Interpretation": "Defensive Sektoren, Energie, Gold, Cybersecurity und Defense stärker beobachten.",
-                "Relevanz fürs Portfolio": "Risk-Management prüfen, spekulative Setups strenger bewerten."
-            },
-            {
-                "Signal": "Geopolitische Aufmerksamkeit nimmt ab",
-                "Interpretation": "Normale technische, fundamentale und Markt-Tacho-Signale wieder stärker gewichten.",
-                "Relevanz fürs Portfolio": "Keine automatische Kaufentscheidung; nur Kontext."
-            }
-        ])
-
-        st.markdown("### 🍕 PizzINT Watch")
-
-        smart_dataframe(
-            pizza_watch_df,
-            width="stretch",
-            hide_index=True
-        )
-
-        st.link_button(
-            "🍕 PizzINT extern öffnen",
-            "https://www.pizzint.watch/"
-        )
-
-
 
 # ============================================================
-# 🚀 FRÜH-SIGNALE TAB
+# 🏛️ SMART MONEY TAB
 # ============================================================
 
 with tab_early:
 
     st.markdown(
         """
-        <div class="terminal-panel">
-            <h3>🚀 Early-Signal-Detektor</h3>
-            <p>
-                Hier siehst du Aktien, die sich in der <b>Akkumulations- oder Aufbauphase</b> befinden –
-                also bevor ein klassischer Aufwärtstrend sichtbar wird. Der Early-Signal-Score erkennt Muster
-                wie steigendes Volumen bei seitwärts laufendem Kurs, EMA-Squeeze, RSI-Erholung aus dem Keller
-                und Bodenbildung nahe dem 52W-Tief.
-            </p>
-            <p style="margin-top:8px; color:#94a3b8; font-size:0.82rem;">
-                ⚠️ Früh-Signale sind spekulativer als BUY ZONE oder TURNAROUND – immer mit eigener Analyse prüfen.
-            </p>
-        </div>
-        """,
+<div class="terminal-panel">
+    <h3>🏛️ Smart-Money-Tracker</h3>
+    <p>
+        Wer im Unternehmen sitzt oder ein großes institutionelles Buch führt, hat selten Zufallsgründe
+        zu kaufen. Dieser Tab folgt <b>Insider-Käufen</b> (SEC-Form-4-Daten über Yahoo Finance) und der
+        <b>institutionellen Beteiligung</b> — kombiniert mit dem technischen Kontext aus dem Radar.
+    </p>
+    <p style="margin-top:8px; color:#7b8aa8; font-size:0.82rem;">
+        ⚠️ Aus Performance-Gründen werden Insider-Daten nur für die technisch interessanteste Shortlist
+        abgerufen (siehe advanced_portfolio.py · SMART_MONEY_MAX_CANDIDATES) — nicht für alle Aktien.
+    </p>
+</div>
+""",
         unsafe_allow_html=True
     )
 
-    # Sicherstellen, dass Early-Signal-Spalten vorhanden sind
-    early_cols_needed = {
-        "Early Signal Score": 0,
-        "Early Signal Label": "-",
-        "Early Signal Details": "-",
+    smart_money_defaults = {
+        "Smart Money Score": 0, "Smart Money Signal": "⚪ Nicht geprüft", "Smart Money Details": "-",
+        "Insider Buys 6M": 0, "Insider Sells 6M": 0, "Insider Net Value": None, "Institutional %": None,
+        "Short % Float": None, "Short Ratio": None,
+        "Swing Score": 0, "Swing Tier": "⚪ Schwach",
     }
-    for col, default in early_cols_needed.items():
+    for col, default in smart_money_defaults.items():
         if col not in df.columns:
             df[col] = default
 
-    df["Early Signal Score"] = pd.to_numeric(df["Early Signal Score"], errors="coerce").fillna(0)
+    df["Smart Money Score"] = pd.to_numeric(df["Smart Money Score"], errors="coerce").fillna(0)
 
-    # ---- KPIs -----------------------------------------------
-    total_stocks  = len(df)
-    strong_early  = df[df["Early Signal Label"] == "STARKES EARLY SIGNAL"]
-    early_normal  = df[df["Early Signal Label"] == "EARLY SIGNAL"]
-    possible      = df[df["Early Signal Label"] == "MÖGLICHES SIGNAL"]
-    pre_breakouts = df[df["Rating"] == "PRE-BREAKOUT"] if "Rating" in df.columns else pd.DataFrame()
+    checked_df  = df[df["Smart Money Signal"] != "⚪ Nicht geprüft"]
+    insider_buy = df[df["Insider Buys 6M"].fillna(0) > 0]
+    strong_sm   = df[df["Smart Money Score"] >= 3]
+    net_sellers = df[df["Smart Money Score"] <= -1]
 
-    kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
-    kpi1.metric("Aktien gesamt",          total_stocks)
-    kpi2.metric("🔥 Starkes Early Signal", len(strong_early))
-    kpi3.metric("⚡ Early Signal",         len(early_normal))
-    kpi4.metric("🔍 Mögliches Signal",    len(possible))
-    kpi5.metric("🚀 PRE-BREAKOUT Rating", len(pre_breakouts))
+    sm_kpi1, sm_kpi2, sm_kpi3, sm_kpi4 = st.columns(4)
+    sm_kpi1.metric("Geprüfte Shortlist", len(checked_df))
+    sm_kpi2.metric("🟢 Insider kaufen", len(insider_buy))
+    sm_kpi3.metric("🎯 Starkes Signal", len(strong_sm))
+    sm_kpi4.metric("🟠 Insider verkaufen", len(net_sellers))
 
     st.markdown("---")
 
-    # ---- Filter Sidebar im Tab ------------------------------
-    min_early_score = st.slider(
-        "Mindest Early-Signal-Score (0–10)",
-        min_value=0, max_value=10, value=3, step=1
-    )
+    sm_filter_col1, sm_filter_col2 = st.columns([1.4, 1])
+    with sm_filter_col1:
+        min_sm_score = st.slider(
+            "Mindest-Smart-Money-Score", min_value=-1, max_value=6, value=1, step=1,
+            help="≥3 = starkes Insider-Signal, 1-2 = leicht positiv, ≤-1 = Insider verkaufen mehr als sie kaufen."
+        )
+    with sm_filter_col2:
+        only_checked = st.checkbox("Nur geprüfte Aktien anzeigen (Shortlist)", value=True)
 
-    show_only_labels = st.multiselect(
-        "Nur bestimmte Signalstufen anzeigen",
-        options=["STARKES EARLY SIGNAL", "EARLY SIGNAL", "MÖGLICHES SIGNAL"],
-        default=["STARKES EARLY SIGNAL", "EARLY SIGNAL", "MÖGLICHES SIGNAL"]
-    )
+    sm_df = df[df["Smart Money Score"] >= min_sm_score].copy()
+    if only_checked:
+        sm_df = sm_df[sm_df["Smart Money Signal"] != "⚪ Nicht geprüft"]
+    sm_df = sm_df.sort_values(by=["Smart Money Score", "Swing Score"], ascending=[False, False])
 
-    early_df = df[
-        (df["Early Signal Score"] >= min_early_score)
-        & (df["Early Signal Label"].isin(show_only_labels))
-    ].copy().sort_values(
-        by=["Early Signal Score", "Score"],
-        ascending=[False, False]
-    )
+    st.markdown(f"#### 🏛️ {len(sm_df)} Kontakte mit Smart-Money-Aktivität")
 
-    st.markdown(f"#### 🚀 {len(early_df)} Kandidaten gefunden")
-
-    if early_df.empty:
-        st.info("Keine Kandidaten für die gewählten Filter. Score-Schwelle senken oder Signalstufen anpassen.")
+    if sm_df.empty:
+        st.info("Keine Treffer für die gewählten Filter. Score-Schwelle senken oder Shortlist-Filter deaktivieren.")
     else:
-        # ---- Karten-Ansicht ---------------------------------
-        with st.expander("🃏 Early-Signal-Karten", expanded=True):
-            for _, row in early_df.head(30).iterrows():
-                label = str(row.get("Early Signal Label", "-"))
-                score_val = int(row.get("Early Signal Score", 0))
-                details   = str(row.get("Early Signal Details", "-"))
-                rating    = str(row.get("Rating", "-"))
-                rsi_v     = row.get("RSI", "-")
-                change_1m = row.get("1M %", "-")
-                change_6m = row.get("6M %", "-")
-                dist_low  = row.get("Distance 52W Low %", "-")
-                rvol_v    = row.get("RVOL", "-")
-                vol_trend = row.get("Volume Trend 10D", "-")
-
-                # Signal-Farbe
-                if label == "STARKES EARLY SIGNAL":
-                    border_color = "#22c55e"
-                    badge_bg     = "rgba(34,197,94,0.15)"
-                elif label == "EARLY SIGNAL":
-                    border_color = "#3b82f6"
-                    badge_bg     = "rgba(59,130,246,0.15)"
-                else:
-                    border_color = "#f59e0b"
-                    badge_bg     = "rgba(245,158,11,0.12)"
+        with st.expander("🃏 Smart-Money-Karten", expanded=True):
+            for _, row in sm_df.head(30).iterrows():
+                sm_score   = row.get("Smart Money Score", 0)
+                gauge_val  = max(0, min((float(sm_score) + 1) / 7 * 100, 100))
+                buys       = int(row.get("Insider Buys 6M", 0) or 0)
+                sells      = int(row.get("Insider Sells 6M", 0) or 0)
+                inst_pct   = row.get("Institutional %", None)
+                inst_text  = f"{inst_pct}%" if inst_pct is not None and not pd.isna(inst_pct) else "–"
+                short_pct  = row.get("Short % Float", None)
+                short_text = f"{short_pct}%" if short_pct is not None and not pd.isna(short_pct) else "–"
+                short_pill_class = "pill-pos" if (short_pct is not None and not pd.isna(short_pct) and float(short_pct) >= 10) else "pill"
+                details    = str(row.get("Smart Money Details", "-"))
+                accent     = gauge_color(gauge_val)
 
                 detail_bullets = "".join(
                     f"<li style='margin:3px 0;'>{s.strip()}</li>"
-                    for s in details.split("|")
-                    if s.strip() and s.strip() != "-"
+                    for s in details.split("|") if s.strip() and s.strip() != "-"
                 )
+                if not detail_bullets:
+                    detail_bullets = "<li>Keine besonderen Auffälligkeiten</li>"
+
+                gauge_svg = render_scope_gauge(gauge_val, label="INTEL", size=84)
 
                 st.markdown(
-                    f"""
-                    <div style="
-                        background:#ffffff;
-                        border-left: 7px solid {border_color};
-                        border-radius: 14px;
-                        padding: 14px 18px;
-                        margin-bottom: 14px;
-                        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-                        font-family: Arial, sans-serif;
-                        color: #111827;
-                    ">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div>
-                                <span style="font-size:18px; font-weight:800;">
-                                    {row.get('Ticker','?')} &nbsp;
-                                    <span style="font-size:14px; font-weight:500; color:#64748b;">
-                                        {row.get('Company','')}
-                                    </span>
-                                </span>
-                            </div>
-                            <div style="
-                                background:{badge_bg};
-                                border:1px solid {border_color};
-                                border-radius:999px;
-                                padding:4px 12px;
-                                font-size:12px;
-                                font-weight:800;
-                                color:{border_color};
-                                white-space:nowrap;
-                            ">{label} · Score {score_val}/10</div>
-                        </div>
-
-                        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px;">
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                💹 Kurs: {row.get('Price','-')}
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                📊 Tech-Score: {row.get('Score','-')}/8
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                📈 RSI: {rsi_v}
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                🔄 1M: {change_1m}%
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                📉 6M: {change_6m}%
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                🏔 Abst. 52W-Tief: +{dist_low}%
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                📦 RVOL: {rvol_v}
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                📡 Vol.-Trend 10D: {vol_trend}%
-                            </span>
-                            <span style="background:#f1f5f9; padding:3px 8px; border-radius:6px;">
-                                🏷 Rating: {rating}
-                            </span>
-                        </div>
-
-                        <div style="margin-top:10px;">
-                            <div style="font-size:12px; font-weight:700; color:#64748b; margin-bottom:4px;">
-                                🔎 Erkannte Signalmuster:
-                            </div>
-                            <ul style="margin:0; padding-left:16px; font-size:12px; color:#374151; line-height:1.6;">
-                                {detail_bullets if detail_bullets else "<li>Keine Details verfügbar</li>"}
-                            </ul>
-                        </div>
-                    </div>
-                    """,
+                    f'<div class="contact-card" style="--card-accent:{accent};">'
+                    f'<div style="display:flex; justify-content:space-between; align-items:center; gap:14px;">'
+                    f'<div style="flex:1;">'
+                    f'<div class="contact-ticker">{row.get("Ticker","?")} <span class="contact-company">{row.get("Company","")}</span></div>'
+                    f'<div class="signal-line"><b>{row.get("Smart Money Signal","-")}</b></div>'
+                    f'<div style="margin-top:8px;">'
+                    f'<span class="pill pill-pos">🟢 {buys} Insider-Käufe</span>'
+                    f'<span class="pill pill-neg">🔴 {sells} Insider-Verkäufe</span>'
+                    f'<span class="pill">🏛 Institutionell: {inst_text}</span>'
+                    f'<span class="pill {short_pill_class}">🩳 Short: {short_text}</span>'
+                    f'<span class="pill">🎯 Swing Score: {row.get("Swing Score","-")}</span>'
+                    f'<span class="pill">📌 Rating: {row.get("Rating","-")}</span>'
+                    f'</div>'
+                    f'<ul style="margin:8px 0 0 0; padding-left:16px; font-size:0.74rem; color:var(--radar-text-dim); line-height:1.6;">{detail_bullets}</ul>'
+                    f'</div>'
+                    f'<div>{gauge_svg}</div>'
+                    f'</div></div>',
                     unsafe_allow_html=True
                 )
 
-        # ---- Tabellen-Ansicht --------------------------------
-        with st.expander("📋 Early-Signal-Tabelle", expanded=False):
-            early_table_cols = [
-                c for c in [
-                    "Ticker", "Company", "Early Signal Label", "Early Signal Score",
-                    "Rating", "Score", "RSI", "RVOL", "Volume Trend 10D",
-                    "1M %", "6M %", "Distance 52W Low %", "Risk Level",
-                    "Price", "Early Signal Details"
-                ] if c in early_df.columns
-            ]
+        with st.expander("📋 Smart-Money-Tabelle", expanded=False):
+            sm_table_cols = [c for c in [
+                "Ticker", "Company", "Smart Money Signal", "Smart Money Score",
+                "Insider Buys 6M", "Insider Sells 6M", "Insider Net Value", "Institutional %",
+                "Short % Float", "Short Ratio",
+                "Swing Score", "Rating", "RS Rating", "Risk Level", "Price", "Smart Money Details"
+            ] if c in sm_df.columns]
+            smart_dataframe(sm_df[sm_table_cols], width="stretch", hide_index=True)
 
-            smart_dataframe(
-                early_df[early_table_cols],
-                width="stretch",
-                hide_index=True
-            )
-
-    # ---- Legende / Erklärung --------------------------------
-    with st.expander("📖 Was bedeuten die Früh-Signale?", expanded=False):
+    with st.expander("📖 Wie funktioniert das Smart-Money-Signal?", expanded=False):
         st.markdown("""
-        ### 🚀 Früh-Signal-Logik
+        ### 🏛️ Smart-Money-Logik
 
-        Der Early-Signal-Score (0–10) erkennt Aktien **bevor** der klassische Aufwärtstrend sichtbar ist.
-        Er schaut auf folgende Muster:
+        **Insider-Transaktionen (SEC Form 4 über Yahoo Finance)**
+        Käufe und Verkäufe von Führungskräften, Vorständen und Großaktionären der letzten 6 Monate.
+        Insider-*Käufe* sind das aussagekräftigere Signal — sie kosten echtes Geld und passieren selten
+        ohne Überzeugung. Insider-*Verkäufe* sind dagegen oft unauffällig (Steuern, Diversifikation,
+        vorgeplante 10b5-1-Programme) und werden deshalb schwächer gewichtet.
 
-        ---
+        **Bewertung:**
+        - 🟢 Mehrere Käufe, keine Verkäufe → +3 Punkte
+        - 🔵 Mehr Käufe als Verkäufe → +2 Punkte
+        - Einzelne Käufe vorhanden → +1 Punkt
+        - 🟠 Deutlich mehr Verkäufe als Käufe (3+) → -1 Punkt
 
-        **📦 Volumen-Akkumulation** *(+1 bis +3 Punkte)*
-        Steigendes Volumen bei gleichzeitig engem Kurskorridor (Seitwärtsbewegung).
-        Das ist das klassische Zeichen für institutionelles Kaufverhalten, bevor der Kurs anzieht.
+        **Institutionelle Beteiligung**
+        Hoher Anteil professioneller Investoren (≥70%) gilt als leicht positiv — diese Adressen tun
+        ihre eigene Due Diligence. Sehr niedrige institutionelle Beteiligung heißt nicht automatisch
+        schlecht, oft ist es einfach eine sehr neue oder sehr kleine Aktie (Retail-getrieben).
 
-        ---
-
-        **📐 EMA20-Squeeze / Annäherung** *(+2 Punkte)*
-        Der Kurs war unter dem EMA20, nähert sich jetzt von unten und will durchbrechen.
-        Das ist oft der Moment kurz vor dem Aufwärtsimpuls.
-
-        ---
-
-        **📈 EMA50 dreht nach oben** *(+1 Punkt)*
-        Der mittelfristige Trend kippt von Seitwärts auf Aufwärts.
-        Oft ein Bestätigungssignal für einen nachhaltigen Trendwechsel.
-
-        ---
-
-        **🔋 RSI-Erholung aus überverkauft** *(+1 bis +2 Punkte)*
-        Der RSI war unter 30–35, steigt jetzt wieder. Klassisches Abklingen des Verkaufsdrucks.
+        **Short-Interest / Squeeze-Potenzial**
+        Eine hohe Shortquote (≥10-20% des Float) bedeutet: Viele Marktteilnehmer setzen auf fallende
+        Kurse. Dreht der Kurs trotzdem nach oben, müssen Shortseller eindecken (zurückkaufen) — das
+        kann die Bewegung zusätzlich befeuern (**Short Squeeze**). Die Days-to-Cover (Short Ratio)
+        zeigt, wie viele Handelstage es bräuchte, um alle Shortpositionen bei normalem Volumen
+        einzudecken — hohe Werte verstärken das Squeeze-Potenzial.
 
         ---
 
-        **🏔 Bodenbildung nahe 52W-Tief** *(+1 bis +2 Punkte)*
-        Kurs ist nah am 52-Wochen-Tief, dreht aber nach oben. Oft die beste Einstiegszone
-        — aber auch die riskanteste, weil man gegen den bisherigen Trend kauft.
-
-        ---
-
-        **⚡ Momentum-Divergenz** *(+1 Punkt)*
-        Die 1M-Performance ist deutlich besser als die 3M-Performance. Das zeigt,
-        dass gerade eine Kurswende beginnt, obwohl die mittelfristige Sicht noch negativ ist.
-
-        ---
-
-        **RVOL (Relatives Volumen)**
-        Volumen heute vs. 20-Tage-Schnitt. Werte über 1,5 = erhöhtes Interesse.
-        Werte unter 0,7 = ruhige Phase (kann auch Akkumulation sein).
-
-        **Volume Trend 10D**
-        Mittlere tägliche Volumenveränderung der letzten 10 Tage in Prozent.
-        Positiver Wert = Volumen nimmt zu = mehr Interesse.
-
-        ---
-
-        ⚠️ **Wichtig:** Ein hohes Early-Signal ist kein Kaufsignal. Es ist ein Hinweis,
-        dass eine Aktie genauer angeschaut werden sollte. Immer mit eigenem Chart-Check,
-        Fundamentalanalyse und Risikomanagement kombinieren.
+        ⚠️ **Wichtig:** Insider-Käufe sind ein Frühindikator, kein Garant. Insider können sich irren
+        oder aus Gründen kaufen, die nichts mit kurzfristigem Kurspotenzial zu tun haben (z. B.
+        Optionsausübung, Vertrauenssignal an den Markt). Immer im Kontext mit Technik und
+        Sektor-Stärke bewerten.
         """)
 
 
@@ -4052,13 +3894,15 @@ with tab_network:
     # ============================================================
     # 🕸️ AKTIEN-NETZWERK / THEMEN-MAPPING
     # ============================================================
+
+    with st.expander("🕸️ Aktien-Netzwerk / Themen-Mapping", expanded=True):
         st.markdown(
             """
-            <div class="terminal-panel">
-                <h3>Market Relationship Terminal</h3>
-                <p>Wähle eine Hauptaktie und erkenne, welche Unternehmen in der Wertschöpfungskette, als Zulieferer, Kunden, Konkurrenz oder Infrastrukturpartner daran hängen.</p>
-            </div>
-            """,
+<div class="terminal-panel">
+    <h3>Market Relationship Terminal</h3>
+    <p>Wähle eine Hauptaktie und erkenne, welche Unternehmen in der Wertschöpfungskette, als Zulieferer, Kunden, Konkurrenz oder Infrastrukturpartner daran hängen.</p>
+</div>
+""",
             unsafe_allow_html=True
         )
 
@@ -4942,10 +4786,10 @@ with tab_network:
 
                             st.markdown(
                                 """
-                                <div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
-                                    <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Das Zentrum wechselst du über die Buttons unten — ohne URL-Wechsel, der Login bleibt erhalten.
-                                </div>
-                                """,
+<div class="terminal-panel" style="padding:14px 16px; margin-top:8px;">
+    <b>Bedienung:</b> Mouseover zeigt Schnellinfos. Klick zeigt Details rechts. Das Zentrum wechselst du über die Buttons unten — ohne URL-Wechsel, der Login bleibt erhalten.
+</div>
+""",
                                 unsafe_allow_html=True
                             )
 
@@ -5502,7 +5346,7 @@ with tab_overview:
     # ============================================================
 
     with st.expander("📊 Markt-Metriken / Filter-Zusammenfassung", expanded=False):
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
         col1.metric(
             "Aktien",
@@ -5543,6 +5387,12 @@ with tab_overview:
             if len(df_filtered) > 0 else 0
         )
 
+        col7.metric(
+            "Ø Swing Score",
+            round(pd.to_numeric(df_filtered["Swing Score"], errors="coerce").mean(), 1)
+            if "Swing Score" in df_filtered.columns and len(df_filtered) > 0 else 0
+        )
+
 
 # ============================================================
 # HILFSFUNKTIONEN
@@ -5550,28 +5400,34 @@ with tab_overview:
 
 def get_border_color(rating):
 
+    if rating == "PRE-BREAKOUT":
+        return "#3ddc84"
+
     if rating == "STRONG BUY":
-        return "#16a34a"
+        return "#3ddc84"
 
     if rating == "BUY":
-        return "#22c55e"
+        return "#7dd3fc"
 
     if rating == "TURNAROUND":
-        return "#2563eb"
+        return "#7dd3fc"
 
     if rating == "WATCH - OVERBOUGHT":
-        return "#f59e0b"
+        return "#ffb454"
 
     if rating == "HOLD":
-        return "#9ca3af"
+        return "#7b8aa8"
 
     if rating == "AVOID":
-        return "#dc2626"
+        return "#ff5470"
 
-    return "#6b7280"
+    return "#1b2740"
 
 
 def get_rating_light(rating):
+
+    if rating == "PRE-BREAKOUT":
+        return "🎯"
 
     if rating == "STRONG BUY":
         return "🟢"
@@ -5606,11 +5462,109 @@ def get_risk_light(risk):
 
 
 with tab_etf_swing:
+
+    st.markdown(
+        """
+<div class="terminal-panel">
+    <h3>📡 Sektor-Stärke — Wer führt die Rotation an?</h3>
+    <p>
+        Zwei Ebenen, eine Frage: <b>Wohin fließt das Geld gerade?</b> Oben die einzelnen Aktien aus
+        deiner Watchlist im Vergleich zu ihrer eigenen Sektor-Peer-Group. Unten die ETF-Ebene —
+        bestätigt die Rotation auch auf Marktebene (Tech, Halbleiter, Energie, Bonds, Gold)?
+        Eine Aktie, die in einem stark rotierenden Sektor selbst die Peer-Group anführt, ist ein
+        besonders überzeugendes Swing-Setup.
+    </p>
+</div>
+""",
+        unsafe_allow_html=True
+    )
+
+    # ============================================================
+    # 📊 SEKTOR-RELATIVE-STÄRKE-HEATMAP  (Aktien-Ebene)
+    # ============================================================
+
+    with st.expander("📊 Sektor-Heatmap — relative Stärke je Aktie", expanded=True):
+
+        rs_cols_needed = {
+            "Sector": "OTHER", "RS Percentile": 50, "RS Rating": "❓ Zu wenig Peers",
+            "Relative Strength 1M": 0, "Relative Strength 3M": 0,
+            "Sector Avg 1M %": 0, "Market RS 1M": 0, "Market RS 3M": 0,
+            "Swing Score": 0,
+        }
+        for col, default in rs_cols_needed.items():
+            if col not in df.columns:
+                df[col] = default
+
+        rs_df = df.copy()
+        rs_df["RS Percentile"] = pd.to_numeric(rs_df["RS Percentile"], errors="coerce").fillna(50)
+        rs_df["Swing Score"]   = pd.to_numeric(rs_df["Swing Score"], errors="coerce").fillna(0)
+
+        sector_summary = rs_df.groupby("Sector").agg(
+            Aktien=("Ticker", "count"),
+            **{"Ø 1M %": ("1M %", "mean")},
+            **{"Ø Swing Score": ("Swing Score", "mean")},
+        ).reset_index().sort_values(by="Ø 1M %", ascending=False)
+
+        sector_summary["Ø 1M %"] = sector_summary["Ø 1M %"].round(2)
+        sector_summary["Ø Swing Score"] = sector_summary["Ø Swing Score"].round(1)
+
+        st.markdown("##### 🔥 Sektor-Rotation auf einen Blick")
+        n_sector_cols = min(len(sector_summary), 6) or 1
+        sector_tiles = st.columns(n_sector_cols)
+        for i, (_, srow) in enumerate(sector_summary.head(n_sector_cols).iterrows()):
+            tile_color = gauge_color(max(0, min(srow["Ø 1M %"] * 5 + 50, 100)))
+            with sector_tiles[i]:
+                st.markdown(
+                    f'<div style="background:#0d1424; border:1px solid #1b2740; border-left:4px solid {tile_color}; '
+                    f'border-radius:12px; padding:10px 12px;">'
+                    f'<div style="font-size:0.72rem; color:#7b8aa8; font-weight:700;">{srow["Sector"]}</div>'
+                    f'<div style="font-size:1.1rem; font-weight:800; color:{tile_color}; font-family:\'JetBrains Mono\',monospace;">{srow["Ø 1M %"]}%</div>'
+                    f'<div style="font-size:0.68rem; color:#7b8aa8;">{int(srow["Aktien"])} Aktien · Swing Ø {srow["Ø Swing Score"]}</div>'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
+
+        st.markdown("---")
+
+        sector_pick_col, rs_min_col = st.columns([1.4, 1])
+        with sector_pick_col:
+            sector_choice = st.selectbox(
+                "Sektor wählen, um Peer-Group-Vergleich zu sehen",
+                options=["Alle"] + sorted(rs_df["Sector"].dropna().unique().tolist())
+            )
+        with rs_min_col:
+            min_rs_percentile = st.slider("Mindest-RS-Perzentil", 0, 100, 0, step=10)
+
+        rs_view = rs_df.copy()
+        if sector_choice != "Alle":
+            rs_view = rs_view[rs_view["Sector"] == sector_choice]
+        rs_view = rs_view[rs_view["RS Percentile"] >= min_rs_percentile]
+        rs_view = rs_view.sort_values(by="RS Percentile", ascending=False)
+
+        rs_display_cols = [c for c in [
+            "Ticker", "Company", "Sector", "1M %", "Sector Avg 1M %", "Relative Strength 1M",
+            "RS Percentile", "RS Rating", "Market RS 1M", "Swing Score", "Rating", "Risk Level"
+        ] if c in rs_view.columns]
+
+        smart_dataframe(rs_view[rs_display_cols].head(60), width="stretch", hide_index=True)
+
+        st.caption(
+            "Relative Strength 1M = eigene 1M-Performance minus Sektor-Durchschnitt. "
+            "Market RS 1M = eigene 1M-Performance minus Gesamtmarkt (SPY). "
+            "RS-Perzentil 100 = stärkste Aktie im eigenen Sektor."
+        )
+
+    st.markdown("---")
+
+    # ============================================================
+    # 📈 ETF SWINGTRADES  (Markt-/ETF-Ebene)
+    # ============================================================
+
     with st.expander("📈 ETF Swingtrades / Marktrotation", expanded=True):
         st.markdown(
             """
-            Dieses Fenster ist als eigene Arbeitsfläche für ETF-Swingtrades gedacht.  
-            Ziel: nicht einzelne Aktien jagen, sondern Marktrotationen erkennen — z. B. Tech, Halbleiter, Energie, Bonds, Gold, Rohstoffe oder Regionen.
+            Bestätigung auf Marktebene: starke ETFs im Aufwärtstrend suchen, Rücksetzer an SMA20/SMA50 beobachten,
+            überhitzte Setups nicht hinterherkaufen. Eigene 0-10-Skala, getrennt vom aktienweiten Swing Score oben.
             """
         )
 
@@ -5640,8 +5594,8 @@ with tab_etf_swing:
             st.info(
                 "Swing-Idee: starke ETFs im Aufwärtstrend suchen, Rücksetzer an SMA20/SMA50 beobachten und überhitzte Setups nicht hinterherkaufen."
             )
-            min_swing_score = st.slider(
-                "Mindest-Swing-Score anzeigen",
+            min_etf_swing_score = st.slider(
+                "Mindest-ETF-Swing-Score anzeigen",
                 min_value=0,
                 max_value=10,
                 value=0,
@@ -5662,7 +5616,7 @@ with tab_etf_swing:
                 st.warning("Für die ausgewählten ETFs konnten keine Daten geladen werden.")
             else:
                 etf_df_filtered = etf_df[
-                    pd.to_numeric(etf_df["Swing Score"], errors="coerce").fillna(0) >= min_swing_score
+                    pd.to_numeric(etf_df["ETF Swing Score"], errors="coerce").fillna(0) >= min_etf_swing_score
                 ].copy()
 
                 metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
@@ -5676,8 +5630,8 @@ with tab_etf_swing:
                     int((etf_df["Signal"] == "🟡 Watch / Pullback suchen").sum())
                 )
                 metric_col4.metric(
-                    "Ø Swing Score",
-                    round(pd.to_numeric(etf_df["Swing Score"], errors="coerce").fillna(0).mean(), 2)
+                    "Ø ETF Swing Score",
+                    round(pd.to_numeric(etf_df["ETF Swing Score"], errors="coerce").fillna(0).mean(), 2)
                 )
 
                 smart_dataframe(
@@ -5952,6 +5906,21 @@ with tab_dividends:
 
 
 with tab_bitcoin:
+
+    st.markdown(
+        """
+<div class="terminal-panel">
+    <h3>📈 Markt-Kontext</h3>
+    <p>
+        Breitere Stimmungsindikatoren, die keine einzelne Aktie direkt bewerten, aber den
+        Hintergrund färben: Krypto-Risikoappetit und geopolitische Aufmerksamkeit. Beides fließt
+        nicht in den Swing Score ein — reine Orientierung.
+    </p>
+</div>
+""",
+        unsafe_allow_html=True
+    )
+
     with st.expander("₿ Bitcoin / Krypto-Signal", expanded=True):
         st.markdown(
             """
@@ -6006,6 +5975,84 @@ with tab_bitcoin:
         else:
             st.warning("Für Bitcoin konnten aktuell keine Chartdaten geladen werden.")
 
+    # ============================================================
+    # 🍕 PIZZINT / GEOPOLITISCHER STRESS-INDIKATOR
+    # ============================================================
+
+    with st.expander("🍕 PizzINT / Geopolitischer Stress-Indikator", expanded=False):
+        st.caption(
+            "Experimenteller externer OSINT-/Stimmungsindikator. "
+            "Hier wird kein DOUGHCON-Level mehr manuell eingeschätzt; "
+            "der Bereich dient nur als Zusatzhinweis für mögliche Markt-Fokusbereiche."
+        )
+
+        geo_focus_df = pd.DataFrame([
+            {
+                "Bereich": "Energie",
+                "Warum relevant?": "Öl, Gas und Energiepreise reagieren oft sensibel auf geopolitische Spannungen.",
+                "Beispiele": "XOM, CVX, SHEL, BP, ENPH"
+            },
+            {
+                "Bereich": "Rüstung / Verteidigung",
+                "Warum relevant?": "Verteidigungswerte können bei erhöhter Sicherheitslage stärker beobachtet werden.",
+                "Beispiele": "LMT, RTX, NOC, HAG.DE, RHM.DE"
+            },
+            {
+                "Bereich": "Cybersecurity",
+                "Warum relevant?": "Cyberrisiken steigen häufig bei geopolitischen Konflikten.",
+                "Beispiele": "CRWD, PANW, FTNT, ZS"
+            },
+            {
+                "Bereich": "Gold / Sicherheit",
+                "Warum relevant?": "Gold wird oft als sicherer Hafen betrachtet.",
+                "Beispiele": "GOLD, NEM, AEM, GLD"
+            },
+            {
+                "Bereich": "High-Risk / Turnaround",
+                "Warum relevant?": "Spekulative Aktien können in Stressphasen stärker fallen.",
+                "Beispiele": "enger prüfen, Positionsgröße reduzieren"
+            }
+        ])
+
+        st.markdown("### 🧭 Mögliche Markt-Fokusbereiche")
+
+        smart_dataframe(
+            geo_focus_df,
+            width="stretch",
+            hide_index=True
+        )
+
+        pizza_watch_df = pd.DataFrame([
+            {
+                "Signal": "Pizza-/OSINT-Aktivität",
+                "Interpretation": "Kann als humorvoller externer Stimmungsindikator beobachtet werden.",
+                "Relevanz fürs Portfolio": "Nur Zusatzsignal, niemals alleinige Entscheidungsbasis."
+            },
+            {
+                "Signal": "Geopolitische Aufmerksamkeit nimmt zu",
+                "Interpretation": "Defensive Sektoren, Energie, Gold, Cybersecurity und Defense stärker beobachten.",
+                "Relevanz fürs Portfolio": "Risk-Management prüfen, spekulative Setups strenger bewerten."
+            },
+            {
+                "Signal": "Geopolitische Aufmerksamkeit nimmt ab",
+                "Interpretation": "Normale technische, fundamentale und Markt-Tacho-Signale wieder stärker gewichten.",
+                "Relevanz fürs Portfolio": "Keine automatische Kaufentscheidung; nur Kontext."
+            }
+        ])
+
+        st.markdown("### 🍕 PizzINT Watch")
+
+        smart_dataframe(
+            pizza_watch_df,
+            width="stretch",
+            hide_index=True
+        )
+
+        st.link_button(
+            "🍕 PizzINT extern öffnen",
+            "https://www.pizzint.watch/"
+        )
+
 
 with tab_analysis:
     # ============================================================
@@ -6022,6 +6069,7 @@ with tab_analysis:
             "Tabellenansicht",
             [
                 "Kompakt",
+                "🎯 Swing & Smart Money",
                 "Bewertung",
                 "Technik",
                 "Dividende",
@@ -6038,6 +6086,7 @@ with tab_analysis:
                 "Ticker",
                 "Company",
                 "Price",
+                "Swing Score",
                 "Action Signal",
                 "Terminal Grade",
                 "Terminal Score",
@@ -6050,6 +6099,26 @@ with tab_analysis:
                 "3M %",
                 "CRV",
                 "Dividend Yield %"
+            ],
+            "🎯 Swing & Smart Money": [
+                "Ticker",
+                "Company",
+                "Price",
+                "Swing Score",
+                "Swing Tier",
+                "Rating",
+                "Early Signal Score",
+                "Early Signal Label",
+                "RS Percentile",
+                "RS Rating",
+                "Relative Strength 1M",
+                "Market RS 1M",
+                "Smart Money Score",
+                "Smart Money Signal",
+                "Insider Buys 6M",
+                "Institutional %",
+                "Short % Float",
+                "Risk Level"
             ],
             "Bewertung": [
                 "Ticker",
@@ -6274,6 +6343,7 @@ with tab_lists:
                 watchlist_columns = [
                     "Ticker",
                     "Company",
+                    "Swing Score",
                     "Action Signal",
                     "Rating",
                     "Score",
@@ -6337,6 +6407,7 @@ with tab_lists:
                 buy_columns = [
                     "Ticker",
                     "Company",
+                    "Swing Score",
                     "Action Signal",
                     "Rating",
                     "Score",
@@ -6390,6 +6461,7 @@ with tab_lists:
                 "Liste",
                 "Ticker",
                 "Company",
+                "Swing Score",
                 "Terminal Grade",
                 "Terminal Score",
                 "Action Signal",
@@ -6424,6 +6496,158 @@ with tab_lists:
                 width="stretch",
                 hide_index=True
             )
+
+    # ============================================================
+    # 📓 TRADE-JOURNAL
+    # ============================================================
+
+    with st.expander("📓 Trade-Journal", expanded=True):
+        st.markdown(
+            """
+<div class="terminal-panel">
+    <h3>📓 Trade-Journal</h3>
+    <p>
+        Watchlists zeigen, was interessant <i>ist</i>. Das Journal hält fest, was du tatsächlich
+        <i>gemacht</i> hast — Einstieg, Stop, Ziel, Ausstieg. Ohne das lässt sich kein Setup wirklich
+        verbessern, weil man sich nur an die Gewinner erinnert.
+    </p>
+</div>
+""",
+            unsafe_allow_html=True
+        )
+
+        journal_df, journal_error = load_trade_journal(current_user)
+
+        if journal_error:
+            st.warning(
+                "Die Trade-Journal-Tabelle existiert in Supabase noch nicht oder ist nicht erreichbar. "
+                "Einmalig im Supabase SQL-Editor anlegen (siehe Kommentar im Code bei TRADE_JOURNAL_TABLE "
+                "in dashboard.py für das fertige CREATE TABLE-Statement)."
+            )
+            st.caption(f"Technische Meldung: {journal_error}")
+        else:
+            with st.form(key="new_journal_entry_form", clear_on_submit=True):
+                jf1, jf2, jf3 = st.columns(3)
+                with jf1:
+                    journal_ticker = st.selectbox("Ticker", options=all_displays, key="journal_ticker_select")
+                    journal_direction = st.selectbox("Richtung", options=["Long", "Short"], key="journal_direction")
+                with jf2:
+                    journal_entry_date = st.date_input("Einstiegsdatum", value=datetime.now().date(), key="journal_entry_date")
+                    journal_entry_price = st.number_input("Einstiegskurs", min_value=0.0, step=0.01, key="journal_entry_price")
+                with jf3:
+                    journal_stop = st.number_input("Stop Loss", min_value=0.0, step=0.01, key="journal_stop")
+                    journal_target = st.number_input("Kursziel", min_value=0.0, step=0.01, key="journal_target")
+
+                journal_size = st.number_input("Positionsgröße (Stück)", min_value=0.0, step=1.0, key="journal_size")
+                journal_notes = st.text_area("Notizen (Setup, Einstiegsgrund, Plan)", key="journal_notes")
+
+                journal_submit = st.form_submit_button("➕ Trade ins Journal eintragen")
+
+                if journal_submit:
+                    sel_ticker = display_to_ticker.get(journal_ticker, journal_ticker)
+                    sel_name_row = df[df["Ticker"].astype(str) == sel_ticker]
+                    sel_name = sel_name_row.iloc[0].get("Company", sel_ticker) if not sel_name_row.empty else sel_ticker
+
+                    try:
+                        add_trade_journal_entry({
+                            "username": current_user,
+                            "ticker": sel_ticker,
+                            "name": str(sel_name),
+                            "direction": journal_direction,
+                            "status": "Open",
+                            "entry_date": journal_entry_date.isoformat(),
+                            "entry_price": journal_entry_price,
+                            "stop_loss": journal_stop or None,
+                            "target_price": journal_target or None,
+                            "position_size": journal_size or None,
+                            "notes": journal_notes,
+                            "created_at": datetime.now().isoformat(),
+                        })
+                        st.success(f"Trade für {sel_ticker} eingetragen.")
+                        load_trade_journal.clear()
+                        st.rerun()
+                    except Exception as error:
+                        st.error(f"Konnte Trade nicht speichern: {error}")
+
+            if journal_df.empty:
+                st.info("Noch keine Trades im Journal.")
+            else:
+                for jcol in ["entry_price", "exit_price", "stop_loss", "target_price", "status", "direction", "ticker", "notes", "entry_date", "exit_date", "id"]:
+                    if jcol not in journal_df.columns:
+                        journal_df[jcol] = None
+
+                journal_df["entry_price"]  = pd.to_numeric(journal_df["entry_price"], errors="coerce")
+                journal_df["exit_price"]   = pd.to_numeric(journal_df["exit_price"], errors="coerce")
+                journal_df["stop_loss"]    = pd.to_numeric(journal_df["stop_loss"], errors="coerce")
+                journal_df["target_price"] = pd.to_numeric(journal_df["target_price"], errors="coerce")
+
+                open_trades   = journal_df[journal_df["status"] == "Open"]
+                closed_trades = journal_df[journal_df["status"] == "Closed"].copy()
+
+                if not closed_trades.empty:
+                    def _pnl_pct(r):
+                        if pd.isna(r["entry_price"]) or pd.isna(r["exit_price"]) or r["entry_price"] == 0:
+                            return None
+                        direction_mult = 1 if r.get("direction") == "Long" else -1
+                        return round(((r["exit_price"] - r["entry_price"]) / r["entry_price"]) * 100 * direction_mult, 2)
+                    closed_trades["P&L %"] = closed_trades.apply(_pnl_pct, axis=1)
+                    win_rate = round((closed_trades["P&L %"] > 0).mean() * 100, 1) if len(closed_trades) else 0
+                    avg_pnl  = round(closed_trades["P&L %"].mean(), 2) if len(closed_trades) else 0
+                else:
+                    win_rate, avg_pnl = 0, 0
+
+                jm1, jm2, jm3, jm4 = st.columns(4)
+                jm1.metric("Offene Trades", len(open_trades))
+                jm2.metric("Geschlossene Trades", len(closed_trades))
+                jm3.metric("Winrate", f"{win_rate}%")
+                jm4.metric("Ø P&L (geschlossen)", f"{avg_pnl}%")
+
+                if not open_trades.empty:
+                    st.markdown("##### 🟢 Offene Trades")
+                    for _, jrow in open_trades.iterrows():
+                        live_price_row = df[df["Ticker"].astype(str) == str(jrow.get("ticker"))]
+                        live_price = live_price_row.iloc[0].get("Raw Price") if not live_price_row.empty and "Raw Price" in live_price_row.columns else None
+
+                        jc1, jc2 = st.columns([3, 1])
+                        with jc1:
+                            unreal_text = ""
+                            if live_price and jrow.get("entry_price"):
+                                mult = 1 if jrow.get("direction") == "Long" else -1
+                                unreal = round(((live_price - jrow["entry_price"]) / jrow["entry_price"]) * 100 * mult, 2)
+                                unreal_text = f" · Unrealisiert: **{unreal}%**"
+                            st.markdown(
+                                f"**{jrow.get('ticker')}** ({jrow.get('direction')}) · Einstieg {jrow.get('entry_price')} am {jrow.get('entry_date')} "
+                                f"· Stop {jrow.get('stop_loss','-')} · Ziel {jrow.get('target_price','-')}{unreal_text}"
+                            )
+                            if jrow.get("notes"):
+                                st.caption(jrow.get("notes"))
+                        with jc2:
+                            with st.popover("Schließen"):
+                                close_price = st.number_input("Exit-Kurs", min_value=0.0, step=0.01, key=f"close_price_{jrow.get('id')}")
+                                close_date  = st.date_input("Exit-Datum", value=datetime.now().date(), key=f"close_date_{jrow.get('id')}")
+                                if st.button("Bestätigen", key=f"confirm_close_{jrow.get('id')}"):
+                                    update_trade_journal_entry(jrow.get("id"), {
+                                        "status": "Closed",
+                                        "exit_price": close_price,
+                                        "exit_date": close_date.isoformat(),
+                                    })
+                                    load_trade_journal.clear()
+                                    st.rerun()
+
+                if not closed_trades.empty:
+                    st.markdown("##### 📁 Geschlossene Trades")
+                    closed_display_cols = [c for c in [
+                        "ticker", "name", "direction", "entry_date", "entry_price",
+                        "exit_date", "exit_price", "P&L %", "notes"
+                    ] if c in closed_trades.columns]
+                    smart_dataframe(closed_trades[closed_display_cols], width="stretch", hide_index=True)
+
+                    st.download_button(
+                        "📥 Journal als CSV exportieren",
+                        journal_df.to_csv(index=False).encode("utf-8-sig"),
+                        "trade_journal.csv",
+                        "text/csv"
+                    )
 
 
 with tab_admin:

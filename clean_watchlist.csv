@@ -1,861 +1,861 @@
-﻿Ticker;Company;Sector;Industry;Price;Market Cap;Currency;Exchange
-005930.KS;SamsungElec;TECHNOLOGY;Consumer Electronics;353500.0;2321280036503552.0;KRW;KSC
-000660.KS;SK hynix;SEMICONDUCTOR;Semiconductors;2919000.0;2072066438201344.0;KRW;KSC
-373220.KS;LG Energy Solution;INDUSTRIALS;Electrical Equipment & Parts;385500.0;90206996791296.0;KRW;KSC
-285A.T;KIOXIA HOLDINGS CORPORATION;SEMICONDUCTOR;Semiconductors;108700.0;59359564398592.0;JPY;JPX
-8035.T;TOKYO ELECTRON;SEMICONDUCTOR;Semiconductor Equipment & Materials;77800.0;35387720335360.0;JPY;JPX
-7203.T;TOYOTA MOTOR CORP;CONSUMER;Auto Manufacturers;2741.5;32462245724160.0;JPY;JPX
-6857.T;ADVANTEST CORP;SEMICONDUCTOR;Semiconductor Equipment & Materials;32170.0;23317255815168.0;JPY;JPX
-6981.T;MURATA MANUFACTURING CO;TECHNOLOGY;Electronic Components;12250.0;22298560036864.0;JPY;JPX
-6861.T;KEYENCE CORP;TECHNOLOGY;Scientific & Technical Instruments;77990.0;18914534752256.0;JPY;JPX
-6758.T;SONY GROUP CORPORATION;TECHNOLOGY;Consumer Electronics;3183.0;18747446263808.0;JPY;JPX
-8001.T;ITOCHU CORP;INDUSTRIALS;Conglomerates;1847.5;12913863557120.0;JPY;JPX
-6752.T;PANASONIC HOLDINGS CORP;TECHNOLOGY;Consumer Electronics;4393.0;10256976445440.0;JPY;JPX
-6146.T;DISCO CORPORATION;SEMICONDUCTOR;Semiconductor Equipment & Materials;88480.0;9597225009152.0;JPY;JPX
-7974.T;NINTENDO CO LTD;COMMUNICATION;Electronic Gaming & Multimedia;7000.0;8069802622976.0;JPY;JPX
-6762.T;TDK CORP;TECHNOLOGY;Electronic Components;4063.0;7712199933952.0;JPY;JPX
-NVDA;NVIDIA Corporation;SEMICONDUCTOR;Semiconductors;208.11;5039905570816.0;USD;NMS
-6701.T;NEC CORP;TECHNOLOGY;Information Technology Services;3752.0;4976443129856.0;JPY;JPX
-AAPL;Apple Inc.;TECHNOLOGY;Consumer Electronics;299.15;4393722445824.0;USD;NMS
-GOOGL;Alphabet Inc.;COMMUNICATION;Internet Content & Information;349.64;4266873847808.0;USD;NMS
-GOOG;Alphabet Inc.;COMMUNICATION;Internet Content & Information;348.83;4256623230976.0;USD;NMS
-6594.T;NIDEC CORPORATION;INDUSTRIALS;Specialty Industrial Machinery;2759.0;3162669056000.0;JPY;JPX
-MSFT;Microsoft Corporation;SOFTWARE;Software - Infrastructure;370.18;2749858054144.0;USD;NMS
-AMZN;Amazon.com, Inc.;CONSUMER;Internet Retail;234.89;2526737596416.0;USD;NMS
-TSM;Taiwan Semiconductor Manufactur;SEMICONDUCTOR;Semiconductors;466.25;2418193465344.0;USD;NYQ
-6479.T;MINEBEA MITSUMI INC;TECHNOLOGY;Electronic Components;5054.0;2029663813632.0;JPY;JPX
-300750.SZ;CONTEMPORARY AMPEREX TECHNOLOGY;INDUSTRIALS;Electrical Equipment & Parts;408.98;1892197990400.0;CNY;SHZ
-AVGO;Broadcom Inc.;SEMICONDUCTOR;Semiconductors;395.02;1879339302912.0;USD;NMS
-TSLA;Tesla, Inc.;CONSUMER;Auto Manufacturers;406.75;1527640621056.0;USD;NMS
-META;Meta Platforms, Inc.;COMMUNICATION;Internet Content & Information;565.255;1434856456192.0;USD;NMS
-MU;Micron Technology, Inc.;SEMICONDUCTOR;Semiconductors;1189.765;1341721542656.0;USD;NMS
-NOVO-B.CO;Novo Nordisk B A/S;PHARMA;Drug Manufacturers - General;299.95;1328157818880.0;DKK;CPH
-ADVANC.BK;ADVANC_ADVANCED INFO SERVICE;COMMUNICATION;Telecom Services;361.0;1073689722880.0;THB;SET
-BRK-B;Berkshire Hathaway Inc. New;FINANCIALS;Insurance - Diversified;489.355;1055467175936.0;USD;NYQ
-LLY;Eli Lilly and Company;PHARMA;Drug Manufacturers - General;1103.56;984090148864.0;USD;NYQ
-WMT;Walmart Inc.;CONSUMER;Discount Stores;117.305;933522440192.0;USD;NMS
-6481.T;THK CO LTD;INDUSTRIALS;Specialty Industrial Machinery;8196.0;918556901376.0;JPY;JPX
-JPM;JP Morgan Chase & Co.;FINANCIALS;Banks - Diversified;332.3;890401587200.0;USD;NYQ
-AMD;Advanced Micro Devices, Inc.;SEMICONDUCTOR;Semiconductors;544.755;888277827584.0;USD;NMS
-NLMK.ME;NOVOLIPETSK STEEL;MATERIALS;Steel;138.0;827065368576.0;RUB;MCX
-6324.T;HARMONIC DRIVE SYSTEMS;INDUSTRIALS;Specialty Industrial Machinery;8710.0;824547737600.0;JPY;JPX
-002594.SZ;BYD COMPANY LIMITED;CONSUMER;Auto Manufacturers;87.59;798575296512.0;CNY;SHZ
-ASML;ASML Holding N.V. - New York Re;SEMICONDUCTOR;Semiconductor Equipment & Materials;1890.09;728474058752.0;USD;NMS
-INTC;Intel Corporation;SEMICONDUCTOR;Semiconductors;140.72;707258679296.0;USD;NMS
-6268.T;NABTESCO CORP;INDUSTRIALS;Specialty Industrial Machinery;5707.0;668772073472.0;JPY;JPX
-ASML.AS;ASML HOLDING;SEMICONDUCTOR;Semiconductor Equipment & Materials;1655.8;638174560256.0;EUR;AMS
-V;Visa Inc.;FINANCIALS;Credit Services;326.655;621214105600.0;USD;NYQ
-XOM;Exxon Mobil Corporation;ENERGY;Oil & Gas Integrated;138.645;574676205568.0;USD;NYQ
-JNJ;Johnson & Johnson;PHARMA;Drug Manufacturers - General;230.6;555104206848.0;USD;NYQ
-ORCL;Oracle Corporation;SOFTWARE;Software - Infrastructure;175.135;503696326656.0;USD;NYQ
-LRCX;Lam Research Corporation;SEMICONDUCTOR;Semiconductor Equipment & Materials;397.66;497302077440.0;USD;NMS
-AMAT;Applied Materials, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;622.365;494132559872.0;USD;NMS
-CSCO;Cisco Systems, Inc.;TECHNOLOGY;Communication Equipment;120.885;476460318720.0;USD;NMS
-CAT;Caterpillar, Inc.;INDUSTRIALS;Farm & Heavy Construction Machinery;1016.59;468233191424.0;USD;NYQ
-ARM;Arm Holdings plc;SEMICONDUCTOR;Semiconductors;405.97;433607933952.0;USD;NMS
-MA;Mastercard Incorporated;FINANCIALS;Credit Services;484.17;427804819456.0;USD;NYQ
-COST;Costco Wholesale Corporation;CONSUMER;Discount Stores;948.84;420790435840.0;USD;NMS
-BAC;Bank of America Corporation;FINANCIALS;Banks - Diversified;57.38;407202398208.0;USD;NYQ
-ABBV;AbbVie Inc.;PHARMA;Drug Manufacturers - General;229.5301;405532147712.0;USD;NYQ
-GE;GE Aerospace;DEFENSE;Aerospace & Defense;356.8087;372804288512.0;USD;NYQ
-UNH;UnitedHealth Group Incorporated;HEALTHCARE;Healthcare Plans;408.39;370877104128.0;USD;NYQ
-MS;Morgan Stanley;FINANCIALS;Capital Markets;227.12;358232915968.0;USD;NYQ
-CVX;Chevron Corporation;ENERGY;Oil & Gas Integrated;175.15;348828336128.0;USD;NYQ
-KLAC;KLA Corporation;SEMICONDUCTOR;Semiconductor Equipment & Materials;266.29;347848048640.0;USD;NMS
-KO;Coca-Cola Company (The);CONSUMER;Beverages - Non-Alcoholic;79.85;343531716608.0;USD;NYQ
-SNDK;Sandisk Corporation;TECHNOLOGY;Computer Hardware;2306.15;341517172736.0;USD;NMS
-HD;Home Depot, Inc. (The);CONSUMER;Home Improvement Retail;326.5101;325568659456.0;USD;NYQ
-GS;Goldman Sachs Group, Inc. (The);FINANCIALS;Capital Markets;1101.03;324812046336.0;USD;NYQ
-3350.T;METAPLANET INC;CONSUMER;Restaurants;245.0;313901416448.0;JPY;JPX
-NFLX;Netflix, Inc.;COMMUNICATION;Entertainment;72.83;306672467968.0;USD;NMS
-GEV;GE Vernova Inc.;INDUSTRIALS;Specialty Industrial Machinery;1131.23;303984115712.0;USD;NYQ
-TXN;Texas Instruments Incorporated;SEMICONDUCTOR;Semiconductors;329.78;300130402304.0;USD;NMS
-0992.HK;LENOVO GROUP;TECHNOLOGY;Computer Hardware;23.3;289028538368.0;HKD;HKG
-PLTR;Palantir Technologies Inc.;SOFTWARE;Software - Infrastructure;119.7;286958223360.0;USD;NMS
-RIO.AX;RIO TINTO FPO [RIO];MATERIALS;Other Industrial Metals & Mining;175.99;286197383168.0;AUD;ASX
-MRK;Merck & Company, Inc.;PHARMA;Drug Manufacturers - General;115.17;284449669120.0;USD;NYQ
-AZN;AstraZeneca PLC;PHARMA;Drug Manufacturers - General;176.495;273719410688.0;USD;NYQ
-SAAB-B.ST;SAAB AB ser. B;DEFENSE;Aerospace & Defense;502.9;271247769600.0;SEK;STO
-MRVL;Marvell Technology, Inc.;SEMICONDUCTOR;Semiconductors;306.385;268256362496.0;USD;NMS
-DELL;Dell Technologies Inc.;TECHNOLOGY;Computer Hardware;414.6807;267942772736.0;USD;NYQ
-KOG.OL;KONGSBERG GRUPPEN;DEFENSE;Aerospace & Defense;293.4;258077343744.0;NOK;OSL
-WFC;Wells Fargo & Company;FINANCIALS;Banks - Diversified;83.96;256925843456.0;USD;NYQ
-WDC;Western Digital Corporation;TECHNOLOGY;Computer Hardware;734.31;253103538176.0;USD;NMS
-BABA;Alibaba Group Holding Limited;CONSUMER;Internet Retail;104.85;251549188096.0;USD;NYQ
-C;Citigroup, Inc.;FINANCIALS;Banks - Diversified;145.53;248212619264.0;USD;NYQ
-RTX;RTX Corporation;DEFENSE;Aerospace & Defense;182.48;245742780416.0;USD;NYQ
-STX;Seagate Technology Holdings PLC;TECHNOLOGY;Computer Hardware;1085.535;243408420864.0;USD;NMS
-LIN;Linde plc;MATERIALS;Specialty Chemicals;515.22;238210564096.0;USD;NMS
-QCOM;QUALCOMM Incorporated;SEMICONDUCTOR;Semiconductors;223.035;235078893568.0;USD;NMS
-PANW;Palo Alto Networks, Inc.;SOFTWARE;Software - Infrastructure;286.87;233799041024.0;USD;NMS
-IBM;International Business Machines;TECHNOLOGY;Information Technology Services;248.235;233312436224.0;USD;NYQ
-AXP;American Express Company;FINANCIALS;Credit Services;336.76;229780258816.0;USD;NYQ
-SHEL;Shell PLC;ENERGY;Oil & Gas Integrated;79.55;220513124352.0;USD;NYQ
-ANET;Arista Networks, Inc.;TECHNOLOGY;Computer Hardware;173.495;218459586560.0;USD;NYQ
-BHP;BHP Group Limited;MATERIALS;Other Industrial Metals & Mining;85.74;217809174528.0;USD;NYQ
-ADI;Analog Devices, Inc.;SEMICONDUCTOR;Semiconductors;442.54;215555506176.0;USD;NMS
-SIE.DE;SIEMENS AG                    N;INDUSTRIALS;Specialty Industrial Machinery;279.0;212805402624.0;EUR;GER
-9992.HK;POP MART;CONSUMER;Leisure;160.0;211318947840.0;HKD;HKG
-NVO;Novo Nordisk A/S;PHARMA;Drug Manufacturers - General;45.94;203419123712.0;USD;NYQ
-APH;Amphenol Corporation;TECHNOLOGY;Electronic Components;165.33;203394678784.0;USD;NYQ
-TM;Toyota Motor Corporation;CONSUMER;Auto Manufacturers;170.125;201445900288.0;USD;NYQ
-ORSTED.CO;ORSTED A/S;UTILITIES;Utilities - Renewable;151.75;200471166976.0;DKK;CPH
-TMUS;T-Mobile US, Inc.;COMMUNICATION;Telecom Services;181.05;195933159424.0;USD;NMS
-MCD;McDonald's Corporation;CONSUMER;Restaurants;270.82;192419201024.0;USD;NYQ
-PEP;Pepsico, Inc.;CONSUMER;Beverages - Non-Alcoholic;140.53;192096206848.0;USD;NMS
-VZ;Verizon Communications Inc.;COMMUNICATION;Telecom Services;45.41;189612130304.0;USD;NYQ
-AMGN;Amgen Inc.;PHARMA;Drug Manufacturers - General;343.5;185389793280.0;USD;NMS
-TJX;TJX Companies, Inc. (The);CONSUMER;Apparel Retail;164.39;181602353152.0;USD;NYQ
-VWS.CO;Vestas Wind Systems A/S;INDUSTRIALS;Specialty Industrial Machinery;184.15;180688650240.0;DKK;CPH
-NEE;NextEra Energy, Inc.;UTILITIES;Utilities - Regulated Electric;86.275;179935608832.0;USD;NYQ
-TTE;TotalEnergies SE;ENERGY;Oil & Gas Integrated;80.7907;179608682496.0;USD;NYQ
-GLW;Corning Incorporated;TECHNOLOGY;Electronic Components;207.6001;178840535040.0;USD;NYQ
-DIS;Walt Disney Company (The);COMMUNICATION;Entertainment;102.07;177245732864.0;USD;NYQ
-BA;Boeing Company (The);DEFENSE;Aerospace & Defense;221.1698;174348664832.0;USD;NYQ
-SAN.MC;BANCO SANTANDER S.A.;FINANCIALS;Banks - Diversified;11.998;172165169152.0;EUR;MCE
-CRWD;CrowdStrike Holdings, Inc.;SOFTWARE;Software - Infrastructure;675.28;171902533632.0;USD;NMS
-BLK;BlackRock, Inc.;FINANCIALS;Asset Management;1049.785;170955931648.0;USD;NYQ
-RMS.PA;HERMES INTL;CONSUMER;Luxury Goods;1620.0;169678487552.0;EUR;PAR
-ETN;Eaton Corporation, PLC;INDUSTRIALS;Specialty Industrial Machinery;434.125;168570732544.0;USD;NYQ
-SHEL.L;SHELL PLC ORD EUR0.07;ENERGY;Oil & Gas Integrated;3008.5;166791626752.0;GBp;LSE
-DE;Deere & Company;INDUSTRIALS;Farm & Heavy Construction Machinery;596.135;161020411904.0;USD;NYQ
-ABBN.SW;ABB LTD N;INDUSTRIALS;Electrical Equipment & Parts;88.56;160732119040.0;CHF;EBS
-SCHW;Charles Schwab Corporation (The;FINANCIALS;Capital Markets;92.15;160261341184.0;USD;NYQ
-APP;Applovin Corporation;COMMUNICATION;Advertising Agencies;462.2;155271249920.0;USD;NMS
-SAP.DE;SAP SE                        I;SOFTWARE;Software - Application;132.22;154374651904.0;EUR;GER
-GILD;Gilead Sciences, Inc.;PHARMA;Drug Manufacturers - General;124.23;154240237568.0;USD;NMS
-ALV.DE;Allianz SE                    v;FINANCIALS;Insurance - Diversified;406.6;154217807872.0;EUR;GER
-UNP;Union Pacific Corporation;INDUSTRIALS;Railroads;259.5015;154069467136.0;USD;NYQ
-T;AT&T Inc.;COMMUNICATION;Telecom Services;22.165;154009927680.0;USD;NYQ
-ABT;Abbott Laboratories;HEALTHCARE;Medical Devices;87.9598;153209536512.0;USD;NYQ
-BX;Blackstone Inc.;FINANCIALS;Asset Management;123.155;150527672320.0;USD;NYQ
-WELL;Welltower Inc.;REAL ESTATE;REIT - Healthcare Facilities;211.625;149389148160.0;USD;NYQ
-AIR.DE;Airbus SE                     A;DEFENSE;Aerospace & Defense;189.64;149289943040.0;EUR;GER
-AIR.PA;AIRBUS SE;DEFENSE;Aerospace & Defense;189.52;149195472896.0;EUR;PAR
-UBER;Uber Technologies, Inc.;SOFTWARE;Software - Application;71.4144;145371070464.0;USD;NYQ
-HON;Honeywell International Inc.;INDUSTRIALS;Conglomerates;227.39;144086384640.0;USD;NMS
-ENR.DE;Siemens Energy AG             N;INDUSTRIALS;Specialty Industrial Machinery;169.14;143912534016.0;EUR;GER
-PFE;Pfizer, Inc.;PHARMA;Drug Manufacturers - General;25.025;142628585472.0;USD;NYQ
-ISRG;Intuitive Surgical, Inc.;HEALTHCARE;Medical Instruments & Supplies;401.0;142019297280.0;USD;NMS
-SHOP;Shopify Inc.;SOFTWARE;Software - Application;108.055;140218073088.0;USD;NMS
-IBE.MC;ACCIONES IBERDROLA;UTILITIES;Utilities - Diversified;21.19;139649892352.0;EUR;MCE
-VRT;Vertiv Holdings, LLC;INDUSTRIALS;Electrical Equipment & Parts;354.5;136166572032.0;USD;NYQ
-COP;ConocoPhillips;ENERGY;Oil & Gas E&P;109.64;133573754880.0;USD;NYQ
-BKNG;Booking Holdings Inc. Common St;CONSUMER;Travel Services;167.49;129784397824.0;USD;NMS
-BTI;British American Tobacco  Indus;CONSUMER;Tobacco;59.205;127898763264.0;USD;NYQ
-CB;Chubb Limited;FINANCIALS;Insurance - Property & Casualty;326.16;126504452096.0;USD;NYQ
-DTE.DE;DEUTSCHE TELEKOM AG           N;COMMUNICATION;Telecom Services;26.12;126369153024.0;EUR;GER
-DHR;Danaher Corporation;HEALTHCARE;Diagnostics & Research;177.957;125952737280.0;USD;NYQ
-COF;Capital One Financial Corporati;FINANCIALS;Credit Services;200.83;124975063040.0;USD;NYQ
-CRM;Salesforce, Inc.;SOFTWARE;Software - Application;149.3085;122283663360.0;USD;NYQ
-RIO.L;RIO TINTO PLC ORD 10P;MATERIALS;Other Industrial Metals & Mining;7513.0;122180329472.0;GBp;LSE
-PGR;Progressive Corporation (The);FINANCIALS;Insurance - Property & Casualty;208.08;121144180736.0;USD;NYQ
-PH;Parker-Hannifin Corporation;INDUSTRIALS;Specialty Industrial Machinery;958.0852;120801509376.0;USD;NYQ
-BBVA.MC;BANCO BILBAO VIZCAYA ARGENTARIA;FINANCIALS;Banks - Diversified;21.75;120721891328.0;EUR;MCE
-LOW;Lowe's Companies, Inc.;CONSUMER;Home Improvement Retail;214.259;120199299072.0;USD;NYQ
-ENB;Enbridge Inc;ENERGY;Oil & Gas Midstream;54.861;119799767040.0;USD;NYQ
-VRTX;Vertex Pharmaceuticals Incorpor;BIOTECH;Biotechnology;464.38;117862162432.0;USD;NMS
-RR.L;ROLLS-ROYCE HOLDINGS PLC ORD SH;DEFENSE;Aerospace & Defense;1411.8;117009309696.0;GBp;LSE
-SYK;Stryker Corporation;HEALTHCARE;Medical Devices;304.35;116675854336.0;USD;NYQ
-MO;Altria Group, Inc.;CONSUMER;Tobacco;69.525;116099186688.0;USD;NYQ
-SONY;Sony Group Corporation;TECHNOLOGY;Consumer Electronics;19.525;114999648256.0;USD;NYQ
-SBUX;Starbucks Corporation;CONSUMER;Restaurants;100.16;114152349696.0;USD;NMS
-LMT;Lockheed Martin Corporation;DEFENSE;Aerospace & Defense;493.79;113850007552.0;USD;NYQ
-IFX.DE;INFINEON TECHNOLOGIES AG      N;SEMICONDUCTOR;Semiconductors;85.94;111679004672.0;EUR;GER
-HWM;Howmet Aerospace Inc.;DEFENSE;Aerospace & Defense;278.95;111609987072.0;USD;NYQ
-BMY;Bristol-Myers Squibb Company;PHARMA;Drug Manufacturers - General;54.405;111098888192.0;USD;NYQ
-PWR;Quanta Services, Inc.;INDUSTRIALS;Engineering & Construction;739.21;110925963264.0;USD;NYQ
-EQIX;Equinix, Inc.;REAL ESTATE;REIT - Specialty;1114.515;109918208000.0;USD;NMS
-PBR;Petroleo Brasileiro S.A. Petrob;ENERGY;Oil & Gas Integrated;16.985;109457563648.0;USD;NYQ
-ISP.MI;INTESA SANPAOLO;FINANCIALS;Banks - Regional;6.234;108650938368.0;EUR;MIL
-FTNT;Fortinet, Inc.;SOFTWARE;Software - Infrastructure;144.76;106058178560.0;USD;NMS
-SO;Southern Company (The);UTILITIES;Utilities - Regulated Electric;93.73;105661939712.0;USD;NYQ
-CDNS;Cadence Design Systems, Inc.;SOFTWARE;Software - Application;382.32;105449971712.0;USD;NMS
-PBR-A;Petroleo Brasileiro S.A. Petrob;ENERGY;Oil & Gas Integrated;15.215;104169717760.0;USD;NYQ
-BP;BP p.l.c.;ENERGY;Oil & Gas Integrated;39.77;102410280960.0;USD;NYQ
-GSK;GSK plc;PHARMA;Drug Manufacturers - General;50.795;101786247168.0;USD;NYQ
-MDT;Medtronic plc.;HEALTHCARE;Medical Devices;79.13;101289975808.0;USD;NYQ
-MAR;Marriott International;CONSUMER;Lodging;383.69;101174689792.0;USD;NMS
-TRP.TO;TC ENERGY CORP.;ENERGY;Oil & Gas Midstream;96.87;100915961856.0;CAD;TOR
-FCX;Freeport-McMoRan, Inc.;MINING;Copper;69.37;99716333568.0;USD;NYQ
-1913.HK;PRADA;CONSUMER;Luxury Goods;38.88;99487080448.0;HKD;HKG
-CEG;Constellation Energy Corporatio;UTILITIES;Utilities - Independent Power Producers;275.49;98378031104.0;USD;NMS
-CNR.TO;CANADIAN NATIONAL RAILWAY CO.;INDUSTRIALS;Railroads;161.29;97838505984.0;CAD;TOR
-ENEL.MI;ENEL;UTILITIES;Utilities - Diversified;9.821;97456373760.0;EUR;MIL
-BE;Bloom Energy Corporation;INDUSTRIALS;Electrical Equipment & Parts;340.47;96844603392.0;USD;NYQ
-DUK;Duke Energy Corporation (Holdin;UTILITIES;Utilities - Regulated Electric;123.865;96564682752.0;USD;NYQ
-BATS.L;BRITISH AMERICAN TOBACCO PLC OR;CONSUMER;Tobacco;4446.0;96045588480.0;GBp;LSE
-NOW;ServiceNow, Inc.;SOFTWARE;Software - Application;92.33;95220670464.0;USD;NYQ
-HOOD;Robinhood Markets, Inc.;FINANCIALS;Capital Markets;105.635;95124856832.0;USD;NMS
-ASX;ASE Technology Holding Co., Ltd;SEMICONDUCTOR;Semiconductors;43.13;94624890880.0;USD;NYQ
-SPOT;Spotify Technology S.A.;COMMUNICATION;Internet Content & Information;459.56;94494752768.0;USD;NYQ
-PNC;PNC Financial Services Group, I;FINANCIALS;Banks - Regional;233.74;93861724160.0;USD;NYQ
-SU.TO;SUNCOR ENERGY INC.;ENERGY;Oil & Gas Integrated;79.1;93396942848.0;CAD;TOR
-GD;General Dynamics Corporation;DEFENSE;Aerospace & Defense;343.51;92895469568.0;USD;NYQ
-WMB;Williams Companies, Inc. (The);ENERGY;Oil & Gas Midstream;75.41;92226306048.0;USD;NYQ
-USB;U.S. Bancorp;FINANCIALS;Banks - Regional;58.59;91267497984.0;USD;NYQ
-MNST;Monster Beverage Corporation;CONSUMER;Beverages - Non-Alcoholic;92.955;90910744576.0;USD;NMS
-UPS;United Parcel Service, Inc.;INDUSTRIALS;Integrated Freight & Logistics;106.88;90848665600.0;USD;NYQ
-BYDDY;BYD Co., Ltd.;CONSUMER;Auto Manufacturers;9.94;90624933888.0;USD;PNK
-JCI;Johnson Controls International ;INDUSTRIALS;Building Products & Equipment;147.93;90254393344.0;USD;NYQ
-KKR;KKR & Co. Inc.;FINANCIALS;Asset Management;96.395;89882697728.0;USD;NYQ
-CME;CME Group Inc.;FINANCIALS;Financial Data & Stock Exchanges;245.02;88531304448.0;USD;NMS
-SNPS;Synopsys, Inc.;SOFTWARE;Software - Infrastructure;461.781;88421515264.0;USD;NMS
-MCK;McKesson Corporation;HEALTHCARE;Medical Distribution;745.48;87279116288.0;USD;NYQ
-CNQ;Canadian Natural Resources Limi;ENERGY;Oil & Gas E&P;41.61;86775963648.0;USD;NYQ
-CSX;CSX Corporation;INDUSTRIALS;Railroads;46.12;85697363968.0;USD;NMS
-ADP;Automatic Data Processing, Inc.;SOFTWARE;Software - Application;214.19;85619081216.0;USD;NMS
-MMM;3M Company;INDUSTRIALS;Conglomerates;162.585;84799021056.0;USD;NYQ
-EMR;Emerson Electric Company;INDUSTRIALS;Specialty Industrial Machinery;149.61;83796557824.0;USD;NYQ
-HCA;HCA Healthcare, Inc.;HEALTHCARE;Medical Care Facilities;375.501;83301072896.0;USD;NYQ
-COHR;Coherent Corp.;TECHNOLOGY;Scientific & Technical Instruments;425.745;83292463104.0;USD;NYQ
-AMT;American Tower Corporation (REI;REAL ESTATE;REIT - Specialty;176.33;82150924288.0;USD;NYQ
-EQNR;Equinor ASA;ENERGY;Oil & Gas Integrated;32.845;81785143296.0;USD;NYQ
-SPG;Simon Property Group, Inc.;REAL ESTATE;REIT - Retail;213.995;81313734656.0;USD;NYQ
-MELI;MercadoLibre, Inc.;CONSUMER;Internet Retail;1595.295;80876969984.0;USD;NMS
-NXPI;NXP Semiconductors N.V.;SEMICONDUCTOR;Semiconductors;320.31;80869007360.0;USD;NMS
-INGA.AS;ING GROEP N.V.;FINANCIALS;Banks - Diversified;28.175;80757415936.0;EUR;AMS
-NOK;Nokia Corporation Sponsored;TECHNOLOGY;Communication Equipment;14.44;80611786752.0;USD;NYQ
-CMCSA;Comcast Corporation;COMMUNICATION;Telecom Services;22.355;79857172480.0;USD;NMS
-1177.HK;SBP GROUP;BIOTECH;Biotechnology;4.45;79371943936.0;HKD;HKG
-SNOW;Snowflake Inc.;SOFTWARE;Software - Application;226.76;78598479872.0;USD;NYQ
-SHW;Sherwin-Williams Company (The);MATERIALS;Specialty Chemicals;317.27;78250082304.0;USD;NYQ
-FDX;FedEx Corporation;INDUSTRIALS;Integrated Freight & Logistics;327.375;78113882112.0;USD;NYQ
-MCO;Moody's Corporation;FINANCIALS;Financial Data & Stock Exchanges;446.92;78066393088.0;USD;NYQ
-HLT;Hilton Worldwide Holdings Inc.;CONSUMER;Lodging;342.58;77987774464.0;USD;NYQ
-DDOG;Datadog, Inc.;SOFTWARE;Software - Application;219.0265;77964713984.0;USD;NMS
-NET;Cloudflare, Inc.;SOFTWARE;Software - Infrastructure;217.935;77353746432.0;USD;NYQ
-BP.L;BP PLC $0.25;ENERGY;Oil & Gas Integrated;500.2;77282811904.0;GBp;LSE
-MDLZ;Mondelez International, Inc.;CONSUMER;Confectioners;59.755;76704497664.0;USD;NMS
-ADBE;Adobe Inc.;SOFTWARE;Software - Application;192.38;76471050240.0;USD;NMS
-CP;Canadian Pacific Kansas City Li;INDUSTRIALS;Railroads;85.73;76105646080.0;USD;NYQ
-ITW;Illinois Tool Works Inc.;INDUSTRIALS;Specialty Industrial Machinery;264.111;75984732160.0;USD;NYQ
-ROST;Ross Stores, Inc.;CONSUMER;Apparel Retail;236.5;75864727552.0;USD;NMS
-ECL;Ecolab Inc.;MATERIALS;Specialty Chemicals;269.21;75765784576.0;USD;NYQ
-DASH;DoorDash, Inc.;CONSUMER;Internet Retail;172.195;75028586496.0;USD;NMS
-MPWR;Monolithic Power Systems, Inc.;SEMICONDUCTOR;Semiconductors;1525.67;74956169216.0;USD;NMS
-CI;The Cigna Group;HEALTHCARE;Healthcare Plans;280.71;74256883712.0;USD;NYQ
-CRH;CRH PLC;MATERIALS;Building Materials;110.965;74146832384.0;USD;NYQ
-ALAB;Astera Labs, Inc.;SEMICONDUCTOR;Semiconductors;432.0;74048225280.0;USD;NMS
-ICE;Intercontinental Exchange Inc.;FINANCIALS;Financial Data & Stock Exchanges;130.89;74019930112.0;USD;NYQ
-CVNA;Carvana Co.;CONSUMER;Auto & Truck Dealerships;67.115;73614123008.0;USD;NYQ
-E;ENI S.p.A.;ENERGY;Oil & Gas Integrated;49.59;72542953472.0;USD;NYQ
-ACN;Accenture plc;TECHNOLOGY;Information Technology Services;118.26;72368275456.0;USD;NYQ
-GM;General Motors Company;CONSUMER;Auto Manufacturers;80.25;72358633472.0;USD;NYQ
-TDG;Transdigm Group Incorporated;DEFENSE;Aerospace & Defense;1289.5;72126357504.0;USD;NYQ
-MPC;Marathon Petroleum Corporation;ENERGY;Oil & Gas Refining & Marketing;246.95;72093753344.0;USD;NYQ
-NOC;Northrop Grumman Corporation;DEFENSE;Aerospace & Defense;507.4385;72073256960.0;USD;NYQ
-VLO;Valero Energy Corporation;ENERGY;Oil & Gas Refining & Marketing;241.871;71819427840.0;USD;NYQ
-CL;Colgate-Palmolive Company;CONSUMER;Household & Personal Products;89.57;71672954880.0;USD;NYQ
-NBIS;Nebius Group N.V.;COMMUNICATION;Internet Content & Information;281.635;71506616320.0;USD;NMS
-KMI;Kinder Morgan, Inc.;ENERGY;Oil & Gas Midstream;32.115;71439163392.0;USD;NYQ
-SLB;SLB Limited;ENERGY;Oil & Gas Equipment & Services;47.535;71067566080.0;USD;NYQ
-AEP;American Electric Power Company;UTILITIES;Utilities - Regulated Electric;129.96;70711894016.0;USD;NMS
-STM;STMicroelectronics N.V.;SEMICONDUCTOR;Semiconductors;79.45;70623576064.0;USD;NYQ
-EOG;EOG Resources, Inc.;ENERGY;Oil & Gas E&P;132.0775;70348242944.0;USD;NYQ
-INTU;Intuit Inc.;SOFTWARE;Software - Application;256.9601;70288097280.0;USD;NMS
-TER;Teradyne, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;449.08;70271770624.0;USD;NMS
-DLR;Digital Realty Trust, Inc.;REAL ESTATE;REIT - Specialty;194.62;69618974720.0;USD;NYQ
-CNI;Canadian National Railway Compa;INDUSTRIALS;Railroads;113.91;69097807872.0;USD;NYQ
-ENGI.PA;ENGIE;UTILITIES;Utilities - Diversified;27.18;69062598656.0;EUR;PAR
-LITE;Lumentum Holdings Inc.;TECHNOLOGY;Communication Equipment;887.03;69010939904.0;USD;NMS
-UMC;United Microelectronics Corpora;SEMICONDUCTOR;Semiconductors;27.395;68741906432.0;USD;NYQ
-NOKIA.HE;Nokia Corporation;TECHNOLOGY;Communication Equipment;12.28;68553519104.0;EUR;HEL
-NSC;Norfolk Southern Corporation;INDUSTRIALS;Railroads;302.93;68036259840.0;USD;NYQ
-CTAS;Cintas Corporation;INDUSTRIALS;Specialty Business Services;169.13;67675156480.0;USD;NMS
-PSX;Phillips 66;ENERGY;Oil & Gas Refining & Marketing;167.86;67300950016.0;USD;NYQ
-AON;Aon plc;FINANCIALS;Insurance Brokers;314.25;67116556288.0;USD;NYQ
-VALE;VALE S.A.;MATERIALS;Other Industrial Metals & Mining;15.645;66607132672.0;USD;NYQ
-TRV;The Travelers Companies, Inc.;FINANCIALS;Insurance - Property & Casualty;311.4;66217553920.0;USD;NYQ
-SU;Suncor Energy  Inc.;ENERGY;Oil & Gas Integrated;55.845;65938718720.0;USD;NYQ
-BSX;Boston Scientific Corporation;HEALTHCARE;Medical Devices;44.27;65800945664.0;USD;NYQ
-MSI;Motorola Solutions, Inc.;TECHNOLOGY;Communication Equipment;392.305;65120894976.0;USD;NYQ
-CIEN;Ciena Corporation;TECHNOLOGY;Communication Equipment;453.05;64130551808.0;USD;NYQ
-NKE;Nike, Inc.;CONSUMER;Footwear & Accessories;43.235;64026152960.0;USD;NYQ
-REGN;Regeneron Pharmaceuticals, Inc.;BIOTECH;Biotechnology;610.435;63985356800.0;USD;NMS
-KEYS;Keysight Technologies Inc.;TECHNOLOGY;Scientific & Technical Instruments;371.01;63403888640.0;USD;NYQ
-HPE;Hewlett Packard Enterprise Comp;TECHNOLOGY;Communication Equipment;47.835;63343276032.0;USD;NYQ
-ENI.MI;ENI;ENERGY;Oil & Gas Integrated;21.575;63122173952.0;EUR;MIL
-APD;Air Products and Chemicals, Inc;MATERIALS;Specialty Chemicals;283.15;63052034048.0;USD;NYQ
-PCAR;PACCAR Inc.;INDUSTRIALS;Farm & Heavy Construction Machinery;119.7;62996459520.0;USD;NMS
-NU;Nu Holdings Ltd.;FINANCIALS;Banks - Regional;12.849;62468509696.0;USD;NYQ
-RKLB;Rocket Lab Corporation;DEFENSE;Aerospace & Defense;99.95;62450630656.0;USD;NMS
-TEL;TE Connectivity plc;TECHNOLOGY;Electronic Components;211.715;61798719488.0;USD;NYQ
-RACE;Ferrari N.V.;CONSUMER;Auto Manufacturers;348.59;61369278464.0;USD;NYQ
-TFC;Truist Financial Corporation;FINANCIALS;Banks - Regional;48.65;60612030464.0;USD;NYQ
-CRWV;CoreWeave, Inc.;SOFTWARE;Software - Infrastructure;110.47;60269158400.0;USD;NMS
-D;Dominion Energy, Inc.;UTILITIES;Utilities - Regulated Electric;68.311;60080377856.0;USD;NYQ
-SRE;DBA Sempra;UTILITIES;Utilities - Diversified;91.755;59980918784.0;USD;NYQ
-CARR;Carrier Global Corporation;INDUSTRIALS;Building Products & Equipment;71.8;59635675136.0;USD;NYQ
-AFL;AFLAC Incorporated;FINANCIALS;Insurance - Life;116.57;59332370432.0;USD;NYQ
-TGT;Target Corporation;CONSUMER;Discount Stores;129.895;58997153792.0;USD;NYQ
-BKR;Baker Hughes Company;ENERGY;Oil & Gas Equipment & Services;58.73;58264190976.0;USD;NMS
-MRK.DE;MERCK KGAA                    I;PHARMA;Drug Manufacturers - Specialty & Generic;133.0;57825460224.0;EUR;GER
-DHL.DE;DEUTSCHE POST AG              N;INDUSTRIALS;Integrated Freight & Logistics;51.6;57752948736.0;EUR;GER
-ALL;Allstate Corporation (The);FINANCIALS;Insurance - Property & Casualty;222.895;57377837056.0;USD;NYQ
-DAL;Delta Air Lines, Inc.;INDUSTRIALS;Airlines;86.155;56603348992.0;USD;NYQ
-O;Realty Income Corporation;REAL ESTATE;REIT - Retail;60.61;56518373376.0;USD;NYQ
-VST;Vistra Corp.;UTILITIES;Utilities - Independent Power Producers;167.435;56456146944.0;USD;NYQ
-TRGP;Targa Resources, Inc.;ENERGY;Oil & Gas Midstream;261.96;56228114432.0;USD;NYQ
-PSA;Public Storage;REAL ESTATE;REIT - Industrial;319.72;56136327168.0;USD;NYQ
-MET;MetLife, Inc.;FINANCIALS;Insurance - Life;87.13;56062648320.0;USD;NYQ
-CRDO;Credo Technology Group Holding ;SEMICONDUCTOR;Semiconductors;300.045;55951765504.0;USD;NMS
-FLEX;Flex Ltd.;TECHNOLOGY;Electronic Components;152.08;55718756352.0;USD;NMS
-F;Ford Motor Company;CONSUMER;Auto Manufacturers;13.98;55706001408.0;USD;NYQ
-RHM.DE;RHEINMETALL AG                I;DEFENSE;Aerospace & Defense;1189.4;55357075456.0;EUR;GER
-MCHP;Microchip Technology Incorporat;SEMICONDUCTOR;Semiconductors;101.64;55096938496.0;USD;NMS
-AME;AMETEK, Inc.;INDUSTRIALS;Specialty Industrial Machinery;240.265;55069462528.0;USD;NYQ
-SE;Sea Limited;CONSUMER;Internet Retail;89.87;55043989504.0;USD;NYQ
-OKE;ONEOK, Inc.;ENERGY;Oil & Gas Midstream;85.89;54113517568.0;USD;NYQ
-AJG;Arthur J. Gallagher & Co.;FINANCIALS;Insurance Brokers;208.36;53536436224.0;USD;NYQ
-FAST;Fastenal Company;INDUSTRIALS;Industrial Distribution;46.405;53274566656.0;USD;NMS
-BA.L;BAE SYSTEMS PLC ORD 2.5P;DEFENSE;Aerospace & Defense;1811.0;53123932160.0;GBp;LSE
-LHX;L3Harris Technologies, Inc.;DEFENSE;Aerospace & Defense;284.86;53067976704.0;USD;NYQ
-ROK;Rockwell Automation, Inc.;INDUSTRIALS;Specialty Industrial Machinery;476.035;52998672384.0;USD;NYQ
-FANG;Diamondback Energy, Inc.;ENERGY;Oil & Gas E&P;187.73;52810948608.0;USD;NMS
-ASM.AS;ASM International N.V.;SEMICONDUCTOR;Semiconductor Equipment & Materials;1079.0;52748070912.0;EUR;AMS
-OXY;Occidental Petroleum Corporatio;ENERGY;Oil & Gas E&P;51.825;51546943488.0;USD;NYQ
-EA;Electronic Arts Inc.;COMMUNICATION;Electronic Gaming & Multimedia;202.79;50849894400.0;USD;NMS
-ON;ON Semiconductor Corporation;SEMICONDUCTOR;Semiconductors;130.59;50773807104.0;USD;NMS
-DVN;Devon Energy Corporation;ENERGY;Oil & Gas E&P;42.945;49532899328.0;USD;NYQ
-EW;Edwards Lifesciences Corporatio;HEALTHCARE;Medical Devices;85.46;49207869440.0;USD;NYQ
-GFS;GlobalFoundries Inc.;SEMICONDUCTOR;Semiconductors;89.665;49199263744.0;USD;NMS
-XEL;Xcel Energy Inc.;UTILITIES;Utilities - Regulated Electric;78.625;49083195392.0;USD;NMS
-LNG;Cheniere Energy, Inc.;ENERGY;Oil & Gas Midstream;231.39;48488206336.0;USD;NYQ
-STT;State Street Corporation;FINANCIALS;Asset Management;172.54;47753383936.0;USD;NYQ
-EXC;Exelon Corporation;UTILITIES;Utilities - Regulated Electric;45.965;47031762944.0;USD;NMS
-CCJ;Cameco Corporation;URANIUM;Uranium;107.28;46723977216.0;USD;NYQ
-EBAY;eBay Inc.;CONSUMER;Internet Retail;105.22;46717681664.0;USD;NMS
-WAB;Westinghouse Air Brake Technolo;INDUSTRIALS;Railroads;274.54;46583218176.0;USD;NYQ
-EOAN.DE;E.ON SE                       N;UTILITIES;Utilities - Diversified;17.805;46525853696.0;EUR;GER
-HO.PA;THALES;DEFENSE;Aerospace & Defense;226.3;46500462592.0;EUR;PAR
-HEI;Heico Corporation;DEFENSE;Aerospace & Defense;330.77;46195097600.0;USD;NYQ
-FANUY;Fanuc Corporation;INDUSTRIALS;Specialty Industrial Machinery;24.66;46023372800.0;USD;PNK
-ORA.PA;ORANGE;COMMUNICATION;Telecom Services;16.865;44820267008.0;EUR;PAR
-TTWO;Take-Two Interactive Software, ;COMMUNICATION;Electronic Gaming & Multimedia;238.55;44301922304.0;USD;NMS
-DHI;D.R. Horton, Inc.;CONSUMER;Residential Construction;155.62;44130660352.0;USD;NYQ
-P911.DE;Dr. Ing. h.c. F. Porsche AG   I;CONSUMER;Auto Manufacturers;47.94;43673337856.0;EUR;GER
-BAS.DE;BASF SE                       N;MATERIALS;Chemicals;49.17;43482271744.0;EUR;GER
-COIN;Coinbase Global, Inc.;FINANCIALS;Financial Data & Stock Exchanges;163.74;43139067904.0;USD;NMS
-CLS;Celestica, Inc.;TECHNOLOGY;Electronic Components;375.2;43137908736.0;USD;NYQ
-IDXX;IDEXX Laboratories, Inc.;HEALTHCARE;Diagnostics & Research;541.27;42697003008.0;USD;NMS
-AMP;Ameriprise Financial, Inc.;FINANCIALS;Asset Management;469.49;42205782016.0;USD;NYQ
-KDP;Keurig Dr Pepper Inc.;CONSUMER;Beverages - Non-Alcoholic;30.965;42129723392.0;USD;NMS
-AUTO.OL;AUTOSTORE HOLDINGS LTD.;INDUSTRIALS;Specialty Industrial Machinery;12.42;41769488384.0;NOK;OSL
-ARES;Ares Management Corporation;FINANCIALS;Asset Management;126.195;41624993792.0;USD;NYQ
-VOW.DE;VOLKSWAGEN AG                 I;CONSUMER;Auto Manufacturers;81.85;41031016448.0;EUR;GER
-AIG;American International Group, I;FINANCIALS;Insurance - Diversified;76.975;40804667392.0;USD;NYQ
-VOW3.DE;VOLKSWAGEN AG                 V;CONSUMER;Auto Manufacturers;80.32;40264036352.0;EUR;GER
-PEG;Public Service Enterprise Group;UTILITIES;Utilities - Regulated Electric;80.63;40179654656.0;USD;NYQ
-HOT.DE;HOCHTIEF AG                   I;INDUSTRIALS;Engineering & Construction;527.0;39652327424.0;EUR;GER
-CMG;Chipotle Mexican Grill, Inc.;CONSUMER;Restaurants;30.895;39630065664.0;USD;NYQ
-ED;Consolidated Edison, Inc.;UTILITIES;Utilities - Regulated Electric;107.02;39440048128.0;USD;NYQ
-ADSK;Autodesk, Inc.;SOFTWARE;Software - Application;186.735;39428206592.0;USD;NMS
-JBL;Jabil Inc.;TECHNOLOGY;Electronic Components;373.66;39422111744.0;USD;NYQ
-ELE.MC;ENDESA,S.A.;UTILITIES;Utilities - Regulated Electric;38.33;39264473088.0;EUR;MCE
-VMC;Vulcan Materials Company (Holdi;MATERIALS;Building Materials;302.5025;39251177472.0;USD;NYQ
-IRM;Iron Mountain Incorporated (Del;REAL ESTATE;REIT - Specialty;131.63;39163174912.0;USD;NYQ
-BDX;Becton, Dickinson and Company;HEALTHCARE;Medical Instruments & Supplies;140.77;38787825664.0;USD;NYQ
-UAL;United Airlines Holdings, Inc.;INDUSTRIALS;Airlines;119.315;38726037504.0;USD;NMS
-MSTR;Strategy Inc;SOFTWARE;Software - Application;108.0;38345797632.0;USD;NMS
-TSEM;Tower Semiconductor Ltd.;SEMICONDUCTOR;Semiconductors;316.735;37687988224.0;USD;NMS
-BAYN.DE;Bayer AG                      N;PHARMA;Drug Manufacturers - General;38.18;37508952064.0;EUR;GER
-PRU;Prudential Financial, Inc.;FINANCIALS;Insurance - Life;107.94;37490274304.0;USD;NYQ
-PYPL;PayPal Holdings, Inc.;FINANCIALS;Credit Services;42.38;37383630848.0;USD;NMS
-ADM;Archer-Daniels-Midland Company;CONSUMER;Farm Products;76.1;36676890624.0;USD;NYQ
-PCG;Pacific Gas & Electric Co.;UTILITIES;Utilities - Regulated Electric;16.585;36523892736.0;USD;NYQ
-CCI;Crown Castle Inc.;REAL ESTATE;REIT - Specialty;83.44;36417552384.0;USD;NYQ
-ESLT;Elbit Systems Ltd.;DEFENSE;Aerospace & Defense;775.665;36328992768.0;USD;NMS
-FM.TO;FIRST QUANTUM MINERALS LTD;MINING;Copper;41.835;34647166976.0;CAD;TOR
-PAYX;Paychex, Inc.;SOFTWARE;Software - Application;96.66;34632396800.0;USD;NMS
-HSY;The Hershey Company;CONSUMER;Confectioners;170.67;34619277312.0;USD;NYQ
-KR;Kroger Company (The);CONSUMER;Grocery Stores;55.68;34131841024.0;USD;NYQ
-KMB;Kimberly-Clark Corporation;CONSUMER;Household & Personal Products;101.05;33542574080.0;USD;NMS
-RBLX;Roblox Corporation;COMMUNICATION;Electronic Gaming & Multimedia;46.41;33228574720.0;USD;NYQ
-EC;Ecopetrol S.A.;ENERGY;Oil & Gas Integrated;16.045;32985868288.0;USD;NYQ
-AXON;Axon Enterprise, Inc.;DEFENSE;Aerospace & Defense;408.87;32955772928.0;USD;NMS
-ROP;Roper Technologies, Inc.;SOFTWARE;Software - Application;324.53;32750710784.0;USD;NMS
-VOD;Vodafone Group Plc;COMMUNICATION;Telecom Services;14.145;32571326464.0;USD;NMS
-EQT;EQT Corporation;ENERGY;Oil & Gas E&P;51.6682;32317323264.0;USD;NYQ
-NTAP;NetApp, Inc.;SOFTWARE;Software - Infrastructure;158.035;30962204672.0;USD;NMS
-ADS.DE;adidas AG                     N;CONSUMER;Footwear & Accessories;174.5;30947387392.0;EUR;GER
-EL;Estee Lauder Companies, Inc. (T;CONSUMER;Household & Personal Products;85.34;30875576320.0;USD;NYQ
-CASY;Caseys General Stores, Inc.;CONSUMER;Specialty Retail;831.75;30830419968.0;USD;NMS
-SATS;EchoStar Corporation;COMMUNICATION;Telecom Services;105.97;30711537664.0;USD;NMS
-RJF;Raymond James Financial, Inc.;FINANCIALS;Asset Management;155.945;30391037952.0;USD;NYQ
-MTSI;MACOM Technology Solutions Hold;SEMICONDUCTOR;Semiconductors;391.88;29898788864.0;USD;NMS
-NVT;nVent Electric plc;INDUSTRIALS;Electrical Equipment & Parts;183.23;29632036864.0;USD;NYQ
-SIVE.ST;Sivers Semiconductors AB;SEMICONDUCTOR;Semiconductors;99.2;29305518080.0;SEK;STO
-BIIB;Biogen Inc.;PHARMA;Drug Manufacturers - General;198.07;29242484736.0;USD;NMS
-HAL;Halliburton Company;ENERGY;Oil & Gas Equipment & Services;34.825;29092726784.0;USD;NYQ
-NRG;NRG Energy, Inc.;UTILITIES;Utilities - Independent Power Producers;137.7;29052835840.0;USD;NYQ
-LDO.MI;LEONARDO;DEFENSE;Aerospace & Defense;50.08;28895639552.0;EUR;MIL
-CW;Curtiss-Wright Corporation;DEFENSE;Aerospace & Defense;779.69;28802656256.0;USD;NYQ
-ASTS;AST SpaceMobile, Inc.;TECHNOLOGY;Communication Equipment;73.96;28695990272.0;USD;NMS
-BIP;Brookfield Infrastructure Partn;UTILITIES;Utilities - Diversified;36.33;28655300608.0;USD;NYQ
-CPRT;Copart, Inc.;INDUSTRIALS;Specialty Business Services;29.555;28470581248.0;USD;NMS
-FSLR;First Solar, Inc.;TECHNOLOGY;Solar;263.92;28359092224.0;USD;NMS
-EXPE;Expedia Group, Inc.;CONSUMER;Travel Services;236.28;28358817792.0;USD;NMS
-CNP;CenterPoint Energy, Inc (Holdin;UTILITIES;Utilities - Regulated Electric;43.315;28335349760.0;USD;NYQ
-ATO;Atmos Energy Corporation;UTILITIES;Utilities - Regulated Gas;169.125;28230316032.0;USD;NYQ
-MKSI;MKS Inc.;TECHNOLOGY;Scientific & Technical Instruments;414.04;27965970432.0;USD;NMS
-WDAY;Workday, Inc.;SOFTWARE;Software - Application;112.64;27819091968.0;USD;NMS
-ENTG;Entegris, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;182.495;27793987584.0;USD;NMS
-TWLO;Twilio Inc.;SOFTWARE;Software - Infrastructure;182.65;27721494528.0;USD;NYQ
-EIX;Edison International;UTILITIES;Utilities - Regulated Electric;71.725;27599345664.0;USD;NYQ
-ADYEN.AS;ADYEN;SOFTWARE;Software - Infrastructure;874.2;27569377280.0;EUR;AMS
-FE;FirstEnergy Corp.;UTILITIES;Utilities - Regulated Electric;46.785;27061901312.0;USD;NYQ
-PBA;Pembina Pipeline Corp.;ENERGY;Oil & Gas Midstream;46.52;27048355840.0;USD;NYQ
-XYL;Xylem Inc.;INDUSTRIALS;Specialty Industrial Machinery;111.5;26502823936.0;USD;NYQ
-PPG;PPG Industries, Inc.;MATERIALS;Specialty Chemicals;118.62;26440398848.0;USD;NYQ
-ES;Eversource Energy (D/B/A);UTILITIES;Utilities - Regulated Electric;69.98;26318082048.0;USD;NYQ
-KHC;The Kraft Heinz Company;CONSUMER;Packaged Foods;22.085;26187898880.0;USD;NMS
-BESI.AS;BE Semiconductor Industries N.V;SEMICONDUCTOR;Semiconductor Equipment & Materials;320.3;25367343104.0;EUR;AMS
-MDB;MongoDB, Inc.;SOFTWARE;Software - Infrastructure;315.26;25356969984.0;USD;NGM
-EQR;Equity Residential;REAL ESTATE;REIT - Residential;64.98;25106714624.0;USD;NYQ
-DG;Dollar General Corporation;CONSUMER;Discount Stores;113.67;25074083840.0;USD;NYQ
-FICO;Fair Isaac Corporation;SOFTWARE;Software - Application;1072.111;24863223808.0;USD;NYQ
-VEEV;Veeva Systems Inc.;HEALTHCARE;Health Information Services;152.92;24840828928.0;USD;NYQ
-CTRA;Coterra Energy Inc.;ENERGY;Oil & Gas E&P;32.56;24724652032.0;USD;NYQ
-VOD.L;VODAFONE GROUP PLC ORD USD0.20 ;COMMUNICATION;Telecom Services;107.3;24707692544.0;GBp;LSE
-ZM;Zoom Communications, Inc.;SOFTWARE;Software - Application;84.125;24668160000.0;USD;NMS
-AWK;American Water Works Company, I;UTILITIES;Utilities - Regulated Water;125.68;24542857216.0;USD;NYQ
-STZ;Constellation Brands, Inc.;CONSUMER;Beverages - Brewers;142.37;24519624704.0;USD;NYQ
-ILMN;Illumina, Inc.;HEALTHCARE;Diagnostics & Research;162.04;24516651008.0;USD;NMS
-AFRM;Affirm Holdings, Inc.;FINANCIALS;Credit Services;72.2;24179675136.0;USD;NMS
-SYM;Symbotic Inc.;INDUSTRIALS;Specialty Industrial Machinery;39.69;23958224896.0;USD;NGM
-KIT.OL;KITRON;TECHNOLOGY;Electronic Components;109.2;23882307584.0;NOK;OSL
-MRNA;Moderna, Inc.;BIOTECH;Biotechnology;59.74;23704012800.0;USD;NMS
-SMCI;Super Micro Computer, Inc.;TECHNOLOGY;Computer Hardware;35.73;23112773632.0;USD;NMS
-BEP;Brookfield Renewable Partners L;UTILITIES;Utilities - Renewable;35.865;23071391744.0;USD;NYQ
-BNTX;BioNTech SE;BIOTECH;Biotechnology;91.21;23065573376.0;USD;NMS
-AMKR;Amkor Technology, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;92.35;22891026432.0;USD;NMS
-SQM;Sociedad Quimica y Minera S.A.;MATERIALS;Specialty Chemicals;78.26;22354016256.0;USD;NYQ
-L;Loews Corporation;FINANCIALS;Insurance - Property & Casualty;108.17;22258020352.0;USD;NYQ
-DOW;Dow Inc.;MATERIALS;Chemicals;30.77;22177214464.0;USD;NYQ
-FN;Fabrinet;TECHNOLOGY;Electronic Components;617.065;22106949632.0;USD;NYQ
-IONQ;IonQ, Inc.;TECHNOLOGY;Computer Hardware;59.09;22060253184.0;USD;NYQ
-SOFI;SoFi Technologies, Inc.;FINANCIALS;Credit Services;17.1899;22050193408.0;USD;NMS
-FFIV;F5, Inc.;SOFTWARE;Software - Infrastructure;385.555;21752723456.0;USD;NMS
-HPQ;HP Inc.;TECHNOLOGY;Computer Hardware;23.655;21633034240.0;USD;NYQ
-LEN;Lennar Corporation;CONSUMER;Residential Construction;87.405;21527703552.0;USD;NYQ
-BCE;BCE, Inc.;COMMUNICATION;Telecom Services;22.83;21289564160.0;USD;NYQ
-CRCL;Circle Internet Group, Inc.;FINANCIALS;Capital Markets;79.5;21249609728.0;USD;NYQ
-LSCC;Lattice Semiconductor Corporati;SEMICONDUCTOR;Semiconductors;155.04;21241696256.0;USD;NMS
-SRG.MI;SNAM;UTILITIES;Utilities - Regulated Gas;6.252;20980406272.0;EUR;MIL
-TLN;Talen Energy Corporation;UTILITIES;Utilities - Independent Power Producers;436.645;20869449728.0;USD;NMS
-RIVN;Rivian Automotive, Inc.;CONSUMER;Auto Manufacturers;15.23;20451854336.0;USD;NMS
-TRN.MI;TERNA;UTILITIES;Utilities - Regulated Electric;10.135;20338491392.0;EUR;MIL
-IREN;IREN LIMITED;FINANCIALS;Capital Markets;56.7661;20286994432.0;USD;NMS
-OKTA;Okta, Inc.;SOFTWARE;Software - Infrastructure;115.13;20187635712.0;USD;NMS
-TEAM;Atlassian Corporation;SOFTWARE;Software - Application;79.075;20066693120.0;USD;NMS
-ZS;Zscaler, Inc.;SOFTWARE;Software - Infrastructure;123.325;19942825984.0;USD;NMS
-CHTR;Charter Communications, Inc.;COMMUNICATION;Telecom Services;127.005;19898935296.0;USD;NMS
-NXT;Nextpower Inc.;TECHNOLOGY;Solar;129.04;19637731328.0;USD;NMS
-FIS;Fidelity National Information S;TECHNOLOGY;Information Technology Services;37.635;19452745728.0;USD;NYQ
-CTSH;Cognizant Technology Solutions ;TECHNOLOGY;Information Technology Services;41.11;19445030912.0;USD;NMS
-DD;DuPont de Nemours, Inc.;MATERIALS;Specialty Chemicals;47.96;19426590720.0;USD;NYQ
-YPF;YPF Sociedad Anonima;ENERGY;Oil & Gas Integrated;49.51;19418515456.0;USD;NYQ
-BWXT;BWX Technologies, Inc.;DEFENSE;Aerospace & Defense;210.435;19278927872.0;USD;NYQ
-LYC.AX;LYNAS FPO [LYC];MATERIALS;Other Industrial Metals & Mining;18.62;18741080064.0;AUD;ASX
-ALB;Albemarle Corporation;MATERIALS;Specialty Chemicals;155.88;18383652864.0;USD;NYQ
-IOT;Samsara Inc.;SOFTWARE;Software - Infrastructure;31.15;18151417856.0;USD;NYQ
-GPN;Global Payments Inc.;INDUSTRIALS;Specialty Business Services;65.43;17897953280.0;USD;NYQ
-GIS;General Mills, Inc.;CONSUMER;Packaged Foods;33.505;17880989696.0;USD;NYQ
-TU;Telus Corporation;COMMUNICATION;Telecom Services;11.345;17713504256.0;USD;NYQ
-WY;Weyerhaeuser Company;REAL ESTATE;REIT - Specialty;24.445;17625886720.0;USD;NYQ
-BEN;Franklin Resources, Inc.;FINANCIALS;Asset Management;33.915;17623494656.0;USD;NYQ
-AKAM;Akamai Technologies, Inc.;SOFTWARE;Software - Infrastructure;121.01;17593094144.0;USD;NMS
-GNRC;Generac Holdlings Inc.;INDUSTRIALS;Specialty Industrial Machinery;294.0249;17308858368.0;USD;NYQ
-DOCN;DigitalOcean Holdings, Inc.;SOFTWARE;Software - Infrastructure;165.805;17304102912.0;USD;NYQ
-ONTO;Onto Innovation Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;345.18;17170484224.0;USD;NYQ
-PR;Permian Resources Corporation;ENERGY;Oil & Gas E&P;18.925;16304570368.0;USD;NYQ
-SMTC;Semtech Corporation;SEMICONDUCTOR;Semiconductors;173.9175;16200617984.0;USD;NMS
-CF;CF Industries Holdings, Inc.;MATERIALS;Agricultural Inputs;102.755;15786176512.0;USD;NYQ
-MOD;Modine Manufacturing Company;CONSUMER;Auto Parts;292.35;15440694272.0;USD;NYQ
-OVV;Ovintiv Inc. (DE);ENERGY;Oil & Gas E&P;54.07;15194675200.0;USD;NYQ
-TXT;Textron Inc.;DEFENSE;Aerospace & Defense;86.885;15108343808.0;USD;NYQ
-RMBS;Rambus, Inc.;SEMICONDUCTOR;Semiconductors;137.32;14847746048.0;USD;NMS
-DECK;Deckers Outdoor Corporation;CONSUMER;Footwear & Accessories;105.79;14692216832.0;USD;NYQ
-TOST;Toast, Inc.;SOFTWARE;Software - Infrastructure;24.25;14065000448.0;USD;NYQ
-WULF;TeraWulf Inc.;FINANCIALS;Capital Markets;28.315;14031006720.0;USD;NCM
-GEN;Gen Digital Inc.;SOFTWARE;Software - Infrastructure;22.595;13611992064.0;USD;NMS
-AAOI;Applied Optoelectronics, Inc.;TECHNOLOGY;Communication Equipment;169.105;13569453056.0;USD;NGM
-SANM;Sanmina Corporation;TECHNOLOGY;Electronic Components;252.73;13545755648.0;USD;NMS
-HUT;Hut 8 Corp.;FINANCIALS;Capital Markets;119.915;13501722624.0;USD;NMS
-SWK;Stanley Black & Decker, Inc.;INDUSTRIALS;Tools & Accessories;86.801;13493699584.0;USD;NYQ
-MAP.MC;MAPFRE, S.A.;FINANCIALS;Insurance - Diversified;4.32;13235881984.0;EUR;MCE
-APLD;Applied Digital Corporation;TECHNOLOGY;Information Technology Services;45.7872;13084587008.0;USD;NMS
-AUR;Aurora Innovation, Inc.;CONSUMER;Auto Parts;6.605;12953746432.0;USD;NMS
-VIAV;Viavi Solutions Inc.;TECHNOLOGY;Communication Equipment;52.435;12934962176.0;USD;NMS
-LDOS;Leidos Holdings, Inc.;TECHNOLOGY;Information Technology Services;102.53;12896783360.0;USD;NYQ
-LI;Li Auto Inc.;CONSUMER;Auto Manufacturers;12.84;12896504832.0;USD;NMS
-ARCC;Ares Capital Corporation;FINANCIALS;Asset Management;17.9066;12856199168.0;USD;NMS
-DKNG;DraftKings Inc.;CONSUMER;Gambling;25.835;12817487872.0;USD;NMS
-NIO;NIO Inc.;CONSUMER;Auto Manufacturers;5.0901;12754095104.0;USD;NYQ
-IONS;Ionis Pharmaceuticals, Inc.;BIOTECH;Biotechnology;76.005;12560780288.0;USD;NMS
-CHKP;Check Point Software Technologi;SOFTWARE;Software - Infrastructure;120.02;12485416960.0;USD;NMS
-NTNX;Nutanix, Inc.;SOFTWARE;Software - Infrastructure;46.115;12465830912.0;USD;NMS
-APA;APA Corporation;ENERGY;Oil & Gas E&P;34.1599;12074508288.0;USD;NMS
-FORM;FormFactor, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;154.82;12068958208.0;USD;NMS
-LULU;lululemon athletica inc.;CONSUMER;Apparel Retail;105.475;11977099264.0;USD;NMS
-HAS;Hasbro, Inc.;CONSUMER;Leisure;84.4975;11955608576.0;USD;NMS
-MGM;MGM Resorts International;CONSUMER;Resorts & Casinos;46.675;11941856256.0;USD;NYQ
-AGNC;AGNC Investment Corp.;REAL ESTATE;REIT - Mortgage;10.375;11909765120.0;USD;NMS
-PNR;Pentair plc.;INDUSTRIALS;Specialty Industrial Machinery;73.555;11886895104.0;USD;NYQ
-U;Unity Software Inc.;SOFTWARE;Software - Application;26.96;11768983552.0;USD;NYQ
-DINO;HF Sinclair Corporation;ENERGY;Oil & Gas Refining & Marketing;65.25;11762972672.0;USD;NYQ
-DT;Dynatrace, Inc.;SOFTWARE;Software - Application;40.21;11720239104.0;USD;NYQ
-ZBRA;Zebra Technologies Corporation;TECHNOLOGY;Communication Equipment;245.42;11690186752.0;USD;NMS
-NDX1.DE;Nordex SE                     I;INDUSTRIALS;Specialty Industrial Machinery;48.84;11568833536.0;EUR;GER
-ARWR;Arrowhead Pharmaceuticals, Inc.;BIOTECH;Biotechnology;81.86;11530556416.0;USD;NMS
-CIFR;Cipher Digital Inc.;TECHNOLOGY;Information Technology Services;28.18;11527006208.0;USD;NMS
-SWKS;Skyworks Solutions, Inc.;SEMICONDUCTOR;Semiconductors;76.47;11501544448.0;USD;NMS
-SJM;The J.M. Smucker Company;CONSUMER;Packaged Foods;107.77;11494977536.0;USD;NYQ
-SIMO;Silicon Motion Technology Corpo;SEMICONDUCTOR;Semiconductors;337.185;11433213952.0;USD;NMS
-TYL;Tyler Technologies, Inc.;SOFTWARE;Software - Application;275.493;11333936128.0;USD;NYQ
-ALGM;Allegro MicroSystems, Inc.;SEMICONDUCTOR;Semiconductors;60.85;11331633152.0;USD;NMS
-CGNX;Cognex Corporation;TECHNOLOGY;Scientific & Technical Instruments;67.105;11167578112.0;USD;NMS
-DHER.DE;Delivery Hero SE              N;CONSUMER;Internet Retail;36.48;11080768512.0;EUR;GER
-CLX;Clorox Company (The);CONSUMER;Household & Personal Products;91.155;11022585856.0;USD;NYQ
-LHA.DE;DEUTSCHE LUFTHANSA AG         V;INDUSTRIALS;Airlines;9.136;10981900288.0;EUR;GER
-HII;Huntington Ingalls Industries, ;DEFENSE;Aerospace & Defense;277.585;10937966592.0;USD;NYQ
-MP;MP Materials Corp.;MATERIALS;Other Industrial Metals & Mining;60.7302;10811323392.0;USD;NYQ
-WYNN;Wynn Resorts, Limited;CONSUMER;Resorts & Casinos;103.515;10743483392.0;USD;NMS
-AR;Antero Resources Corporation;ENERGY;Oil & Gas E&P;33.89;10500341760.0;USD;NYQ
-AES;The AES Corporation;UTILITIES;Utilities - Diversified;14.655;10451325952.0;USD;NYQ
-PL;Planet Labs PBC;DEFENSE;Aerospace & Defense;28.885;10294686720.0;USD;NYQ
-GSAT;Globalstar, Inc.;COMMUNICATION;Telecom Services;79.7;10264476672.0;USD;NMS
-STR.VI;STRABAG SE;INDUSTRIALS;Engineering & Construction;88.8;10251312128.0;EUR;VIE
-OKLO;Oklo Inc.;UTILITIES;Utilities - Independent Power Producers;58.44;10168033280.0;USD;NYQ
-GDDY;GoDaddy Inc.;SOFTWARE;Software - Infrastructure;74.795;9903594496.0;USD;NYQ
-JOBY;Joby Aviation, Inc.;INDUSTRIALS;Airports & Air Services;10.04;9875774464.0;USD;NYQ
-CACI;CACI International, Inc.;TECHNOLOGY;Information Technology Services;443.56;9798818816.0;USD;NYQ
-GME;GameStop Corporation;CONSUMER;Specialty Retail;21.3847;9595128832.0;USD;NYQ
-KTOS;Kratos Defense & Security Solut;DEFENSE;Aerospace & Defense;50.8378;9533103104.0;USD;NMS
-CORZ;Core Scientific, Inc.;SOFTWARE;Software - Infrastructure;29.16;9269534720.0;USD;NMS
-QBTS;D-Wave Quantum Inc.;TECHNOLOGY;Computer Hardware;24.3874;9034194944.0;USD;NYQ
-QRVO;Qorvo, Inc.;SEMICONDUCTOR;Semiconductors;102.06;8982675456.0;USD;NMS
-CAMT;Camtek Ltd.;SEMICONDUCTOR;Semiconductor Equipment & Materials;194.415;8951736320.0;USD;NGM
-CWEN;Clearway Energy, Inc.;UTILITIES;Utilities - Renewable;37.095;8906389504.0;USD;NYQ
-ARE;Alexandria Real Estate Equities;REAL ESTATE;REIT - Office;50.9;8870316032.0;USD;NYQ
-VSAT;ViaSat, Inc.;TECHNOLOGY;Communication Equipment;64.665;8831232000.0;USD;NMS
-HUBS;HubSpot, Inc.;SOFTWARE;Software - Application;171.81;8795075584.0;USD;NYQ
-TTC;Toro Company (The);INDUSTRIALS;Tools & Accessories;91.41;8704931840.0;USD;NYQ
-SHA0.DE;Schaeffler AG                 N;CONSUMER;Auto Parts;9.2;8692938752.0;EUR;GER
-RRC;Range Resources Corporation;ENERGY;Oil & Gas E&P;36.73;8654405632.0;USD;NYQ
-TEM;Tempus AI, Inc.;HEALTHCARE;Health Information Services;47.84;8590379008.0;USD;NMS
-TTD;The Trade Desk, Inc.;COMMUNICATION;Advertising Agencies;18.045;8483105280.0;USD;NGM
-CRUS;Cirrus Logic, Inc.;SEMICONDUCTOR;Semiconductors;166.42;8396341760.0;USD;NMS
-HALO;Halozyme Therapeutics, Inc.;BIOTECH;Biotechnology;68.82;8162946560.0;USD;NMS
-DOCU;DocuSign, Inc.;SOFTWARE;Software - Application;42.38;8092232704.0;USD;NMS
-ABVX;Abivax SA;BIOTECH;Biotechnology;101.505;8089393664.0;USD;NGM
-HAG.DE;HENSOLDT AG                   I;DEFENSE;Aerospace & Defense;69.1;7981049856.0;EUR;GER
-KNTK;Kinetik Holdings Inc.;ENERGY;Oil & Gas Midstream;47.575;7952633856.0;USD;NYQ
-MDA.TO;MDA SPACE LTD;DEFENSE;Aerospace & Defense;56.1;7783929344.0;CAD;TOR
-HIMS;Hims & Hers Health, Inc.;PHARMA;Drug Manufacturers - Specialty & Generic;33.515;7757304320.0;USD;NYQ
-HESM;Hess Midstream LP;ENERGY;Oil & Gas Midstream;37.35;7717786112.0;USD;NYQ
-AVAV;AeroVironment, Inc.;DEFENSE;Aerospace & Defense;150.9;7636304896.0;USD;NMS
-SLAB;Silicon Laboratories, Inc.;SEMICONDUCTOR;Semiconductors;219.92;7253362688.0;USD;NMS
-UGI;UGI Corporation;UTILITIES;Utilities - Regulated Gas;33.82;7250795520.0;USD;NYQ
-A2A.MI;A2A;UTILITIES;Utilities - Diversified;2.273;7114329088.0;EUR;MIL
-RGTI;Rigetti Computing, Inc.;TECHNOLOGY;Computer Hardware;21.36;7100039168.0;USD;NCM
-MBLY;Mobileye Global Inc.;CONSUMER;Auto Parts;8.33;7015410176.0;USD;NMS
-CHRD;Chord Energy Corporation;ENERGY;Oil & Gas E&P;124.245;6994892288.0;USD;NMS
-ENPH;Enphase Energy, Inc.;TECHNOLOGY;Solar;52.75;6952356352.0;USD;NGM
-ETSY;Etsy, Inc.;CONSUMER;Internet Retail;73.235;6949725696.0;USD;NYQ
-NXE;Nexgen Energy Ltd.;URANIUM;Uranium;10.495;6946739712.0;USD;NYQ
-KLAR;Klarna Group plc;FINANCIALS;Credit Services;18.15;6862759424.0;USD;NYQ
-ABVX.PA;ABIVAX;BIOTECH;Biotechnology;85.8;6844282880.0;EUR;PAR
-SBSW;D/B/A Sibanye-Stillwater Limite;MATERIALS;Other Precious Metals & Mining;9.365;6774362624.0;USD;NYQ
-ACLX;Arcellx, Inc.;BIOTECH;Biotechnology;115.07;6732325376.0;USD;NMS
-NOV;NOV Inc.;ENERGY;Oil & Gas Equipment & Services;18.485;6634053632.0;USD;NYQ
-TKA.DE;thyssenkrupp AG               I;INDUSTRIALS;Conglomerates;10.565;6577047040.0;EUR;GER
-ZAL.DE;Zalando SE                    I;CONSUMER;Internet Retail;25.24;6515823104.0;EUR;GER
-GDS;GDS Holdings Limited;TECHNOLOGY;Information Technology Services;31.8;6372007936.0;USD;NGM
-KLIC;Kulicke and Soffa Industries, I;SEMICONDUCTOR;Semiconductor Equipment & Materials;121.63;6365247488.0;USD;NMS
-MTDR;Matador Resources Company;ENERGY;Oil & Gas E&P;50.405;6259203072.0;USD;NYQ
-NEM.DE;Nemetschek SE                 I;SOFTWARE;Software - Application;53.5;6174370304.0;EUR;GER
-CPB;The Campbell's Company;CONSUMER;Packaged Foods;20.435;6093844480.0;USD;NMS
-ESTC;Elastic N.V.;SOFTWARE;Software - Application;57.68;6042064896.0;USD;NYQ
-DBX;Dropbox, Inc.;SOFTWARE;Software - Infrastructure;25.58;5967830528.0;USD;NMS
-BZ;KANZHUN LIMITED - American Depo;COMMUNICATION;Internet Content & Information;13.59;5935533568.0;USD;NMS
-DUOL;Duolingo, Inc.;SOFTWARE;Software - Application;127.0;5917325824.0;USD;NMS
-PCOR;Procore Technologies, Inc.;SOFTWARE;Software - Application;38.715;5841714176.0;USD;NYQ
-NVTS;Navitas Semiconductor Corporati;SEMICONDUCTOR;Semiconductors;23.67;5764949504.0;USD;NGM
-PAYC;Paycom Software, Inc.;SOFTWARE;Software - Application;123.585;5762409472.0;USD;NYQ
-UEC;Uranium Energy Corp.;URANIUM;Uranium;11.4787;5627097088.0;USD;ASE
-ACLS;Axcelis Technologies, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;182.97;5623380992.0;USD;NMS
-DIOD;Diodes Incorporated;SEMICONDUCTOR;Semiconductors;122.36;5621797888.0;USD;NMS
-NOVT;Novanta Inc.;TECHNOLOGY;Scientific & Technical Instruments;156.35;5568140288.0;USD;NMS
-SYNA;Synaptics Incorporated;SEMICONDUCTOR;Semiconductors;143.02;5525961728.0;USD;NMS
-VAL;Valaris Limited;ENERGY;Oil & Gas Drilling;79.31;5492358144.0;USD;NYQ
-UCTT;Ultra Clean Holdings, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;122.49;5491024896.0;USD;NMS
-ALM;Almonty Industries Inc.;MATERIALS;Other Industrial Metals & Mining;18.93;5371233280.0;USD;NCM
-AIR;AAR Corp.;DEFENSE;Aerospace & Defense;134.87;5363006464.0;USD;NYQ
-CRSP;CRISPR Therapeutics AG;BIOTECH;Biotechnology;54.25;5342764032.0;USD;NGM
-PCTY;Paylocity Holding Corporation;SOFTWARE;Software - Application;99.24;5313712128.0;USD;NMS
-TWST;Twist Bioscience Corporation;HEALTHCARE;Diagnostics & Research;85.29;5311120384.0;USD;NMS
-PATH;UiPath, Inc.;SOFTWARE;Software - Infrastructure;10.125;5243324928.0;USD;NYQ
-TVTX;Travere Therapeutics, Inc.;BIOTECH;Biotechnology;55.52;5162966016.0;USD;NGM
-BB;BlackBerry Limited;SOFTWARE;Software - Infrastructure;8.745;5125106688.0;USD;NYQ
-APPF;AppFolio, Inc.;SOFTWARE;Software - Application;142.94;5054148608.0;USD;NGM
-IPGP;IPG Photonics Corporation;SEMICONDUCTOR;Semiconductor Equipment & Materials;118.38;5024475136.0;USD;NMS
-S;SentinelOne, Inc.;SOFTWARE;Software - Infrastructure;14.585;4980516864.0;USD;NYQ
-WCH.DE;Wacker Chemie AG              I;MATERIALS;Specialty Chemicals;99.75;4955378688.0;EUR;GER
-POWI;Power Integrations, Inc.;SEMICONDUCTOR;Semiconductors;88.47;4929547264.0;USD;NMS
-EVD.DE;CTS Eventim AG & Co. KGaA     I;COMMUNICATION;Entertainment;51.15;4909955072.0;EUR;GER
-QS;QuantumScape Corporation;CONSUMER;Auto Parts;7.705;4739693056.0;USD;NMS
-MP1.AX;MEGAPORT FPO [MP1];SOFTWARE;Software - Infrastructure;21.35;4715388416.0;AUD;ASX
-VECO;Veeco Instruments Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;77.18;4710564352.0;USD;NMS
-CNX;CNX Resources Corporation;ENERGY;Oil & Gas E&P;33.14;4688567808.0;USD;NYQ
-ONDS;Ondas Inc;TECHNOLOGY;Communication Equipment;8.94;4650743296.0;USD;NCM
-FLNC;Fluence Energy, Inc.;UTILITIES;Utilities - Renewable;25.17;4639099904.0;USD;NMS
-NEL.OL;NEL;INDUSTRIALS;Specialty Industrial Machinery;2.51;4613479936.0;NOK;OSL
-IRDM;Iridium Communications Inc;COMMUNICATION;Telecom Services;43.53;4602328576.0;USD;NMS
-ZETA;Zeta Global Holdings Corp.;SOFTWARE;Software - Infrastructure;18.435;4595063808.0;USD;NYQ
-TKMS.DE;TKMS AG & Co. KGaA            I;DEFENSE;Aerospace & Defense;72.3;4592759808.0;EUR;GER
-PBF;PBF Energy Inc.;ENERGY;Oil & Gas Refining & Marketing;38.815;4592142336.0;USD;NYQ
-MIR;Mirion Technologies, Inc.;INDUSTRIALS;Specialty Industrial Machinery;18.6;4550596096.0;USD;NYQ
-R3NK.DE;RENK Group AG                 I;DEFENSE;Aerospace & Defense;45.24;4524000256.0;EUR;GER
-WEX;WEX Inc.;SOFTWARE;Software - Infrastructure;129.825;4500791808.0;USD;NYQ
-GTLB;GitLab Inc.;SOFTWARE;Software - Infrastructure;25.58;4320461824.0;USD;NMS
-BTDR;Bitdeer Technologies Group;SOFTWARE;Software - Application;17.69;4304218624.0;USD;NCM
-OLED;Universal Display Corporation;TECHNOLOGY;Electronic Components;90.56;4233760768.0;USD;NMS
-SAIC;Science Applications Internatio;TECHNOLOGY;Information Technology Services;99.795;4219015168.0;USD;NMS
-ACHR;Archer Aviation Inc.;DEFENSE;Aerospace & Defense;5.455;4161427968.0;USD;NYQ
-OPEN;Opendoor Technologies Inc;REAL ESTATE;Real Estate Services;4.295;4143544064.0;USD;NMS
-PUM.DE;PUMA SE                       I;CONSUMER;Footwear & Accessories;28.13;4140986624.0;EUR;GER
-UUUU;Energy Fuels Inc;URANIUM;Uranium;16.205;4049094912.0;USD;ASE
-DFTX;Definium Therapeutics, Inc.;BIOTECH;Biotechnology;36.88;4022383104.0;USD;NMS
-PI;Impinj, Inc.;SEMICONDUCTOR;Semiconductors;131.425;4003098368.0;USD;NMS
-SMR;NuScale Power Corporation;INDUSTRIALS;Specialty Industrial Machinery;11.37;3940414464.0;USD;NYQ
-DAVE;Dave Inc.;SOFTWARE;Software - Application;309.35;3933152512.0;USD;NGM
-PLUG;Plug Power, Inc.;INDUSTRIALS;Electrical Equipment & Parts;2.79;3892242688.0;USD;NCM
-QLYS;Qualys, Inc.;SOFTWARE;Software - Infrastructure;109.59;3859431680.0;USD;NMS
-VRNS;Varonis Systems, Inc.;SOFTWARE;Software - Infrastructure;32.815;3854046976.0;USD;NMS
-SLG;SL Green Realty Corp;REAL ESTATE;REIT - Office;50.02;3851680000.0;USD;NYQ
-FOUR;Shift4 Payments, Inc.;SOFTWARE;Software - Infrastructure;38.655;3831868160.0;USD;NYQ
-ATS.TO;ATS CORPORATION;INDUSTRIALS;Specialty Industrial Machinery;39.45;3826931712.0;CAD;TOR
-PTEN;Patterson-UTI Energy, Inc.;ENERGY;Oil & Gas Drilling;10.045;3813259520.0;USD;NMS
-VKTX;Viking Therapeutics, Inc.;BIOTECH;Biotechnology;32.245;3743826176.0;USD;NCM
-IOS.DE;IONOS Group SE                N;TECHNOLOGY;Information Technology Services;26.54;3631909888.0;EUR;GER
-BEAM;Beam Therapeutics Inc.;BIOTECH;Biotechnology;35.3;3631636224.0;USD;NMS
-MNDY;monday.com Ltd.;SOFTWARE;Software - Application;70.01;3609118208.0;USD;NMS
-AEHR;Aehr Test Systems;SEMICONDUCTOR;Semiconductor Equipment & Materials;114.51;3601712128.0;USD;NCM
-LEU;Centrus Energy Corp.;URANIUM;Uranium;182.6;3592252416.0;USD;NYQ
-DLO;DLocal Limited;SOFTWARE;Software - Infrastructure;12.165;3579783936.0;USD;NMS
-LUNR;Intuitive Machines, Inc.;DEFENSE;Aerospace & Defense;21.985;3527544064.0;USD;NGM
-ILU.AX;ILUKA RES FPO [ILU];MATERIALS;Other Industrial Metals & Mining;8.13;3505615360.0;AUD;ASX
-HP;Helmerich & Payne, Inc.;ENERGY;Oil & Gas Drilling;35.065;3504078592.0;USD;NYQ
-SEDG;SolarEdge Technologies, Inc.;TECHNOLOGY;Solar;57.44;3493397248.0;USD;NMS
-PONY;Pony AI Inc.;TECHNOLOGY;Information Technology Services;7.95;3446655488.0;USD;NMS
-FR.PA;VALEO;CONSUMER;Auto Parts;13.965;3367620096.0;EUR;PAR
-BOX;Box, Inc.;SOFTWARE;Software - Infrastructure;24.19;3351104512.0;USD;NYQ
-COHU;Cohu, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;69.56;3281517056.0;USD;NMS
-TDW;Tidewater Inc.;ENERGY;Oil & Gas Equipment & Services;65.765;3270536192.0;USD;NYQ
-RUN;Sunrun Inc.;TECHNOLOGY;Solar;13.565;3235920896.0;USD;NMS
-HIMX;Himax Technologies, Inc.;SEMICONDUCTOR;Semiconductors;18.51;3228623872.0;USD;NMS
-BILL;BILL Holdings, Inc.;SOFTWARE;Software - Application;31.69;3156220416.0;USD;NYQ
-IAC;IAC Inc.;COMMUNICATION;Internet Content & Information;42.24;3142127872.0;USD;NGM
-OUST;Ouster, Inc.;TECHNOLOGY;Electronic Components;48.26;3072856320.0;USD;NMS
-AMBA;Ambarella, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;69.57;3051909632.0;USD;NMS
-CLBT;Cellebrite DI Ltd.;SOFTWARE;Software - Infrastructure;12.225;3049401856.0;USD;NMS
-DNN;Denison Mines Corp;URANIUM;Uranium;3.305;2991081216.0;USD;ASE
-SOUN;SoundHound AI, Inc.;SOFTWARE;Software - Application;6.9007;2986413312.0;USD;NGM
-UPST;Upstart Holdings, Inc.;FINANCIALS;Credit Services;31.175;2983808000.0;USD;NMS
-KC;Kingsoft Cloud Holdings Limited;SOFTWARE;Software - Application;9.865;2953281792.0;USD;NMS
-BTU;Peabody Energy Corporation;ENERGY;Thermal Coal;24.0922;2935249664.0;USD;NYQ
-TENB;Tenable Holdings, Inc.;SOFTWARE;Software - Infrastructure;26.315;2901807104.0;USD;NMS
-FNTN.DE;freenet AG                    N;COMMUNICATION;Telecom Services;24.56;2897603584.0;EUR;GER
-RNG;Ringcentral, Inc.;SOFTWARE;Software - Application;34.255;2872576768.0;USD;NYQ
-ETL.PA;EUTELSAT COMMUNIC.;COMMUNICATION;Telecom Services;2.436;2869447424.0;EUR;PAR
-SZG.DE;SALZGITTER AG                 I;MATERIALS;Steel;51.85;2804426496.0;EUR;GER
-TDC;Teradata Corporation;SOFTWARE;Software - Infrastructure;29.675;2792417536.0;USD;NYQ
-WOLF;Wolfspeed, Inc.;SEMICONDUCTOR;Semiconductors;53.145;2759198720.0;USD;NYQ
-TARS;Tarsus Pharmaceuticals, Inc.;BIOTECH;Biotechnology;63.68;2739765760.0;USD;NMS
-FSLY;Fastly, Inc.;SOFTWARE;Software - Application;17.01;2662065152.0;USD;NMS
-RDW;Redwire Corporation;DEFENSE;Aerospace & Defense;13.185;2622743296.0;USD;NYQ
-QTWO;Q2 Holdings, Inc.;SOFTWARE;Software - Application;41.88;2621705728.0;USD;NYQ
-STNE;StoneCo Ltd.;SOFTWARE;Software - Infrastructure;10.715;2606190336.0;USD;NMS
-WK;Workiva Inc.;SOFTWARE;Software - Application;45.58;2557919488.0;USD;NYQ
-PAY;Paymentus Holdings, Inc.;SOFTWARE;Software - Infrastructure;20.31;2554781440.0;USD;NYQ
-ESTA;Establishment Labs Holdings Inc;HEALTHCARE;Medical Devices;86.51;2546023168.0;USD;NCM
-APAM;Artisan Partners Asset Manageme;FINANCIALS;Asset Management;35.85;2545108224.0;USD;NYQ
-MGNI;Magnite, Inc.;COMMUNICATION;Advertising Agencies;17.755;2542782464.0;USD;NMS
-EOSE;Eos Energy Enterprises, Inc.;INDUSTRIALS;Electrical Equipment & Parts;7.445;2527681792.0;USD;NCM
-PAGS;PagSeguro Digital Ltd.;SOFTWARE;Software - Infrastructure;8.835;2469553152.0;USD;NYQ
-DRO.AX;DRONE FPO [DRO];DEFENSE;Aerospace & Defense;2.65;2448800768.0;AUD;ASX
-FRSH;Freshworks Inc.;SOFTWARE;Software - Application;8.815;2436767232.0;USD;NMS
-QUBT;Quantum Computing Inc.;TECHNOLOGY;Computer Hardware;10.75;2424501248.0;USD;NCM
-ATEN;A10 Networks, Inc.;SOFTWARE;Software - Infrastructure;33.555;2415898880.0;USD;NYQ
-JUN3.DE;JUNGHEINRICH AG               I;INDUSTRIALS;Specialty Industrial Machinery;23.66;2413319936.0;EUR;GER
-CALX;Calix, Inc;SOFTWARE;Software - Infrastructure;37.6;2398214400.0;USD;NYQ
-HG.CN;HydrographCP;MATERIALS;Specialty Chemicals;6.81;2384701184.0;CAD;CNQ
-PAYO;Payoneer Global Inc.;SOFTWARE;Software - Infrastructure;7.025;2375815680.0;USD;NGM
-CSGS;CSG Systems International, Inc.;SOFTWARE;Software - Application;80.69;2300464128.0;USD;NGM
-RAMP;LiveRamp Holdings, Inc.;SOFTWARE;Software - Infrastructure;37.691;2264771840.0;USD;NYQ
-AMR;Alpha Metallurgical Resources, ;MATERIALS;Coking Coal;175.62;2232942080.0;USD;NYQ
-AMPX;Amprius Technologies, Inc.;INDUSTRIALS;Electrical Equipment & Parts;15.76;2232044288.0;USD;NYQ
-NTLA;Intellia Therapeutics, Inc.;BIOTECH;Biotechnology;15.93;2225775872.0;USD;NGM
-PNG.V;KRAKEN ROBOTICS INC;TECHNOLOGY;Scientific & Technical Instruments;7.2;2211660288.0;CAD;VAN
-BRZE;Braze, Inc.;SOFTWARE;Software - Application;19.095;2150701824.0;USD;NMS
-POET;POET Technologies Inc.;SEMICONDUCTOR;Semiconductors;12.3;2122923520.0;USD;NCM
-AMC;AMC Entertainment Holdings, Inc;COMMUNICATION;Entertainment;2.805;2115451648.0;USD;NYQ
-NOG;Northern Oil and Gas, Inc.;ENERGY;Oil & Gas E&P;19.285;2097902336.0;USD;NYQ
-ARR;ARMOUR Residential REIT, Inc.;REAL ESTATE;REIT - Mortgage;16.605;2059785600.0;USD;NYQ
-VBK.DE;Verbio SE                     I;MATERIALS;Specialty Chemicals;31.26;1991745920.0;EUR;GER
-SPSC;SPS Commerce, Inc.;SOFTWARE;Software - Application;53.88;1978080512.0;USD;NMS
-KSS;Kohl's Corporation;CONSUMER;Department Stores;17.42;1974860928.0;USD;NYQ
-GNL;Global Net Lease, Inc.;REAL ESTATE;REIT - Diversified;9.0945;1919758080.0;USD;NYQ
-SHLS;Shoals Technologies Group, Inc.;TECHNOLOGY;Solar;11.025;1849684352.0;USD;NGM
-BBAI;BigBear.ai, Inc.;TECHNOLOGY;Information Technology Services;3.8113;1825420032.0;USD;NYQ
-SEMR;SEMrush Holdings, Inc.;SOFTWARE;Software - Application;12.0;1814168832.0;USD;NYQ
-IOVA;Iovance Biotherapeutics, Inc.;BIOTECH;Biotechnology;4.035;1801637120.0;USD;NGM
-WIX;Wix.com Ltd.;SOFTWARE;Software - Infrastructure;41.87;1752238976.0;USD;NMS
-AEVA;Aeva Technologies, Inc.;SOFTWARE;Software - Infrastructure;25.9;1749161600.0;USD;NMS
-ABCL;AbCellera Biologics Inc.;BIOTECH;Biotechnology;5.7213;1747144320.0;USD;NMS
-IAS;Integral Ad Science Holding Cor;COMMUNICATION;Advertising Agencies;10.34;1735615872.0;USD;NGM
-ZYME;Zymeworks Inc.;BIOTECH;Biotechnology;23.265;1711697792.0;USD;NMS
-RXRX;Recursion Pharmaceuticals, Inc.;BIOTECH;Biotechnology;3.205;1701092864.0;USD;NMS
-HLIT;Harmonic Inc.;TECHNOLOGY;Communication Equipment;15.19;1648060800.0;USD;NMS
-RCAT;Red Cat Holdings, Inc.;DEFENSE;Aerospace & Defense;10.6777;1625063424.0;USD;NCM
-MQ;Marqeta, Inc.;SOFTWARE;Software - Infrastructure;3.78;1602834560.0;USD;NMS
-NCNO;nCino, Inc.;SOFTWARE;Software - Application;14.605;1600020864.0;USD;NMS
-ASAN;Asana, Inc.;SOFTWARE;Software - Application;6.625;1572531968.0;USD;NYQ
-ENVX;Enovix Corporation;INDUSTRIALS;Electrical Equipment & Parts;7.085;1545617152.0;USD;NMS
-KSB3.DE;KSB SE & Co. KGaA             I;INDUSTRIALS;Specialty Industrial Machinery;871.0;1525405824.0;EUR;GER
-LAC;Lithium Americas Corp.;MATERIALS;Other Industrial Metals & Mining;4.305;1511323904.0;USD;NYQ
-VET;Vermilion Energy Inc.;ENERGY;Oil & Gas E&P;9.81;1502892032.0;USD;NYQ
-APPN;Appian Corporation;SOFTWARE;Software - Infrastructure;19.57;1436675200.0;USD;NGM
-AI;C3.ai, Inc.;SOFTWARE;Software - Infrastructure;9.8856;1436290816.0;USD;NYQ
-DEQ.DE;DEUTSCHE EUROSHOP AG          N;REAL ESTATE;Real Estate Services;18.44;1396716800.0;EUR;GER
-VH2.DE;Friedrich Vorwerk Group SE    I;INDUSTRIALS;Engineering & Construction;69.5;1390000000.0;EUR;GER
-NNE;Nano Nuclear Energy Inc.;INDUSTRIALS;Specialty Industrial Machinery;25.835;1346829312.0;USD;NCM
-HIVE;HIVE Digital Technologies Ltd;FINANCIALS;Capital Markets;4.985;1333142656.0;USD;NCM
-ORC;Orchid Island Capital, Inc.;REAL ESTATE;REIT - Mortgage;6.635;1331646080.0;USD;NYQ
-ARRY;Array Technologies, Inc.;TECHNOLOGY;Solar;8.52;1310600832.0;USD;NGM
-AMG.AS;AMG Critical Materials N.V.;MATERIALS;Other Industrial Metals & Mining;36.56;1301027840.0;EUR;AMS
-GLOB;Globant S.A.;TECHNOLOGY;Information Technology Services;29.71;1282864512.0;USD;NYQ
-PFI.F;PALFINGER AG                  I;INDUSTRIALS;Farm & Heavy Construction Machinery;33.5;1259374080.0;EUR;FRA
-PAL.VI;Palfinger AG;INDUSTRIALS;Farm & Heavy Construction Machinery;33.4;1255614848.0;EUR;VIE
-PGY;Pagaya Technologies Ltd.;SOFTWARE;Software - Infrastructure;15.05;1247206144.0;USD;NCM
-VOS.DE;VOSSLOH AG                    I;INDUSTRIALS;Railroads;63.0;1217197568.0;EUR;GER
-BLKB;Blackbaud, Inc.;SOFTWARE;Software - Application;26.35;1210310912.0;USD;NMS
-WEN;Wendy's Company (The);CONSUMER;Restaurants;6.1854;1178198912.0;USD;NMS
-RDWR;Radware Ltd.;SOFTWARE;Software - Infrastructure;27.52;1158110080.0;USD;NMS
-CXM;Sprinklr, Inc.;SOFTWARE;Software - Application;4.935;1155918976.0;USD;NYQ
-NAK;Northern Dynasty Minerals, Ltd.;MATERIALS;Other Industrial Metals & Mining;2.0599;1154184960.0;USD;ASE
-SDGR;Schrodinger, Inc.;HEALTHCARE;Health Information Services;15.41;1151446272.0;USD;NMS
-QNC.V;QUANTUM EMOTION CORP;SOFTWARE;Software - Infrastructure;4.99;1094654592.0;CAD;VAN
-UMAC;Unusual Machines, Inc.;TECHNOLOGY;Computer Hardware;22.855;1092330112.0;USD;ASE
-BKSY;BlackSky Technology Inc.;INDUSTRIALS;Specialty Business Services;28.79;1068368832.0;USD;NYQ
-HIVE.V;HIVE DIGITAL TECHNOLOGIES LTD;FINANCIALS;Capital Markets;4.1;1038352704.0;CAD;VAN
-AZTA;Azenta, Inc.;HEALTHCARE;Medical Instruments & Supplies;22.49;1036627136.0;USD;NMS
-EVEX;Eve Holding, Inc.;DEFENSE;Aerospace & Defense;2.785;970028288.0;USD;NYQ
-UPWK;Upwork Inc.;COMMUNICATION;Internet Content & Information;7.85;969617344.0;USD;NMS
-GILT;Gilat Satellite Networks Ltd.;TECHNOLOGY;Communication Equipment;12.715;959613056.0;USD;NMS
-KRI.AT;KRI-KRI S.A.;CONSUMER;Packaged Foods;28.9;952713600.0;EUR;ATH
-KURA;Kura Oncology, Inc.;BIOTECH;Biotechnology;10.345;918370880.0;USD;NMS
-GXI.DE;Gerresheimer AG               I;HEALTHCARE;Medical Instruments & Supplies;25.9;894585984.0;EUR;GER
-GDRX;GoodRx Holdings, Inc.;HEALTHCARE;Health Information Services;2.615;885636096.0;USD;NMS
-INDI;indie Semiconductor, Inc.;SEMICONDUCTOR;Semiconductors;4.06;857831680.0;USD;NCM
-SATL;Satellogic Inc.;DEFENSE;Aerospace & Defense;5.745;851662336.0;USD;NCM
-SLI;Standard Lithium Ltd.;MATERIALS;Other Industrial Metals & Mining;3.375;823024384.0;USD;ASE
-NRGV;Energy Vault Holdings, Inc.;UTILITIES;Utilities - Renewable;4.4458;792446912.0;USD;NYQ
-IVR;INVESCO MORTGAGE CAPITAL INC;REAL ESTATE;REIT - Mortgage;7.93;778725952.0;USD;NYQ
-ZVRA;Zevra Therapeutics, Inc.;BIOTECH;Biotechnology;12.63;746623488.0;USD;NMS
-LAES;SEALSQ Corp;SEMICONDUCTOR;Semiconductors;3.165;705079680.0;USD;NMS
-CRMD;CorMedix Inc.;BIOTECH;Biotechnology;8.865;695475968.0;USD;NGM
-SPIR;Spire Global, Inc.;INDUSTRIALS;Specialty Business Services;17.3;669709760.0;USD;NYQ
-SLDP;Solid Power, Inc.;CONSUMER;Auto Parts;2.81;632204160.0;USD;NMS
-DNUT;Krispy Kreme, Inc.;CONSUMER;Grocery Stores;3.4777;599555456.0;USD;NMS
-DNA;Ginkgo Bioworks Holdings, Inc.;BIOTECH;Biotechnology;9.06;591839936.0;USD;NYQ
-SERV;Serve Robotics Inc.;INDUSTRIALS;Specialty Industrial Machinery;6.835;581591744.0;USD;NCM
-URG;Ur Energy Inc;URANIUM;Uranium;1.435;570171136.0;USD;ASE
-TLRY;Tilray Brands, Inc.;PHARMA;Drug Manufacturers - Specialty & Generic;4.62;558181056.0;USD;NMS
-PUBM;PubMatic, Inc.;SOFTWARE;Software - Application;11.365;527828352.0;USD;NGM
-EH;EHang Holdings Limited;DEFENSE;Aerospace & Defense;6.865;520678368.0;USD;NGM
-RR;Richtech Robotics Inc.;INDUSTRIALS;Specialty Industrial Machinery;2.1513;481021984.0;USD;NCM
-MNPR;Monopar Therapeutics Inc.;BIOTECH;Biotechnology;69.775;467427072.0;USD;NCM
-OCGN;Ocugen, Inc.;BIOTECH;Biotechnology;1.305;441771008.0;USD;NCM
-VLA.PA;VALNEVA SE;BIOTECH;Biotechnology;2.305;437136160.0;EUR;PAR
-UROY;Uranium Royalty Corp.;URANIUM;Uranium;2.965;434646784.0;USD;NCM
-EDIT;Editas Medicine, Inc.;BIOTECH;Biotechnology;2.795;428925856.0;USD;NMS
-RPD;Rapid7, Inc.;SOFTWARE;Software - Infrastructure;6.325;422703648.0;USD;NGM
-MVST;Microvast Holdings, Inc.;CONSUMER;Auto Parts;1.265;421444064.0;USD;NCM
-GLAD;Gladstone Capital Corporation;FINANCIALS;Asset Management;18.58;419779200.0;USD;NMS
-DBAN.DE;Deutsche Beteiligungs AG      N;FINANCIALS;Asset Management;23.15;412110560.0;EUR;GER
-PACB;Pacific Biosciences of Californ;HEALTHCARE;Medical Devices;1.325;411547264.0;USD;NMS
-ABAT;American Battery Technology Com;INDUSTRIALS;Waste Management;2.955;403104576.0;USD;NCM
-F3C.DE;SFC Energy AG                 I;INDUSTRIALS;Electrical Equipment & Parts;22.95;399283552.0;EUR;GER
-SES;SES AI Corporation;CONSUMER;Auto Parts;1.075;398826048.0;USD;NYQ
-DR0.DE;Deutsche Rohstoff AG          N;ENERGY;Oil & Gas E&P;83.0;397573408.0;EUR;GER
-ASYS;Amtech Systems, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;21.835;381765312.0;USD;NMS
-SPT;Sprout Social, Inc;SOFTWARE;Software - Application;6.35;381670144.0;USD;NCM
-ARQQ;Arqit Quantum Inc.;SOFTWARE;Software - Infrastructure;20.97;364928576.0;USD;NCM
-FVRR;Fiverr International Ltd.;COMMUNICATION;Internet Content & Information;10.15;364899872.0;USD;NYQ
-SPCE;Virgin Galactic Holdings, Inc.;DEFENSE;Aerospace & Defense;3.17;352462592.0;USD;NYQ
-SENS;Senseonics Holdings, Inc.;HEALTHCARE;Medical Devices;6.475;338014176.0;USD;NMS
-LTBR;Lightbridge Corporation;INDUSTRIALS;Electrical Equipment & Parts;10.0;328444864.0;USD;NCM
-PDYN;Palladyne AI Corp.;SOFTWARE;Software - Infrastructure;6.855;323859168.0;USD;NGM
-EU;enCore Energy Corp.;URANIUM;Uranium;1.525;296205344.0;USD;NCM
-LTRX;Lantronix, Inc.;TECHNOLOGY;Communication Equipment;6.3;281034176.0;USD;NCM
-ETG.DE;EnviTec Biogas AG             I;UTILITIES;Utilities - Renewable;18.8;279180000.0;EUR;GER
-VUZI;Vuzix Corporation;TECHNOLOGY;Consumer Electronics;3.2;266106416.0;USD;NCM
-EVTL;Vertical Aerospace Ltd.;DEFENSE;Aerospace & Defense;2.075;264205600.0;USD;NYQ
-EGHT;8x8 Inc;SOFTWARE;Software - Application;1.71;241434528.0;USD;NMS
-SCM;Stellus Capital Investment Corp;FINANCIALS;Asset Management;8.19;237078000.0;USD;NYQ
-BZAI;Blaize Holdings, Inc.;SOFTWARE;Software - Application;1.6;227679136.0;USD;NGM
-OTLK;Outlook Therapeutics, Inc.;BIOTECH;Biotechnology;1.835;221179744.0;USD;NCM
-CDXS;Codexis, Inc.;BIOTECH;Biotechnology;2.395;217697280.0;USD;NMS
-QMCO;Quantum Corporation;TECHNOLOGY;Computer Hardware;14.7;215179024.0;USD;NGM
-DPRO;Draganfly Inc.;TECHNOLOGY;Computer Hardware;5.55;204700304.0;USD;NCM
-ARCT;Arcturus Therapeutics Holdings ;BIOTECH;Biotechnology;7.2;204646080.0;USD;NGM
-QSI;Quantum-Si Incorporated;HEALTHCARE;Medical Devices;0.9356;203736400.0;USD;NGM
-0660.HK;WAI CHUN BIOTEC;MATERIALS;Chemicals;0.5;183821552.0;HKD;HKG
-4X0.DE;Steyr Motors AG               I;DEFENSE;Aerospace & Defense;32.9;171080000.0;EUR;GER
-4X0.VI;Steyr Motors AG;DEFENSE;Aerospace & Defense;32.86;170872000.0;EUR;VIE
-CA1.DE;Circus SE                     I;SOFTWARE;Software - Infrastructure;6.12;145583792.0;EUR;GER
-ADE.DE;Bitcoin Group SE              I;FINANCIALS;Asset Management;26.82;134100000.0;EUR;GER
-INVZ;Innoviz Technologies Ltd.;CONSUMER;Auto Parts;0.6024;133350472.0;USD;NCM
-VERI;Veritone, Inc.;SOFTWARE;Software - Infrastructure;1.405;130600928.0;USD;NGM
-93M1.DE;MPH Health Care AG            I;FINANCIALS;Asset Management;29.0;124160136.0;EUR;GER
-LI.V;AMERICAN LITHIUM CORP;MATERIALS;Other Industrial Metals & Mining;0.485;123997352.0;CAD;VAN
-AISP;Airship AI Holdings, Inc;SOFTWARE;Software - Infrastructure;2.88;99185936.0;USD;NGM
-REKR;Rekor Systems, Inc.;SOFTWARE;Software - Infrastructure;0.6666;91729568.0;USD;NCM
-MWB0.F;mwb fairtrade Wphdlsbank AG   N;FINANCIALS;Capital Markets;11.7;87110136.0;EUR;FRA
-STEM;Stem, Inc.;UTILITIES;Utilities - Renewable;8.055;72148256.0;USD;NYQ
-LIDR;AEye, Inc.;SOFTWARE;Software - Infrastructure;1.4599;67615008.0;USD;NCM
-OPTT;Ocean Power Technologies, Inc.;INDUSTRIALS;Specialty Industrial Machinery;0.2849;64963880.0;USD;ASE
-UAVS;AgEagle Aerial Systems, Inc.;TECHNOLOGY;Computer Hardware;0.9028;52901480.0;USD;ASE
-VRL.DE;net digital AG                I;SOFTWARE;Software - Application;15.45;33129126.0;EUR;GER
-CXAI;CXApp Inc.;SOFTWARE;Software - Application;0.238;25962622.0;USD;NCM
-QNTM;Quantum Biopharma Ltd.;BIOTECH;Biotechnology;3.6501;23355702.0;USD;NCM
-QBTQ.CN;SuperQQuaComp;SOFTWARE;Software - Infrastructure;0.74;22760850.0;CAD;CNQ
-DFNS;T3 Defense Inc.;DEFENSE;Aerospace & Defense;0.1803;17098296.0;USD;NGM
-QBTQF;SUPERQ QUANTUM COMPUTING INC;SOFTWARE;Software - Infrastructure;0.5499;16913772.0;USD;OQB
-25X.F;SuperQ Quantum Computing Inc. R;SOFTWARE;Software - Infrastructure;0.47;14456216.0;EUR;FRA
-BUG;Global X Cybersecurity ETF;OTHER;-;33.15;;USD;NGM
-CIBR;First Trust NASDAQ Cybersecurit;OTHER;-;83.2;;USD;NGM
-CL2.PA;Amundi MSCI USA Daily (2x) Leve;OTHER;-;30.57;;EUR;PAR
-CMOE.MI;INVESCO BLOOM COMMODIT UCITS ET;OTHER;-;61.92;;EUR;MIL
-DFEN.DE;VanEck ETFs-VanEck Defense ETFR;OTHER;-;51.13;;EUR;GER
-DMTX;Dimension Therapeutics, Inc.;OTHER;-;;;;YHD
-DN3.F;Metaplanet Inc.               R;OTHER;-;1.3154;;EUR;FRA
-FM;iShares Frontier and Select EM ;OTHER;-;27.19;;USD;PCX
-HACK;Amplify Cybersecurity ETF;OTHER;-;94.13;;USD;PCX
-IUIT.L;ISHARES V PUBLIC LIMITED COMPAN;OTHER;-;50.81;;USD;LSE
-LQQ.PA;Amundi Nasdaq-100 Daily (2x) Le;OTHER;-;2070.5;;EUR;PAR
-MBH3.DE;Maschinenfabrik Berthold Hermle AG;OTHER;-;;;;YHD
-NLM.DE;Frosta AG;OTHER;-;;;;YHD
-QDVE.DE;iShsV-S&P 500 Inf.Te.Sec.U.ETFR;OTHER;-;44.39;;EUR;GER
-QUTM.DE;VanEck ETF-Quantum Computing  R;OTHER;-;27.41;;EUR;GER
-QYLD.L;GLOBAL X ETFS ICAV GLOBAL X NAS;OTHER;-;17.085;;USD;LSE
-ROBO;ROBO Global Robotics and Automa;OTHER;-;86.58;;USD;PCX
-SCWX.DE;Scalable MSCI AC Wld XtrackersA;OTHER;-;11.892;;EUR;GER
-SGLN.L;ISHARES PHYSICAL METALS PLC ISH;OTHER;-;6132.0;;GBp;LSE
-SMSN.IL;SAMSUNG ELECTRONICS CO LTD (ATT;TECHNOLOGY;Consumer Electronics;5810.0;;USD;IOB
-SSLN.L;ISHARES PHYSICAL METALS PLC ISH;OTHER;-;4726.0;;GBp;LSE
-XAD6.DE;DB ETC PLC                    E;OTHER;-;537.0;;EUR;GER
-XMAW.DE;Xtr.(IE)-MSCI AC World Sc.    R;OTHER;-;50.24;;EUR;GER
+﻿Ticker;Company;Sector;Industry;Price;Market Cap;Currency;Exchange;Avg Volume;Avg Dollar Volume;Liquidity
+005930.KS;SamsungElec;TECHNOLOGY;Consumer Electronics;340500.0;2235914877140992.0;KRW;KSC;29365523.0;9998960581500.0;HOCH
+000660.KS;SK hynix;SEMICONDUCTOR;Semiconductors;2580000.0;1831425728839680.0;KRW;KSC;5053584.0;13038246720000.0;HOCH
+373220.KS;LG Energy Solution;INDUSTRIALS;Electrical Equipment & Parts;365500.0;85527000776704.0;KRW;KSC;501276.0;183216378000.0;HOCH
+285A.T;KIOXIA HOLDINGS CORPORATION;SEMICONDUCTOR;Semiconductors;92500.0;50512967761920.0;JPY;JPX;35993404.0;3329389870000.0;HOCH
+7203.T;TOYOTA MOTOR CORP;CONSUMER CYCLICAL;Auto Manufacturers;2686.0;31805067493376.0;JPY;JPX;25171693.0;67611167398.0;HOCH
+8035.T;TOKYO ELECTRON;SEMICONDUCTOR;Semiconductor Equipment & Materials;69900.0;31794365726720.0;JPY;JPX;3627500.0;253562250000.0;HOCH
+6857.T;ADVANTEST CORP;SEMICONDUCTOR;Semiconductor Equipment & Materials;31200.0;22614187704320.0;JPY;JPX;9762414.0;304587316800.0;HOCH
+6981.T;MURATA MANUFACTURING CO;TECHNOLOGY;Electronic Components;11030.0;20077806092288.0;JPY;JPX;22486449.0;248025532470.0;HOCH
+6758.T;SONY GROUP CORPORATION;TECHNOLOGY;Consumer Electronics;3250.0;19142067355648.0;JPY;JPX;21115777.0;68626275250.0;HOCH
+6861.T;KEYENCE CORP;TECHNOLOGY;Scientific & Technical Instruments;76750.0;18613803155456.0;JPY;JPX;802801.0;61614976750.0;HOCH
+8001.T;ITOCHU CORP;INDUSTRIALS;Conglomerates;1819.0;12714650894336.0;JPY;JPX;14934419.0;27165708161.0;HOCH
+6752.T;PANASONIC HOLDINGS CORP;TECHNOLOGY;Consumer Electronics;4454.0;10399401377792.0;JPY;JPX;11184063.0;49813816602.0;HOCH
+6146.T;DISCO CORPORATION;SEMICONDUCTOR;Semiconductor Equipment & Materials;79740.0;8649216884736.0;JPY;JPX;2166624.0;172766597760.0;HOCH
+7974.T;NINTENDO CO LTD;COMMUNICATION;Electronic Gaming & Multimedia;6858.0;7906101035008.0;JPY;JPX;10285180.0;70535764440.0;HOCH
+6762.T;TDK CORP;TECHNOLOGY;Electronic Components;3816.0;7243355914240.0;JPY;JPX;15107714.0;57651036624.0;HOCH
+6701.T;NEC CORP;TECHNOLOGY;Information Technology Services;3838.0;5090508275712.0;JPY;JPX;8142639.0;31251448482.0;HOCH
+NVDA;NVIDIA Corporation;SEMICONDUCTOR;Semiconductors;196.96;4770568339456.0;USD;NMS;161916554.0;31891084476.0;HOCH
+AAPL;Apple Inc.;TECHNOLOGY;Consumer Electronics;295.07;4333504299008.0;USD;NMS;47479672.0;14009826817.0;HOCH
+GOOGL;Alphabet Inc.;COMMUNICATION;Internet Content & Information;343.51;4191705890816.0;USD;NMS;30151920.0;10357486039.0;HOCH
+GOOG;Alphabet Inc.;COMMUNICATION;Internet Content & Information;342.94;4184628264960.0;USD;NMS;20685043.0;7093728646.0;HOCH
+6594.T;NIDEC CORPORATION;INDUSTRIALS;Specialty Industrial Machinery;2750.0;3152352116736.0;JPY;JPX;6969000.0;19164750000.0;HOCH
+MSFT;Microsoft Corporation;SOFTWARE;Software - Infrastructure;368.64;2738578522112.0;USD;NMS;36065903.0;13295334482.0;HOCH
+AMZN;Amazon.com, Inc.;CONSUMER CYCLICAL;Internet Retail;236.875;2548090273792.0;USD;NMS;45746998.0;10836320151.0;HOCH
+TSM;Taiwan Semiconductor Manufactur;SEMICONDUCTOR;Semiconductors;435.73;2259902267392.0;USD;NYQ;13691050.0;5965601216.0;HOCH
+6479.T;MINEBEA MITSUMI INC;TECHNOLOGY;Electronic Components;4922.0;1976653185024.0;JPY;JPX;2895190.0;14250125180.0;HOCH
+300750.SZ;CONTEMPORARY AMPEREX TECHNOLOGY;INDUSTRIALS;Electrical Equipment & Parts;395.36;1829183160320.0;CNY;SHZ;35526952.0;14045935743.0;HOCH
+AVGO;Broadcom Inc.;SEMICONDUCTOR;Semiconductors;377.4428;1795701080064.0;USD;NMS;25889748.0;9771898976.0;HOCH
+META;Meta Platforms, Inc.;COMMUNICATION;Internet Content & Information;558.89;1418699472896.0;USD;NMS;17549712.0;9808358540.0;HOCH
+TSLA;Tesla, Inc.;CONSUMER CYCLICAL;Auto Manufacturers;374.5;1406255628288.0;USD;NMS;57492948.0;21531109026.0;HOCH
+NOVO-B.CO;Novo Nordisk B A/S;PHARMA;Drug Manufacturers - General;311.55;1379186769920.0;DKK;CPH;5917293.0;1843532634.0;HOCH
+MU;Micron Technology, Inc.;SEMICONDUCTOR;Semiconductors;998.515;1126059343872.0;USD;NMS;50893654.0;50818076924.0;HOCH
+BRK-B;Berkshire Hathaway Inc. New;FINANCIALS;Insurance - Diversified;497.0199;1071999221760.0;USD;NYQ;5000325.0;2485261031.0;HOCH
+ADVANC.BK;ADVANC_ADVANCED INFO SERVICE;COMMUNICATION;Telecom Services;353.0;1049896026112.0;THB;SET;7568473.0;2671670969.0;HOCH
+LLY;Eli Lilly and Company;PHARMA;Drug Manufacturers - General;1113.285;992762331136.0;USD;NYQ;3191745.0;3553321832.0;HOCH
+WMT;Walmart Inc.;CONSUMER DEFENSIVE;Discount Stores;119.795;953338036224.0;USD;NMS;20340404.0;2436678697.0;HOCH
+JPM;JP Morgan Chase & Co.;FINANCIALS;Banks - Diversified;333.855;894568300544.0;USD;NYQ;8930796.0;2981590899.0;HOCH
+6481.T;THK CO LTD;INDUSTRIALS;Specialty Industrial Machinery;7702.0;863192481792.0;JPY;JPX;1063503.0;8191100106.0;HOCH
+NLMK.ME;NOVOLIPETSK STEEL;MATERIALS;Steel;138.0;827065368576.0;RUB;MCX;;;UNBEKANNT
+AMD;Advanced Micro Devices, Inc.;SEMICONDUCTOR;Semiconductors;506.99;826698170368.0;USD;NMS;37910643.0;19220316895.0;HOCH
+002594.SZ;BYD COMPANY LIMITED;CONSUMER CYCLICAL;Auto Manufacturers;83.3;759462559744.0;CNY;SHZ;46988035.0;3914103316.0;HOCH
+6324.T;HARMONIC DRIVE SYSTEMS;INDUSTRIALS;Specialty Industrial Machinery;7830.0;741240995840.0;JPY;JPX;1864918.0;14602307940.0;HOCH
+ASML;ASML Holding N.V. - New York Re;SEMICONDUCTOR;Semiconductor Equipment & Materials;1732.8;667851751424.0;USD;NMS;1862253.0;3226911998.0;HOCH
+INTC;Intel Corporation;SEMICONDUCTOR;Semiconductors;128.12;643931111424.0;USD;NMS;134774574.0;17267318421.0;HOCH
+V;Visa Inc.;FINANCIALS;Credit Services;333.185;633632456704.0;USD;NYQ;7709388.0;2568652441.0;HOCH
+6268.T;NABTESCO CORP;INDUSTRIALS;Specialty Industrial Machinery;5296.0;620609208320.0;JPY;JPX;1240998.0;6572325408.0;HOCH
+ASML.AS;ASML HOLDING;SEMICONDUCTOR;Semiconductor Equipment & Materials;1553.8;598862004224.0;EUR;AMS;740568.0;1150694558.0;HOCH
+JNJ;Johnson & Johnson;PHARMA;Drug Manufacturers - General;240.74;579513417728.0;USD;NYQ;7831632.0;1885387088.0;HOCH
+XOM;Exxon Mobil Corporation;ENERGY;Oil & Gas Integrated;136.46;565619523584.0;USD;NYQ;19177916.0;2617018417.0;HOCH
+CSCO;Cisco Systems, Inc.;TECHNOLOGY;Communication Equipment;119.23;469937258496.0;USD;NMS;23422370.0;2792649175.0;HOCH
+AMAT;Applied Materials, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;572.66;454648954880.0;USD;NMS;7696403.0;4407422142.0;HOCH
+LRCX;Lam Research Corporation;SEMICONDUCTOR;Semiconductor Equipment & Materials;362.02;452731699200.0;USD;NMS;10145162.0;3672751547.0;HOCH
+CAT;Caterpillar, Inc.;INDUSTRIALS;Farm & Heavy Construction Machinery;978.68;450769846272.0;USD;NYQ;2633346.0;2577203063.0;HOCH
+ORCL;Oracle Corporation;SOFTWARE;Software - Infrastructure;156.165;449828749312.0;USD;NYQ;26627209.0;4158238093.0;HOCH
+MA;Mastercard Incorporated;FINANCIALS;Credit Services;497.12;439247208448.0;USD;NYQ;3682848.0;1830817398.0;HOCH
+COST;Costco Wholesale Corporation;CONSUMER DEFENSIVE;Discount Stores;964.37;427571249152.0;USD;NMS;2077198.0;2003187435.0;HOCH
+ABBV;AbbVie Inc.;PHARMA;Drug Manufacturers - General;235.69;416415416320.0;USD;NYQ;6161837.0;1452283363.0;HOCH
+BAC;Bank of America Corporation;FINANCIALS;Banks - Diversified;57.725;409650692096.0;USD;NYQ;36060243.0;2081577527.0;HOCH
+GE;GE Aerospace;DEFENSE;Aerospace & Defense;365.6425;382034116608.0;USD;NYQ;5749432.0;2102236690.0;HOCH
+ARM;Arm Holdings plc;SEMICONDUCTOR;Semiconductors;345.51;369031905280.0;USD;NMS;11631422.0;4018772615.0;HOCH
+UNH;UnitedHealth Group Incorporated;HEALTHCARE;Healthcare Plans;405.115;367902916608.0;USD;NYQ;7780740.0;3152094485.0;HOCH
+MS;Morgan Stanley;FINANCIALS;Capital Markets;221.27;349005840384.0;USD;NYQ;5961638.0;1319131640.0;HOCH
+KO;Coca-Cola Company (The);CONSUMER DEFENSIVE;Beverages - Non-Alcoholic;81.105;348952854528.0;USD;NYQ;15685146.0;1272143766.0;HOCH
+CVX;Chevron Corporation;ENERGY;Oil & Gas Integrated;171.8;342156476416.0;USD;NYQ;10389735.0;1784956473.0;HOCH
+HD;Home Depot, Inc. (The);CONSUMER CYCLICAL;Home Improvement Retail;342.57;341582249984.0;USD;NYQ;4652070.0;1593659620.0;HOCH
+GS;Goldman Sachs Group, Inc. (The);FINANCIALS;Capital Markets;1076.59;317602037760.0;USD;NYQ;2120982.0;2283428011.0;HOCH
+KLAC;KLA Corporation;SEMICONDUCTOR;Semiconductor Equipment & Materials;235.5;307627819008.0;USD;NMS;10793956.0;2541976638.0;HOCH
+NFLX;Netflix, Inc.;COMMUNICATION;Entertainment;72.535;305430298624.0;USD;NMS;40412324.0;2931307921.0;HOCH
+MRK;Merck & Company, Inc.;PHARMA;Drug Manufacturers - General;121.42;299886084096.0;USD;NYQ;10034935.0;1218441808.0;HOCH
+3350.T;METAPLANET INC;CONSUMER CYCLICAL;Restaurants;232.0;297245409280.0;JPY;JPX;26402857.0;6125462824.0;HOCH
+AZN;AstraZeneca PLC;PHARMA;Drug Manufacturers - General;184.315;285847158784.0;USD;NYQ;1964353.0;362059723.0;HOCH
+0992.HK;LENOVO GROUP;TECHNOLOGY;Computer Hardware;22.92;284314796032.0;HKD;HKG;161012724.0;3690411634.0;HOCH
+RIO.AX;RIO TINTO FPO [RIO];MATERIALS;Other Industrial Metals & Mining;173.92;282831093760.0;AUD;ASX;1313049.0;228365482.0;HOCH
+GEV;GE Vernova Inc.;INDUSTRIALS;Specialty Industrial Machinery;1047.96;281607798784.0;USD;NYQ;2697775.0;2827160289.0;HOCH
+SNDK;Sandisk Corporation;TECHNOLOGY;Computer Hardware;1867.0;276483571712.0;USD;NMS;14353533.0;26798046111.0;HOCH
+TXN;Texas Instruments Incorporated;SEMICONDUCTOR;Semiconductors;302.685;275471433728.0;USD;NMS;8006212.0;2423360279.0;HOCH
+DELL;Dell Technologies Inc.;TECHNOLOGY;Computer Hardware;421.9301;272626941952.0;USD;NYQ;8810687.0;3717494047.0;HOCH
+PLTR;Palantir Technologies Inc.;SOFTWARE;Software - Infrastructure;113.285;271579496448.0;USD;NMS;44216511.0;5009067449.0;HOCH
+SAAB-B.ST;SAAB AB ser. B;DEFENSE;Aerospace & Defense;491.0;264829304832.0;SEK;STO;1496872.0;734964152.0;HOCH
+WFC;Wells Fargo & Company;FINANCIALS;Banks - Diversified;84.4;258279997440.0;USD;NYQ;16526309.0;1394820480.0;HOCH
+KOG.OL;KONGSBERG GRUPPEN;DEFENSE;Aerospace & Defense;290.8;255790350336.0;NOK;OSL;1568723.0;456184648.0;HOCH
+RTX;RTX Corporation;DEFENSE;Aerospace & Defense;186.49;251142995968.0;USD;NYQ;5411348.0;1009162289.0;HOCH
+IBM;International Business Machines;TECHNOLOGY;Information Technology Services;263.48;247640997888.0;USD;NYQ;8379191.0;2207749245.0;HOCH
+C;Citigroup, Inc.;FINANCIALS;Banks - Diversified;144.01;245620129792.0;USD;NYQ;12268696.0;1766814911.0;HOCH
+BABA;Alibaba Group Holding Limited;CONSUMER CYCLICAL;Internet Retail;100.39;240849059840.0;USD;NYQ;11114853.0;1115820093.0;HOCH
+LIN;Linde plc;MATERIALS;Specialty Chemicals;519.03;239972122624.0;USD;NMS;2221585.0;1153069263.0;HOCH
+AXP;American Express Company;FINANCIALS;Credit Services;342.565;233741172736.0;USD;NYQ;3101498.0;1062464662.0;HOCH
+PANW;Palo Alto Networks, Inc.;SOFTWARE;Software - Infrastructure;285.73;232869953536.0;USD;NMS;8297980.0;2370981825.0;HOCH
+MRVL;Marvell Technology, Inc.;SEMICONDUCTOR;Semiconductors;264.43;231522516992.0;USD;NMS;41970769.0;11098330447.0;HOCH
+SHEL;Shell PLC;ENERGY;Oil & Gas Integrated;77.3075;214296887296.0;USD;NYQ;7638595.0;590520683.0;HOCH
+STX;Seagate Technology Holdings PLC;TECHNOLOGY;Computer Hardware;954.96;214138683392.0;USD;NMS;4107224.0;3922234631.0;HOCH
+WDC;Western Digital Corporation;TECHNOLOGY;Computer Hardware;613.905;211583123456.0;USD;NMS;8015943.0;4921027487.0;HOCH
+NVO;Novo Nordisk A/S;PHARMA;Drug Manufacturers - General;47.515;210342035456.0;USD;NYQ;15478200.0;735446673.0;HOCH
+9992.HK;POP MART;CONSUMER CYCLICAL;Leisure;158.1;208809541632.0;HKD;HKG;25723197.0;4066837446.0;HOCH
+SIE.DE;SIEMENS AG                    N;INDUSTRIALS;Specialty Industrial Machinery;271.4;207008546816.0;EUR;GER;1200769.0;325888707.0;HOCH
+BHP;BHP Group Limited;MATERIALS;Other Industrial Metals & Mining;80.16;203634065408.0;USD;NYQ;2754866.0;220830059.0;HOCH
+ANET;Arista Networks, Inc.;TECHNOLOGY;Computer Hardware;161.6;203481776128.0;USD;NYQ;9290612.0;1501362899.0;HOCH
+QCOM;QUALCOMM Incorporated;SEMICONDUCTOR;Semiconductors;192.75;203158503424.0;USD;NMS;21083125.0;4063772344.0;HOCH
+APH;Amphenol Corporation;TECHNOLOGY;Electronic Components;162.415;199808532480.0;USD;NYQ;9761527.0;1585418408.0;HOCH
+ADI;Analog Devices, Inc.;SEMICONDUCTOR;Semiconductors;410.125;199766573056.0;USD;NMS;4193761.0;1719966230.0;HOCH
+TMUS;T-Mobile US, Inc.;COMMUNICATION;Telecom Services;183.165;198222004224.0;USD;NMS;5748509.0;1052925651.0;HOCH
+TM;Toyota Motor Corporation;CONSUMER CYCLICAL;Auto Manufacturers;167.26;198053429248.0;USD;NYQ;468588.0;78376029.0;HOCH
+MCD;McDonald's Corporation;CONSUMER CYCLICAL;Restaurants;275.75;195921985536.0;USD;NYQ;3920185.0;1080991014.0;HOCH
+PEP;Pepsico, Inc.;CONSUMER DEFENSIVE;Beverages - Non-Alcoholic;142.98;195445211136.0;USD;NMS;7292595.0;1042695233.0;HOCH
+ORSTED.CO;ORSTED A/S;UTILITIES;Utilities - Renewable;147.3;194592440320.0;DKK;CPH;1556529.0;229276722.0;HOCH
+VZ;Verizon Communications Inc.;COMMUNICATION;Telecom Services;45.875;191553765376.0;USD;NYQ;24348712.0;1116997163.0;HOCH
+AMGN;Amgen Inc.;PHARMA;Drug Manufacturers - General;353.78;190938005504.0;USD;NMS;2753154.0;974010822.0;HOCH
+TJX;TJX Companies, Inc. (The);CONSUMER CYCLICAL;Apparel Retail;166.125;183519019008.0;USD;NYQ;5318701.0;883569204.0;HOCH
+NEE;NextEra Energy, Inc.;UTILITIES;Utilities - Regulated Electric;87.535;182563471360.0;USD;NYQ;10669004.0;933911265.0;HOCH
+DIS;Walt Disney Company (The);COMMUNICATION;Entertainment;102.175;177428070400.0;USD;NYQ;9174164.0;937370207.0;HOCH
+TTE;TotalEnergies SE;ENERGY;Oil & Gas Integrated;78.725;175016345600.0;USD;NYQ;1668980.0;131390450.0;HOCH
+GLW;Corning Incorporated;TECHNOLOGY;Electronic Components;202.45;174210301952.0;USD;NYQ;13046664.0;2641297127.0;HOCH
+BA;Boeing Company (The);DEFENSE;Aerospace & Defense;220.605;173903429632.0;USD;NYQ;6585332.0;1452757166.0;HOCH
+RMS.PA;HERMES INTL;CONSUMER CYCLICAL;Luxury Goods;1629.0;170621140992.0;EUR;PAR;105921.0;172545309.0;HOCH
+CRWD;CrowdStrike Holdings, Inc.;SOFTWARE;Software - Infrastructure;670.04;170568597504.0;USD;NMS;3435067.0;2301632293.0;HOCH
+SAN.MC;BANCO SANTANDER S.A.;FINANCIALS;Banks - Diversified;11.862;170213654528.0;EUR;MCE;27296232.0;323787904.0;HOCH
+VWS.CO;Vestas Wind Systems A/S;INDUSTRIALS;Specialty Industrial Machinery;170.85;167638646784.0;DKK;CPH;2511341.0;429062610.0;HOCH
+DE;Deere & Company;INDUSTRIALS;Farm & Heavy Construction Machinery;606.96;163944333312.0;USD;NYQ;1271016.0;771455871.0;HOCH
+SHEL.L;SHELL PLC ORD EUR0.07;ENERGY;Oil & Gas Integrated;2946.5;163354345472.0;GBp;LSE;10792170.0;31799128905.0;HOCH
+BLK;BlackRock, Inc.;FINANCIALS;Asset Management;985.235;160444055552.0;USD;NYQ;701896.0;691532506.0;HOCH
+ABT;Abbott Laboratories;HEALTHCARE;Medical Devices;91.33;159079792640.0;USD;NYQ;12716856.0;1161430458.0;HOCH
+SCHW;Charles Schwab Corporation (The;FINANCIALS;Capital Markets;91.4585;159058722816.0;USD;NYQ;11455635.0;1047715194.0;HOCH
+APP;Applovin Corporation;COMMUNICATION;Advertising Agencies;469.07;157579149312.0;USD;NMS;4872056.0;2285335308.0;HOCH
+SAP.DE;SAP SE                        I;SOFTWARE;Software - Application;134.86;157457006592.0;EUR;GER;3103547.0;418544348.0;HOCH
+WELL;Welltower Inc.;REAL ESTATE;REIT - Healthcare Facilities;222.94;157376561152.0;USD;NYQ;3279004.0;731021152.0;HOCH
+ABBN.SW;ABB LTD N;INDUSTRIALS;Electrical Equipment & Parts;86.58;157138518016.0;CHF;EBS;2533481.0;219348785.0;HOCH
+GILD;Gilead Sciences, Inc.;PHARMA;Drug Manufacturers - General;126.56;157133078528.0;USD;NMS;6790243.0;859373154.0;HOCH
+T;AT&T Inc.;COMMUNICATION;Telecom Services;22.515;156441837568.0;USD;NYQ;41866475.0;942623685.0;HOCH
+ETN;Eaton Corporation, PLC;INDUSTRIALS;Specialty Industrial Machinery;402.425;156261629952.0;USD;NYQ;2547038.0;1024991767.0;HOCH
+UNP;Union Pacific Corporation;INDUSTRIALS;Railroads;261.05;154988822528.0;USD;NYQ;2939691.0;767406336.0;HOCH
+AIR.PA;AIRBUS SE;DEFENSE;Aerospace & Defense;195.1;153588203520.0;EUR;PAR;1394029.0;271975058.0;HOCH
+AIR.DE;Airbus SE                     A;DEFENSE;Aerospace & Defense;195.04;153540968448.0;EUR;GER;300311.0;58572657.0;HOCH
+ALV.DE;Allianz SE                    v;FINANCIALS;Insurance - Diversified;404.5;153421299712.0;EUR;GER;662893.0;268140218.0;HOCH
+UBER;Uber Technologies, Inc.;SOFTWARE;Software - Application;74.14;150919299072.0;USD;NYQ;17737861.0;1315085015.0;HOCH
+SHOP;Shopify Inc.;SOFTWARE;Software - Application;112.49;145973166080.0;USD;NMS;10045783.0;1130050130.0;HOCH
+HON;Honeywell International Inc.;INDUSTRIALS;Conglomerates;227.89;144403202048.0;USD;NMS;4386759.0;999698509.0;HOCH
+BKNG;Booking Holdings Inc. Common St;CONSUMER CYCLICAL;Travel Services;184.735;143147171840.0;USD;NMS;7714243.0;1425090681.0;HOCH
+ISRG;Intuitive Surgical, Inc.;HEALTHCARE;Medical Instruments & Supplies;403.58;142933032960.0;USD;NMS;2300672.0;928505206.0;HOCH
+IBE.MC;ACCIONES IBERDROLA;UTILITIES;Utilities - Diversified;21.15;139386257408.0;EUR;MCE;11752185.0;248558713.0;HOCH
+BX;Blackstone Inc.;FINANCIALS;Asset Management;113.99;139325636608.0;USD;NYQ;5869506.0;669064989.0;HOCH
+PFE;Pfizer, Inc.;PHARMA;Drug Manufacturers - General;24.18;137784066048.0;USD;NYQ;37348525.0;903087334.0;HOCH
+ENR.DE;Siemens Energy AG             N;INDUSTRIALS;Specialty Industrial Machinery;159.86;136016650240.0;EUR;GER;2704859.0;432398760.0;HOCH
+DHR;Danaher Corporation;HEALTHCARE;Diagnostics & Research;188.37;133322752000.0;USD;NYQ;4550709.0;857217054.0;HOCH
+BTI;British American Tobacco  Indus;CONSUMER DEFENSIVE;Tobacco;61.67;133193490432.0;USD;NYQ;4097717.0;252706207.0;HOCH
+CB;Chubb Limited;FINANCIALS;Insurance - Property & Casualty;336.76;130615771136.0;USD;NYQ;1611027.0;542529453.0;HOCH
+COP;ConocoPhillips;ENERGY;Oil & Gas E&P;107.05;130418376704.0;USD;NYQ;8200203.0;877831731.0;HOCH
+PGR;Progressive Corporation (The);FINANCIALS;Insurance - Property & Casualty;221.205;128785555456.0;USD;NYQ;2993746.0;662231584.0;HOCH
+DTE.DE;DEUTSCHE TELEKOM AG           N;COMMUNICATION;Telecom Services;26.44;127917318144.0;EUR;GER;7711645.0;203895894.0;HOCH
+CRM;Salesforce, Inc.;SOFTWARE;Software - Application;153.495;125712400384.0;USD;NYQ;15009425.0;2303871690.0;HOCH
+LOW;Lowe's Companies, Inc.;CONSUMER CYCLICAL;Home Improvement Retail;222.37;124749570048.0;USD;NYQ;2847401.0;633176560.0;HOCH
+COF;Capital One Financial Corporati;FINANCIALS;Credit Services;201.07;123863040000.0;USD;NYQ;4669037.0;938803270.0;HOCH
+VRTX;Vertex Pharmaceuticals Incorpor;BIOTECH;Biotechnology;479.43;121681936384.0;USD;NMS;1281846.0;614555428.0;HOCH
+PH;Parker-Hannifin Corporation;INDUSTRIALS;Specialty Industrial Machinery;964.39;121596461056.0;USD;NYQ;747775.0;721146732.0;HOCH
+SYK;Stryker Corporation;HEALTHCARE;Medical Devices;315.575;120979079168.0;USD;NYQ;2495506.0;787519306.0;HOCH
+MO;Altria Group, Inc.;CONSUMER DEFENSIVE;Tobacco;72.25;120649637888.0;USD;NYQ;8908003.0;643603217.0;HOCH
+ENB;Enbridge Inc;ENERGY;Oil & Gas Midstream;55.22;120583716864.0;USD;NYQ;4439409.0;245144165.0;HOCH
+VRT;Vertiv Holdings, LLC;INDUSTRIALS;Electrical Equipment & Parts;312.03;119853465600.0;USD;NYQ;5866324.0;1830469078.0;HOCH
+SBUX;Starbucks Corporation;CONSUMER CYCLICAL;Restaurants;104.37;118950486016.0;USD;NMS;7603685.0;793596603.0;HOCH
+SONY;Sony Group Corporation;TECHNOLOGY;Consumer Electronics;20.095;118356869120.0;USD;NYQ;6375837.0;128122445.0;HOCH
+BBVA.MC;BANCO BILBAO VIZCAYA ARGENTARIA;FINANCIALS;Banks - Diversified;21.32;118335201280.0;EUR;MCE;12244845.0;261060095.0;HOCH
+RR.L;ROLLS-ROYCE HOLDINGS PLC ORD SH;DEFENSE;Aerospace & Defense;1419.2;117622603776.0;GBp;LSE;34149023.0;48464293442.0;HOCH
+RIO.L;RIO TINTO PLC ORD 10P;MATERIALS;Other Industrial Metals & Mining;7163.0;116488445952.0;GBp;LSE;2635638.0;18879074994.0;HOCH
+LMT;Lockheed Martin Corporation;DEFENSE;Aerospace & Defense;496.5;114474835968.0;USD;NYQ;1359459.0;674971394.0;HOCH
+BMY;Bristol-Myers Squibb Company;PHARMA;Drug Manufacturers - General;55.385;113100111872.0;USD;NYQ;11037685.0;611322184.0;HOCH
+HWM;Howmet Aerospace Inc.;DEFENSE;Aerospace & Defense;277.02;110837768192.0;USD;NYQ;2406166.0;666556105.0;HOCH
+EQIX;Equinix, Inc.;REAL ESTATE;REIT - Specialty;1099.47;108434399232.0;USD;NMS;554006.0;609112977.0;HOCH
+SO;Southern Company (The);UTILITIES;Utilities - Regulated Electric;95.79;107961622528.0;USD;NYQ;5595183.0;535962580.0;HOCH
+ISP.MI;INTESA SANPAOLO;FINANCIALS;Banks - Regional;6.093;106193477632.0;EUR;MIL;58726424.0;357820101.0;HOCH
+FTNT;Fortinet, Inc.;SOFTWARE;Software - Infrastructure;144.65;105977585664.0;USD;NMS;6404437.0;926401812.0;HOCH
+PBR;Petroleo Brasileiro S.A. Petrob;ENERGY;Oil & Gas Integrated;16.3099;105106972672.0;USD;NYQ;21160754.0;345129782.0;HOCH
+PWR;Quanta Services, Inc.;INDUSTRIALS;Engineering & Construction;700.185;105069862912.0;USD;NYQ;1150195.0;805349286.0;HOCH
+IFX.DE;INFINEON TECHNOLOGIES AG      N;SEMICONDUCTOR;Semiconductors;79.56;103388192768.0;EUR;GER;5804838.0;461832911.0;HOCH
+MDT;Medtronic plc.;HEALTHCARE;Medical Devices;80.7;103299645440.0;USD;NYQ;10219650.0;824725755.0;HOCH
+CDNS;Cadence Design Systems, Inc.;SOFTWARE;Software - Application;373.78;103094501376.0;USD;NMS;2449306.0;915501597.0;HOCH
+GSK;GSK plc;PHARMA;Drug Manufacturers - General;51.445;103060807680.0;USD;NYQ;4012274.0;206411436.0;HOCH
+TRP.TO;TC ENERGY CORP.;ENERGY;Oil & Gas Midstream;98.37;102478610432.0;CAD;TOR;5350685.0;526346883.0;HOCH
+MAR;Marriott International;CONSUMER CYCLICAL;Lodging;385.22;101578129408.0;USD;NMS;1474362.0;567953730.0;HOCH
+BATS.L;BRITISH AMERICAN TOBACCO PLC OR;CONSUMER DEFENSIVE;Tobacco;4678.0;101034409984.0;GBp;LSE;4436969.0;20756140982.0;HOCH
+CNR.TO;CANADIAN NATIONAL RAILWAY CO.;INDUSTRIALS;Railroads;165.65;100483284992.0;CAD;TOR;1670911.0;276786407.0;HOCH
+PBR-A;Petroleo Brasileiro S.A. Petrob;ENERGY;Oil & Gas Integrated;14.675;100472594432.0;USD;NYQ;10268801.0;150694655.0;HOCH
+DUK;Duke Energy Corporation (Holdin;UTILITIES;Utilities - Regulated Electric;126.275;98443517952.0;USD;NYQ;3359890.0;424270110.0;HOCH
+ENEL.MI;ENEL;UTILITIES;Utilities - Diversified;9.867;97912840192.0;EUR;MIL;23036649.0;227302616.0;HOCH
+BP;BP p.l.c.;ENERGY;Oil & Gas Integrated;37.735;97170022400.0;USD;NYQ;11021862.0;415909963.0;HOCH
+NOW;ServiceNow, Inc.;SOFTWARE;Software - Application;93.59;96520118272.0;USD;NYQ;28825012.0;2697732873.0;HOCH
+PNC;PNC Financial Services Group, I;FINANCIALS;Banks - Regional;240.07;96403628032.0;USD;NYQ;2069904.0;496921853.0;HOCH
+CEG;Constellation Energy Corporatio;UTILITIES;Utilities - Independent Power Producers;266.625;95212322816.0;USD;NMS;3518690.0;938170721.0;HOCH
+1913.HK;PRADA;CONSUMER CYCLICAL;Luxury Goods;36.78;94113538048.0;HKD;HKG;2880557.0;105946886.0;HOCH
+USB;U.S. Bancorp;FINANCIALS;Banks - Regional;60.24;93837762560.0;USD;NYQ;9099732.0;548167856.0;HOCH
+GD;General Dynamics Corporation;DEFENSE;Aerospace & Defense;346.545;93716226048.0;USD;NYQ;1370087.0;474796799.0;HOCH
+SPOT;Spotify Technology S.A.;COMMUNICATION;Internet Content & Information;453.515;93251788800.0;USD;NYQ;2117054.0;960115745.0;HOCH
+MNST;Monster Beverage Corporation;CONSUMER DEFENSIVE;Beverages - Non-Alcoholic;95.09;92998787072.0;USD;NMS;5297430.0;503732619.0;HOCH
+WMB;Williams Companies, Inc. (The);ENERGY;Oil & Gas Midstream;75.77;92678807552.0;USD;NYQ;6463293.0;489723711.0;HOCH
+SU.TO;SUNCOR ENERGY INC.;ENERGY;Oil & Gas Integrated;76.92;90822918144.0;CAD;TOR;6232876.0;479432822.0;HOCH
+MCK;McKesson Corporation;HEALTHCARE;Medical Distribution;774.05;90624024576.0;USD;NYQ;1065430.0;824696092.0;HOCH
+BE;Bloom Energy Corporation;INDUSTRIALS;Electrical Equipment & Parts;317.105;90108977152.0;USD;NYQ;10574777.0;3353314661.0;HOCH
+SNPS;Synopsys, Inc.;SOFTWARE;Software - Infrastructure;468.13;89637216256.0;USD;NMS;1859793.0;870624897.0;HOCH
+UPS;United Parcel Service, Inc.;INDUSTRIALS;Integrated Freight & Logistics;105.35;89548161024.0;USD;NYQ;5688545.0;599288216.0;HOCH
+ASX;ASE Technology Holding Co., Ltd;SEMICONDUCTOR;Semiconductors;40.52;88898691072.0;USD;NYQ;9209343.0;373162578.0;HOCH
+ADP;Automatic Data Processing, Inc.;SOFTWARE;Software - Application;221.38;88493178880.0;USD;NMS;2929524.0;648538023.0;HOCH
+FCX;Freeport-McMoRan, Inc.;MINING;Copper;61.34;88179916800.0;USD;NYQ;14810517.0;908477113.0;HOCH
+BYDDY;BYD Co., Ltd.;CONSUMER CYCLICAL;Auto Manufacturers;9.62;87707435008.0;USD;PNK;1821322.0;17521118.0;HOCH
+JCI;Johnson Controls International ;INDUSTRIALS;Building Products & Equipment;142.5;86941466624.0;USD;NYQ;3655233.0;520870702.0;HOCH
+MMM;3M Company;INDUSTRIALS;Conglomerates;166.46;86820093952.0;USD;NYQ;3747209.0;623760410.0;HOCH
+HOOD;Robinhood Markets, Inc.;FINANCIALS;Capital Markets;96.39;86799687680.0;USD;NMS;31455025.0;3031949860.0;HOCH
+HCA;HCA Healthcare, Inc.;HEALTHCARE;Medical Care Facilities;390.97;86732709888.0;USD;NYQ;1386422.0;542049409.0;HOCH
+CSX;CSX Corporation;INDUSTRIALS;Railroads;46.29;86013247488.0;USD;NMS;12765609.0;590920041.0;HOCH
+KKR;KKR & Co. Inc.;FINANCIALS;Asset Management;91.95;85737996288.0;USD;NYQ;4940232.0;454254332.0;HOCH
+MELI;MercadoLibre, Inc.;CONSUMER CYCLICAL;Internet Retail;1666.345;84479000576.0;USD;NMS;539854.0;899583014.0;HOCH
+SPG;Simon Property Group, Inc.;REAL ESTATE;REIT - Retail;221.99;84351680512.0;USD;NYQ;1672529.0;371284713.0;HOCH
+CME;CME Group Inc.;FINANCIALS;Financial Data & Stock Exchanges;232.88;84144840704.0;USD;NMS;2920441.0;680112300.0;HOCH
+SHW;Sherwin-Williams Company (The);MATERIALS;Specialty Chemicals;335.22;82677194752.0;USD;NYQ;2062222.0;691298059.0;HOCH
+AMT;American Tower Corporation (REI;REAL ESTATE;REIT - Specialty;176.17;82076377088.0;USD;NYQ;3091875.0;544695619.0;HOCH
+CNQ;Canadian Natural Resources Limi;ENERGY;Oil & Gas E&P;39.18;81718116352.0;USD;NYQ;10330398.0;404744994.0;HOCH
+CMCSA;Comcast Corporation;COMMUNICATION;Telecom Services;22.76;81303920640.0;USD;NMS;31302311.0;712440598.0;HOCH
+ACN;Accenture plc;TECHNOLOGY;Information Technology Services;131.42;80421429248.0;USD;NYQ;6615617.0;869424386.0;HOCH
+MDLZ;Mondelez International, Inc.;CONSUMER DEFENSIVE;Confectioners;62.195;79843016704.0;USD;NMS;8334454.0;518361367.0;HOCH
+EMR;Emerson Electric Company;INDUSTRIALS;Specialty Industrial Machinery;141.475;79240142848.0;USD;NYQ;2895022.0;409573237.0;HOCH
+MCO;Moody's Corporation;FINANCIALS;Financial Data & Stock Exchanges;453.18;79159861248.0;USD;NYQ;1040541.0;471552370.0;HOCH
+HLT;Hilton Worldwide Holdings Inc.;CONSUMER CYCLICAL;Lodging;346.555;78892679168.0;USD;NYQ;1604320.0;555985118.0;HOCH
+DASH;DoorDash, Inc.;CONSUMER CYCLICAL;Internet Retail;181.06;78891229184.0;USD;NMS;4827614.0;874087791.0;HOCH
+ADBE;Adobe Inc.;SOFTWARE;Software - Application;198.1951;78782554112.0;USD;NMS;6054320.0;1199936558.0;HOCH
+DDOG;Datadog, Inc.;SOFTWARE;Software - Application;221.28;78766874624.0;USD;NMS;5791004.0;1281433365.0;HOCH
+1177.HK;SBP GROUP;BIOTECH;Biotechnology;4.41;78658486272.0;HKD;HKG;83269695.0;367219355.0;HOCH
+INGA.AS;ING GROEP N.V.;FINANCIALS;Banks - Diversified;27.465;78588469248.0;EUR;AMS;8207799.0;225427200.0;HOCH
+NET;Cloudflare, Inc.;SOFTWARE;Software - Infrastructure;221.34;78562320384.0;USD;NYQ;4424550.0;979329897.0;HOCH
+EQNR;Equinor ASA;ENERGY;Oil & Gas Integrated;31.475;78362173440.0;USD;NYQ;5113782.0;160956288.0;HOCH
+ECL;Ecolab Inc.;MATERIALS;Specialty Chemicals;278.385;78347984896.0;USD;NYQ;1637140.0;455755219.0;HOCH
+SNOW;Snowflake Inc.;SOFTWARE;Software - Application;225.04;77998858240.0;USD;NYQ;8610393.0;1937682841.0;HOCH
+ITW;Illinois Tool Works Inc.;INDUSTRIALS;Specialty Industrial Machinery;264.36;76056371200.0;USD;NYQ;1347398.0;356198135.0;HOCH
+NOK;Nokia Corporation Sponsored;TECHNOLOGY;Communication Equipment;13.62;76034113536.0;USD;NYQ;110126093.0;1499917387.0;HOCH
+CP;Canadian Pacific Kansas City Li;INDUSTRIALS;Railroads;84.92;75386568704.0;USD;NYQ;2928001.0;248645845.0;HOCH
+CRH;CRH PLC;MATERIALS;Building Materials;112.705;75309506560.0;USD;NYQ;4863590.0;548150911.0;HOCH
+COHR;Coherent Corp.;TECHNOLOGY;Scientific & Technical Instruments;383.65;75057029120.0;USD;NYQ;6185241.0;2372967710.0;HOCH
+FDX;FedEx Corporation;INDUSTRIALS;Integrated Freight & Logistics;313.625;74833043456.0;USD;NYQ;2013594.0;631513418.0;HOCH
+ICE;Intercontinental Exchange Inc.;FINANCIALS;Financial Data & Stock Exchanges;131.18;74183925760.0;USD;NYQ;3768775.0;494387904.0;HOCH
+BP.L;BP PLC $0.25;ENERGY;Oil & Gas Integrated;480.05;74169556992.0;GBp;LSE;45925195.0;22046389860.0;HOCH
+CL;Colgate-Palmolive Company;CONSUMER DEFENSIVE;Household & Personal Products;92.53;74041516032.0;USD;NYQ;5566067.0;515028180.0;HOCH
+TDG;Transdigm Group Incorporated;DEFENSE;Aerospace & Defense;1323.165;74009362432.0;USD;NYQ;395658.0;523520818.0;HOCH
+CI;The Cigna Group;HEALTHCARE;Healthcare Plans;278.635;73707986944.0;USD;NYQ;1582964.0;441069174.0;HOCH
+CVNA;Carvana Co.;CONSUMER CYCLICAL;Auto & Truck Dealerships;67.145;73647030272.0;USD;NYQ;12222880.0;820705278.0;HOCH
+ROST;Ross Stores, Inc.;CONSUMER CYCLICAL;Apparel Retail;228.4;73266397184.0;USD;NMS;2836891.0;647945904.0;HOCH
+AEP;American Electric Power Company;UTILITIES;Utilities - Regulated Electric;134.56;73214771200.0;USD;NMS;4181669.0;562685381.0;HOCH
+NXPI;NXP Semiconductors N.V.;SEMICONDUCTOR;Semiconductors;289.02;72969183232.0;USD;NMS;3861624.0;1116086568.0;HOCH
+INTU;Intuit Inc.;SOFTWARE;Software - Application;265.8499;72719785984.0;USD;NMS;4653103.0;1237026967.0;HOCH
+KMI;Kinder Morgan, Inc.;ENERGY;Oil & Gas Midstream;32.65;72640569344.0;USD;NYQ;11240191.0;366992236.0;HOCH
+NOC;Northrop Grumman Corporation;DEFENSE;Aerospace & Defense;508.71;72253849600.0;USD;NYQ;871258.0;443217657.0;HOCH
+VLO;Valero Energy Corporation;ENERGY;Oil & Gas Refining & Marketing;241.495;71707779072.0;USD;NYQ;3179079.0;767731683.0;HOCH
+MPC;Marathon Petroleum Corporation;ENERGY;Oil & Gas Refining & Marketing;245.43;71650009088.0;USD;NYQ;2344124.0;575318353.0;HOCH
+GM;General Motors Company;CONSUMER CYCLICAL;Auto Manufacturers;79.46;71646314496.0;USD;NYQ;7504687.0;596322429.0;HOCH
+EOG;EOG Resources, Inc.;ENERGY;Oil & Gas E&P;133.8;71265697792.0;USD;NYQ;3976774.0;532092361.0;HOCH
+CNI;Canadian National Railway Compa;INDUSTRIALS;Railroads;116.34;70571843584.0;USD;NYQ;1460909.0;169962153.0;HOCH
+AON;Aon plc;FINANCIALS;Insurance Brokers;327.54;69954994176.0;USD;NYQ;1472156.0;482189976.0;HOCH
+SLB;SLB Limited;ENERGY;Oil & Gas Equipment & Services;46.45;69437956096.0;USD;NYQ;15110917.0;701902095.0;HOCH
+MPWR;Monolithic Power Systems, Inc.;SEMICONDUCTOR;Semiconductors;1412.05;69374017536.0;USD;NMS;713870.0;1008020134.0;HOCH
+CTAS;Cintas Corporation;INDUSTRIALS;Specialty Business Services;172.635;69077630976.0;USD;NMS;2227454.0;384536521.0;HOCH
+DLR;Digital Realty Trust, Inc.;REAL ESTATE;REIT - Specialty;192.87;68989419520.0;USD;NYQ;2201461.0;424595783.0;HOCH
+UMC;United Microelectronics Corpora;SEMICONDUCTOR;Semiconductors;27.47;68930101248.0;USD;NYQ;15382883.0;422567796.0;HOCH
+E;ENI S.p.A.;ENERGY;Oil & Gas Integrated;47.05;68827308032.0;USD;NYQ;481037.0;22632791.0;HOCH
+NOKIA.HE;Nokia Corporation;TECHNOLOGY;Communication Equipment;12.315;68748902400.0;EUR;HEL;17159488.0;211319095.0;HOCH
+NSC;Norfolk Southern Corporation;INDUSTRIALS;Railroads;305.69;68656140288.0;USD;NYQ;1272485.0;388985940.0;HOCH
+TRV;The Travelers Companies, Inc.;FINANCIALS;Insurance - Property & Casualty;322.42;68560904192.0;USD;NYQ;1583075.0;510415042.0;HOCH
+PSX;Phillips 66;ENERGY;Oil & Gas Refining & Marketing;168.61;67601653760.0;USD;NYQ;2727477.0;459879897.0;HOCH
+ENGI.PA;ENGIE;UTILITIES;Utilities - Diversified;26.5;67334762496.0;EUR;PAR;3820818.0;101251677.0;HOCH
+ALAB;Astera Labs, Inc.;SEMICONDUCTOR;Semiconductors;391.2;67054788608.0;USD;NMS;6075798.0;2376852178.0;HOCH
+MSI;Motorola Solutions, Inc.;TECHNOLOGY;Communication Equipment;403.05;66904518656.0;USD;NYQ;1096651.0;442005186.0;HOCH
+BSX;Boston Scientific Corporation;HEALTHCARE;Medical Devices;44.535;66194829312.0;USD;NYQ;19929017.0;887538772.0;HOCH
+REGN;Regeneron Pharmaceuticals, Inc.;BIOTECH;Biotechnology;628.75;65917542400.0;USD;NMS;958891.0;602902716.0;HOCH
+TER;Teradyne, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;420.32;65797799936.0;USD;NMS;3946951.0;1658982444.0;HOCH
+CIEN;Ciena Corporation;TECHNOLOGY;Communication Equipment;463.61;65625350144.0;USD;NYQ;2813480.0;1304357463.0;HOCH
+LITE;Lumentum Holdings Inc.;TECHNOLOGY;Communication Equipment;826.42;64295473152.0;USD;NMS;6055075.0;5004035082.0;HOCH
+TGT;Target Corporation;CONSUMER DEFENSIVE;Discount Stores;140.58;63850184704.0;USD;NYQ;5104185.0;717546327.0;HOCH
+SU;Suncor Energy  Inc.;ENERGY;Oil & Gas Integrated;54.02;63783858176.0;USD;NYQ;4275079.0;230939768.0;HOCH
+NBIS;Nebius Group N.V.;COMMUNICATION;Internet Content & Information;250.52;63657353216.0;USD;NMS;17464296.0;4375155434.0;HOCH
+HPE;Hewlett Packard Enterprise Comp;TECHNOLOGY;Communication Equipment;47.98;63535284224.0;USD;NYQ;25353420.0;1216457092.0;HOCH
+VALE;VALE S.A.;MATERIALS;Other Industrial Metals & Mining;14.815;63073480704.0;USD;NYQ;24265467.0;359492894.0;HOCH
+TFC;Truist Financial Corporation;FINANCIALS;Banks - Regional;50.12;62443470848.0;USD;NYQ;9317103.0;466973202.0;HOCH
+STM;STMicroelectronics N.V.;SEMICONDUCTOR;Semiconductors;69.91;62135599104.0;USD;NYQ;12226954.0;854786354.0;HOCH
+PCAR;PACCAR Inc.;INDUSTRIALS;Farm & Heavy Construction Machinery;117.805;61999149056.0;USD;NMS;2943567.0;346766910.0;HOCH
+NKE;Nike, Inc.;CONSUMER CYCLICAL;Footwear & Accessories;41.795;61893672960.0;USD;NYQ;23857153.0;997109710.0;HOCH
+APD;Air Products and Chemicals, Inc;MATERIALS;Specialty Chemicals;277.88;61878509568.0;USD;NYQ;1194856.0;332026585.0;HOCH
+RACE;Ferrari N.V.;CONSUMER CYCLICAL;Auto Manufacturers;348.39;61314838528.0;USD;NYQ;638829.0;222561635.0;HOCH
+NU;Nu Holdings Ltd.;FINANCIALS;Banks - Regional;12.58;61160701952.0;USD;NYQ;52924811.0;665794122.0;HOCH
+CARR;Carrier Global Corporation;INDUSTRIALS;Building Products & Equipment;73.4904;61039689728.0;USD;NYQ;6670674.0;490230501.0;HOCH
+D;Dominion Energy, Inc.;UTILITIES;Utilities - Regulated Electric;69.275;60928229376.0;USD;NYQ;6734232.0;466513922.0;HOCH
+MRK.DE;MERCK KGAA                    I;PHARMA;Drug Manufacturers - Specialty & Generic;140.1;60912386048.0;EUR;GER;356535.0;49950554.0;HOCH
+ENI.MI;ENI;ENERGY;Oil & Gas Integrated;20.795;60840120320.0;EUR;MIL;11668558.0;242647664.0;HOCH
+ALL;Allstate Corporation (The);FINANCIALS;Insurance - Property & Casualty;235.86;60715298816.0;USD;NYQ;1586504.0;374192833.0;HOCH
+SRE;DBA Sempra;UTILITIES;Utilities - Diversified;92.56;60507156480.0;USD;NYQ;3669579.0;339656232.0;HOCH
+AFL;AFLAC Incorporated;FINANCIALS;Insurance - Life;118.19;60156928000.0;USD;NYQ;2483903.0;293572496.0;HOCH
+KEYS;Keysight Technologies Inc.;TECHNOLOGY;Scientific & Technical Instruments;349.67;59756982272.0;USD;NYQ;1422211.0;497304520.0;HOCH
+DAL;Delta Air Lines, Inc.;INDUSTRIALS;Airlines;90.09;59188621312.0;USD;NYQ;9038937.0;814317834.0;HOCH
+O;Realty Income Corporation;REAL ESTATE;REIT - Retail;62.39;58178207744.0;USD;NYQ;5870300.0;366248017.0;HOCH
+TEL;TE Connectivity plc;TECHNOLOGY;Electronic Components;198.87;58049318912.0;USD;NYQ;2627927.0;522615842.0;HOCH
+SE;Sea Limited;CONSUMER CYCLICAL;Internet Retail;94.09;57628667904.0;USD;NYQ;3971466.0;373675236.0;HOCH
+DHL.DE;DEUTSCHE POST AG              N;INDUSTRIALS;Integrated Freight & Logistics;51.18;57282871296.0;EUR;GER;2055708.0;105211135.0;HOCH
+TRGP;Targa Resources, Inc.;ENERGY;Oil & Gas Midstream;265.46;56979369984.0;USD;NYQ;1246346.0;330855009.0;HOCH
+AJG;Arthur J. Gallagher & Co.;FINANCIALS;Insurance Brokers;220.61;56683974656.0;USD;NYQ;1868288.0;412163016.0;HOCH
+PSA;Public Storage;REAL ESTATE;REIT - Industrial;319.555;56107352064.0;USD;NYQ;985651.0;314969705.0;HOCH
+BKR;Baker Hughes Company;ENERGY;Oil & Gas Equipment & Services;56.12;55674892288.0;USD;NMS;8069414.0;452855514.0;HOCH
+F;Ford Motor Company;CONSUMER CYCLICAL;Auto Manufacturers;13.7902;54949711872.0;USD;NYQ;57557185.0;793725093.0;HOCH
+OKE;ONEOK, Inc.;ENERGY;Oil & Gas Midstream;87.145;54904209408.0;USD;NYQ;4220595.0;367803751.0;HOCH
+MET;MetLife, Inc.;FINANCIALS;Insurance - Life;85.12;54769340416.0;USD;NYQ;3553624.0;302484475.0;HOCH
+VST;Vistra Corp.;UTILITIES;Utilities - Independent Power Producers;161.89;54586470400.0;USD;NYQ;4654232.0;753473618.0;HOCH
+AME;AMETEK, Inc.;INDUSTRIALS;Specialty Industrial Machinery;236.99;54344036352.0;USD;NYQ;1230022.0;291502914.0;HOCH
+FLEX;Flex Ltd.;TECHNOLOGY;Electronic Components;147.95;54205612032.0;USD;NMS;6523253.0;965115281.0;HOCH
+LHX;L3Harris Technologies, Inc.;DEFENSE;Aerospace & Defense;290.71;54157803520.0;USD;NYQ;1349941.0;392441348.0;HOCH
+CRWV;CoreWeave, Inc.;SOFTWARE;Software - Infrastructure;98.57;53776871424.0;USD;NMS;30651916.0;3021359360.0;HOCH
+FAST;Fastenal Company;INDUSTRIALS;Industrial Distribution;46.665;53573058560.0;USD;NMS;7001630.0;326731064.0;HOCH
+RKLB;Rocket Lab Corporation;DEFENSE;Aerospace & Defense;85.65;53515726848.0;USD;NMS;27309187.0;2339031867.0;HOCH
+BA.L;BAE SYSTEMS PLC ORD 2.5P;DEFENSE;Aerospace & Defense;1824.5;53508763648.0;GBp;LSE;6688778.0;12203675461.0;HOCH
+EW;Edwards Lifesciences Corporatio;HEALTHCARE;Medical Devices;89.665;51629109248.0;USD;NYQ;5092230.0;456594803.0;HOCH
+FANG;Diamondback Energy, Inc.;ENERGY;Oil & Gas E&P;182.775;51417038848.0;USD;NMS;2813045.0;514154300.0;HOCH
+EA;Electronic Arts Inc.;COMMUNICATION;Electronic Gaming & Multimedia;204.74;51338862592.0;USD;NMS;1899945.0;388994739.0;HOCH
+ROK;Rockwell Automation, Inc.;INDUSTRIALS;Specialty Industrial Machinery;460.28;51217174528.0;USD;NYQ;738191.0;339774553.0;HOCH
+XEL;Xcel Energy Inc.;UTILITIES;Utilities - Regulated Electric;81.33;50771845120.0;USD;NMS;5339883.0;434292684.0;HOCH
+OXY;Occidental Petroleum Corporatio;ENERGY;Oil & Gas E&P;50.9025;50629390336.0;USD;NYQ;13357340.0;679921999.0;HOCH
+DVN;Devon Energy Corporation;ENERGY;Oil & Gas E&P;42.625;49163808768.0;USD;NYQ;14657788.0;624788214.0;HOCH
+EBAY;eBay Inc.;CONSUMER CYCLICAL;Internet Retail;110.49;49057558528.0;USD;NMS;5417053.0;598530186.0;HOCH
+MCHP;Microchip Technology Incorporat;SEMICONDUCTOR;Semiconductors;89.94;48776298496.0;USD;NMS;10950704.0;984906318.0;HOCH
+CRDO;Credo Technology Group Holding ;SEMICONDUCTOR;Semiconductors;260.785;48630640640.0;USD;NMS;7830798.0;2042154656.0;HOCH
+LNG;Cheniere Energy, Inc.;ENERGY;Oil & Gas Midstream;230.82;48368762880.0;USD;NYQ;2509391.0;579217631.0;HOCH
+EXC;Exelon Corporation;UTILITIES;Utilities - Regulated Electric;47.01;48101011456.0;USD;NMS;8153425.0;383292509.0;HOCH
+ASM.AS;ASM International N.V.;SEMICONDUCTOR;Semiconductor Equipment & Materials;969.2;47380381696.0;EUR;AMS;162916.0;157898187.0;HOCH
+DHI;D.R. Horton, Inc.;CONSUMER CYCLICAL;Residential Construction;166.95;47343616000.0;USD;NYQ;2454735.0;409818008.0;HOCH
+HEI;Heico Corporation;DEFENSE;Aerospace & Defense;337.295;47106379776.0;USD;NYQ;689404.0;232532522.0;HOCH
+STT;State Street Corporation;FINANCIALS;Asset Management;168.67;46682296320.0;USD;NYQ;2129616.0;359202331.0;HOCH
+WAB;Westinghouse Air Brake Technolo;INDUSTRIALS;Railroads;273.54;46413541376.0;USD;NYQ;972458.0;266006161.0;HOCH
+HO.PA;THALES;DEFENSE;Aerospace & Defense;225.3;46294978560.0;EUR;PAR;286616.0;64574585.0;HOCH
+EOAN.DE;E.ON SE                       N;UTILITIES;Utilities - Diversified;17.615;46029369344.0;EUR;GER;4084358.0;71945966.0;HOCH
+CCJ;Cameco Corporation;URANIUM;Uranium;104.72;45609017344.0;USD;NYQ;3146595.0;329511428.0;HOCH
+GFS;GlobalFoundries Inc.;SEMICONDUCTOR;Semiconductors;81.9;44938600448.0;USD;NMS;4696432.0;384637781.0;HOCH
+ORA.PA;ORANGE;COMMUNICATION;Telecom Services;16.89;44886708224.0;EUR;PAR;4513893.0;76239653.0;HOCH
+RHM.DE;RHEINMETALL AG                I;DEFENSE;Aerospace & Defense;949.0;44168372224.0;EUR;GER;246997.0;234400153.0;HOCH
+TTWO;Take-Two Interactive Software, ;COMMUNICATION;Electronic Gaming & Multimedia;237.68;44129251328.0;USD;NMS;2216887.0;526909702.0;HOCH
+IDXX;IDEXX Laboratories, Inc.;HEALTHCARE;Diagnostics & Research;552.2951;43566694400.0;USD;NMS;600788.0;331812269.0;HOCH
+ON;ON Semiconductor Corporation;SEMICONDUCTOR;Semiconductors;111.43;43324342272.0;USD;NMS;11645246.0;1297629762.0;HOCH
+BAS.DE;BASF SE                       N;MATERIALS;Chemicals;48.89;43234660352.0;EUR;GER;2914998.0;142514252.0;HOCH
+KDP;Keurig Dr Pepper Inc.;CONSUMER DEFENSIVE;Beverages - Non-Alcoholic;31.565;42939256832.0;USD;NMS;11949930.0;377199540.0;HOCH
+FANUY;Fanuc Corporation;INDUSTRIALS;Specialty Industrial Machinery;22.8;42552020992.0;USD;PNK;471601.0;10752503.0;HOCH
+UAL;United Airlines Holdings, Inc.;INDUSTRIALS;Airlines;129.455;42017173504.0;USD;NMS;6768032.0;876155583.0;HOCH
+AMP;Ameriprise Financial, Inc.;FINANCIALS;Asset Management;461.1;41451548672.0;USD;NYQ;644790.0;297312669.0;HOCH
+P911.DE;Dr. Ing. h.c. F. Porsche AG   I;CONSUMER CYCLICAL;Auto Manufacturers;45.08;41067880448.0;EUR;GER;566289.0;25528308.0;HOCH
+ADSK;Autodesk, Inc.;SOFTWARE;Software - Application;194.24;41012854784.0;USD;NMS;2409440.0;468009626.0;HOCH
+CLS;Celestica, Inc.;TECHNOLOGY;Electronic Components;356.54;40992509952.0;USD;NYQ;2232679.0;796039371.0;HOCH
+AUTO.OL;AUTOSTORE HOLDINGS LTD.;INDUSTRIALS;Specialty Industrial Machinery;12.17;40928718848.0;NOK;OSL;6261834.0;76206520.0;HOCH
+PEG;Public Service Enterprise Group;UTILITIES;Utilities - Regulated Electric;82.12;40922157056.0;USD;NYQ;2769185.0;227405472.0;HOCH
+ED;Consolidated Edison, Inc.;UTILITIES;Utilities - Regulated Electric;110.6;40759382016.0;USD;NYQ;2291759.0;253468545.0;HOCH
+AIG;American International Group, I;FINANCIALS;Insurance - Diversified;76.87;40756953088.0;USD;NYQ;4156727.0;319527604.0;HOCH
+BDX;Becton, Dickinson and Company;HEALTHCARE;Medical Instruments & Supplies;147.64;40680787968.0;USD;NYQ;2835066.0;418569144.0;HOCH
+CMG;Chipotle Mexican Grill, Inc.;CONSUMER CYCLICAL;Restaurants;31.6402;40585957376.0;USD;NYQ;17537275.0;554882888.0;HOCH
+VMC;Vulcan Materials Company (Holdi;MATERIALS;Building Materials;308.38;40013811712.0;USD;NYQ;1149529.0;354491753.0;HOCH
+COIN;Coinbase Global, Inc.;FINANCIALS;Financial Data & Stock Exchanges;150.95;39790481408.0;USD;NMS;9593969.0;1448209621.0;HOCH
+ELE.MC;ENDESA,S.A.;UTILITIES;Utilities - Regulated Electric;38.77;39681777664.0;EUR;MCE;731019.0;28341607.0;HOCH
+JBL;Jabil Inc.;TECHNOLOGY;Electronic Components;370.69;39108767744.0;USD;NYQ;1223990.0;453720853.0;HOCH
+VOW.DE;VOLKSWAGEN AG                 I;CONSUMER CYCLICAL;Auto Manufacturers;77.6;38900510720.0;EUR;GER;64087.0;4973151.0;MITTEL
+BAYN.DE;Bayer AG                      N;PHARMA;Drug Manufacturers - General;39.59;38894170112.0;EUR;GER;2715157.0;107493066.0;HOCH
+IRM;Iron Mountain Incorporated (Del;REAL ESTATE;REIT - Specialty;130.5;38826971136.0;USD;NYQ;1500750.0;195847875.0;HOCH
+HOT.DE;HOCHTIEF AG                   I;INDUSTRIALS;Engineering & Construction;509.5;38335598592.0;EUR;GER;70106.0;35719007.0;HOCH
+ARES;Ares Management Corporation;FINANCIALS;Asset Management;115.875;38220976128.0;USD;NYQ;2938658.0;340516996.0;HOCH
+VOW3.DE;VOLKSWAGEN AG                 V;CONSUMER CYCLICAL;Auto Manufacturers;76.02;38108463104.0;EUR;GER;908169.0;69039007.0;HOCH
+PCG;Pacific Gas & Electric Co.;UTILITIES;Utilities - Regulated Electric;17.095;37647028224.0;USD;NYQ;20335122.0;347628911.0;HOCH
+PYPL;PayPal Holdings, Inc.;FINANCIALS;Credit Services;42.665;37635031040.0;USD;NMS;15040622.0;641708138.0;HOCH
+HSY;The Hershey Company;CONSUMER DEFENSIVE;Confectioners;183.02;37124395008.0;USD;NYQ;2058616.0;376767900.0;HOCH
+AXON;Axon Enterprise, Inc.;DEFENSE;Aerospace & Defense;459.2821;37019090944.0;USD;NMS;1168532.0;536685831.0;HOCH
+PRU;Prudential Financial, Inc.;FINANCIALS;Insurance - Life;106.32;36927606784.0;USD;NYQ;2087125.0;221903130.0;HOCH
+CCI;Crown Castle Inc.;REAL ESTATE;REIT - Specialty;82.74;36112035840.0;USD;NYQ;3651635.0;302136280.0;HOCH
+KR;Kroger Company (The);CONSUMER DEFENSIVE;Grocery Stores;58.89;36099567616.0;USD;NYQ;6545164.0;385444708.0;HOCH
+KMB;Kimberly-Clark Corporation;CONSUMER DEFENSIVE;Household & Personal Products;107.1;35550810112.0;USD;NMS;4597814.0;492425879.0;HOCH
+ESLT;Elbit Systems Ltd.;DEFENSE;Aerospace & Defense;755.94;35414626304.0;USD;NMS;120287.0;90929755.0;HOCH
+ADM;Archer-Daniels-Midland Company;CONSUMER DEFENSIVE;Farm Products;73.34;35346690048.0;USD;NYQ;3727620.0;273383651.0;HOCH
+RBLX;Roblox Corporation;COMMUNICATION;Electronic Gaming & Multimedia;48.38;34639052800.0;USD;NYQ;11674098.0;564792861.0;HOCH
+PAYX;Paychex, Inc.;SOFTWARE;Software - Application;96.495;34573279232.0;USD;NMS;3496388.0;337383960.0;HOCH
+MSTR;Strategy Inc;SOFTWARE;Software - Application;95.22;34068506624.0;USD;NMS;18654853.0;1776315103.0;HOCH
+ROP;Roper Technologies, Inc.;SOFTWARE;Software - Application;332.985;33603964928.0;USD;NMS;1188370.0;395709384.0;HOCH
+EQT;EQT Corporation;ENERGY;Oil & Gas E&P;51.745;32365359104.0;USD;NYQ;7364591.0;381080761.0;HOCH
+TSEM;Tower Semiconductor Ltd.;SEMICONDUCTOR;Semiconductors;269.06;32015185920.0;USD;NMS;2569846.0;691442765.0;HOCH
+EXPE;Expedia Group, Inc.;CONSUMER CYCLICAL;Travel Services;265.965;31921672192.0;USD;NMS;1645414.0;437622535.0;HOCH
+VOD;Vodafone Group Plc;COMMUNICATION;Telecom Services;13.835;31857498112.0;USD;NMS;3836943.0;53084106.0;HOCH
+ADS.DE;adidas AG                     N;CONSUMER CYCLICAL;Footwear & Accessories;176.0;31213412352.0;EUR;GER;661372.0;116401472.0;HOCH
+RJF;Raymond James Financial, Inc.;FINANCIALS;Asset Management;155.38;30280927232.0;USD;NYQ;1408958.0;218923894.0;HOCH
+FM.TO;FIRST QUANTUM MINERALS LTD;MINING;Copper;36.42;30162536448.0;CAD;TOR;3305219.0;120376076.0;HOCH
+EL;Estee Lauder Companies, Inc. (T;CONSUMER DEFENSIVE;Household & Personal Products;83.29;30133899264.0;USD;NYQ;4121846.0;343308553.0;HOCH
+NTAP;NetApp, Inc.;SOFTWARE;Software - Infrastructure;153.735;30119749632.0;USD;NMS;2954624.0;454229121.0;HOCH
+SATS;EchoStar Corporation;COMMUNICATION;Telecom Services;103.915;30115971072.0;USD;NMS;8385132.0;871340992.0;HOCH
+NRG;NRG Energy, Inc.;UTILITIES;Utilities - Independent Power Producers;141.27;29806059520.0;USD;NYQ;2654798.0;375043313.0;HOCH
+CASY;Caseys General Stores, Inc.;CONSUMER CYCLICAL;Specialty Retail;804.96;29787473920.0;USD;NMS;639038.0;514400028.0;HOCH
+EC;Ecopetrol S.A.;ENERGY;Oil & Gas Integrated;14.48;29768486912.0;USD;NYQ;3203496.0;46386622.0;HOCH
+BIIB;Biogen Inc.;PHARMA;Drug Manufacturers - General;201.19;29703112704.0;USD;NMS;1188814.0;239177489.0;HOCH
+WDAY;Workday, Inc.;SOFTWARE;Software - Application;119.4;29488633856.0;USD;NMS;5246893.0;626479024.0;HOCH
+CPRT;Copart, Inc.;INDUSTRIALS;Specialty Business Services;30.475;29356824576.0;USD;NMS;9351358.0;284982635.0;HOCH
+ATO;Atmos Energy Corporation;UTILITIES;Utilities - Regulated Gas;172.825;28847917056.0;USD;NYQ;1273548.0;220100933.0;HOCH
+BIP;Brookfield Infrastructure Partn;UTILITIES;Utilities - Diversified;36.57;28844599296.0;USD;NYQ;846727.0;30964806.0;HOCH
+CNP;CenterPoint Energy, Inc (Holdin;UTILITIES;Utilities - Regulated Electric;43.865;28695144448.0;USD;NYQ;5076614.0;222685673.0;HOCH
+EIX;Edison International;UTILITIES;Utilities - Regulated Electric;74.035;28488220672.0;USD;NYQ;2720941.0;201444867.0;HOCH
+HAL;Halliburton Company;ENERGY;Oil & Gas Equipment & Services;33.88;28303276032.0;USD;NYQ;12897187.0;436956696.0;HOCH
+TWLO;Twilio Inc.;SOFTWARE;Software - Infrastructure;186.4;28290646016.0;USD;NYQ;2714480.0;505979072.0;HOCH
+CW;Curtiss-Wright Corporation;DEFENSE;Aerospace & Defense;757.71;27990689792.0;USD;NYQ;278483.0;211009354.0;HOCH
+LDO.MI;LEONARDO;DEFENSE;Aerospace & Defense;48.03;27712808960.0;EUR;MIL;2770214.0;133053378.0;HOCH
+MTSI;MACOM Technology Solutions Hold;SEMICONDUCTOR;Semiconductors;362.765;27677437952.0;USD;NMS;1406412.0;510197049.0;HOCH
+FE;FirstEnergy Corp.;UTILITIES;Utilities - Regulated Electric;47.83;27666364416.0;USD;NYQ;5028301.0;240503637.0;HOCH
+KHC;The Kraft Heinz Company;CONSUMER DEFENSIVE;Packaged Foods;23.015;27290673152.0;USD;NMS;14249438.0;327950816.0;HOCH
+PBA;Pembina Pipeline Corp.;ENERGY;Oil & Gas Midstream;46.425;26993119232.0;USD;NYQ;1337170.0;62078117.0;HOCH
+PPG;PPG Industries, Inc.;MATERIALS;Specialty Chemicals;121.05;26982045696.0;USD;NYQ;1956803.0;236871003.0;HOCH
+NVT;nVent Electric plc;INDUSTRIALS;Electrical Equipment & Parts;166.34;26900578304.0;USD;NYQ;2107743.0;350601971.0;HOCH
+ES;Eversource Energy (D/B/A);UTILITIES;Utilities - Regulated Electric;71.47;26878439424.0;USD;NYQ;2512977.0;179602466.0;HOCH
+XYL;Xylem Inc.;INDUSTRIALS;Specialty Industrial Machinery;112.515;26744082432.0;USD;NYQ;2154516.0;242415368.0;HOCH
+ADYEN.AS;ADYEN;SOFTWARE;Software - Infrastructure;844.0;26616967168.0;EUR;AMS;157629.0;133038876.0;HOCH
+FICO;Fair Isaac Corporation;SOFTWARE;Software - Application;1145.19;26557992960.0;USD;NYQ;364774.0;417735537.0;HOCH
+VEEV;Veeva Systems Inc.;HEALTHCARE;Health Information Services;163.32;26530240512.0;USD;NYQ;3086441.0;504077544.0;HOCH
+ILMN;Illumina, Inc.;HEALTHCARE;Diagnostics & Research;174.395;26385965056.0;USD;NMS;1682293.0;293383488.0;HOCH
+FSLR;First Solar, Inc.;TECHNOLOGY;Solar;244.76;26300282880.0;USD;NMS;2498180.0;611454537.0;HOCH
+DG;Dollar General Corporation;CONSUMER DEFENSIVE;Discount Stores;119.16;26285105152.0;USD;NYQ;3564648.0;424763456.0;HOCH
+ASTS;AST SpaceMobile, Inc.;TECHNOLOGY;Communication Equipment;67.38;26151833600.0;USD;NMS;21870462.0;1473631730.0;HOCH
+AFRM;Affirm Holdings, Inc.;FINANCIALS;Credit Services;77.65;26004873216.0;USD;NMS;4980691.0;386750656.0;HOCH
+MKSI;MKS Inc.;TECHNOLOGY;Scientific & Technical Instruments;378.59;25571530752.0;USD;NMS;1165666.0;441309491.0;HOCH
+EQR;Equity Residential;REAL ESTATE;REIT - Residential;66.16;25562638336.0;USD;NYQ;2934124.0;194121644.0;HOCH
+ENTG;Entegris, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;165.93;25271138304.0;USD;NMS;3032512.0;503184716.0;HOCH
+AWK;American Water Works Company, I;UTILITIES;Utilities - Regulated Water;129.32;25253679104.0;USD;NYQ;2000230.0;258669744.0;HOCH
+ZM;Zoom Communications, Inc.;SOFTWARE;Software - Application;85.685;25125603328.0;USD;NMS;4754072.0;407352659.0;HOCH
+SIVE.ST;Sivers Semiconductors AB;SEMICONDUCTOR;Semiconductors;84.9;25081032704.0;SEK;STO;23875166.0;2027001593.0;HOCH
+STZ;Constellation Brands, Inc.;CONSUMER DEFENSIVE;Beverages - Brewers;144.0;24800352256.0;USD;NYQ;2120954.0;305417376.0;HOCH
+CTRA;Coterra Energy Inc.;ENERGY;Oil & Gas E&P;32.56;24724652032.0;USD;NYQ;9902764.0;322433996.0;HOCH
+MRNA;Moderna, Inc.;BIOTECH;Biotechnology;61.6;24442034176.0;USD;NMS;6948819.0;428047250.0;HOCH
+VOD.L;VODAFONE GROUP PLC ORD USD0.20 ;COMMUNICATION;Telecom Services;105.6;24316239872.0;GBp;LSE;79075004.0;8350320422.0;HOCH
+MDB;MongoDB, Inc.;SOFTWARE;Software - Infrastructure;301.89;24281595904.0;USD;NGM;2039664.0;615754165.0;HOCH
+SYM;Symbotic Inc.;INDUSTRIALS;Specialty Industrial Machinery;38.76;23396845568.0;USD;NGM;1982359.0;76836235.0;HOCH
+BESI.AS;BE Semiconductor Industries N.V;SEMICONDUCTOR;Semiconductor Equipment & Materials;292.9;23197300736.0;EUR;AMS;457901.0;134119203.0;HOCH
+KIT.OL;KITRON;TECHNOLOGY;Electronic Components;105.8;23138721792.0;NOK;OSL;577428.0;61091882.0;HOCH
+L;Loews Corporation;FINANCIALS;Insurance - Property & Casualty;112.31;23109902336.0;USD;NYQ;815004.0;91533099.0;HOCH
+BNTX;BioNTech SE;BIOTECH;Biotechnology;90.88;22982121472.0;USD;NMS;935208.0;84991703.0;HOCH
+LEN;Lennar Corporation;CONSUMER CYCLICAL;Residential Construction;93.15;22942687232.0;USD;NYQ;2900119.0;270146085.0;HOCH
+BEP;Brookfield Renewable Partners L;UTILITIES;Utilities - Renewable;34.96;22489219072.0;USD;NYQ;892811.0;31212673.0;HOCH
+SOFI;SoFi Technologies, Inc.;FINANCIALS;Credit Services;17.2987;22189756416.0;USD;NMS;68395488.0;1183153028.0;HOCH
+BCE;BCE, Inc.;COMMUNICATION;Telecom Services;23.37;21793128448.0;USD;NYQ;3478637.0;81295747.0;HOCH
+FFIV;F5, Inc.;SOFTWARE;Software - Infrastructure;383.78;21652578304.0;USD;NMS;714232.0;274107957.0;HOCH
+SQM;Sociedad Quimica y Minera S.A.;MATERIALS;Specialty Chemicals;75.53;21574223872.0;USD;NYQ;1339840.0;101198115.0;HOCH
+DOW;Dow Inc.;MATERIALS;Chemicals;29.35;21153761280.0;USD;NYQ;13001469.0;381593115.0;HOCH
+SRG.MI;SNAM;UTILITIES;Utilities - Regulated Gas;6.288;21101215744.0;EUR;MIL;6029669.0;37914559.0;HOCH
+HPQ;HP Inc.;TECHNOLOGY;Computer Hardware;22.925;20965431296.0;USD;NYQ;19857880.0;455241899.0;HOCH
+TEAM;Atlassian Corporation;SOFTWARE;Software - Application;82.05;20821653504.0;USD;NMS;7212424.0;591779389.0;HOCH
+OKTA;Okta, Inc.;SOFTWARE;Software - Infrastructure;117.965;20684742656.0;USD;NMS;4110182.0;484857620.0;HOCH
+ZS;Zscaler, Inc.;SOFTWARE;Software - Infrastructure;127.37;20596942848.0;USD;NMS;4620574.0;588522510.0;HOCH
+CHTR;Charter Communications, Inc.;COMMUNICATION;Telecom Services;130.21;20401090560.0;USD;NMS;3265109.0;425149843.0;HOCH
+TRN.MI;TERNA;UTILITIES;Utilities - Regulated Electric;10.165;20398694400.0;EUR;MIL;4010863.0;40770422.0;HOCH
+SMCI;Super Micro Computer, Inc.;TECHNOLOGY;Computer Hardware;31.5176;20387885056.0;USD;NMS;49060641.0;1546273659.0;HOCH
+FN;Fabrinet;TECHNOLOGY;Electronic Components;563.07;20174651392.0;USD;NYQ;838454.0;472108294.0;HOCH
+AMKR;Amkor Technology, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;80.675;19997116416.0;USD;NMS;5093501.0;410918193.0;HOCH
+FIS;Fidelity National Information S;TECHNOLOGY;Information Technology Services;38.575;19938613248.0;USD;NYQ;6839572.0;263836490.0;HOCH
+CTSH;Cognizant Technology Solutions ;TECHNOLOGY;Information Technology Services;42.045;19887284224.0;USD;NMS;8858767.0;372466859.0;HOCH
+IONQ;IonQ, Inc.;TECHNOLOGY;Computer Hardware;52.41;19563077632.0;USD;NYQ;31261282.0;1638403790.0;HOCH
+LYC.AX;LYNAS FPO [LYC];MATERIALS;Other Industrial Metals & Mining;19.34;19465760768.0;AUD;ASX;3940776.0;76214608.0;HOCH
+RIVN;Rivian Automotive, Inc.;CONSUMER CYCLICAL;Auto Manufacturers;14.405;19343990784.0;USD;NMS;28529033.0;410960720.0;HOCH
+LSCC;Lattice Semiconductor Corporati;SEMICONDUCTOR;Semiconductors;140.99;19316738048.0;USD;NMS;2091496.0;294880021.0;HOCH
+TLN;Talen Energy Corporation;UTILITIES;Utilities - Independent Power Producers;401.2;19175356416.0;USD;NMS;751112.0;301346134.0;HOCH
+CRCL;Circle Internet Group, Inc.;FINANCIALS;Capital Markets;71.21;19033769984.0;USD;NYQ;14307524.0;1018838784.0;HOCH
+BWXT;BWX Technologies, Inc.;DEFENSE;Aerospace & Defense;206.675;18934458368.0;USD;NYQ;1017096.0;210208316.0;HOCH
+GIS;General Mills, Inc.;CONSUMER DEFENSIVE;Packaged Foods;35.135;18750887936.0;USD;NYQ;9497582.0;333697544.0;HOCH
+DD;DuPont de Nemours, Inc.;MATERIALS;Specialty Chemicals;137.745;18598246400.0;USD;NYQ;1190039.0;163921922.0;HOCH
+WY;Weyerhaeuser Company;REAL ESTATE;REIT - Specialty;25.525;18404612096.0;USD;NYQ;5110816.0;130453578.0;HOCH
+GPN;Global Payments Inc.;INDUSTRIALS;Specialty Business Services;66.83;18280914944.0;USD;NYQ;3526109.0;235649864.0;HOCH
+IOT;Samsara Inc.;SOFTWARE;Software - Infrastructure;30.89;17999915008.0;USD;NYQ;6125727.0;189223707.0;HOCH
+YPF;YPF Sociedad Anonima;ENERGY;Oil & Gas Integrated;45.6662;17906944000.0;USD;NYQ;2321111.0;105996319.0;HOCH
+TU;Telus Corporation;COMMUNICATION;Telecom Services;11.335;17697890304.0;USD;NYQ;5789787.0;65627236.0;HOCH
+NXT;Nextpower Inc.;TECHNOLOGY;Solar;115.89;17636521984.0;USD;NMS;2212330.0;256386924.0;HOCH
+IREN;IREN LIMITED;FINANCIALS;Capital Markets;49.0;17511555072.0;USD;NMS;44570880.0;2183973120.0;HOCH
+AKAM;Akamai Technologies, Inc.;SOFTWARE;Software - Infrastructure;119.24;17335760896.0;USD;NMS;5460335.0;651090345.0;HOCH
+ALB;Albemarle Corporation;MATERIALS;Specialty Chemicals;146.65;17295116288.0;USD;NYQ;2151756.0;315555017.0;HOCH
+BEN;Franklin Resources, Inc.;FINANCIALS;Asset Management;32.57;16924581888.0;USD;NYQ;4900209.0;159599807.0;HOCH
+GNRC;Generac Holdlings Inc.;INDUSTRIALS;Specialty Industrial Machinery;281.01;16542688256.0;USD;NYQ;901770.0;253406388.0;HOCH
+PR;Permian Resources Corporation;ENERGY;Oil & Gas E&P;18.585;16011648000.0;USD;NYQ;12139798.0;225618146.0;HOCH
+CF;CF Industries Holdings, Inc.;MATERIALS;Agricultural Inputs;102.3;15716276224.0;USD;NYQ;3429132.0;350800204.0;HOCH
+ONTO;Onto Innovation Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;312.85;15562275840.0;USD;NYQ;1086595.0;339941246.0;HOCH
+DOCN;DigitalOcean Holdings, Inc.;SOFTWARE;Software - Infrastructure;148.08;15454248960.0;USD;NYQ;4284632.0;634468307.0;HOCH
+TOST;Toast, Inc.;SOFTWARE;Software - Infrastructure;26.175;15181499392.0;USD;NYQ;11007274.0;288115397.0;HOCH
+TXT;Textron Inc.;DEFENSE;Aerospace & Defense;86.94;15117907968.0;USD;NYQ;1340429.0;116536897.0;HOCH
+DECK;Deckers Outdoor Corporation;CONSUMER CYCLICAL;Footwear & Accessories;106.4;14776934400.0;USD;NYQ;1987408.0;211460211.0;HOCH
+OVV;Ovintiv Inc. (DE);ENERGY;Oil & Gas E&P;52.405;14726778880.0;USD;NYQ;3653854.0;191480219.0;HOCH
+MOD;Modine Manufacturing Company;CONSUMER CYCLICAL;Auto Parts;275.66;14559199232.0;USD;NYQ;1149588.0;316895428.0;HOCH
+SMTC;Semtech Corporation;SEMICONDUCTOR;Semiconductors;155.635;14459855872.0;USD;NMS;3275683.0;509810924.0;HOCH
+GEN;Gen Digital Inc.;SOFTWARE;Software - Infrastructure;24.0;14458413056.0;USD;NMS;7658206.0;183796944.0;HOCH
+SWK;Stanley Black & Decker, Inc.;INDUSTRIALS;Tools & Accessories;88.755;13797458944.0;USD;NYQ;1896587.0;168331579.0;HOCH
+SANM;Sanmina Corporation;TECHNOLOGY;Electronic Components;245.85;13177004032.0;USD;NMS;991667.0;243801332.0;HOCH
+LDOS;Leidos Holdings, Inc.;TECHNOLOGY;Information Technology Services;104.44;13137034240.0;USD;NYQ;1314312.0;137266745.0;HOCH
+MAP.MC;MAPFRE, S.A.;FINANCIALS;Insurance - Diversified;4.284;13125582848.0;EUR;MCE;2570287.0;11011110.0;HOCH
+CHKP;Check Point Software Technologi;SOFTWARE;Software - Infrastructure;125.725;13078895616.0;USD;NMS;1549488.0;194809379.0;HOCH
+RMBS;Rambus, Inc.;SEMICONDUCTOR;Semiconductors;120.07;12984005632.0;USD;NMS;2589459.0;310916342.0;HOCH
+WULF;TeraWulf Inc.;FINANCIALS;Capital Markets;26.18;12975521792.0;USD;NCM;29737412.0;778525446.0;HOCH
+ARCC;Ares Capital Corporation;FINANCIALS;Asset Management;18.02;12938772480.0;USD;NMS;5920037.0;106679067.0;HOCH
+NTNX;Nutanix, Inc.;SOFTWARE;Software - Infrastructure;47.45;12826708992.0;USD;NMS;3788535.0;179765986.0;HOCH
+LULU;lululemon athletica inc.;CONSUMER CYCLICAL;Apparel Retail;112.75;12803204096.0;USD;NMS;3534030.0;398461882.0;HOCH
+IONS;Ionis Pharmaceuticals, Inc.;BIOTECH;Biotechnology;77.455;12800411648.0;USD;NMS;1803470.0;139687769.0;HOCH
+HUT;Hut 8 Corp.;FINANCIALS;Capital Markets;111.77;12584643584.0;USD;NMS;4757388.0;531733257.0;HOCH
+LI;Li Auto Inc.;CONSUMER CYCLICAL;Auto Manufacturers;12.4359;12484464640.0;USD;NMS;3967601.0;49340689.0;HOCH
+NIO;NIO Inc.;CONSUMER CYCLICAL;Auto Manufacturers;4.935;12352937984.0;USD;NYQ;37583845.0;185476275.0;HOCH
+DKNG;DraftKings Inc.;CONSUMER CYCLICAL;Gambling;24.755;12281668608.0;USD;NMS;12793101.0;316693215.0;HOCH
+AUR;Aurora Innovation, Inc.;CONSUMER CYCLICAL;Auto Parts;6.225;12208488448.0;USD;NMS;27706972.0;172475901.0;HOCH
+PNR;Pentair plc.;INDUSTRIALS;Specialty Industrial Machinery;74.9;12104254464.0;USD;NYQ;2017311.0;151096594.0;HOCH
+AGNC;AGNC Investment Corp.;REAL ESTATE;REIT - Mortgage;10.525;12081954816.0;USD;NMS;15090088.0;158823176.0;HOCH
+MGM;MGM Resorts International;CONSUMER CYCLICAL;Resorts & Casinos;47.055;12039079936.0;USD;NYQ;4885583.0;229891108.0;HOCH
+SJM;The J.M. Smucker Company;CONSUMER DEFENSIVE;Packaged Foods;112.285;11976558592.0;USD;NYQ;1858732.0;208707723.0;HOCH
+VIAV;Viavi Solutions Inc.;TECHNOLOGY;Communication Equipment;48.53;11971654656.0;USD;NMS;7200617.0;349445943.0;HOCH
+HAS;Hasbro, Inc.;CONSUMER CYCLICAL;Leisure;83.91;11872484352.0;USD;NMS;1966979.0;165049208.0;HOCH
+U;Unity Software Inc.;SOFTWARE;Software - Application;27.1601;11856334848.0;USD;NYQ;12095954.0;328527320.0;HOCH
+TYL;Tyler Technologies, Inc.;SOFTWARE;Software - Application;288.165;11855268864.0;USD;NYQ;710269.0;204674666.0;HOCH
+DT;Dynatrace, Inc.;SOFTWARE;Software - Application;40.63;11842659328.0;USD;NYQ;6077461.0;246927240.0;HOCH
+ZBRA;Zebra Technologies Corporation;TECHNOLOGY;Communication Equipment;247.04;11767353344.0;USD;NMS;960950.0;237393088.0;HOCH
+DINO;HF Sinclair Corporation;ENERGY;Oil & Gas Refining & Marketing;65.11;11737734144.0;USD;NYQ;2280782.0;148501716.0;HOCH
+APA;APA Corporation;ENERGY;Oil & Gas E&P;33.02;11671587840.0;USD;NMS;7122306.0;235178544.0;HOCH
+CLX;Clorox Company (The);CONSUMER DEFENSIVE;Household & Personal Products;96.235;11636866048.0;USD;NYQ;2896459.0;278740732.0;HOCH
+APLD;Applied Digital Corporation;TECHNOLOGY;Information Technology Services;40.5701;11593698304.0;USD;NMS;23131301.0;938439195.0;HOCH
+LHA.DE;DEUTSCHE LUFTHANSA AG         V;INDUSTRIALS;Airlines;9.6;11539651584.0;EUR;GER;6490560.0;62309376.0;HOCH
+AAOI;Applied Optoelectronics, Inc.;TECHNOLOGY;Communication Equipment;141.79;11377622016.0;USD;NGM;12759646.0;1809190206.0;HOCH
+ARWR;Arrowhead Pharmaceuticals, Inc.;BIOTECH;Biotechnology;79.76;11234756608.0;USD;NMS;1762412.0;140569981.0;HOCH
+HII;Huntington Ingalls Industries, ;DEFENSE;Aerospace & Defense;283.1799;11158428672.0;USD;NYQ;509737.0;144347273.0;HOCH
+WYNN;Wynn Resorts, Limited;CONSUMER CYCLICAL;Resorts & Casinos;103.865;10779808768.0;USD;NMS;1460161.0;151659622.0;HOCH
+FORM;FormFactor, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;137.88;10748403712.0;USD;NMS;1829419.0;252240292.0;HOCH
+GDDY;GoDaddy Inc.;SOFTWARE;Software - Infrastructure;80.98;10717253632.0;USD;NYQ;2494691.0;202020077.0;HOCH
+AR;Antero Resources Corporation;ENERGY;Oil & Gas E&P;34.57;10711030784.0;USD;NYQ;5072488.0;175355910.0;HOCH
+DHER.DE;Delivery Hero SE              N;CONSUMER CYCLICAL;Internet Retail;35.2;10691970048.0;EUR;GER;1657135.0;58331152.0;HOCH
+SIMO;Silicon Motion Technology Corpo;SEMICONDUCTOR;Semiconductors;312.91;10610101248.0;USD;NMS;1000919.0;313197564.0;HOCH
+CGNX;Cognex Corporation;TECHNOLOGY;Scientific & Technical Instruments;62.99;10482761728.0;USD;NMS;2155633.0;135783323.0;HOCH
+AES;The AES Corporation;UTILITIES;Utilities - Diversified;14.67;10462023680.0;USD;NYQ;10164546.0;149113890.0;HOCH
+SWKS;Skyworks Solutions, Inc.;SEMICONDUCTOR;Semiconductors;69.45;10445693952.0;USD;NMS;4525458.0;314293058.0;HOCH
+STR.VI;STRABAG SE;INDUSTRIALS;Engineering & Construction;89.9;10378298368.0;EUR;VIE;53450.0;4805155.0;MITTEL
+GSAT;Globalstar, Inc.;COMMUNICATION;Telecom Services;80.1;10315993088.0;USD;NMS;1676266.0;134268907.0;HOCH
+NDX1.DE;Nordex SE                     I;INDUSTRIALS;Specialty Industrial Machinery;43.34;10266036224.0;EUR;GER;649922.0;28167619.0;HOCH
+CIFR;Cipher Digital Inc.;TECHNOLOGY;Information Technology Services;25.045;10244636672.0;USD;NMS;25676574.0;643069796.0;HOCH
+ALGM;Allegro MicroSystems, Inc.;SEMICONDUCTOR;Semiconductors;54.98;10238507008.0;USD;NMS;2347679.0;129075391.0;HOCH
+CACI;CACI International, Inc.;TECHNOLOGY;Information Technology Services;461.895;10203863040.0;USD;NYQ;294877.0;136202212.0;HOCH
+MP;MP Materials Corp.;MATERIALS;Other Industrial Metals & Mining;55.965;9963012096.0;USD;NYQ;6189541.0;346397662.0;HOCH
+GME;GameStop Corporation;CONSUMER CYCLICAL;Specialty Retail;21.3303;9570718720.0;USD;NYQ;7760911.0;165542560.0;HOCH
+TEM;Tempus AI, Inc.;HEALTHCARE;Health Information Services;51.44;9236811776.0;USD;NMS;6291116.0;323615007.0;HOCH
+OKLO;Oklo Inc.;UTILITIES;Utilities - Independent Power Producers;53.06;9231962112.0;USD;NYQ;13403820.0;711206689.0;HOCH
+HUBS;HubSpot, Inc.;SOFTWARE;Software - Application;180.28;9228660736.0;USD;NYQ;1877656.0;338503824.0;HOCH
+PL;Planet Labs PBC;DEFENSE;Aerospace & Defense;25.61;9123904512.0;USD;NYQ;13644567.0;349437361.0;HOCH
+JOBY;Joby Aviation, Inc.;INDUSTRIALS;Airports & Air Services;9.205;9054432256.0;USD;NYQ;29946619.0;275658628.0;HOCH
+TTC;Toro Company (The);INDUSTRIALS;Tools & Accessories;95.075;9053947904.0;USD;NYQ;832529.0;79152695.0;HOCH
+KTOS;Kratos Defense & Security Solut;DEFENSE;Aerospace & Defense;48.22;9042213888.0;USD;NMS;4307408.0;207703214.0;HOCH
+ARE;Alexandria Real Estate Equities;REAL ESTATE;REIT - Office;51.455;8967035904.0;USD;NYQ;2268267.0;116713678.0;HOCH
+CWEN;Clearway Energy, Inc.;UTILITIES;Utilities - Renewable;36.335;8723915776.0;USD;NYQ;1142943.0;41528834.0;HOCH
+CORZ;Core Scientific, Inc.;SOFTWARE;Software - Infrastructure;27.105;8616280064.0;USD;NMS;13847237.0;375329359.0;HOCH
+RRC;Range Resources Corporation;ENERGY;Oil & Gas E&P;36.42;8581362176.0;USD;NYQ;3185182.0;116004328.0;HOCH
+HALO;Halozyme Therapeutics, Inc.;BIOTECH;Biotechnology;71.81;8517599232.0;USD;NMS;1649022.0;118416270.0;HOCH
+VSAT;ViaSat, Inc.;TECHNOLOGY;Communication Equipment;61.97;8463178752.0;USD;NMS;2177708.0;134952565.0;HOCH
+TTD;The Trade Desk, Inc.;COMMUNICATION;Advertising Agencies;17.9499;8438397952.0;USD;NGM;20163283.0;361928914.0;HOCH
+DOCU;DocuSign, Inc.;SOFTWARE;Software - Application;44.06;8413019648.0;USD;NMS;3921737.0;172791732.0;HOCH
+QRVO;Qorvo, Inc.;SEMICONDUCTOR;Semiconductors;95.395;8396063744.0;USD;NMS;1198359.0;114317457.0;HOCH
+QBTS;D-Wave Quantum Inc.;TECHNOLOGY;Computer Hardware;22.435;8310937600.0;USD;NYQ;34735209.0;779284414.0;HOCH
+KNTK;Kinetik Holdings Inc.;ENERGY;Oil & Gas Midstream;48.17;8052093952.0;USD;NYQ;1066851.0;51390213.0;HOCH
+SHA0.DE;Schaeffler AG                 N;CONSUMER CYCLICAL;Auto Parts;8.48;8012621824.0;EUR;GER;1197109.0;10151484.0;HOCH
+HAG.DE;HENSOLDT AG                   I;DEFENSE;Aerospace & Defense;68.96;7964879872.0;EUR;GER;430819.0;29709278.0;HOCH
+CRUS;Cirrus Logic, Inc.;SEMICONDUCTOR;Semiconductors;155.65;7852965376.0;USD;NMS;634167.0;98708094.0;HOCH
+HESM;Hess Midstream LP;ENERGY;Oil & Gas Midstream;37.37;7721918976.0;USD;NYQ;2033751.0;76001275.0;HOCH
+CAMT;Camtek Ltd.;SEMICONDUCTOR;Semiconductor Equipment & Materials;165.875;7637627392.0;USD;NGM;460958.0;76461408.0;HOCH
+MDA.TO;MDA SPACE LTD;DEFENSE;Aerospace & Defense;54.22;7523078144.0;CAD;TOR;1268863.0;68797752.0;HOCH
+UGI;UGI Corporation;UTILITIES;Utilities - Regulated Gas;34.925;7487700480.0;USD;NYQ;1830841.0;63942122.0;HOCH
+HIMS;Hims & Hers Health, Inc.;PHARMA;Drug Manufacturers - Specialty & Generic;32.17;7445993472.0;USD;NYQ;25914250.0;833661422.0;HOCH
+ETSY;Etsy, Inc.;CONSUMER CYCLICAL;Internet Retail;78.445;7444134912.0;USD;NYQ;3026390.0;237405164.0;HOCH
+ABVX;Abivax SA;BIOTECH;Biotechnology;92.74;7390871040.0;USD;NGM;1641111.0;152196634.0;HOCH
+AVAV;AeroVironment, Inc.;DEFENSE;Aerospace & Defense;143.005;7236778496.0;USD;NMS;1184670.0;169413733.0;HOCH
+SLAB;Silicon Laboratories, Inc.;SEMICONDUCTOR;Semiconductors;218.2;7196634112.0;USD;NMS;402048.0;87726874.0;HOCH
+A2A.MI;A2A;UTILITIES;Utilities - Diversified;2.265;7085886976.0;EUR;MIL;10002917.0;22656607.0;HOCH
+KLAR;Klarna Group plc;FINANCIALS;Credit Services;18.525;7004551680.0;USD;NYQ;5689511.0;105398191.0;HOCH
+ZAL.DE;Zalando SE                    I;CONSUMER CYCLICAL;Internet Retail;26.37;6807538176.0;EUR;GER;1583517.0;41757343.0;HOCH
+CHRD;Chord Energy Corporation;ENERGY;Oil & Gas E&P;119.7;6739012096.0;USD;NMS;840912.0;100657166.0;HOCH
+ACLX;Arcellx, Inc.;BIOTECH;Biotechnology;115.07;6732325376.0;USD;NMS;1446171.0;166410897.0;HOCH
+TKA.DE;thyssenkrupp AG               I;INDUSTRIALS;Conglomerates;10.71;6667314688.0;EUR;GER;2779014.0;29763240.0;HOCH
+CPB;The Campbell's Company;CONSUMER DEFENSIVE;Packaged Foods;22.275;6642544128.0;USD;NMS;9472406.0;210997844.0;HOCH
+NXE;Nexgen Energy Ltd.;URANIUM;Uranium;9.945;6582689280.0;USD;NYQ;6096532.0;60630011.0;HOCH
+MBLY;Mobileye Global Inc.;CONSUMER CYCLICAL;Auto Parts;7.723;6504203264.0;USD;NMS;6689029.0;51659371.0;HOCH
+NOV;NOV Inc.;ENERGY;Oil & Gas Equipment & Services;18.08;6488703488.0;USD;NYQ;4610961.0;83366175.0;HOCH
+ABVX.PA;ABIVAX;BIOTECH;Biotechnology;80.7;6437454336.0;EUR;PAR;278525.0;22476968.0;HOCH
+KLIC;Kulicke and Soffa Industries, I;SEMICONDUCTOR;Semiconductor Equipment & Materials;121.88;6373621248.0;USD;NMS;843472.0;102802367.0;HOCH
+RGTI;Rigetti Computing, Inc.;TECHNOLOGY;Computer Hardware;19.0498;6332131328.0;USD;NCM;41397388.0;788611962.0;HOCH
+DUOL;Duolingo, Inc.;SOFTWARE;Software - Application;134.23;6254193664.0;USD;NMS;1721080.0;231020568.0;HOCH
+GDS;GDS Holdings Limited;TECHNOLOGY;Information Technology Services;31.13;6237754880.0;USD;NGM;2147816.0;66861512.0;HOCH
+ENPH;Enphase Energy, Inc.;TECHNOLOGY;Solar;47.24;6226148352.0;USD;NGM;7868954.0;371729387.0;HOCH
+NEM.DE;Nemetschek SE                 I;SOFTWARE;Software - Application;53.75;6203222528.0;EUR;GER;273937.0;14724114.0;HOCH
+MTDR;Matador Resources Company;ENERGY;Oil & Gas E&P;49.63;6162965504.0;USD;NYQ;1759791.0;87338427.0;HOCH
+DBX;Dropbox, Inc.;SOFTWARE;Software - Infrastructure;26.35;6147472384.0;USD;NMS;3877425.0;102170149.0;HOCH
+SBSW;D/B/A Sibanye-Stillwater Limite;MATERIALS;Other Precious Metals & Mining;8.465;6123329536.0;USD;NYQ;5045941.0;42713891.0;HOCH
+ESTC;Elastic N.V.;SOFTWARE;Software - Application;58.32;6109105664.0;USD;NYQ;1990090.0;116062049.0;HOCH
+BZ;KANZHUN LIMITED - American Depo;COMMUNICATION;Internet Content & Information;13.285;5961426432.0;USD;NMS;3975708.0;52817281.0;HOCH
+PAYC;Paycom Software, Inc.;SOFTWARE;Software - Application;127.735;5955912192.0;USD;NYQ;1013062.0;129403475.0;HOCH
+PCOR;Procore Technologies, Inc.;SOFTWARE;Software - Application;39.12;5902824960.0;USD;NYQ;2490506.0;97428595.0;HOCH
+TWST;Twist Bioscience Corporation;HEALTHCARE;Diagnostics & Research;90.2;5616871936.0;USD;NMS;1596462.0;144000872.0;HOCH
+PCTY;Paylocity Holding Corporation;SOFTWARE;Software - Application;103.86;5561085440.0;USD;NMS;798277.0;82909049.0;HOCH
+NOVT;Novanta Inc.;TECHNOLOGY;Scientific & Technical Instruments;153.42;5463793152.0;USD;NMS;452335.0;69397236.0;HOCH
+TKMS.DE;TKMS AG & Co. KGaA            I;DEFENSE;Aerospace & Defense;84.5;5367748096.0;EUR;GER;161720.0;13665340.0;HOCH
+AIR;AAR Corp.;DEFENSE;Aerospace & Defense;134.935;5365591552.0;USD;NYQ;413533.0;55800075.0;HOCH
+PATH;UiPath, Inc.;SOFTWARE;Software - Infrastructure;10.3345;5354513920.0;USD;NYQ;34261146.0;354071813.0;HOCH
+TVTX;Travere Therapeutics, Inc.;BIOTECH;Biotechnology;57.385;5336397824.0;USD;NGM;2430904.0;139497426.0;HOCH
+UEC;Uranium Energy Corp.;URANIUM;Uranium;10.8001;5294433280.0;USD;ASE;9981861.0;107805097.0;HOCH
+CRSP;CRISPR Therapeutics AG;BIOTECH;Biotechnology;53.44;5262991872.0;USD;NGM;1686527.0;90128003.0;HOCH
+APPF;AppFolio, Inc.;SOFTWARE;Software - Application;148.8104;5261716992.0;USD;NGM;362485.0;53941538.0;HOCH
+VAL;Valaris Limited;ENERGY;Oil & Gas Drilling;75.29;5213966336.0;USD;NYQ;931182.0;70108693.0;HOCH
+S;SentinelOne, Inc.;SOFTWARE;Software - Infrastructure;15.225;5199065088.0;USD;NYQ;8103525.0;123376168.0;HOCH
+ACLS;Axcelis Technologies, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;166.675;5122572288.0;USD;NMS;678795.0;113138157.0;HOCH
+DIOD;Diodes Incorporated;SEMICONDUCTOR;Semiconductors;110.16;5061272064.0;USD;NMS;649891.0;71591993.0;HOCH
+BB;BlackBerry Limited;SOFTWARE;Software - Infrastructure;8.635;5060640256.0;USD;NYQ;28424891.0;245448934.0;HOCH
+SYNA;Synaptics Incorporated;SEMICONDUCTOR;Semiconductors;127.02;4907758592.0;USD;NMS;868148.0;110272159.0;HOCH
+EVD.DE;CTS Eventim AG & Co. KGaA     I;COMMUNICATION;Entertainment;50.35;4833161728.0;EUR;GER;351213.0;17683575.0;HOCH
+UCTT;Ultra Clean Holdings, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;106.685;4782512640.0;USD;NMS;1108440.0;118253921.0;HOCH
+GTLB;GitLab Inc.;SOFTWARE;Software - Infrastructure;28.16;4754534912.0;USD;NMS;6372200.0;179441152.0;HOCH
+CNX;CNX Resources Corporation;ENERGY;Oil & Gas E&P;33.49;4738084864.0;USD;NYQ;1891422.0;63343723.0;HOCH
+PBF;PBF Energy Inc.;ENERGY;Oil & Gas Refining & Marketing;39.95;4726423040.0;USD;NYQ;2994429.0;119627439.0;HOCH
+ALM;Almonty Industries Inc.;MATERIALS;Other Industrial Metals & Mining;16.4401;4664744448.0;USD;NCM;5157133.0;84783782.0;HOCH
+DFTX;Definium Therapeutics, Inc.;BIOTECH;Biotechnology;42.6426;4650891264.0;USD;NMS;2300477.0;98098321.0;HOCH
+ZETA;Zeta Global Holdings Corp.;SOFTWARE;Software - Infrastructure;18.61;4638684160.0;USD;NYQ;8790369.0;163588767.0;HOCH
+WCH.DE;Wacker Chemie AG              I;MATERIALS;Specialty Chemicals;93.3;4634956288.0;EUR;GER;106545.0;9940648.0;HOCH
+WEX;WEX Inc.;SOFTWARE;Software - Infrastructure;133.18;4617103360.0;USD;NYQ;578320.0;77020658.0;HOCH
+MP1.AX;MEGAPORT FPO [MP1];SOFTWARE;Software - Infrastructure;20.86;4607166464.0;AUD;ASX;1994719.0;41609838.0;HOCH
+SAIC;Science Applications Internatio;TECHNOLOGY;Information Technology Services;108.17;4573083648.0;USD;NMS;558650.0;60429170.0;HOCH
+IPGP;IPG Photonics Corporation;SEMICONDUCTOR;Semiconductor Equipment & Materials;105.535;4479287296.0;USD;NMS;519504.0;54825855.0;HOCH
+POWI;Power Integrations, Inc.;SEMICONDUCTOR;Semiconductors;79.8025;4446594048.0;USD;NMS;1187419.0;94759005.0;HOCH
+MIR;Mirion Technologies, Inc.;INDUSTRIALS;Specialty Industrial Machinery;18.17;4445394432.0;USD;NYQ;3847206.0;69903733.0;HOCH
+IRDM;Iridium Communications Inc;COMMUNICATION;Telecom Services;41.81;4420476928.0;USD;NMS;2580540.0;107892377.0;HOCH
+NEL.OL;NEL;INDUSTRIALS;Specialty Industrial Machinery;2.39;4392915456.0;NOK;OSL;7472003.0;17858087.0;HOCH
+FOUR;Shift4 Payments, Inc.;SOFTWARE;Software - Infrastructure;43.995;4361222144.0;USD;NYQ;1751856.0;77072905.0;HOCH
+VKTX;Viking Therapeutics, Inc.;BIOTECH;Biotechnology;37.424;4345137664.0;USD;NCM;2258733.0;84530824.0;HOCH
+QS;QuantumScape Corporation;CONSUMER CYCLICAL;Auto Parts;7.005;4309091328.0;USD;NMS;22495103.0;157578197.0;HOCH
+VRNS;Varonis Systems, Inc.;SOFTWARE;Software - Infrastructure;36.66;4305633792.0;USD;NMS;2352262.0;86233925.0;HOCH
+VECO;Veeco Instruments Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;69.83;4261968384.0;USD;NMS;1519179.0;106084270.0;HOCH
+NVTS;Navitas Semiconductor Corporati;SEMICONDUCTOR;Semiconductors;17.472;4254907904.0;USD;NGM;33298469.0;581790850.0;HOCH
+R3NK.DE;RENK Group AG                 I;DEFENSE;Aerospace & Defense;42.44;4243999744.0;EUR;GER;640939.0;27201451.0;HOCH
+OPEN;Opendoor Technologies Inc;REAL ESTATE;Real Estate Services;4.3;4148367616.0;USD;NMS;36302430.0;156100449.0;HOCH
+DAVE;Dave Inc.;SOFTWARE;Software - Application;323.385;4111596800.0;USD;NGM;603554.0;195180310.0;HOCH
+OLED;Universal Display Corporation;TECHNOLOGY;Electronic Components;86.76;4056107520.0;USD;NMS;857756.0;74418911.0;HOCH
+ONDS;Ondas Inc;TECHNOLOGY;Communication Equipment;7.6682;4035934976.0;USD;NCM;67001791.0;513783134.0;HOCH
+QLYS;Qualys, Inc.;SOFTWARE;Software - Infrastructure;114.59;4035516928.0;USD;NMS;824869.0;94521739.0;HOCH
+BTDR;Bitdeer Technologies Group;SOFTWARE;Software - Application;16.14;3927082240.0;USD;NCM;8859679.0;142995219.0;HOCH
+PUM.DE;PUMA SE                       I;CONSUMER CYCLICAL;Footwear & Accessories;26.66;3924589568.0;EUR;GER;832786.0;22202075.0;HOCH
+ACHR;Archer Aviation Inc.;DEFENSE;Aerospace & Defense;5.1295;3909682688.0;USD;NYQ;40151622.0;205957745.0;HOCH
+PI;Impinj, Inc.;SEMICONDUCTOR;Semiconductors;126.3;3846994944.0;USD;NMS;466203.0;58881439.0;HOCH
+ATS.TO;ATS CORPORATION;INDUSTRIALS;Specialty Industrial Machinery;39.5;3831781888.0;CAD;TOR;280519.0;11080500.0;HOCH
+SLG;SL Green Realty Corp;REAL ESTATE;REIT - Office;49.67;3824728832.0;USD;NYQ;1209203.0;60061113.0;HOCH
+IOS.DE;IONOS Group SE                N;TECHNOLOGY;Information Technology Services;27.0;3694859264.0;EUR;GER;304476.0;8220852.0;HOCH
+UUUU;Energy Fuels Inc;URANIUM;Uranium;14.69;3670546176.0;USD;ASE;10595764.0;155651773.0;HOCH
+MNDY;monday.com Ltd.;SOFTWARE;Software - Application;70.78;3648812544.0;USD;NMS;1821280.0;128910198.0;HOCH
+PLUG;Plug Power, Inc.;INDUSTRIALS;Electrical Equipment & Parts;2.6001;3627319040.0;USD;NCM;73913708.0;192183032.0;HOCH
+DLO;DLocal Limited;SOFTWARE;Software - Infrastructure;12.315;3623923968.0;USD;NMS;2227714.0;27434298.0;HOCH
+PTEN;Patterson-UTI Energy, Inc.;ENERGY;Oil & Gas Drilling;9.47;3594979328.0;USD;NMS;9285330.0;87932075.0;HOCH
+FLNC;Fluence Energy, Inc.;UTILITIES;Utilities - Renewable;19.3;3557196032.0;USD;NMS;10460067.0;201879293.0;HOCH
+BOX;Box, Inc.;SOFTWARE;Software - Infrastructure;25.47;3528426240.0;USD;NYQ;2365896.0;60259371.0;HOCH
+RUN;Sunrun Inc.;TECHNOLOGY;Solar;14.775;3524565504.0;USD;NMS;8354548.0;123438447.0;HOCH
+BEAM;Beam Therapeutics Inc.;BIOTECH;Biotechnology;34.05;3503037184.0;USD;NMS;2183585.0;74351069.0;HOCH
+SMR;NuScale Power Corporation;INDUSTRIALS;Specialty Industrial Machinery;10.005;3462788608.0;USD;NYQ;34892095.0;349095410.0;HOCH
+BILL;BILL Holdings, Inc.;SOFTWARE;Software - Application;33.37;3323542784.0;USD;NYQ;2489764.0;83083425.0;HOCH
+LEU;Centrus Energy Corp.;URANIUM;Uranium;166.75;3280438272.0;USD;NYQ;895488.0;149322624.0;HOCH
+HP;Helmerich & Payne, Inc.;ENERGY;Oil & Gas Drilling;32.765;3274237696.0;USD;NYQ;1166216.0;38211067.0;HOCH
+ILU.AX;ILUKA RES FPO [ILU];MATERIALS;Other Industrial Metals & Mining;7.59;3272770304.0;AUD;ASX;2732883.0;20742582.0;HOCH
+FR.PA;VALEO;CONSUMER CYCLICAL;Auto Parts;13.46;3245840640.0;EUR;PAR;1067104.0;14363220.0;HOCH
+TDW;Tidewater Inc.;ENERGY;Oil & Gas Equipment & Services;65.065;3235725056.0;USD;NYQ;790900.0;51459908.0;HOCH
+CLBT;Cellebrite DI Ltd.;SOFTWARE;Software - Infrastructure;12.741;3178112768.0;USD;NMS;2155617.0;27464716.0;HOCH
+IAC;IAC Inc.;COMMUNICATION;Internet Content & Information;42.24;3142127872.0;USD;NGM;1179516.0;49822756.0;HOCH
+UPST;Upstart Holdings, Inc.;FINANCIALS;Credit Services;32.64;3124025600.0;USD;NMS;4637888.0;151380664.0;HOCH
+PONY;Pony AI Inc.;TECHNOLOGY;Information Technology Services;7.205;3123666944.0;USD;NMS;4803545.0;34609542.0;HOCH
+TENB;Tenable Holdings, Inc.;SOFTWARE;Software - Infrastructure;27.96;3083204352.0;USD;NMS;3513845.0;98247106.0;HOCH
+LUNR;Intuitive Machines, Inc.;DEFENSE;Aerospace & Defense;18.97;3043780096.0;USD;NGM;15672487.0;297307078.0;HOCH
+RNG;Ringcentral, Inc.;SOFTWARE;Software - Application;35.775;3000041728.0;USD;NYQ;1670509.0;59762459.0;HOCH
+SEDG;SolarEdge Technologies, Inc.;TECHNOLOGY;Solar;48.73;2963670784.0;USD;NMS;3890912.0;189604142.0;HOCH
+TDC;Teradata Corporation;SOFTWARE;Software - Infrastructure;31.49;2963208960.0;USD;NYQ;2242432.0;70614184.0;HOCH
+COHU;Cohu, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;62.4;2943741696.0;USD;NMS;1365872.0;85230413.0;HOCH
+TARS;Tarsus Pharmaceuticals, Inc.;BIOTECH;Biotechnology;67.685;2912076544.0;USD;NMS;627806.0;42493049.0;HOCH
+AEHR;Aehr Test Systems;SEMICONDUCTOR;Semiconductor Equipment & Materials;92.16;2898732032.0;USD;NCM;3001925.0;276657408.0;HOCH
+DNN;Denison Mines Corp;URANIUM;Uranium;3.135;2837228288.0;USD;ASE;26202495.0;82144822.0;HOCH
+FNTN.DE;freenet AG                    N;COMMUNICATION;Telecom Services;24.0;2831534336.0;EUR;GER;513210.0;12317040.0;HOCH
+BTU;Peabody Energy Corporation;ENERGY;Thermal Coal;23.115;2816193536.0;USD;NYQ;3570933.0;82542116.0;HOCH
+QTWO;Q2 Holdings, Inc.;SOFTWARE;Software - Application;44.87;2808880896.0;USD;NYQ;800570.0;35921576.0;HOCH
+KC;Kingsoft Cloud Holdings Limited;SOFTWARE;Software - Application;9.2301;2763211776.0;USD;NMS;1420575.0;13112049.0;HOCH
+ETL.PA;EUTELSAT COMMUNIC.;COMMUNICATION;Telecom Services;2.32;2732806912.0;EUR;PAR;3546972.0;8228975.0;HOCH
+AMBA;Ambarella, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;62.22;2729478400.0;USD;NMS;1152522.0;71709919.0;HOCH
+PAY;Paymentus Holdings, Inc.;SOFTWARE;Software - Infrastructure;21.69;2728370688.0;USD;NYQ;641677.0;13917974.0;HOCH
+WK;Workiva Inc.;SOFTWARE;Software - Application;48.195;2704671488.0;USD;NYQ;1087704.0;52421894.0;HOCH
+SOUN;SoundHound AI, Inc.;SOFTWARE;Software - Application;6.235;2698318592.0;USD;NGM;27306390.0;170255342.0;HOCH
+HIMX;Himax Technologies, Inc.;SEMICONDUCTOR;Semiconductors;15.32;2672205056.0;USD;NMS;4335146.0;66414437.0;HOCH
+STNE;StoneCo Ltd.;SOFTWARE;Software - Infrastructure;10.87;2643890688.0;USD;NMS;5617879.0;61066345.0;HOCH
+SZG.DE;SALZGITTER AG                 I;MATERIALS;Steel;48.48;2622152192.0;EUR;GER;190595.0;9240046.0;HOCH
+MGNI;Magnite, Inc.;COMMUNICATION;Advertising Agencies;18.3;2620834560.0;USD;NMS;2683106.0;49100840.0;HOCH
+ESTA;Establishment Labs Holdings Inc;HEALTHCARE;Medical Devices;88.71;2610769920.0;USD;NCM;497133.0;44100668.0;HOCH
+FRSH;Freshworks Inc.;SOFTWARE;Software - Application;9.405;2599863296.0;USD;NMS;11705850.0;110093519.0;HOCH
+FSLY;Fastly, Inc.;SOFTWARE;Software - Application;16.2;2535300096.0;USD;NMS;10659183.0;172678765.0;HOCH
+OUST;Ouster, Inc.;TECHNOLOGY;Electronic Components;39.175;2494387712.0;USD;NMS;3944258.0;154516307.0;HOCH
+APAM;Artisan Partners Asset Manageme;FINANCIALS;Asset Management;34.956;2481640448.0;USD;NYQ;765869.0;26771717.0;HOCH
+PAGS;PagSeguro Digital Ltd.;SOFTWARE;Software - Infrastructure;8.8199;2465332480.0;USD;NYQ;3539416.0;31217295.0;HOCH
+ATEN;A10 Networks, Inc.;SOFTWARE;Software - Infrastructure;34.11;2455857920.0;USD;NYQ;1110703.0;37886079.0;HOCH
+PAYO;Payoneer Global Inc.;SOFTWARE;Software - Infrastructure;7.085;2396107264.0;USD;NGM;6596624.0;46737081.0;HOCH
+DRO.AX;DRONE FPO [DRO];DEFENSE;Aerospace & Defense;2.55;2356393216.0;AUD;ASX;12245636.0;31226372.0;HOCH
+JUN3.DE;JUNGHEINRICH AG               I;INDUSTRIALS;Specialty Industrial Machinery;23.02;2348039936.0;EUR;GER;252898.0;5821712.0;HOCH
+CALX;Calix, Inc;SOFTWARE;Software - Infrastructure;36.65;2337621504.0;USD;NYQ;1027445.0;37655859.0;HOCH
+CSGS;CSG Systems International, Inc.;SOFTWARE;Software - Application;80.69;2300464128.0;USD;NGM;357653.0;28859021.0;HOCH
+WOLF;Wolfspeed, Inc.;SEMICONDUCTOR;Semiconductors;43.96;2284693504.0;USD;NYQ;7019296.0;308568252.0;HOCH
+RDW;Redwire Corporation;DEFENSE;Aerospace & Defense;11.345;2256732928.0;USD;NYQ;39406816.0;447070328.0;HOCH
+RAMP;LiveRamp Holdings, Inc.;SOFTWARE;Software - Infrastructure;37.475;2251792640.0;USD;NYQ;1453501.0;54469950.0;HOCH
+BRZE;Braze, Inc.;SOFTWARE;Software - Application;19.77;2226728192.0;USD;NMS;3322100.0;65677917.0;HOCH
+QUBT;Quantum Computing Inc.;TECHNOLOGY;Computer Hardware;9.6599;2178645504.0;USD;NCM;20614785.0;199136762.0;HOCH
+NTLA;Intellia Therapeutics, Inc.;BIOTECH;Biotechnology;15.485;2163599360.0;USD;NGM;6431454.0;99591065.0;HOCH
+PNG.V;KRAKEN ROBOTICS INC;TECHNOLOGY;Scientific & Technical Instruments;6.99;2147153408.0;CAD;VAN;1400985.0;9792885.0;HOCH
+KSS;Kohl's Corporation;CONSUMER CYCLICAL;Department Stores;18.86;2138723968.0;USD;NYQ;4980869.0;93939189.0;HOCH
+ARR;ARMOUR Residential REIT, Inc.;REAL ESTATE;REIT - Mortgage;17.05;2114986112.0;USD;NYQ;3067291.0;52297312.0;HOCH
+NOG;Northern Oil and Gas, Inc.;ENERGY;Oil & Gas E&P;19.255;2094638720.0;USD;NYQ;2670919.0;51428545.0;HOCH
+AMR;Alpha Metallurgical Resources, ;MATERIALS;Coking Coal;161.56;2054174592.0;USD;NYQ;261312.0;42217567.0;HOCH
+SPSC;SPS Commerce, Inc.;SOFTWARE;Software - Application;55.71;2045264768.0;USD;NMS;654343.0;36453449.0;HOCH
+EOSE;Eos Energy Enterprises, Inc.;INDUSTRIALS;Electrical Equipment & Parts;5.925;2011620608.0;USD;NCM;26677570.0;158064602.0;HOCH
+GNL;Global Net Lease, Inc.;REAL ESTATE;REIT - Diversified;9.195;1940972672.0;USD;NYQ;2088259.0;19201542.0;HOCH
+IOVA;Iovance Biotherapeutics, Inc.;BIOTECH;Biotechnology;4.325;1931122816.0;USD;NGM;14293809.0;61820724.0;HOCH
+HG.CN;HydrographCP;MATERIALS;Specialty Chemicals;5.38;1883948928.0;CAD;CNQ;649320.0;3493342.0;MITTEL
+VBK.DE;Verbio SE                     I;MATERIALS;Specialty Chemicals;29.54;1882155392.0;EUR;GER;216267.0;6388527.0;HOCH
+ABCL;AbCellera Biologics Inc.;BIOTECH;Biotechnology;5.9939;1830389504.0;USD;NMS;6607333.0;39603693.0;HOCH
+SEMR;SEMrush Holdings, Inc.;SOFTWARE;Software - Application;12.0;1814168832.0;USD;NYQ;1442075.0;17304900.0;HOCH
+POET;POET Technologies Inc.;SEMICONDUCTOR;Semiconductors;10.3901;1793283456.0;USD;NCM;41962311.0;435992608.0;HOCH
+ZYME;Zymeworks Inc.;BIOTECH;Biotechnology;24.325;1789686272.0;USD;NMS;652550.0;15873279.0;HOCH
+WIX;Wix.com Ltd.;SOFTWARE;Software - Infrastructure;42.24;1767723520.0;USD;NMS;2502759.0;105716540.0;HOCH
+AMPX;Amprius Technologies, Inc.;INDUSTRIALS;Electrical Equipment & Parts;12.355;1749803648.0;USD;NYQ;8589912.0;106128363.0;HOCH
+IAS;Integral Ad Science Holding Cor;COMMUNICATION;Advertising Agencies;10.34;1735615872.0;USD;NGM;1586262.0;16401949.0;HOCH
+RXRX;Recursion Pharmaceuticals, Inc.;BIOTECH;Biotechnology;3.215;1706400512.0;USD;NMS;15777683.0;50725251.0;HOCH
+BBAI;BigBear.ai, Inc.;TECHNOLOGY;Information Technology Services;3.54;1695480960.0;USD;NYQ;38464617.0;136164744.0;HOCH
+MQ;Marqeta, Inc.;SOFTWARE;Software - Infrastructure;3.965;1681280128.0;USD;NMS;3945035.0;15642064.0;HOCH
+SHLS;Shoals Technologies Group, Inc.;TECHNOLOGY;Solar;9.98;1674362752.0;USD;NGM;5530101.0;55190408.0;HOCH
+NCNO;nCino, Inc.;SOFTWARE;Software - Application;14.805;1621931520.0;USD;NMS;3619485.0;53586475.0;HOCH
+AMC;AMC Entertainment Holdings, Inc;COMMUNICATION;Entertainment;2.105;1587531520.0;USD;NYQ;36136982.0;76068347.0;HOCH
+ASAN;Asana, Inc.;SOFTWARE;Software - Application;6.68;1585586944.0;USD;NYQ;6798138.0;45411562.0;HOCH
+HLIT;Harmonic Inc.;TECHNOLOGY;Communication Equipment;14.33;1554753920.0;USD;NMS;2748374.0;39384199.0;HOCH
+APPN;Appian Corporation;SOFTWARE;Software - Infrastructure;21.09;1548261632.0;USD;NGM;945940.0;19949875.0;HOCH
+WEN;Wendy's Company (The);CONSUMER CYCLICAL;Restaurants;7.855;1496225408.0;USD;NMS;9847254.0;77350180.0;HOCH
+KSB3.DE;KSB SE & Co. KGaA             I;INDUSTRIALS;Specialty Industrial Machinery;849.0;1486876672.0;EUR;GER;2337.0;1984113.0;MITTEL
+VET;Vermilion Energy Inc.;ENERGY;Oil & Gas E&P;9.375;1436249984.0;USD;NYQ;1719620.0;16121438.0;HOCH
+VH2.DE;Friedrich Vorwerk Group SE    I;INDUSTRIALS;Engineering & Construction;70.8;1416000000.0;EUR;GER;75705.0;5359914.0;HOCH
+RCAT;Red Cat Holdings, Inc.;DEFENSE;Aerospace & Defense;9.26;1409300480.0;USD;NCM;13820967.0;127982154.0;HOCH
+ORC;Orchid Island Capital, Inc.;REAL ESTATE;REIT - Mortgage;6.825;1369778944.0;USD;NYQ;5472393.0;37349082.0;HOCH
+LAC;Lithium Americas Corp.;MATERIALS;Other Industrial Metals & Mining;3.895;1367388288.0;USD;NYQ;10953806.0;42665074.0;HOCH
+DEQ.DE;DEUTSCHE EUROSHOP AG          N;REAL ESTATE;Real Estate Services;18.0;1363389440.0;EUR;GER;10768.0;193824.0;NIEDRIG
+AI;C3.ai, Inc.;SOFTWARE;Software - Infrastructure;9.38;1362831616.0;USD;NYQ;5939108.0;55708833.0;HOCH
+AEVA;Aeva Technologies, Inc.;SOFTWARE;Software - Infrastructure;19.73;1332469504.0;USD;NMS;2031474.0;40080982.0;HOCH
+ENVX;Enovix Corporation;INDUSTRIALS;Electrical Equipment & Parts;5.955;1299103744.0;USD;NMS;6620103.0;39422713.0;HOCH
+BLKB;Blackbaud, Inc.;SOFTWARE;Software - Application;27.79;1276453248.0;USD;NMS;766916.0;21312596.0;HOCH
+GLOB;Globant S.A.;TECHNOLOGY;Information Technology Services;29.5;1273796864.0;USD;NYQ;1621269.0;47827436.0;HOCH
+VOS.DE;VOSSLOH AG                    I;INDUSTRIALS;Railroads;64.85;1252940672.0;EUR;GER;17302.0;1122035.0;MITTEL
+PGY;Pagaya Technologies Ltd.;SOFTWARE;Software - Infrastructure;15.07;1248863488.0;USD;NCM;3674864.0;55380200.0;HOCH
+AMG.AS;AMG Critical Materials N.V.;MATERIALS;Other Industrial Metals & Mining;34.7;1234837760.0;EUR;AMS;291447.0;10113211.0;HOCH
+PFI.F;PALFINGER AG                  I;INDUSTRIALS;Farm & Heavy Construction Machinery;32.5;1221780864.0;EUR;FRA;145.0;4712.0;NIEDRIG
+PAL.VI;Palfinger AG;INDUSTRIALS;Farm & Heavy Construction Machinery;32.05;1204863872.0;EUR;VIE;29838.0;956308.0;NIEDRIG
+ARRY;Array Technologies, Inc.;TECHNOLOGY;Solar;7.73;1189077888.0;USD;NGM;5500762.0;42520890.0;HOCH
+RDWR;Radware Ltd.;SOFTWARE;Software - Infrastructure;28.17;1185463680.0;USD;NMS;239924.0;6758659.0;HOCH
+CXM;Sprinklr, Inc.;SOFTWARE;Software - Application;5.04;1180513024.0;USD;NYQ;4046464.0;20394179.0;HOCH
+NNE;Nano Nuclear Energy Inc.;INDUSTRIALS;Specialty Industrial Machinery;22.585;1177172480.0;USD;NCM;2608362.0;58909856.0;HOCH
+SDGR;Schrodinger, Inc.;HEALTHCARE;Health Information Services;15.36;1147710208.0;USD;NMS;1360633.0;20899323.0;HOCH
+AZTA;Azenta, Inc.;HEALTHCARE;Medical Instruments & Supplies;23.74;1094243200.0;USD;NMS;1133585.0;26911308.0;HOCH
+HIVE;HIVE Digital Technologies Ltd;FINANCIALS;Capital Markets;4.01;1072397632.0;USD;NCM;25438927.0;102010097.0;HOCH
+HIVE.V;HIVE DIGITAL TECHNOLOGIES LTD;FINANCIALS;Capital Markets;4.1;1038352704.0;CAD;VAN;2114497.0;8669438.0;HOCH
+UPWK;Upwork Inc.;COMMUNICATION;Internet Content & Information;8.33;1028906048.0;USD;NMS;4087017.0;34044852.0;HOCH
+NAK;Northern Dynasty Minerals, Ltd.;MATERIALS;Other Industrial Metals & Mining;1.805;1011361600.0;USD;ASE;8048359.0;14527288.0;HOCH
+KRI.AT;KRI-KRI S.A.;CONSUMER DEFENSIVE;Packaged Foods;30.3;998865792.0;EUR;ATH;22793.0;690628.0;NIEDRIG
+KURA;Kura Oncology, Inc.;BIOTECH;Biotechnology;10.65;945446976.0;USD;NMS;1668696.0;17771612.0;HOCH
+QNC.V;QUANTUM EMOTION CORP;SOFTWARE;Software - Infrastructure;4.29;941095872.0;CAD;VAN;668838.0;2869315.0;MITTEL
+BKSY;BlackSky Technology Inc.;INDUSTRIALS;Specialty Business Services;25.2;935147456.0;USD;NYQ;2339214.0;58948193.0;HOCH
+GDRX;GoodRx Holdings, Inc.;HEALTHCARE;Health Information Services;2.745;929663808.0;USD;NMS;1549722.0;4253987.0;MITTEL
+UMAC;Unusual Machines, Inc.;TECHNOLOGY;Computer Hardware;19.32;923378624.0;USD;ASE;6021456.0;116334530.0;HOCH
+EVEX;Eve Holding, Inc.;DEFENSE;Aerospace & Defense;2.6253;914403968.0;USD;NYQ;1220158.0;3203281.0;MITTEL
+GILT;Gilat Satellite Networks Ltd.;TECHNOLOGY;Communication Equipment;11.96;902632512.0;USD;NMS;864970.0;10345041.0;HOCH
+GXI.DE;Gerresheimer AG               I;HEALTHCARE;Medical Instruments & Supplies;26.0;898040000.0;EUR;GER;217064.0;5643664.0;HOCH
+ZVRA;Zevra Therapeutics, Inc.;BIOTECH;Biotechnology;13.025;769973952.0;USD;NMS;1480383.0;19281989.0;HOCH
+IVR;INVESCO MORTGAGE CAPITAL INC;REAL ESTATE;REIT - Mortgage;7.8155;767482048.0;USD;NYQ;2261195.0;17672370.0;HOCH
+SLI;Standard Lithium Ltd.;MATERIALS;Other Industrial Metals & Mining;3.065;747428096.0;USD;ASE;1795429.0;5502990.0;HOCH
+SATL;Satellogic Inc.;DEFENSE;Aerospace & Defense;5.035;746409024.0;USD;NCM;11280077.0;56795188.0;HOCH
+INDI;indie Semiconductor, Inc.;SEMICONDUCTOR;Semiconductors;3.515;742679424.0;USD;NCM;5325788.0;18720145.0;HOCH
+LAES;SEALSQ Corp;SEMICONDUCTOR;Semiconductors;3.135;698396480.0;USD;NMS;15843477.0;49669300.0;HOCH
+NRGV;Energy Vault Holdings, Inc.;UTILITIES;Utilities - Renewable;3.82;680900416.0;USD;NYQ;4719064.0;18026824.0;HOCH
+CRMD;CorMedix Inc.;BIOTECH;Biotechnology;8.645;678216576.0;USD;NGM;1232519.0;10655127.0;HOCH
+SPIR;Spire Global, Inc.;INDUSTRIALS;Specialty Business Services;16.91;654612288.0;USD;NYQ;1954372.0;33048431.0;HOCH
+DNUT;Krispy Kreme, Inc.;CONSUMER DEFENSIVE;Grocery Stores;3.745;645637952.0;USD;NMS;2395179.0;8969945.0;HOCH
+DNA;Ginkgo Bioworks Holdings, Inc.;BIOTECH;Biotechnology;9.44;616663168.0;USD;NYQ;1249633.0;11796536.0;HOCH
+MNPR;Monopar Therapeutics Inc.;BIOTECH;Biotechnology;88.24;591125248.0;USD;NCM;167490.0;14779318.0;HOCH
+SLDP;Solid Power, Inc.;CONSUMER CYCLICAL;Auto Parts;2.61;587207424.0;USD;NMS;6533270.0;17051835.0;HOCH
+TLRY;Tilray Brands, Inc.;PHARMA;Drug Manufacturers - Specialty & Generic;4.585;553952384.0;USD;NMS;4841617.0;22198814.0;HOCH
+PUBM;PubMatic, Inc.;SOFTWARE;Software - Application;11.845;550121216.0;USD;NGM;675072.0;7996228.0;HOCH
+URG;Ur Energy Inc;URANIUM;Uranium;1.335;530438016.0;USD;ASE;10176522.0;13585657.0;HOCH
+SERV;Serve Robotics Inc.;INDUSTRIALS;Specialty Industrial Machinery;6.055;515221344.0;USD;NCM;4592330.0;27806558.0;HOCH
+EH;EHang Holdings Limited;DEFENSE;Aerospace & Defense;6.65;504371648.0;USD;NGM;903101.0;6005622.0;HOCH
+ARQQ;Arqit Quantum Inc.;SOFTWARE;Software - Infrastructure;27.44;477522208.0;USD;NCM;752324.0;20643771.0;HOCH
+OCGN;Ocugen, Inc.;BIOTECH;Biotechnology;1.405;475623200.0;USD;NCM;6989464.0;9820197.0;HOCH
+RPD;Rapid7, Inc.;SOFTWARE;Software - Infrastructure;6.975;466143552.0;USD;NGM;2076190.0;14481425.0;HOCH
+PACB;Pacific Biosciences of Californ;HEALTHCARE;Medical Devices;1.425;442607392.0;USD;NMS;6097914.0;8689527.0;HOCH
+VLA.PA;VALNEVA SE;BIOTECH;Biotechnology;2.271;430688128.0;EUR;PAR;1012221.0;2298754.0;MITTEL
+EDIT;Editas Medicine, Inc.;BIOTECH;Biotechnology;2.79;428158528.0;USD;NMS;2166877.0;6045587.0;HOCH
+RR;Richtech Robotics Inc.;INDUSTRIALS;Specialty Industrial Machinery;1.895;423714368.0;USD;NCM;11127925.0;21087418.0;HOCH
+GLAD;Gladstone Capital Corporation;FINANCIALS;Asset Management;18.65;421360704.0;USD;NMS;190800.0;3558420.0;MITTEL
+DBAN.DE;Deutsche Beteiligungs AG      N;FINANCIALS;Asset Management;23.0;409440288.0;EUR;GER;13891.0;319493.0;NIEDRIG
+SPT;Sprout Social, Inc;SOFTWARE;Software - Application;6.745;405411840.0;USD;NCM;1487814.0;10035305.0;HOCH
+UROY;Uranium Royalty Corp.;URANIUM;Uranium;2.735;400930496.0;USD;NCM;2570041.0;7029062.0;HOCH
+MVST;Microvast Holdings, Inc.;CONSUMER CYCLICAL;Auto Parts;1.165;388128320.0;USD;NCM;4523748.0;5270166.0;HOCH
+FVRR;Fiverr International Ltd.;COMMUNICATION;Internet Content & Information;10.62;381796736.0;USD;NYQ;892369.0;9476959.0;HOCH
+DR0.DE;Deutsche Rohstoff AG          N;ENERGY;Oil & Gas E&P;77.9;373144192.0;EUR;GER;25491.0;1985749.0;MITTEL
+F3C.DE;SFC Energy AG                 I;INDUSTRIALS;Electrical Equipment & Parts;20.95;364487616.0;EUR;GER;89227.0;1869306.0;MITTEL
+ABAT;American Battery Technology Com;INDUSTRIALS;Waste Management;2.665;363544416.0;USD;NCM;6148491.0;16385729.0;HOCH
+ASYS;Amtech Systems, Inc.;SEMICONDUCTOR;Semiconductor Equipment & Materials;19.47;340415424.0;USD;NMS;333169.0;6486800.0;HOCH
+SES;SES AI Corporation;CONSUMER CYCLICAL;Auto Parts;0.9003;332465824.0;USD;NYQ;8974017.0;8079308.0;HOCH
+SPCE;Virgin Galactic Holdings, Inc.;DEFENSE;Aerospace & Defense;2.735;304096256.0;USD;NYQ;30280204.0;82816358.0;HOCH
+SENS;Senseonics Holdings, Inc.;HEALTHCARE;Medical Devices;5.76;300689088.0;USD;NMS;731095.0;4211107.0;MITTEL
+LTBR;Lightbridge Corporation;INDUSTRIALS;Electrical Equipment & Parts;8.915;292808608.0;USD;NCM;908219.0;8096772.0;HOCH
+ETG.DE;EnviTec Biogas AG             I;UTILITIES;Utilities - Renewable;19.2;285120000.0;EUR;GER;2386.0;45811.0;NIEDRIG
+PDYN;Palladyne AI Corp.;SOFTWARE;Software - Infrastructure;5.8806;277824384.0;USD;NGM;1803664.0;10606627.0;HOCH
+EU;enCore Energy Corp.;URANIUM;Uranium;1.385;269012704.0;USD;NCM;2961982.0;4102345.0;MITTEL
+LTRX;Lantronix, Inc.;TECHNOLOGY;Communication Equipment;5.585;249139008.0;USD;NCM;994696.0;5555377.0;HOCH
+EVTL;Vertical Aerospace Ltd.;DEFENSE;Aerospace & Defense;1.8617;237046544.0;USD;NYQ;3610464.0;6721601.0;HOCH
+VUZI;Vuzix Corporation;TECHNOLOGY;Consumer Electronics;2.799;232759968.0;USD;NCM;1773046.0;4962756.0;MITTEL
+SCM;Stellus Capital Investment Corp;FINANCIALS;Asset Management;8.01;231867504.0;USD;NYQ;168133.0;1346745.0;MITTEL
+EGHT;8x8 Inc;SOFTWARE;Software - Application;1.635;230845280.0;USD;NMS;1608138.0;2629306.0;MITTEL
+CDXS;Codexis, Inc.;BIOTECH;Biotechnology;2.3;209062096.0;USD;NMS;1107703.0;2547717.0;MITTEL
+BZAI;Blaize Holdings, Inc.;SOFTWARE;Software - Application;1.425;202776720.0;USD;NGM;10507453.0;14973121.0;HOCH
+ARCT;Arcturus Therapeutics Holdings ;BIOTECH;Biotechnology;7.1;201803776.0;USD;NGM;423635.0;3007808.0;MITTEL
+OTLK;Outlook Therapeutics, Inc.;BIOTECH;Biotechnology;1.65;199424352.0;USD;NCM;18429930.0;30409384.0;HOCH
+QMCO;Quantum Corporation;TECHNOLOGY;Computer Hardware;13.555;198418480.0;USD;NGM;926448.0;12558003.0;HOCH
+DPRO;Draganfly Inc.;TECHNOLOGY;Computer Hardware;5.08;187365312.0;USD;NCM;1890606.0;9604278.0;HOCH
+0660.HK;WAI CHUN BIOTEC;MATERIALS;Chemicals;0.5;183821552.0;HKD;HKG;1967635.0;983818.0;NIEDRIG
+QSI;Quantum-Si Incorporated;HEALTHCARE;Medical Devices;0.8365;182156368.0;USD;NGM;5797272.0;4849418.0;MITTEL
+4X0.VI;Steyr Motors AG;DEFENSE;Aerospace & Defense;31.84;165568000.0;EUR;VIE;2376.0;75652.0;NIEDRIG
+4X0.DE;Steyr Motors AG               I;DEFENSE;Aerospace & Defense;31.62;164424000.0;EUR;GER;9906.0;313228.0;NIEDRIG
+CA1.DE;Circus SE                     I;SOFTWARE;Software - Infrastructure;5.9;140350400.0;EUR;GER;62982.0;371594.0;NIEDRIG
+ADE.DE;Bitcoin Group SE              I;FINANCIALS;Asset Management;26.46;132299992.0;EUR;GER;16582.0;438760.0;NIEDRIG
+INVZ;Innoviz Technologies Ltd.;CONSUMER CYCLICAL;Auto Parts;0.5816;128746080.0;USD;NCM;2943953.0;1712203.0;MITTEL
+VERI;Veritone, Inc.;SOFTWARE;Software - Infrastructure;1.335;124094128.0;USD;NGM;2944646.0;3931102.0;MITTEL
+93M1.DE;MPH Health Care AG            I;FINANCIALS;Asset Management;28.3;121163160.0;EUR;GER;2109.0;59685.0;NIEDRIG
+LI.V;AMERICAN LITHIUM CORP;MATERIALS;Other Industrial Metals & Mining;0.445;113770760.0;CAD;VAN;164255.0;73093.0;NIEDRIG
+AISP;Airship AI Holdings, Inc;SOFTWARE;Software - Infrastructure;2.835;97636152.0;USD;NGM;579350.0;1642457.0;MITTEL
+MWB0.F;mwb fairtrade Wphdlsbank AG   N;FINANCIALS;Capital Markets;11.5;85621080.0;EUR;FRA;17.0;196.0;NIEDRIG
+REKR;Rekor Systems, Inc.;SOFTWARE;Software - Infrastructure;0.6088;83775816.0;USD;NCM;3278514.0;1995959.0;MITTEL
+STEM;Stem, Inc.;UTILITIES;Utilities - Renewable;7.455;66774084.0;USD;NYQ;152559.0;1137327.0;MITTEL
+LIDR;AEye, Inc.;SOFTWARE;Software - Infrastructure;1.32;61135564.0;USD;NCM;3036658.0;4008389.0;MITTEL
+OPTT;Ocean Power Technologies, Inc.;INDUSTRIALS;Specialty Industrial Machinery;0.2652;60471812.0;USD;ASE;4142101.0;1098485.0;MITTEL
+UAVS;AgEagle Aerial Systems, Inc.;TECHNOLOGY;Computer Hardware;0.848;49690356.0;USD;ASE;2686300.0;2277982.0;MITTEL
+VRL.DE;net digital AG                I;SOFTWARE;Software - Application;14.5;31092060.0;EUR;GER;1866.0;27057.0;NIEDRIG
+QNTM;Quantum Biopharma Ltd.;BIOTECH;Biotechnology;3.935;25178676.0;USD;NCM;447946.0;1762668.0;MITTEL
+QBTQ.CN;SuperQQuaComp;SOFTWARE;Software - Infrastructure;0.75;23068430.0;CAD;CNQ;61595.0;46196.0;NIEDRIG
+CXAI;CXApp Inc.;SOFTWARE;Software - Application;0.1757;19166524.0;USD;NCM;23555477.0;4138697.0;MITTEL
+QBTQF;SUPERQ QUANTUM COMPUTING INC;SOFTWARE;Software - Infrastructure;0.5337;16415494.0;USD;OQB;25690.0;13711.0;NIEDRIG
+DFNS;T3 Defense Inc.;DEFENSE;Aerospace & Defense;0.1678;15912890.0;USD;NGM;9968541.0;1672721.0;MITTEL
+25X.F;SuperQ Quantum Computing Inc. R;SOFTWARE;Software - Infrastructure;0.446;13718026.0;EUR;FRA;906.0;404.0;NIEDRIG
+BUG;Global X Cybersecurity ETF;OTHER;-;34.1599;;USD;NGM;1132012.0;38669417.0;HOCH
+CIBR;First Trust NASDAQ Cybersecurit;OTHER;-;83.5027;;USD;NGM;1663248.0;138885699.0;HOCH
+CL2.PA;Amundi MSCI USA Daily (2x) Leve;OTHER;-;30.62;;EUR;PAR;43385.0;1328449.0;MITTEL
+CMOE.MI;INVESCO BLOOM COMMODIT UCITS ET;OTHER;-;60.22;;EUR;MIL;3842.0;231365.0;NIEDRIG
+DFEN.DE;VanEck ETFs-VanEck Defense ETFR;OTHER;-;50.53;;EUR;GER;176658.0;8926529.0;HOCH
+DMTX;Dimension Therapeutics, Inc.;OTHER;-;;;;YHD;;;UNBEKANNT
+DN3.F;Metaplanet Inc.               R;OTHER;-;1.1812;;EUR;FRA;118183.0;139598.0;NIEDRIG
+FM;iShares Frontier and Select EM ;OTHER;-;27.19;;USD;PCX;39251.0;1067235.0;MITTEL
+HACK;Amplify Cybersecurity ETF;OTHER;-;95.93;;USD;PCX;133745.0;12830158.0;HOCH
+IUIT.L;ISHARES V PUBLIC LIMITED COMPAN;OTHER;-;49.15;;USD;LSE;564423.0;27741390.0;HOCH
+LQQ.PA;Amundi Nasdaq-100 Daily (2x) Le;OTHER;-;1972.6;;EUR;PAR;3652.0;7203935.0;HOCH
+MBH3.DE;Maschinenfabrik Berthold Hermle AG;OTHER;-;;;;YHD;;;UNBEKANNT
+NLM.DE;Frosta AG;OTHER;-;;;;YHD;;;UNBEKANNT
+QDVE.DE;iShsV-S&P 500 Inf.Te.Sec.U.ETFR;OTHER;-;43.325;;EUR;GER;439993.0;19062697.0;HOCH
+QUTM.DE;VanEck ETF-Quantum Computing  R;OTHER;-;27.2;;EUR;GER;91166.0;2479715.0;MITTEL
+QYLD.L;GLOBAL X ETFS ICAV GLOBAL X NAS;OTHER;-;16.846;;USD;LSE;57586.0;970094.0;NIEDRIG
+ROBO;ROBO Global Robotics and Automa;OTHER;-;81.81;;USD;PCX;226251.0;18509594.0;HOCH
+SCWX.DE;Scalable MSCI AC Wld XtrackersA;OTHER;-;11.806;;EUR;GER;148725.0;1755847.0;MITTEL
+SGLN.L;ISHARES PHYSICAL METALS PLC ISH;OTHER;-;5906.0;;GBp;LSE;372115.0;2197711190.0;HOCH
+SMSN.IL;SAMSUNG ELECTRONICS CO LTD (ATT;TECHNOLOGY;Consumer Electronics;5440.0;;USD;IOB;24451.0;133013440.0;HOCH
+SSLN.L;ISHARES PHYSICAL METALS PLC ISH;OTHER;-;4266.0;;GBp;LSE;422834.0;1803809844.0;HOCH
+XAD6.DE;DB ETC PLC                    E;OTHER;-;485.44;;EUR;GER;3356.0;1629137.0;MITTEL
+XMAW.DE;Xtr.(IE)-MSCI AC World Sc.    R;OTHER;-;49.835;;EUR;GER;41286.0;2057488.0;MITTEL

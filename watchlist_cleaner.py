@@ -16,6 +16,7 @@ META_FILE          = "data_update_meta.json"
 
 REQUEST_DELAY      = 0.6   # Sekunden zwischen einzelnen Abfragen
 BATCH_SIZE         = 10    # Ticker pro Batch-Download-Versuch
+MIN_DOLLAR_VOLUME  = 1_000_000   # Tagesumsatz in Geldeinheiten, unter dem eine Aktie als "schwer handelbar" markiert wird
 
 
 # ============================================================
@@ -43,8 +44,8 @@ SECTOR_TRANSLATION = {
     "Healthcare":                 "HEALTHCARE",
     "Financial Services":         "FINANCIALS",
     "Industrials":                "INDUSTRIALS",
-    "Consumer Cyclical":          "CONSUMER",
-    "Consumer Defensive":         "CONSUMER",
+    "Consumer Cyclical":          "CONSUMER CYCLICAL",
+    "Consumer Defensive":         "CONSUMER DEFENSIVE",
     "Energy":                     "ENERGY",
     "Basic Materials":            "MATERIALS",
     "Communication Services":     "COMMUNICATION",
@@ -104,17 +105,32 @@ for i, ticker in enumerate(tickers, start=1):
         exchange      = info.get("exchange", "")
         currency      = info.get("currency", "")
 
+        avg_volume   = info.get("averageVolume") or info.get("averageDailyVolume10Day") or 0
+        dollar_volume = (avg_volume or 0) * (current_price or 0)
+
+        if dollar_volume == 0:
+            liquidity_flag = "UNBEKANNT"
+        elif dollar_volume < MIN_DOLLAR_VOLUME:
+            liquidity_flag = "NIEDRIG"
+        elif dollar_volume < MIN_DOLLAR_VOLUME * 5:
+            liquidity_flag = "MITTEL"
+        else:
+            liquidity_flag = "HOCH"
+
         sector = map_sector(yf_sector, yf_industry)
 
         valid_stocks.append({
-            "Ticker":     ticker,
-            "Company":    company_name,
-            "Sector":     sector,
-            "Industry":   yf_industry or "-",
-            "Price":      round(float(current_price), 4) if current_price else None,
-            "Market Cap": market_cap,
-            "Currency":   currency,
-            "Exchange":   exchange,
+            "Ticker":          ticker,
+            "Company":         company_name,
+            "Sector":          sector,
+            "Industry":        yf_industry or "-",
+            "Price":           round(float(current_price), 4) if current_price else None,
+            "Market Cap":      market_cap,
+            "Currency":        currency,
+            "Exchange":        exchange,
+            "Avg Volume":      int(avg_volume) if avg_volume else None,
+            "Avg Dollar Volume": round(dollar_volume, 0) if dollar_volume else None,
+            "Liquidity":       liquidity_flag,
         })
 
         print(f"OK → {company_name} | {sector}")
@@ -169,3 +185,10 @@ print(f"\nOutput: {OUTPUT_CSV}, {INVALID_FILE}, {META_FILE}")
 if not df.empty:
     print("\nSektor-Verteilung:")
     print(df["Sector"].value_counts().to_string())
+    print("\nLiquiditäts-Verteilung:")
+    print(df["Liquidity"].value_counts().to_string())
+    low_liquidity = df[df["Liquidity"] == "NIEDRIG"]["Ticker"].tolist()
+    if low_liquidity:
+        print(f"\n⚠ Niedrige Liquidität (>{MIN_DOLLAR_VOLUME:,.0f}$/Tag Schwellenwert) bei {len(low_liquidity)} Titeln:")
+        print(", ".join(low_liquidity))
+        print("Diese Titel bleiben in der Liste, werden im Dashboard aber als Liquiditätsrisiko markiert.")

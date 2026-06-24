@@ -13,6 +13,18 @@ OUTPUT_CSV       = "portfolio_analysis.csv"
 META_FILE        = "data_update_meta.json"
 HISTORY_PERIOD   = "1y"
 
+# Smart-Money-Daten (Insider-Transaktionen, institutionelle Beteiligung) kosten
+# zusätzliche yfinance-Requests pro Aktie. Bei 800+ Tickern wäre das für JEDE
+# Aktie zu langsam und würde Yahoo schnell ins Rate-Limit laufen lassen.
+# Deshalb: Phase 1 screent technisch GÜNSTIG (1 Request/Aktie), Phase 3 holt
+# Smart-Money-Daten NUR für die Shortlist der technisch interessanten Kandidaten.
+ENABLE_SMART_MONEY      = True
+SMART_MONEY_MIN_SCORE   = 4     # Technischer Score
+SMART_MONEY_MIN_EARLY   = 3     # ODER Early-Signal-Score
+SMART_MONEY_MAX_CANDIDATES = 250  # Hard Cap, damit ein Lauf nicht ausartet
+
+BENCHMARK_TICKER = "SPY"  # Für Markt-relative Stärke
+
 
 # ============================================================
 # WATCHLIST LADEN
@@ -354,6 +366,170 @@ def calculate_early_signal(close, volume, rsi_series, ema20_series, ema50_series
 
 
 # ============================================================
+# 🏛️ SMART-MONEY-SIGNAL  (Insider-Käufe + institutionelle Beteiligung)
+# ============================================================
+
+def fetch_smart_money_signal(stock, info):
+    """
+    Holt Insider-Transaktionen und institutionelle Beteiligung über yfinance.
+    Beides kostet zusätzliche Requests, deshalb wird das nur für die
+    Shortlist-Kandidaten aufgerufen (siehe SMART_MONEY_* Konfiguration oben).
+
+    Insider-Käufe sind oft eines der aussagekräftigsten Frühindikatoren:
+    Wer im Unternehmen sitzt und kauft, hat selten Zufallsgründe.
+    """
+    result = {
+        "Smart Money Score":   0,
+        "Smart Money Signal":  "⚪ Keine Daten",
+        "Smart Money Details": "-",
+        "Insider Buys 6M":     0,
+        "Insider Sells 6M":    0,
+        "Insider Net Value":   None,
+        "Institutional %":     None,
+        "Short % Float":       None,
+        "Short Ratio":         None,
+    }
+
+    score = 0
+    notes = []
+
+    # ---- Insider-Transaktionen (Form 4 über Yahoo) -----------
+    try:
+        try:
+            insider_df = stock.get_insider_transactions()
+        except AttributeError:
+            insider_df = stock.insider_transactions
+
+        if insider_df is not None and not insider_df.empty:
+            # Datumsspalte robust finden (Name variiert je yfinance-Version)
+            date_col = None
+            for col in insider_df.columns:
+                if "date" in str(col).lower():
+                    date_col = col
+                    break
+
+            if date_col is not None:
+                insider_df = insider_df.copy()
+                insider_df["_parsed_date"] = pd.to_datetime(insider_df[date_col], errors="coerce")
+                cutoff = pd.Timestamp.today() - pd.Timedelta(days=182)
+                recent = insider_df[insider_df["_parsed_date"] >= cutoff]
+            else:
+                # Kein Datum auffindbar -> alle verfügbaren Zeilen als "letzte bekannte" nehmen
+                recent = insider_df.head(15)
+
+            transaction_col = None
+            for col in recent.columns:
+                if str(col).lower() == "transaction":
+                    transaction_col = col
+                    break
+            if transaction_col is None:
+                for col in recent.columns:
+                    if "transaction" in str(col).lower() or "text" in str(col).lower():
+                        transaction_col = col
+                        break
+
+            value_col = None
+            for col in recent.columns:
+                if "value" in str(col).lower():
+                    value_col = col
+                    break
+
+            buys, sells = 0, 0
+            buy_value, sell_value = 0.0, 0.0
+
+            if transaction_col is not None:
+                for _, r in recent.iterrows():
+                    text = str(r.get(transaction_col, "")).lower()
+                    val = safe_number(r.get(value_col)) if value_col else None
+                    val = abs(val) if val is not None else 0
+
+                    if "purchase" in text or "buy" in text:
+                        buys += 1
+                        buy_value += val
+                    elif "sale" in text or "sell" in text:
+                        sells += 1
+                        sell_value += val
+
+            result["Insider Buys 6M"]  = buys
+            result["Insider Sells 6M"] = sells
+            net_value = buy_value - sell_value
+            result["Insider Net Value"] = round(net_value, 2) if (buys or sells) else None
+
+            if buys > 0 and sells == 0:
+                score += 3
+                notes.append(f"{buys}x Insider-Kauf, keine Verkäufe (6M)")
+            elif buys > sells and buys >= 2:
+                score += 2
+                notes.append(f"Mehr Insider-Käufe ({buys}) als Verkäufe ({sells})")
+            elif buys > 0 and net_value > 0:
+                score += 1
+                notes.append(f"Insider-Käufe vorhanden ({buys}x)")
+            elif sells > buys and sells >= 3:
+                score -= 1
+                notes.append(f"Auffällig viele Insider-Verkäufe ({sells}x)")
+
+    except Exception:
+        pass
+
+    # ---- Institutionelle Beteiligung --------------------------
+    try:
+        inst_pct = info.get("heldPercentInstitutions")
+        if inst_pct is not None:
+            inst_pct = float(inst_pct) * 100
+            result["Institutional %"] = round(inst_pct, 2)
+
+            if inst_pct >= 70:
+                score += 1
+                notes.append("hohe institutionelle Beteiligung")
+            elif inst_pct <= 10:
+                notes.append("geringe institutionelle Beteiligung (mehr Retail-getrieben)")
+    except Exception:
+        pass
+
+    # ---- Short-Interest / Squeeze-Potenzial -------------------
+    # Hohe Shortquote + sich verbessernde Technik ist eines der klassischen
+    # Setups für überproportionale Bewegungen nach oben (Short Squeeze).
+    try:
+        short_pct   = info.get("shortPercentOfFloat") or info.get("sharesPercentSharesOut")
+        short_ratio = info.get("shortRatio")
+
+        if short_pct is not None:
+            short_pct_val = float(short_pct) * 100
+            result["Short % Float"] = round(short_pct_val, 2)
+            if short_pct_val >= 20:
+                score += 2
+                notes.append(f"hohe Shortquote ({short_pct_val:.1f}% Float) -> Squeeze-Potenzial")
+            elif short_pct_val >= 10:
+                score += 1
+                notes.append(f"erhöhte Shortquote ({short_pct_val:.1f}% Float)")
+
+        if short_ratio is not None:
+            short_ratio_val = float(short_ratio)
+            result["Short Ratio"] = round(short_ratio_val, 2)
+            if short_ratio_val >= 6:
+                notes.append(f"hohe Days-to-Cover ({short_ratio_val:.1f}) -> bei Rally schwer eindeckbar")
+    except Exception:
+        pass
+
+    result["Smart Money Score"] = score
+
+    if not notes:
+        result["Smart Money Signal"] = "⚪ Keine Daten"
+    elif score >= 3:
+        result["Smart Money Signal"] = "🟢 Starkes Insider-Signal"
+    elif score >= 1:
+        result["Smart Money Signal"] = "🔵 Leicht positiv"
+    elif score <= -1:
+        result["Smart Money Signal"] = "🟠 Insider verkaufen"
+    else:
+        result["Smart Money Signal"] = "⚪ Neutral"
+
+    result["Smart Money Details"] = " | ".join(notes) if notes else "-"
+
+    return result
+
+
+# ============================================================
 # AKTIEN ANALYSIEREN
 # ============================================================
 
@@ -602,7 +778,7 @@ def analyze_stock(ticker, current_index, total_count):
 
 
 # ============================================================
-# ANALYSE STARTEN
+# ANALYSE STARTEN  (Phase 1: technischer Schnell-Scan, alle Ticker)
 # ============================================================
 
 results     = []
@@ -615,22 +791,174 @@ for index, ticker in enumerate(PORTFOLIO, start=1):
     except Exception as error:
         print(f"  ⚠ Fehler bei {ticker}: {error}")
 
-
-# ============================================================
-# DATAFRAME & SPEICHERN
-# ============================================================
-
 df = pd.DataFrame(results)
 
-if not df.empty:
-    df = df.sort_values(
-        by=["Early Signal Score", "Score", "1M %"],
-        ascending=[False, False, False]
-    )
+if df.empty:
+    print("Keine gültigen Daten gefunden.")
+else:
+
+    # Sector/Industry kommen aus watchlist_cleaner.py (clean_watchlist.csv),
+    # nicht aus analyze_stock() selbst -> hier zusammenführen.
+    sector_lookup = watchlist[["Ticker", "Sector", "Industry"]].drop_duplicates(subset="Ticker")
+    df = df.merge(sector_lookup, on="Ticker", how="left")
+    df["Sector"] = df["Sector"].fillna("OTHER")
+    df["Industry"] = df["Industry"].fillna("-")
+
+    # ============================================================
+    # PHASE 2: 📡 RELATIVE STÄRKE  (Sektor-Peer-Group + Markt)
+    # ============================================================
+    # Idee: Ein technischer Score allein sagt nichts darüber aus, ob eine
+    # Aktie STÄRKER ist als ihr eigenes Themenfeld. Eine Quantum-Aktie mit
+    # +8% in 1M ist nichts Besonderes, wenn der ganze Quantum-Sektor +15%
+    # gemacht hat — und sehr wohl etwas Besonderes, wenn der Sektor -5% steht.
+    # Das ist reine Pandas-Mathematik auf bereits geladenen Daten, kostet
+    # also KEINE zusätzlichen Netzwerk-Requests.
+
+    print("\n📡 Berechne relative Stärke vs. Sektor...")
+
+    sector_avg = df.groupby("Sector").agg(
+        **{
+            "_sector_avg_1m": ("1M %", "mean"),
+            "_sector_avg_3m": ("3M %", "mean"),
+            "_sector_avg_6m": ("6M %", "mean"),
+            "_sector_count":  ("1M %", "count"),
+        }
+    ).reset_index()
+
+    df = df.merge(sector_avg, on="Sector", how="left")
+
+    df["Relative Strength 1M"] = (df["1M %"] - df["_sector_avg_1m"]).round(2)
+    df["Relative Strength 3M"] = (df["3M %"] - df["_sector_avg_3m"]).round(2)
+
+    # Perzentil innerhalb des eigenen Sektors (0-100, höher = stärker als Peers)
+    df["RS Percentile"] = (
+        df.groupby("Sector")["1M %"].rank(pct=True) * 100
+    ).round(1)
+
+    def label_rs(row):
+        if row["_sector_count"] < 3:
+            return "❓ Zu wenig Peers"
+        if row["RS Percentile"] >= 80:
+            return "🟢 Top-Performer im Sektor"
+        if row["RS Percentile"] >= 60:
+            return "🔵 Überdurchschnittlich"
+        if row["RS Percentile"] <= 20:
+            return "🔴 Schwächster im Sektor"
+        return "🟡 Durchschnittlich"
+
+    df["RS Rating"] = df.apply(label_rs, axis=1)
+    df["Sector Avg 1M %"] = df["_sector_avg_1m"].round(2)
+    df = df.drop(columns=["_sector_avg_1m", "_sector_avg_3m", "_sector_avg_6m", "_sector_count"])
+
+    # ---- Markt-relative Stärke (vs. SPY) ----------------------
+    try:
+        spy_hist = yf.Ticker(BENCHMARK_TICKER).history(period=HISTORY_PERIOD)
+        spy_close = spy_hist["Close"]
+        spy_1m = percent_change(spy_close, 22)
+        spy_3m = percent_change(spy_close, 66)
+        print(f"   Markt-Benchmark {BENCHMARK_TICKER}: 1M {round(spy_1m,2)}% | 3M {round(spy_3m,2)}%")
+    except Exception:
+        spy_1m, spy_3m = 0.0, 0.0
+        print(f"   ⚠ Konnte Benchmark {BENCHMARK_TICKER} nicht laden, nutze 0% als Fallback")
+
+    df["Market RS 1M"] = (df["1M %"] - spy_1m).round(2)
+    df["Market RS 3M"] = (df["3M %"] - spy_3m).round(2)
+
+    # ============================================================
+    # PHASE 3: 🏛️ SMART MONEY  (nur für die Shortlist)
+    # ============================================================
+
+    if ENABLE_SMART_MONEY:
+        shortlist_mask = (
+            (df["Score"] >= SMART_MONEY_MIN_SCORE)
+            | (df["Early Signal Score"] >= SMART_MONEY_MIN_EARLY)
+        )
+        shortlist = df[shortlist_mask].sort_values(
+            by=["Early Signal Score", "Score"], ascending=[False, False]
+        ).head(SMART_MONEY_MAX_CANDIDATES)
+
+        print(f"\n🏛️ Smart-Money-Check für {len(shortlist)} Shortlist-Kandidaten "
+              f"(von {len(df)} gescreenten Aktien)...")
+
+        smart_money_results = {}
+
+        for i, (_, row) in enumerate(shortlist.iterrows(), start=1):
+            ticker = row["Ticker"]
+            print(f"   [{i}/{len(shortlist)}] Insider-Check {ticker}...")
+            try:
+                stock_obj = yf.Ticker(ticker)
+                info_obj  = stock_obj.info
+                smart_money_results[ticker] = fetch_smart_money_signal(stock_obj, info_obj)
+            except Exception as err:
+                print(f"      ⚠ Fehler: {err}")
+
+        sm_defaults = {
+            "Smart Money Score": 0, "Smart Money Signal": "⚪ Nicht geprüft",
+            "Smart Money Details": "-", "Insider Buys 6M": 0, "Insider Sells 6M": 0,
+            "Insider Net Value": None, "Institutional %": None,
+            "Short % Float": None, "Short Ratio": None,
+        }
+        for col, default in sm_defaults.items():
+            df[col] = df["Ticker"].map(lambda t, c=col: smart_money_results.get(t, {}).get(c, default))
+
+    else:
+        df["Smart Money Score"]   = 0
+        df["Smart Money Signal"]  = "⚪ Deaktiviert"
+        df["Smart Money Details"] = "-"
+        df["Insider Buys 6M"]     = 0
+        df["Insider Sells 6M"]    = 0
+        df["Insider Net Value"]   = None
+        df["Institutional %"]     = None
+        df["Short % Float"]       = None
+        df["Short Ratio"]         = None
+
+    # ============================================================
+    # PHASE 4: 🎯 SWING SCORE  (vereinheitlichter Ranking-Score, 0-100)
+    # ============================================================
+    # Kombiniert alles, was für einen Swingtrader zählt:
+    #   - Technischer Trend (Score)          → 20 Punkte
+    #   - Early-Signal (Aufbauphase)         → 25 Punkte  (Kernstück: FRÜH erkennen)
+    #   - Relative Stärke im Sektor          → 25 Punkte  (stärker als die Peers?)
+    #   - Smart Money (Insider/Institutionen)→ 20 Punkte  (folgt das "schlaue Geld"?)
+    #   - Risiko-Malus                       → bis -15 Punkte
+
+    def build_swing_score(row):
+        tech      = max(0, min(row.get("Score", 0), 8)) / 8 * 20
+        early     = max(0, min(row.get("Early Signal Score", 0), 10)) / 10 * 25
+        rs_pct    = row.get("RS Percentile", 50)
+        rs_pct    = 50 if pd.isna(rs_pct) else rs_pct
+        rs_points = max(0, min(rs_pct, 100)) / 100 * 25
+        smart     = row.get("Smart Money Score", 0)
+        smart_points = max(0, min((smart + 1) / 7, 1)) * 20  # -1..+6 auf 0..20 gemappt
+
+        risk_malus = 0
+        if row.get("Risk Level") == "HIGH RISK":
+            risk_malus = 15
+        elif row.get("Risk Level") == "MEDIUM RISK":
+            risk_malus = 5
+
+        total = tech + early + rs_points + smart_points - risk_malus
+        return round(max(0, min(total, 100)), 1)
+
+    df["Swing Score"] = df.apply(build_swing_score, axis=1)
+
+    def swing_tier(score):
+        if score >= 80: return "🎯 TOP SWING SETUP"
+        if score >= 65: return "🟢 Starkes Setup"
+        if score >= 50: return "🔵 Solide"
+        if score >= 35: return "🟡 Beobachten"
+        return "⚪ Schwach"
+
+    df["Swing Tier"] = df["Swing Score"].apply(swing_tier)
+
+    # ============================================================
+    # SPEICHERN
+    # ============================================================
+
+    df = df.sort_values(by=["Swing Score"], ascending=False)
 
     df.to_csv(OUTPUT_CSV, sep=";", index=False, encoding="utf-8-sig")
 
-    # Zeitstempel schreiben (wird vom Dashboard gelesen)
     with open(META_FILE, "w", encoding="utf-8") as f:
         json.dump({"updated_at": datetime.now().isoformat()}, f)
 
@@ -640,12 +968,9 @@ if not df.empty:
     print(f"Analysierte Aktien: {len(results)}")
     print(f"Output: {OUTPUT_CSV}")
 
-    # Kurze Übersicht der Top-Early-Signals
-    early_candidates = df[df["Early Signal Label"].str.contains("SIGNAL", na=False)]
-    if not early_candidates.empty:
-        print(f"\n🚀 Early-Signal-Kandidaten ({len(early_candidates)}):")
-        for _, row in early_candidates.head(10).iterrows():
-            print(f"   {row['Ticker']:8s} | {row['Early Signal Label']:22s} | Score: {row['Early Signal Score']} | {row['Early Signal Details'][:60]}")
-
-else:
-    print("Keine gültigen Daten gefunden.")
+    top_swing = df[df["Swing Score"] >= 65]
+    if not top_swing.empty:
+        print(f"\n🎯 Top-Swing-Setups ({len(top_swing)}):")
+        for _, row in top_swing.head(15).iterrows():
+            print(f"   {row['Ticker']:8s} | Swing {row['Swing Score']:5.1f} | "
+                  f"{row['Swing Tier']:20s} | RS: {row['RS Rating']:25s} | {row['Smart Money Signal']}")
