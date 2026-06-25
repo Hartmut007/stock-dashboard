@@ -35,41 +35,36 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
 :root {
-    --radar-void: #060a14;
-    --radar-panel: #0d1424;
-    --radar-panel-2: #111a30;
-    --radar-grid: #1b2740;
-    --radar-sweep: #3ddc84;
-    --radar-sweep-dim: rgba(61,220,132,0.16);
-    --radar-amber: #ffb454;
-    --radar-amber-dim: rgba(255,180,84,0.14);
-    --radar-alert: #ff5470;
-    --radar-alert-dim: rgba(255,84,112,0.14);
-    --radar-intel: #7dd3fc;
-    --radar-intel-dim: rgba(125,211,252,0.14);
-    --radar-text: #e8edf7;
-    --radar-text-dim: #7b8aa8;
+    --radar-void: #ffffff;
+    --radar-panel: #ffffff;
+    --radar-panel-2: #f8fafc;
+    --radar-grid: #e5e7eb;
+    --radar-sweep: #111827;
+    --radar-sweep-dim: rgba(17,24,39,0.04);
+    --radar-amber: #4b5563;
+    --radar-amber-dim: rgba(75,85,99,0.06);
+    --radar-alert: #374151;
+    --radar-alert-dim: rgba(55,65,81,0.06);
+    --radar-intel: #1f2937;
+    --radar-intel-dim: rgba(31,41,55,0.05);
+    --radar-text: #111827;
+    --radar-text-dim: #6b7280;
 }
-html, body, [class*="css"] { font-family: 'Inter', sans-serif; font-size: 14px; }
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--radar-text); }
 .block-container { padding-top: 0.8rem; padding-bottom: 1.6rem; }
-[data-testid="stAppViewContainer"] > .main { background: var(--radar-void); }
-h1, h2, h3 { font-family: 'Space Grotesk', sans-serif !important; letter-spacing: -0.01em; }
-h1 { font-size: 1.7rem !important; color: var(--radar-text) !important; margin-bottom: 0.5rem !important; }
-h2 { font-size: 1.25rem !important; color: var(--radar-text) !important; }
-h3 { font-size: 1.05rem !important; color: var(--radar-text) !important; }
+[data-testid="stAppViewContainer"] > .main { background: #ffffff; }
+h1, h2, h3 { font-family: 'Inter', sans-serif !important; letter-spacing: -0.01em; color: var(--radar-text) !important; }
+h1 { font-size: 1.65rem !important; margin-bottom: 0.5rem !important; }
+h2 { font-size: 1.22rem !important; }
+h3 { font-size: 1.02rem !important; }
 .stMarkdown, .stText, p, li, span, div { font-size: 0.88rem; }
-div[data-testid="stMetric"] {
-    background: linear-gradient(135deg, var(--radar-panel), var(--radar-panel-2));
-    border: 1px solid var(--radar-grid);
-    border-radius: 12px;
-    padding: 10px 12px;
-}
-div[data-testid="stMetric"] label { color: var(--radar-text-dim) !important; font-size: 0.7rem !important; text-transform: uppercase; letter-spacing: 0.04em; }
+div[data-testid="stMetric"] { background: #ffffff; border: 1px solid var(--radar-grid); border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 2px rgba(15,23,42,0.04); }
+div[data-testid="stMetric"] label { color: var(--radar-text-dim) !important; font-size: 0.70rem !important; text-transform: uppercase; letter-spacing: 0.04em; }
 div[data-testid="stMetric"] [data-testid="stMetricValue"] { color: var(--radar-text) !important; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.05rem !important; }
 div[data-testid="stMetric"] [data-testid="stMetricDelta"] { font-size: 0.70rem !important; }
-section[data-testid="stSidebar"] { background: var(--radar-panel) !important; font-size: 0.80rem !important; }
+section[data-testid="stSidebar"] { background: #f8fafc !important; border-right: 1px solid var(--radar-grid); font-size: 0.80rem !important; }
 section[data-testid="stSidebar"] * { font-size: 0.80rem !important; }
 section[data-testid="stSidebar"] h1, section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3 { font-size: 0.95rem !important; }
 section[data-testid="stSidebar"] label, section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span { font-size: 0.76rem !important; }
@@ -77,29 +72,22 @@ section[data-testid="stSidebar"] div[data-baseweb="select"] * { font-size: 0.76r
 section[data-testid="stSidebar"] input { font-size: 0.76rem !important; min-height: 32px !important; }
 section[data-testid="stSidebar"] button { font-size: 0.76rem !important; padding: 0.25rem 0.45rem !important; min-height: 32px !important; }
 div[data-testid="stDataFrame"] { font-size: 0.78rem !important; font-family: 'JetBrains Mono', monospace; }
-button[data-baseweb="tab"] p { font-size: 0.82rem !important; font-weight: 700 !important; font-family: 'Space Grotesk', sans-serif; }
+button[data-baseweb="tab"] p { font-size: 0.82rem !important; font-weight: 700 !important; font-family: 'Inter', sans-serif; color:#111827 !important; }
 button[data-baseweb="tab"] { background: transparent !important; }
-button[data-baseweb="tab"][aria-selected="true"] { border-bottom: 2px solid var(--radar-sweep) !important; }
-.terminal-panel {
-    background: radial-gradient(circle at top left, var(--radar-sweep-dim), transparent 32%), linear-gradient(135deg, var(--radar-void) 0%, var(--radar-panel) 60%, var(--radar-panel-2) 100%);
-    border: 1px solid var(--radar-grid);
-    border-radius: 18px;
-    padding: 18px 22px;
-    margin: 8px 0 14px 0;
-    color: var(--radar-text);
-}
-.terminal-panel h3 { margin: 0 0 8px 0; color: var(--radar-text); font-size: 1.08rem; }
-.terminal-panel p { margin: 0; color: var(--radar-text-dim); font-size: 0.84rem; line-height: 1.4; }
-.terminal-chip { display: inline-block; padding: 5px 10px; margin: 6px 5px 0 0; border-radius: 999px; background: var(--radar-panel-2); border: 1px solid var(--radar-grid); color: var(--radar-text); font-size: 0.7rem; font-weight: 600; }
-.legend-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; }
-.scan-bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--radar-panel); border:1px solid var(--radar-grid); border-radius:14px; padding:10px 16px; margin-bottom:14px; font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--radar-text-dim); }
+button[data-baseweb="tab"][aria-selected="true"] { border-bottom: 2px solid #111827 !important; }
+.terminal-panel { background: #ffffff; border: 1px solid var(--radar-grid); border-radius: 14px; padding: 16px 18px; margin: 8px 0 14px 0; color: var(--radar-text); box-shadow: 0 1px 3px rgba(15,23,42,0.05); }
+.terminal-panel h3 { margin: 0 0 8px 0; color: var(--radar-text); font-size: 1.05rem; }
+.terminal-panel p { margin: 0; color: var(--radar-text-dim); font-size: 0.84rem; line-height: 1.45; }
+.terminal-chip { display: inline-block; padding: 5px 10px; margin: 6px 5px 0 0; border-radius: 999px; background: #f8fafc; border: 1px solid var(--radar-grid); color: var(--radar-text); font-size: 0.70rem; font-weight: 600; }
+.legend-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; background:#6b7280; }
+.scan-bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:#ffffff; border:1px solid var(--radar-grid); border-radius:12px; padding:10px 14px; margin-bottom:14px; font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--radar-text-dim); }
 .scan-bar b { color: var(--radar-text); }
-.contact-card { background: linear-gradient(145deg, var(--radar-panel) 0%, var(--radar-panel-2) 100%); border: 1px solid var(--radar-grid); border-left: 4px solid var(--card-accent, var(--radar-sweep)); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
-.contact-ticker { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--radar-text); }
+.contact-card { background: #ffffff; border: 1px solid var(--radar-grid); border-left: 4px solid #9ca3af; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(15,23,42,0.04); }
+.contact-ticker { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.03rem; color: var(--radar-text); }
 .contact-company { font-size: 0.76rem; color: var(--radar-text-dim); font-weight: 500; }
-.pill { display:inline-block; background: var(--radar-void); border: 1px solid var(--radar-grid); border-radius: 7px; padding: 3px 8px; font-size: 0.70rem; color: var(--radar-text); margin: 3px 4px 0 0; font-family: 'JetBrains Mono', monospace; }
-.pill-pos { color: var(--radar-sweep); border-color: rgba(61,220,132,0.35); }
-.pill-neg { color: var(--radar-alert); border-color: rgba(255,84,112,0.35); }
+.pill { display:inline-block; background: #f8fafc; border: 1px solid var(--radar-grid); border-radius: 7px; padding: 3px 8px; font-size: 0.70rem; color: var(--radar-text); margin: 3px 4px 0 0; font-family: 'JetBrains Mono', monospace; }
+.pill-pos { color: #111827; border-color: #d1d5db; background:#f9fafb; }
+.pill-neg { color: #111827; border-color: #d1d5db; background:#f9fafb; }
 .signal-line { font-size: 0.76rem; color: var(--radar-text-dim); line-height: 1.5; margin-top: 8px; }
 .signal-line b { color: var(--radar-text); }
 </style>
@@ -113,16 +101,17 @@ button[data-baseweb="tab"][aria-selected="true"] { border-bottom: 2px solid var(
 # ============================================================
 
 def gauge_color(score):
-    """Einheitliche Tier-Farbe für alle Scores im Dashboard (0-100 Skala)."""
-    if score >= 80:
-        return "#3ddc84"
+    """Neutrale Score-Darstellung für das helle Layout.
+    Die Bewertung läuft weiterhin über Zahlen/Labels; Farben bleiben bewusst zurückhaltend."""
+    try:
+        score = float(score)
+    except Exception:
+        score = 0
     if score >= 65:
-        return "#7dd3fc"
-    if score >= 50:
-        return "#7dd3fc"
+        return "#111827"
     if score >= 35:
-        return "#ffb454"
-    return "#ff5470"
+        return "#4b5563"
+    return "#9ca3af"
 
 
 def render_scope_gauge(score, label="SCORE", size=92, max_score=100):
@@ -145,12 +134,12 @@ def render_scope_gauge(score, label="SCORE", size=92, max_score=100):
     return (
         f'<div style="position:relative; width:{size}px; height:{size}px; display:inline-block; flex-shrink:0;">'
         f'<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}">'
-        f'<circle cx="{center}" cy="{center}" r="{radius}" fill="none" stroke="#1b2740" stroke-width="{stroke}"></circle>'
+        f'<circle cx="{center}" cy="{center}" r="{radius}" fill="none" stroke="#e5e7eb" stroke-width="{stroke}"></circle>'
         f'<circle cx="{center}" cy="{center}" r="{radius}" fill="none" stroke="{color}" stroke-width="{stroke}" stroke-dasharray="{dash:.2f} {gap:.2f}" stroke-linecap="round" transform="rotate(-90 {center} {center})"></circle>'
         f'</svg>'
         f'<div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">'
         f'<div style="font-family:\'JetBrains Mono\',monospace; font-weight:800; font-size:{size*0.27}px; color:{color}; line-height:1;">{score_val:.0f}</div>'
-        f'<div style="font-size:{size*0.105}px; color:#7b8aa8; letter-spacing:0.04em; margin-top:1px;">{label}</div>'
+        f'<div style="font-size:{size*0.105}px; color:#6b7280; letter-spacing:0.04em; margin-top:1px;">{label}</div>'
         f'</div></div>'
     )
 
@@ -1749,16 +1738,16 @@ COLUMN_HELP_TEXTS = {
     "RVOL": "Relatives Volumen: Heutiges Volumen geteilt durch 20-Tage-Durchschnitt. Über 1,5 = erhöhtes Interesse. Unter 0,7 = ruhige Phase.",
     "Volume Trend 10D": "Mittlere tägliche Volumenveränderung der letzten 10 Handelstage in Prozent. Positiv = zunehmendes Handelsinteresse.",
     "Distance 52W Low %": "Abstand des aktuellen Kurses vom 52-Wochen-Tief in Prozent. Kleine Werte nahe 0 bedeuten Nähe zum Jahrestief.",
-    "Smart Money Score": "Kombinierter Score aus Insider-Käufen, institutioneller Beteiligung und Short-Interest. Höher = mehr 'schlaues Geld' positioniert sich.",
-    "Smart Money Signal": "Textbewertung des Smart-Money-Scores: starkes Insider-Signal, leicht positiv, neutral oder Insider verkaufen.",
-    "Smart Money Details": "Begründung des Smart-Money-Signals: welche Insider-Transaktionen, institutionelle Quoten oder Short-Daten den Score ausmachen.",
+    "Smart Money Score": "Hinweis-Score aus Insider-Käufen, institutioneller Beteiligung und Short-Interest-Kontext. Wichtig: Short Interest ist kein Smart Money, sondern nur Squeeze-/Gegenwind-Information.",
+    "Smart Money Signal": "Textbewertung des Hinweis-Scores. Grün/positiv bedeutet vor allem: Insiderkäufe oder unterstützende Zusatzdaten. Es ist kein automatisches Kaufsignal.",
+    "Smart Money Details": "Begründung des Signals: Insiderkäufe/-verkäufe, institutionelle Quote und Short-Interest-Hinweise. Fehlende Yahoo-Daten bedeuten nicht automatisch, dass es keine Transaktionen gab.",
     "Insider Buys 6M": "Anzahl Insider-Kauftransaktionen (Form 4) in den letzten 6 Monaten.",
     "Insider Sells 6M": "Anzahl Insider-Verkaufstransaktionen (Form 4) in den letzten 6 Monaten.",
     "Insider Net Value": "Insider-Kaufvolumen minus Verkaufsvolumen in USD über die letzten 6 Monate (sofern auf Yahoo verfügbar).",
     "Institutional %": "Anteil der Aktien, die von institutionellen Investoren (Fonds, Vermögensverwalter) gehalten werden.",
-    "Short % Float": "Anteil der frei handelbaren Aktien (Float), der leerverkauft ist. Hohe Werte (≥10-20%) deuten auf Short-Squeeze-Potenzial hin.",
+    "Short % Float": "Anteil der frei handelbaren Aktien (Float), der leerverkauft ist. Hohe Werte (≥10-20%) können Squeeze-Potenzial bedeuten, sind aber gleichzeitig ein Warnsignal für hohe Skepsis.",
     "Short Ratio": "Days-to-Cover: Wie viele Handelstage bräuchten Shortseller, um ihre Position bei normalem Volumen einzudecken.",
-    "Swing Score": "Vereinheitlichter Score (0-100) aus technischem Trend, Early Signal, sektor-relativer Stärke und Smart Money, abzüglich Risiko-Malus. Die zentrale Kennzahl im Radar-Tab.",
+    "Swing Score": "Vereinheitlichter Score (0-100) aus technischem Trend, Early Signal, sektor-relativer Stärke und schwächer gewichteten Insider-/Smart-Money-Hinweisen, abzüglich Risiko-Malus.",
     "Swing Tier": "Einstufung des Swing Score in Textform: TOP SWING SETUP (80+), Starkes Setup (65+), Solide (50+), Beobachten (35+), Schwach.",
     "Relative Strength 1M": "1-Monats-Performance der Aktie minus Durchschnitt ihres Sektors. Positiv = stärker als die Peer-Group.",
     "Relative Strength 3M": "3-Monats-Performance der Aktie minus Durchschnitt ihres Sektors.",
@@ -2432,7 +2421,7 @@ def render_market_gauge(level, label):
         "<div style=\"background:linear-gradient(135deg,#060a14,#0d1424); "
         "border:1px solid #1b2740; border-radius:18px; "
         "padding:16px; margin:6px 0 12px 0;\">"
-        "<div style=\"color:#7b8aa8; font-size:13px; font-weight:700; margin-bottom:8px; font-family:'Space Grotesk',sans-serif;\">Markt-Tacho</div>"
+        "<div style=\"color:#6b7280; font-size:13px; font-weight:700; margin-bottom:8px; font-family:'Space Grotesk',sans-serif;\">Markt-Tacho</div>"
         f"<div style=\"color:#e8edf7; font-size:25px; font-weight:800; margin-bottom:12px; font-family:'Space Grotesk',sans-serif;\">{label}</div>"
         f"<div style=\"display:flex; gap:8px;\">{segments_html}</div>"
         "</div>"
@@ -3143,7 +3132,7 @@ with tab_overview:
             st.markdown(
                 f"""
 <div style="background:#0d1424; border:1px solid #1b2740; border-radius:14px; padding:12px; margin-top:10px;">
-    <div style="font-size:12px; color:#7b8aa8; font-weight:700;">Rohstoff-Stress separat</div>
+    <div style="font-size:12px; color:#6b7280; font-weight:700;">Rohstoff-Stress separat</div>
     <div style="font-size:20px; font-weight:800; color:#e8edf7; font-family:'Space Grotesk',sans-serif;">{market_data.get('commodity_status', '-')}</div>
     <div style="font-size:12px; color:#94a3c8; margin-top:4px;">{market_data.get('commodity_interpretation', '')}</div>
 </div>
@@ -3741,14 +3730,13 @@ with tab_early:
     st.markdown(
         """
 <div class="terminal-panel">
-    <h3>🏛️ Smart-Money-Tracker</h3>
+    <h3>🏛️ Insider-/Smart-Money-Tracker</h3>
     <p>
-        Wer im Unternehmen sitzt oder ein großes institutionelles Buch führt, hat selten Zufallsgründe
-        zu kaufen. Dieser Tab folgt <b>Insider-Käufen</b> (SEC-Form-4-Daten über Yahoo Finance) und der
-        <b>institutionellen Beteiligung</b> — kombiniert mit dem technischen Kontext aus dem Radar.
+        Dieser Bereich ist ein <b>Hinweisfilter</b>, kein Kaufsignal. Er zeigt Insider-Transaktionen,
+        institutionelle Beteiligung und Short-Interest im Kontext von Trend, Early Signal und Sektor-Stärke.
     </p>
-    <p style="margin-top:8px; color:#7b8aa8; font-size:0.82rem;">
-        ⚠️ Aus Performance-Gründen werden Insider-Daten nur für die technisch interessanteste Shortlist
+    <p style="margin-top:8px; color:#6b7280; font-size:0.82rem;">
+        ⚠️ Aus Performance-Gründen werden diese Zusatzdaten nur für die technisch interessanteste Shortlist
         abgerufen (siehe advanced_portfolio.py · SMART_MONEY_MAX_CANDIDATES) — nicht für alle Aktien.
     </p>
 </div>
@@ -3855,38 +3843,31 @@ with tab_early:
 
     with st.expander("📖 Wie funktioniert das Smart-Money-Signal?", expanded=False):
         st.markdown("""
-        ### 🏛️ Smart-Money-Logik
+        ### 🏛️ Insider-/Smart-Money-Logik
 
-        **Insider-Transaktionen (SEC Form 4 über Yahoo Finance)**
-        Käufe und Verkäufe von Führungskräften, Vorständen und Großaktionären der letzten 6 Monate.
-        Insider-*Käufe* sind das aussagekräftigere Signal — sie kosten echtes Geld und passieren selten
-        ohne Überzeugung. Insider-*Verkäufe* sind dagegen oft unauffällig (Steuern, Diversifikation,
-        vorgeplante 10b5-1-Programme) und werden deshalb schwächer gewichtet.
+        **Was sinnvoll ist:** Insider-*Käufe* können als Zusatzsignal interessant sein, weil echte Käufe
+        eigenes Geld binden. Besonders relevant sind mehrere Käufe, Käufe durch CEO/CFO/Director oder
+        Käufe nach einer längeren Schwächephase. Insider-*Verkäufe* sind schwächer zu werten, weil sie
+        oft durch Steuern, Diversifikation oder geplante Verkaufsprogramme entstehen.
 
-        **Bewertung:**
-        - 🟢 Mehrere Käufe, keine Verkäufe → +3 Punkte
-        - 🔵 Mehr Käufe als Verkäufe → +2 Punkte
-        - Einzelne Käufe vorhanden → +1 Punkt
-        - 🟠 Deutlich mehr Verkäufe als Käufe (3+) → -1 Punkt
+        **Was vorsichtig zu lesen ist:** Institutionelle Beteiligung ist kein Frühindikator. Sie zeigt eher,
+        ob eine Aktie bereits von Fonds/Institutionen gehalten wird. Eine hohe Quote kann Stabilität bedeuten,
+        eine niedrige Quote kann aber auch nur heißen: klein, neu oder spekulativ.
 
-        **Institutionelle Beteiligung**
-        Hoher Anteil professioneller Investoren (≥70%) gilt als leicht positiv — diese Adressen tun
-        ihre eigene Due Diligence. Sehr niedrige institutionelle Beteiligung heißt nicht automatisch
-        schlecht, oft ist es einfach eine sehr neue oder sehr kleine Aktie (Retail-getrieben).
+        **Short-Interest ist kein Smart Money.** Eine hohe Shortquote zeigt zuerst einmal starke Skepsis.
+        Für Swingtrading ist sie trotzdem nützlich: Wenn Technik, Volumen und Sektor-Stärke drehen, kann
+        eine hohe Shortquote zusätzliches Squeeze-Potenzial liefern. Allein ist sie aber kein Kaufsignal.
 
-        **Short-Interest / Squeeze-Potenzial**
-        Eine hohe Shortquote (≥10-20% des Float) bedeutet: Viele Marktteilnehmer setzen auf fallende
-        Kurse. Dreht der Kurs trotzdem nach oben, müssen Shortseller eindecken (zurückkaufen) — das
-        kann die Bewegung zusätzlich befeuern (**Short Squeeze**). Die Days-to-Cover (Short Ratio)
-        zeigt, wie viele Handelstage es bräuchte, um alle Shortpositionen bei normalem Volumen
-        einzudecken — hohe Werte verstärken das Squeeze-Potenzial.
+        **Bewertung im Dashboard:**
+        - mehrere Insiderkäufe ohne Verkäufe: stark positiver Hinweis
+        - mehr Käufe als Verkäufe: positiver Hinweis
+        - einzelne Käufe: leichter Hinweis
+        - viele Verkäufe: Warnhinweis
+        - Shortquote: Kontext für Squeeze-Potenzial, aber nicht als echtes Smart-Money-Kaufsignal
 
-        ---
-
-        ⚠️ **Wichtig:** Insider-Käufe sind ein Frühindikator, kein Garant. Insider können sich irren
-        oder aus Gründen kaufen, die nichts mit kurzfristigem Kurspotenzial zu tun haben (z. B.
-        Optionsausübung, Vertrauenssignal an den Markt). Immer im Kontext mit Technik und
-        Sektor-Stärke bewerten.
+        ⚠️ **Wichtig:** Der Tracker nutzt Yahoo/yfinance-Daten. Fehlende Daten bedeuten nicht automatisch,
+        dass es keine Insidertransaktionen gibt. Der Bereich soll Setups priorisieren, aber nicht ersetzen:
+        Technik, Sektor-Stärke, Liquidität und Risiko bleiben wichtiger.
         """)
 
 
@@ -5517,9 +5498,9 @@ with tab_etf_swing:
                 st.markdown(
                     f'<div style="background:#0d1424; border:1px solid #1b2740; border-left:4px solid {tile_color}; '
                     f'border-radius:12px; padding:10px 12px;">'
-                    f'<div style="font-size:0.72rem; color:#7b8aa8; font-weight:700;">{srow["Sector"]}</div>'
+                    f'<div style="font-size:0.72rem; color:#6b7280; font-weight:700;">{srow["Sector"]}</div>'
                     f'<div style="font-size:1.1rem; font-weight:800; color:{tile_color}; font-family:\'JetBrains Mono\',monospace;">{srow["Ø 1M %"]}%</div>'
-                    f'<div style="font-size:0.68rem; color:#7b8aa8;">{int(srow["Aktien"])} Aktien · Swing Ø {srow["Ø Swing Score"]}</div>'
+                    f'<div style="font-size:0.68rem; color:#6b7280;">{int(srow["Aktien"])} Aktien · Swing Ø {srow["Ø Swing Score"]}</div>'
                     f'</div>',
                     unsafe_allow_html=True
                 )

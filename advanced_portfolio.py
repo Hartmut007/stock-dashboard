@@ -497,11 +497,9 @@ def fetch_smart_money_signal(stock, info):
             short_pct_val = float(short_pct) * 100
             result["Short % Float"] = round(short_pct_val, 2)
             if short_pct_val >= 20:
-                score += 2
-                notes.append(f"hohe Shortquote ({short_pct_val:.1f}% Float) -> Squeeze-Potenzial")
+                notes.append(f"hohe Shortquote ({short_pct_val:.1f}% Float) -> Squeeze-Potenzial, aber auch Warnsignal")
             elif short_pct_val >= 10:
-                score += 1
-                notes.append(f"erhöhte Shortquote ({short_pct_val:.1f}% Float)")
+                notes.append(f"erhöhte Shortquote ({short_pct_val:.1f}% Float) -> Squeeze-Kontext")
 
         if short_ratio is not None:
             short_ratio_val = float(short_ratio)
@@ -917,19 +915,19 @@ else:
     # ============================================================
     # Kombiniert alles, was für einen Swingtrader zählt:
     #   - Technischer Trend (Score)          → 20 Punkte
-    #   - Early-Signal (Aufbauphase)         → 25 Punkte  (Kernstück: FRÜH erkennen)
-    #   - Relative Stärke im Sektor          → 25 Punkte  (stärker als die Peers?)
-    #   - Smart Money (Insider/Institutionen)→ 20 Punkte  (folgt das "schlaue Geld"?)
+    #   - Early-Signal (Aufbauphase)         → 30 Punkte  (Kernstück: FRÜH erkennen)
+    #   - Relative Stärke im Sektor          → 30 Punkte  (stärker als die Peers?)
+    #   - Insider-/Smart-Money-Hinweise      → 10 Punkte  (nur Zusatzfilter, kein Hauptsignal)
     #   - Risiko-Malus                       → bis -15 Punkte
 
     def build_swing_score(row):
         tech      = max(0, min(row.get("Score", 0), 8)) / 8 * 20
-        early     = max(0, min(row.get("Early Signal Score", 0), 10)) / 10 * 25
+        early     = max(0, min(row.get("Early Signal Score", 0), 10)) / 10 * 30
         rs_pct    = row.get("RS Percentile", 50)
         rs_pct    = 50 if pd.isna(rs_pct) else rs_pct
-        rs_points = max(0, min(rs_pct, 100)) / 100 * 25
+        rs_points = max(0, min(rs_pct, 100)) / 100 * 30
         smart     = row.get("Smart Money Score", 0)
-        smart_points = max(0, min((smart + 1) / 7, 1)) * 20  # -1..+6 auf 0..20 gemappt
+        smart_points = max(0, min((smart + 1) / 5, 1)) * 10  # -1..+4 auf 0..10 gemappt; nur Zusatzfilter
 
         risk_malus = 0
         if row.get("Risk Level") == "HIGH RISK":
