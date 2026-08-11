@@ -566,10 +566,12 @@ def analyze_stock(ticker, current_index, total_count):
     ema20_series = close.ewm(span=20).mean()
     ema50_series = close.ewm(span=50).mean()
     ema100_series = close.ewm(span=100).mean()
+    ema200_series = close.ewm(span=200).mean()
 
     ema20  = ema20_series.iloc[-1]
     ema50  = ema50_series.iloc[-1]
     ema100 = ema100_series.iloc[-1]
+    ema200 = ema200_series.iloc[-1]
 
     change_1d = percent_change(close, 2)
     change_1w = percent_change(close, 6)
@@ -626,6 +628,13 @@ def analyze_stock(ticker, current_index, total_count):
 
     ex_dividend_date   = convert_timestamp(info.get("exDividendDate"))
     last_dividend_date = convert_timestamp(info.get("lastDividendDate"))
+    # Earnings-Datum ohne Zusatzrequest: soweit Yahoo es bereits in info liefert.
+    earnings_ts = (
+        info.get("earningsTimestampStart")
+        or info.get("earningsTimestamp")
+        or info.get("earningsTimestampEnd")
+    )
+    next_earnings_date = convert_timestamp(earnings_ts)
 
     stop_loss_ema50  = ema50 * 0.98
     market_cap_class = classify_market_cap(market_cap)
@@ -641,9 +650,9 @@ def analyze_stock(ticker, current_index, total_count):
     score = 0
     if current_price > ema20:   score += 1
     if current_price > ema50:   score += 1
-    if current_price > ema100:  score += 1
+    if current_price > ema200:  score += 1
     if ema20 > ema50:           score += 1
-    if ema50 > ema100:          score += 1
+    if ema50 > ema200:          score += 1
     if change_1w > 0:           score += 1
     if change_1m > 0:           score += 1
     if 45 <= rsi <= 70:         score += 1
@@ -676,7 +685,7 @@ def analyze_stock(ticker, current_index, total_count):
     reason = []
     if current_price > ema20:   reason.append("über EMA20")
     if current_price > ema50:   reason.append("über EMA50")
-    if current_price > ema100:  reason.append("über EMA100")
+    if current_price > ema200:  reason.append("über EMA200")
     if change_1m > 0:           reason.append("1M positiv")
     if turnaround:              reason.append("mögliche Trendwende")
     if overbought:              reason.append("kurzfristig heiß gelaufen")
@@ -703,6 +712,7 @@ def analyze_stock(ticker, current_index, total_count):
         "EMA20":   format_price(ema20,  currency),
         "EMA50":   format_price(ema50,  currency),
         "EMA100":  format_price(ema100, currency),
+        "EMA200":  format_price(ema200, currency),
 
         "Distance EMA20 %": round(distance_ema20, 2),
         "Distance EMA50 %": round(distance_ema50, 2),
@@ -732,6 +742,7 @@ def analyze_stock(ticker, current_index, total_count):
         "Dividend Rate":     format_price(dividend_rate, currency),
         "Ex Dividend Date":  ex_dividend_date,
         "Last Dividend Date": last_dividend_date,
+        "Next Earnings Date": next_earnings_date,
 
         "Stop Loss Idea": format_price(stop_loss_ema50, currency),
 
@@ -797,7 +808,7 @@ else:
 
     # Sector/Industry kommen aus watchlist_cleaner.py (clean_watchlist.csv),
     # nicht aus analyze_stock() selbst -> hier zusammenführen.
-    sector_lookup = watchlist[["Ticker", "Sector", "Industry"]].drop_duplicates(subset="Ticker")
+    sector_lookup = watchlist[[c for c in ["Ticker", "Sector", "Industry", "Liquidity", "Exchange", "Avg Dollar Volume"] if c in watchlist.columns]].drop_duplicates(subset="Ticker")
     df = df.merge(sector_lookup, on="Ticker", how="left")
     df["Sector"] = df["Sector"].fillna("OTHER")
     df["Industry"] = df["Industry"].fillna("-")
@@ -958,7 +969,7 @@ else:
     df.to_csv(OUTPUT_CSV, sep=";", index=False, encoding="utf-8-sig")
 
     with open(META_FILE, "w", encoding="utf-8") as f:
-        json.dump({"updated_at": datetime.now().isoformat()}, f)
+        json.dump({"updated_at": datetime.now().isoformat(), "files": {OUTPUT_CSV: {"updated_at": datetime.now().isoformat()}}}, f, ensure_ascii=False, indent=2)
 
     print("\n" + "=" * 50)
     print("ANALYSE FERTIG")
